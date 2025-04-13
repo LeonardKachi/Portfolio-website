@@ -77,6 +77,7 @@ const certifications = [
   }
 ];
 
+
 // Initialize Filters with better organization
 function initCertFilters() {
   const filtersContainer = document.getElementById('cert-filters');
@@ -838,234 +839,188 @@ const SecurityLab = (() => {
     const networkViz = document.querySelector('.network-visualization');
     
     if (!networkViz) return;
+    
+    // Initialize network security visualization
     initNetworkSecurity();
     
-    // Network architecture data
-    const networkData = {
-      vpc: {
-        id: 'vpc-123456',
-        cidr: '10.0.0.0/16',
-        subnets: [
-          { id: 'subnet-123', type: 'public', cidr: '10.0.1.0/24', az: 'us-east-1a' },
-          { id: 'subnet-456', type: 'private', cidr: '10.0.2.0/24', az: 'us-east-1b' }
+    // Add click handler for the button
+    const showSgBtn = document.getElementById('show-sg-btn');
+    if (showSgBtn) {
+      showSgBtn.addEventListener('click', initNetworkSecurity);
+    }
+  }
+
+  // Network Security Visualization
+  function initNetworkSecurity() {
+    const networkViz = document.querySelector('.network-visualization');
+    if (!networkViz) return;
+
+    // Security groups data
+    const securityGroups = {
+      'WebServerSG': {
+        description: 'Security group for web servers',
+        inbound: [
+          { protocol: 'TCP', port: '80', source: '0.0.0.0/0', description: 'HTTP access' },
+          { protocol: 'TCP', port: '443', source: '0.0.0.0/0', description: 'HTTPS access' },
+          { protocol: 'TCP', port: '22', source: '203.0.113.0/24', description: 'SSH from admin network' }
         ],
-        securityGroups: [
-          {
-            id: 'sg-123456',
-            name: 'WebServerSG',
-            rules: {
-              inbound: [
-                { protocol: 'tcp', fromPort: 80, toPort: 80, cidr: '0.0.0.0/0' },
-                { protocol: 'tcp', fromPort: 443, toPort: 443, cidr: '0.0.0.0/0' },
-                { protocol: 'tcp', fromPort: 22, toPort: 22, cidr: '203.0.113.0/24' }
-              ],
-              outbound: [
-                { protocol: '-1', fromPort: 0, toPort: 0, cidr: '0.0.0.0/0' }
-              ]
-            }
-          }
+        outbound: [
+          { protocol: 'All', port: 'All', destination: '0.0.0.0/0', description: 'Allow all outbound' }
+        ]
+      },
+      'AppServerSG': {
+        description: 'Security group for application servers',
+        inbound: [
+          { protocol: 'TCP', port: '8080', source: 'WebServerSG', description: 'App traffic from web servers' },
+          { protocol: 'TCP', port: '22', source: '203.0.113.0/24', description: 'SSH from admin network' }
+        ],
+        outbound: [
+          { protocol: 'TCP', port: '3306', destination: 'DBServerSG', description: 'Database access' },
+          { protocol: 'TCP', port: '443', destination: '0.0.0.0/0', description: 'External API access' }
+        ]
+      },
+      'DBServerSG': {
+        description: 'Security group for database servers',
+        inbound: [
+          { protocol: 'TCP', port: '3306', source: 'AppServerSG', description: 'MySQL from app servers' },
+          { protocol: 'TCP', port: '22', source: '203.0.113.0/24', description: 'SSH from admin network' }
+        ],
+        outbound: [
+          { protocol: 'None', port: 'None', destination: 'None', description: 'No outbound access' }
         ]
       }
     };
-    
-    // Render network visualization
+
+    // Create the network visualization HTML
     networkViz.innerHTML = `
-      <div class="network-diagram">
-        <div class="vpc" data-id="${networkData.vpc.id}">
-          <h4>VPC: ${networkData.vpc.cidr}</h4>
-          ${networkData.vpc.subnets.map(subnet => `
-            <div class="subnet ${subnet.type}" data-id="${subnet.id}">
-              <h5>${subnet.type.toUpperCase()} Subnet</h5>
-              <p>${subnet.cidr} (${subnet.az})</p>
+      <div class="network-diagram-container">
+        <div class="network-diagram">
+          <div class="vpc">
+            <h4>VPC Architecture</h4>
+            <div class="subnets">
+              <div class="subnet public-subnet">
+                <h5>Public Subnet</h5>
+                <div class="instance web-server" data-sg="WebServerSG">
+                  <span>Web Server</span>
+                </div>
+                <div class="instance nat">
+                  <span>NAT Gateway</span>
+                </div>
+              </div>
+              <div class="subnet private-subnet">
+                <h5>Private Subnet</h5>
+                <div class="instance app-server" data-sg="AppServerSG">
+                  <span>App Server</span>
+                </div>
+                <div class="instance db-server" data-sg="DBServerSG">
+                  <span>Database</span>
+                </div>
+              </div>
             </div>
-          `).join('')}
+          </div>
+        </div>
+        <div class="security-details-panel">
+          <h4>Security Group Details</h4>
+          <div id="sg-details">
+            <p>Click on an instance to view its security group rules</p>
+          </div>
         </div>
       </div>
       <div class="network-controls">
         <button class="btn-outline" id="show-sg-btn">Show Security Groups</button>
       </div>
     `;
-    
-    // Add interactivity
-    function initNetworkSecurity() {
-      const networkViz = document.querySelector('.network-visualization');
-      if (!networkViz) return;
-    
-      // Security groups data
-      const securityGroups = {
-        'WebServerSG': {
-          description: 'Security group for web servers',
-          inbound: [
-            { protocol: 'TCP', port: '80', source: '0.0.0.0/0', description: 'HTTP access' },
-            { protocol: 'TCP', port: '443', source: '0.0.0.0/0', description: 'HTTPS access' },
-            { protocol: 'TCP', port: '22', source: '203.0.113.0/24', description: 'SSH from admin network' }
-          ],
-          outbound: [
-            { protocol: 'All', port: 'All', destination: '0.0.0.0/0', description: 'Allow all outbound' }
-          ]
-        },
-        'AppServerSG': {
-          description: 'Security group for application servers',
-          inbound: [
-            { protocol: 'TCP', port: '8080', source: 'WebServerSG', description: 'App traffic from web servers' },
-            { protocol: 'TCP', port: '22', source: '203.0.113.0/24', description: 'SSH from admin network' }
-          ],
-          outbound: [
-            { protocol: 'TCP', port: '3306', destination: 'DBServerSG', description: 'Database access' },
-            { protocol: 'TCP', port: '443', destination: '0.0.0.0/0', description: 'External API access' }
-          ]
-        },
-        'DBServerSG': {
-          description: 'Security group for database servers',
-          inbound: [
-            { protocol: 'TCP', port: '3306', source: 'AppServerSG', description: 'MySQL from app servers' },
-            { protocol: 'TCP', port: '22', source: '203.0.113.0/24', description: 'SSH from admin network' }
-          ],
-          outbound: [
-            { protocol: 'None', port: 'None', destination: 'None', description: 'No outbound access' }
-          ]
-        }
-      };
-    
-      // Create the network visualization HTML
-      networkViz.innerHTML = `
-        <div class="network-diagram-container">
-          <div class="network-diagram">
-            <div class="vpc">
-              <h4>VPC Architecture</h4>
-              <div class="subnets">
-                <div class="subnet public-subnet">
-                  <h5>Public Subnet</h5>
-                  <div class="instance web-server" data-sg="WebServerSG">
-                    <span>Web Server</span>
-                  </div>
-                  <div class="instance nat">
-                    <span>NAT Gateway</span>
-                  </div>
-                </div>
-                <div class="subnet private-subnet">
-                  <h5>Private Subnet</h5>
-                  <div class="instance app-server" data-sg="AppServerSG">
-                    <span>App Server</span>
-                  </div>
-                  <div class="instance db-server" data-sg="DBServerSG">
-                    <span>Database</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="security-details-panel">
-            <h4>Security Group Details</h4>
-            <div id="sg-details">
-              <p>Click on an instance to view its security group rules</p>
-            </div>
-          </div>
-        </div>
-      `;
-    
-      // Add hover effects and click handlers
-      document.querySelectorAll('.instance').forEach(instance => {
-        // Hover effects
-        instance.addEventListener('mouseenter', function() {
-          this.classList.add('highlight');
-        });
-        
-        instance.addEventListener('mouseleave', function() {
-          this.classList.remove('highlight');
-        });
-        
-        // Click handler to show security groups
-        instance.addEventListener('click', function() {
-          const sgName = this.dataset.sg;
-          if (sgName && securityGroups[sgName]) {
-            showSecurityGroupDetails(sgName);
-          }
-        });
-      });
-    
-      // Function to display security group details
-      function showSecurityGroupDetails(sgName) {
-        const sg = securityGroups[sgName];
-        const detailsContainer = document.getElementById('sg-details');
-        
-        if (!sg || !detailsContainer) return;
-        
-        detailsContainer.innerHTML = `
-          <h5>${sgName} - ${sg.description}</h5>
-          
-          <div class="sg-section">
-            <h6>Inbound Rules</h6>
-            <table class="sg-rules">
-              <thead>
-                <tr>
-                  <th>Protocol</th>
-                  <th>Port</th>
-                  <th>Source</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${sg.inbound.map(rule => `
-                  <tr>
-                    <td>${rule.protocol}</td>
-                    <td>${rule.port}</td>
-                    <td>${rule.source}</td>
-                    <td>${rule.description}</td>
-                  </tr>
-                `).join('')}
-              </tbody>
-            </table>
-          </div>
-          
-          <div class="sg-section">
-            <h6>Outbound Rules</h6>
-            <table class="sg-rules">
-              <thead>
-                <tr>
-                  <th>Protocol</th>
-                  <th>Port</th>
-                  <th>Destination</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${sg.outbound.map(rule => `
-                  <tr>
-                    <td>${rule.protocol}</td>
-                    <td>${rule.port}</td>
-                    <td>${rule.destination}</td>
-                    <td>${rule.description}</td>
-                  </tr>
-                `).join('')}
-              </tbody>
-            </table>
-          </div>
-          
-          <div class="sg-best-practices">
-            <h6>Best Practices Applied</h6>
-            <ul>
-              <li>Least privilege access</li>
-              <li>Specific port ranges</li>
-              <li>Restricted source IPs where possible</li>
-              <li>No open ICMP rules</li>
-              <li>No unrestricted outbound access (except for web servers)</li>
-            </ul>
-          </div>
-        `;
-      }
-    }
-    
-    // Add hover effects to subnets
-    document.querySelectorAll('.subnet').forEach(subnet => {
-      subnet.addEventListener('mouseenter', () => {
-        subnet.classList.add('highlight');
+
+    // Add hover effects and click handlers
+    document.querySelectorAll('.instance').forEach(instance => {
+      // Hover effects
+      instance.addEventListener('mouseenter', function() {
+        this.classList.add('highlight');
       });
       
-      subnet.addEventListener('mouseleave', () => {
-        subnet.classList.remove('highlight');
+      instance.addEventListener('mouseleave', function() {
+        this.classList.remove('highlight');
+      });
+      
+      // Click handler to show security groups
+      instance.addEventListener('click', function() {
+        const sgName = this.dataset.sg;
+        if (sgName && securityGroups[sgName]) {
+          showSecurityGroupDetails(sgName);
+        }
       });
     });
+
+    // Function to display security group details
+    function showSecurityGroupDetails(sgName) {
+      const sg = securityGroups[sgName];
+      const detailsContainer = document.getElementById('sg-details');
+      
+      if (!sg || !detailsContainer) return;
+      
+      detailsContainer.innerHTML = `
+        <h5>${sgName} - ${sg.description}</h5>
+        
+        <div class="sg-section">
+          <h6>Inbound Rules</h6>
+          <table class="sg-rules">
+            <thead>
+              <tr>
+                <th>Protocol</th>
+                <th>Port</th>
+                <th>Source</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${sg.inbound.map(rule => `
+                <tr>
+                  <td>${rule.protocol}</td>
+                  <td>${rule.port}</td>
+                  <td>${rule.source}</td>
+                  <td>${rule.description}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="sg-section">
+          <h6>Outbound Rules</h6>
+          <table class="sg-rules">
+            <thead>
+              <tr>
+                <th>Protocol</th>
+                <th>Port</th>
+                <th>Destination</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${sg.outbound.map(rule => `
+                <tr>
+                  <td>${rule.protocol}</td>
+                  <td>${rule.port}</td>
+                  <td>${rule.destination}</td>
+                  <td>${rule.description}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="sg-best-practices">
+          <h6>Best Practices Applied</h6>
+          <ul>
+            <li>Least privilege access</li>
+            <li>Specific port ranges</li>
+            <li>Restricted source IPs where possible</li>
+            <li>No open ICMP rules</li>
+            <li>No unrestricted outbound access (except for web servers)</li>
+          </ul>
+        </div>
+      `;
+    }
   }
 
   // Public API
@@ -1087,6 +1042,17 @@ const ContactForm = (() => {
     // Set up form validation and submission
     setupFormValidation(form);
     setupFormSubmission(form);
+    
+    // Initialize select dropdown styling
+    initSelectStyles();
+  }
+  
+  // Initialize select dropdown styles
+  function initSelectStyles() {
+    const selects = document.querySelectorAll('select');
+    selects.forEach(select => {
+      select.style.colorScheme = 'dark'; // Ensure dark mode for selects
+    });
   }
   
   // Check URL for success param
