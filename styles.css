@@ -81,6 +81,176 @@ text-align: center;
 color: var(--text-muted);
 font-style: italic;
 }
+/* Add to your existing CSS */
+.hidden {
+  display: none;
+}
+
+.tech-stack .btn-outline {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+/* Project Detail Page Styles */
+.project-detail {
+  padding: 4rem 0;
+}
+
+.project-header {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.project-header h1 {
+  font-size: 2.5rem;
+  color: var(--accent);
+}
+
+.project-meta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.project-date {
+  color: var(--text-muted);
+}
+
+.project-tech {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.project-tech span {
+  background: rgba(58, 175, 169, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+}
+
+.project-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.project-image {
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.project-image img {
+  width: 100%;
+  height: auto;
+}
+
+.project-description {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.project-description h2 {
+  color: var(--accent);
+  font-size: 1.8rem;
+}
+
+.project-description h3 {
+  font-size: 1.4rem;
+  color: var(--accent);
+}
+
+.project-description ul {
+  list-style: none;
+  padding-left: 1.5rem;
+}
+
+.project-description li {
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+
+.project-description li::before {
+  content: '▹';
+  position: absolute;
+  left: -1.5rem;
+  color: var(--accent);
+}
+
+.code-block {
+  background: #1e293b;
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.code-block pre {
+  margin: 0;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.code-block h4 {
+  margin-bottom: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.architecture-diagram {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.architecture-diagram img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.project-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  justify-content: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .project-header h1 {
+    font-size: 2rem;
+  }
+  
+  .project-meta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .project-description h2 {
+    font-size: 1.5rem;
+  }
+  
+  .project-description h3 {
+    font-size: 1.2rem;
+  }
+  
+  .project-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+/* Animation for smooth expansion */
+#more-tools {
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
 /* Zero Trust Scrollable Principles */
 .principles-container {
   position: relative;
