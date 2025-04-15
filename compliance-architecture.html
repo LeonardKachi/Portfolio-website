@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compliance Automation Architecture | Henry Leo</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Modal styles specific to this page */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(13, 31, 35, 0.9);
+      overflow: auto;
+    }
+    
+    .modal-content {
+      background-color: var(--secondary);
+      margin: 5% auto;
+      padding: 2rem;
+      border: 1px solid var(--accent);
+      border-radius: var(--radius);
+      max-width: 800px;
+      position: relative;
+    }
+    
+    .close-modal {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      color: var(--accent);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
+    .architecture-img {
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius-sm);
+    }
+    
+    .diagram-button {
+      background: var(--accent);
+      color: var(--primary);
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      transition: var(--transition);
+    }
+    
+    .diagram-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(58, 175, 169, 0.3);
+    }
+    
+    .diagram-button svg {
+      width: 20px;
+      height: 20px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">Henry<span>Leo</span></a>
+      <div class="nav-links">
+        <a href="index.html#articles">Articles</a>
+        <a href="index.html#certifications">Certifications</a>
+        <a href="index.html#lab">Security Lab</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <button class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="project-detail">
+      <h1>Compliance Automation Architecture</h1>
+      
+      <h3>Implementation Details</h3>
+      <p>The framework was built using AWS Config, Lambda, and Step Functions, with the following workflow:</p>
+      
+      <!-- Interactive Diagram Button -->
+      <button class="diagram-button" id="showDiagramBtn">
+        View Architecture Diagram
+        <svg viewBox="0 0 24 24" class="icon">
+          <path fill="currentColor" d="M8.5,13.5L11,16.5L14.5,12L19,18H5M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19Z"/>
+        </svg>
+      </button>
+      
+      <!-- Detailed Workflow Explanation -->
+      <div class="workflow-steps">
+        <div class="step">
+          <h4>1. CloudTrail/VPC Flow Logs</h4>
+          <p>Raw data sources tracking all API calls and network traffic:</p>
+          <ul>
+            <li><strong>Example Event:</strong> <code>s3:PutBucketPolicy</code> API call</li>
+            <li><strong>Security Check:</strong> SSH attempt from unexpected IP (<code>203.0.113.42</code>)</li>
+          </ul>
+        </div>
+        
+        <div class="step">
+          <h4>2. AWS Config Rules</h4>
+          <p>Predefined and custom rules for compliance evaluation:</p>
+          <pre><code>def evaluate_compliance(config_item):
+    # Check if EC2 has termination protection
+    if config_item['resourceType'] == 'AWS::EC2::Instance':
+        return config_item['configuration']['disableApiTermination']
+    return 'NON_COMPLIANT'</code></pre>
+        </div>
+        
+        <div class="step">
+          <h4>3. Lambda Evaluator</h4>
+          <p>Custom business logic processing:</p>
+          <pre><code>if event['configRuleName'] == 's3-encryption-check':
+    if bucket_config['ServerSideEncryption'] == 'AES256':
+        return 'COMPLIANT'
+    trigger_remediation()</code></pre>
+        </div>
+        
+        <div class="step">
+          <h4>4. Remediation Workflow</h4>
+          <p>Step Functions state machine handles complex fixes:</p>
+          <ul>
+            <li>Auto-enable S3 bucket encryption</li>
+            <li>Revoke permissive IAM policies</li>
+            <li>Isolate non-compliant resources</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Architecture Diagram Modal -->
+  <div id="architectureModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" id="closeModal">&times;</span>
+      <h2>AWS Compliance Automation Architecture</h2>
+      <img src="assets/images/compliance-architecture.jpg" alt="AWS Compliance Automation Workflow" class="architecture-img">
+      <div class="legend">
+        <h4>Key Components:</h4>
+        <ul>
+          <li><strong>Blue Arrows:</strong> Data flow direction</li>
+          <li><strong>Orange Boxes:</strong> AWS managed services</li>
+          <li><strong>Green Boxes:</strong> Custom components</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-about">
+          <h3>Henry Leo</h3>
+          <p>Cloud Security Architect specializing in AWS, Azure, and Zero Trust implementations.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#certifications">Certifications</a></li>
+            <li><a href="index.html#lab">Security Lab</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:henryleo480@gmail.com">henryleo480@gmail.com</a></li>
+            <li><a href="https://github.com/LeonardKachi" target="_blank">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/onyedikachi-obidiegwu" target="_blank">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <span id="year"></span> Obidiegwu Onyedikachi Henry Leonard. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Modal functionality
+    const modal = document.getElementById("architectureModal");
+    const btn = document.getElementById("showDiagramBtn");
+    const span = document.getElementById("closeModal");
+
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+
+    // Set current year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile navigation
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger?.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>
