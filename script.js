@@ -1,4 +1,25 @@
-// Certifications Data - Enhanced with more details
+// Add this to your existing script.js
+function initProjectDetails() {
+  // Highlight current page in navigation
+  const currentPage = window.location.pathname.split('/').pop();
+  if (currentPage && currentPage !== 'index.html') {
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      if (link.getAttribute('href').includes(currentPage)) {
+        link.classList.add('active');
+      }
+    });
+  }
+}
+
+// Update the DOMContentLoaded event listener to include:
+document.addEventListener('DOMContentLoaded', () => {
+  // ... existing code ...
+  
+  // Initialize project details if on a project page
+  if (document.querySelector('.project-detail')) {
+    initProjectDetails();
+  }
+});// Certifications Data - Enhanced with more details
 const certifications = [
   {
     title: "Certified in Cybersecurity",
@@ -76,7 +97,28 @@ const certifications = [
     description: "Core principles of information security and cyber defense strategies."
   }
 ];
-
+// Add this to your existing JavaScript
+document.addEventListener('DOMContentLoaded', () => {
+  const viewMoreBtn = document.getElementById('view-more-tools');
+  const moreTools = document.getElementById('more-tools');
+  
+  if (viewMoreBtn && moreTools) {
+    viewMoreBtn.addEventListener('click', () => {
+      moreTools.classList.toggle('hidden');
+      viewMoreBtn.textContent = moreTools.classList.contains('hidden') 
+        ? 'View Full Technical Toolkit' 
+        : 'Show Less';
+      
+      // Update the icon
+      const icon = viewMoreBtn.querySelector('.icon');
+      if (icon) {
+        icon.setAttribute('d', moreTools.classList.contains('hidden') 
+          ? 'M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z' 
+          : 'M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z');
+      }
+    });
+  }
+});
 
 // Initialize Filters with better organization
 function initCertFilters() {
