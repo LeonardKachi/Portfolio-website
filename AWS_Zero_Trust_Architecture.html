@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AWS Zero Trust Architecture | Henry Leo</title>
+  <meta name="description" content="Details of the AWS Zero Trust Architecture project">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation (same as index.html) -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">Henry<span>Leo</span></a>
+      <div class="nav-links">
+        <a href="index.html#articles">Articles</a>
+        <a href="index.html#certifications">Certifications</a>
+        <a href="index.html#lab">Security Lab</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <button class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="container project-detail">
+    <section class="project-header">
+      <h1>AWS Zero Trust Architecture</h1>
+      <div class="project-meta">
+        <span class="project-date">2024</span>
+        <div class="project-tech">
+          <span>AWS IAM</span>
+          <span>Terraform</span>
+          <span>Python</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-content">
+      <div class="project-image">
+        <img src="assets/images/project-aws-security.avif" alt="AWS Security Architecture" loading="lazy">
+      </div>
+      
+      <div class="project-description">
+        <h2>Project Overview</h2>
+        <p>Designed and implemented a comprehensive Zero Trust security model for AWS environments, replacing traditional perimeter-based security with identity-centric controls.</p>
+        
+        <h3>Key Components</h3>
+        <ul>
+          <li>IAM Policies with least privilege access</li>
+          <li>Service Control Policies (SCPs) for account-level guardrails</li>
+          <li>Network segmentation with VPCs and Security Groups</li>
+          <li>Multi-factor authentication enforcement</li>
+          <li>Continuous monitoring with AWS Config and CloudTrail</li>
+        </ul>
+        
+        <h3>Implementation Details</h3>
+        <p>The architecture was implemented using Terraform for infrastructure as code, with Python scripts for custom policy analysis and validation. Key features included:</p>
+        
+        <div class="code-block">
+          <h4>Sample SCP to enforce MFA</h4>
+          <pre><code>{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "DenyAllExceptListedIfNoMFA",
+      "Effect": "Deny",
+      "NotAction": [
+        "iam:CreateVirtualMFADevice",
+        "iam:EnableMFADevice",
+        "iam:ListMFADevices",
+        "iam:ListUsers",
+        "iam:ResyncMFADevice"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "BoolIfExists": {
+          "aws:MultiFactorAuthPresent": "false"
+        }
+      }
+    }
+  ]
+}</code></pre>
+        </div>
+        
+        <h3>Results</h3>
+        <ul>
+          <li>Reduced attack surface by 60% through strict access controls</li>
+          <li>Improved compliance with NIST 800-207 Zero Trust standards</li>
+          <li>Automated policy enforcement across 15 AWS accounts</li>
+          <li>Reduced incident response time by 40% through better logging</li>
+        </ul>
+      </div>
+      
+      <div class="project-actions">
+        <a href="index.html#projects" class="btn-outline">Back to Projects</a>
+        <a href="https://github.com/LeonardKachi" target="_blank" class="btn-primary">View on GitHub</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-about">
+          <h3>Henry Leo</h3>
+          <p>Cloud Security Architect specializing in AWS, Azure, and Zero Trust implementations.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#certifications">Certifications</a></li>
+            <li><a href="index.html#lab">Security Lab</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:henryleo480@gmail.com">henryleo480@gmail.com</a></li>
+            <li><a href="https://github.com/LeonardKachi" target="_blank">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/onyedikachi-obidiegwu" target="_blank">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <span id="year"></span> Obidiegwu Onyedikachi Henry Leonard. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

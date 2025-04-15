@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compliance Automation Framework | Henry Leo</title>
+  <meta name="description" content="Details of the Compliance Automation Framework project">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation (same as index.html) -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">Henry<span>Leo</span></a>
+      <div class="nav-links">
+        <a href="index.html#articles">Articles</a>
+        <a href="index.html#certifications">Certifications</a>
+        <a href="index.html#lab">Security Lab</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <button class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="container project-detail">
+    <section class="project-header">
+      <h1>Compliance Automation Framework</h1>
+      <div class="project-meta">
+        <span class="project-date">2024</span>
+        <div class="project-tech">
+          <span>AWS Config</span>
+          <span>Python</span>
+          <span>Serverless</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-content">
+      <div class="project-image">
+        <img src="assets/images/project-compliance.jpg" alt="Compliance Automation" loading="lazy">
+      </div>
+      
+      <div class="project-description">
+        <h2>Project Overview</h2>
+        <p>Automated CIS benchmark compliance checks across AWS accounts, reducing audit time by 70% and ensuring continuous compliance with industry standards.</p>
+        
+        <h3>Key Components</h3>
+        <ul>
+          <li>Custom AWS Config rules for CIS benchmarks</li>
+          <li>Automated remediation workflows</li>
+          <li>Centralized compliance dashboard</li>
+          <li>Scheduled reporting and alerts</li>
+        </ul>
+        
+        <h3>Implementation Details</h3>
+        <p>The framework was built using AWS Config, Lambda, and Step Functions, with the following workflow:</p>
+        
+        <div class="architecture-diagram">
+          <img src="assets/images/compliance-architecture.png" alt="Compliance Architecture" loading="lazy">
+        </div>
+        
+        <div class="code-block">
+          <h4>Sample Remediation Lambda</h4>
+          <pre><code>def lambda_handler(event, context):
+    # Parse the non-compliant resource
+    resource = event['detail']['resourceId']
+    rule = event['detail']['configRuleName']
+    
+    # Apply appropriate remediation
+    if 's3-bucket-public-read-prohibited' in rule:
+        remediate_s3_public_access(resource)
+    elif 'rds-instance-public-access-check' in rule:
+        remediate_rds_public_access(resource)
+    
+    return {
+        'statusCode': 200,
+        'body': f'Remediation initiated for {resource}'
+    }</code></pre>
+        </div>
+        
+        <h3>Results</h3>
+        <ul>
+          <li>70% reduction in manual audit time</li>
+          <li>Continuous compliance monitoring across all AWS accounts</li>
+          <li>Automated remediation of 85% of common compliance issues</li>
+          <li>Customizable reports for different compliance frameworks</li>
+        </ul>
+      </div>
+      
+      <div class="project-actions">
+        <a href="index.html#projects" class="btn-outline">Back to Projects</a>
+        <a href="https://github.com/LeonardKachi" target="_blank" class="btn-primary">View on GitHub</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <!-- Same footer as index.html -->
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

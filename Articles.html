@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Articles | Henry Leo</title>
+  <meta name="description" content="All articles by Henry Leo on cloud security">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation (same as index.html) -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">Henry<span>Leo</span></a>
+      <div class="nav-links">
+        <a href="index.html#articles">Articles</a>
+        <a href="index.html#certifications">Certifications</a>
+        <a href="index.html#lab">Security Lab</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <button class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section id="articles">
+      <h1>All Articles</h1>
+      <p class="section-description">Technical articles on cloud security, AWS, Azure, and Zero Trust architecture</p>
+      
+      <div class="articles-grid" id="devto-feed-all">
+        <!-- Dev.to articles will be loaded here -->
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+      </div>
+      
+      <div class="articles-footer">
+        <a href="index.html" class="btn-outline">
+          Back to Home
+          <svg class="icon" viewBox="0 0 24 24" width="18" height="18">
+            <path fill="currentColor" d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <!-- Same footer as index.html -->
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Enhanced Dev.to API Integration for all articles
+    async function loadAllDevToArticles() {
+      const feed = document.getElementById('devto-feed-all');
+      
+      // Show loading state
+      feed.innerHTML = `
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+      `;
+      
+      try {
+        // Try to get from cache first
+        const cacheKey = 'devto-articles-all';
+        const cachedData = localStorage.getItem(cacheKey);
+        
+        let articles;
+        
+        if (cachedData) {
+          const { data, timestamp } = JSON.parse(cachedData);
+          
+          // Use cache if less than 1 hour old
+          if (Date.now() - timestamp < 3600000) {
+            articles = data;
+          }
+        }
+        
+        // If no cache or cache expired, fetch fresh data
+        if (!articles) {
+          const response = await fetch('https://dev.to/api/articles?username=leonardkachi&per_page=20');
+          
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          
+          articles = await response.json();
+          
+          // Update cache
+          localStorage.setItem(cacheKey, JSON.stringify({
+            data: articles,
+            timestamp: Date.now()
+          }));
+        }
+        
+        renderAllArticles(articles);
+      } catch (error) {
+        console.error('Error loading Dev.to articles:', error);
+        showErrorFallback(true);
+      }
+    }
+    
+    function renderAllArticles(articles) {
+      const feed = document.getElementById('devto-feed-all');
+      
+      if (!articles || articles.length === 0) {
+        showErrorFallback(true);
+        return;
+      }
+      
+      feed.innerHTML = '';
+      
+      articles.forEach(article => {
+        const articleCard = document.createElement('article');
+        articleCard.className = 'article-card';
+        articleCard.innerHTML = `
+          <div class="article-image-container">
+            <img src="${article.cover_image || getPlaceholderImage(article.title)}" 
+                 alt="${article.title}" 
+                 class="article-image" 
+                 loading="lazy">
+            <div class="reading-time">${article.reading_time_minutes || 5} min read</div>
+          </div>
+          <div class="article-content">
+            <h3 class="article-title">
+              <a href="${article.url}" target="_blank" rel="noopener">${article.title}</a>
+            </h3>
+            <p class="article-excerpt">${article.description || 'Read more on Dev.to'}</p>
+            <div class="article-meta">
+              <span>${new Date(article.published_at).toLocaleDateString()}</span>
+              <span class="reactions">${article.positive_reactions_count} ♥</span>
+            </div>
+          </div>
+        `;
+        feed.appendChild(articleCard);
+      });
+    }
+    
+    function getPlaceholderImage(title) {
+      const colors = ['1e3d38', '0d1f23', '11232b'];
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+      return `https://via.placeholder.com/600x400/${randomColor}/3aafa9?text=${encodeURIComponent(title.substring(0, 30))}`;
+    }
+    
+    function showErrorFallback(allArticles = false) {
+      const fallbackArticles = [
+        {
+          title: "AWS Security Best Practices",
+          url: "https://dev.to/leonardkachi/aws-security",
+          description: "Comprehensive guide to securing AWS infrastructure with IAM policies, encryption, and monitoring.",
+          published_at: new Date().toISOString(),
+          positive_reactions_count: 28,
+          reading_time_minutes: 5,
+          cover_image: getPlaceholderImage("AWS Security")
+        },
+        {
+          title: "Terraform for Security Engineers",
+          url: "https://dev.to/leonardkachi/terraform-security",
+          description: "Implementing security controls through Infrastructure as Code with Terraform modules.",
+          published_at: new Date().toISOString(),
+          positive_reactions_count: 34,
+          reading_time_minutes: 8,
+          cover_image: getPlaceholderImage("Terraform Security")
+        },
+        {
+          title: "Zero Trust in Cloud Environments",
+          url: "https://dev.to/leonardkachi/zero-trust-cloud",
+          description: "Applying Zero Trust principles to cloud infrastructure for enhanced security.",
+          published_at: new Date().toISOString(),
+          positive_reactions_count: 42,
+          reading_time_minutes: 7,
+          cover_image: getPlaceholderImage("Zero Trust Cloud")
+        }
+      ];
+      
+      if (allArticles) {
+        // Add more articles for the all articles page
+        fallbackArticles.push(
+          {
+            title: "Automating Compliance Checks",
+            url: "https://dev.to/leonardkachi/automating-compliance",
+            description: "How to automate compliance checks in AWS using Config and Lambda.",
+            published_at: new Date().toISOString(),
+            positive_reactions_count: 19,
+            reading_time_minutes: 6,
+            cover_image: getPlaceholderImage("Automating Compliance")
+          },
+          {
+            title: "Threat Modeling Cloud Applications",
+            url: "https://dev.to/leonardkachi/threat-modeling",
+            description: "A practical approach to threat modeling for cloud-native applications.",
+            published_at: new Date().toISOString(),
+            positive_reactions_count: 27,
+            reading_time_minutes: 9,
+            cover_image: getPlaceholderImage("Threat Modeling")
+          }
+        );
+      }
+      
+      if (allArticles) {
+        renderAllArticles(fallbackArticles);
+      } else {
+        renderArticles(fallbackArticles);
+      }
+    }
+    
+    // Load articles when page loads
+    document.addEventListener('DOMContentLoaded', loadAllDevToArticles);
+  </script>
+</body>
+</html>

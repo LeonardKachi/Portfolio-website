@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI-Powered Threat Detection | Henry Leo</title>
+  <meta name="description" content="Details of the AI-Powered Threat Detection project">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation (same as index.html) -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">Henry<span>Leo</span></a>
+      <div class="nav-links">
+        <a href="index.html#articles">Articles</a>
+        <a href="index.html#certifications">Certifications</a>
+        <a href="index.html#lab">Security Lab</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <button class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="container project-detail">
+    <section class="project-header">
+      <h1>AI-Powered Threat Detection</h1>
+      <div class="project-meta">
+        <span class="project-date">2024</span>
+        <div class="project-tech">
+          <span>Python</span>
+          <span>AWS Lambda</span>
+          <span>TensorFlow</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-content">
+      <div class="project-image">
+        <img src="assets/images/project-threat-dectection.webp" alt="Threat Detection System" loading="lazy">
+      </div>
+      
+      <div class="project-description">
+        <h2>Project Overview</h2>
+        <p>Developed a machine learning model to detect anomalous behavior in cloud logs with 94% accuracy, reducing false positives by 70% compared to traditional rule-based systems.</p>
+        
+        <h3>Key Features</h3>
+        <ul>
+          <li>Real-time analysis of CloudTrail, VPC Flow, and GuardDuty logs</li>
+          <li>Anomaly detection using LSTM neural networks</li>
+          <li>Automated alerting and integration with Slack and PagerDuty</li>
+          <li>Self-learning model that adapts to environment changes</li>
+        </ul>
+        
+        <h3>Technical Implementation</h3>
+        <p>The system was built using TensorFlow for the ML model, deployed as AWS Lambda functions for scalability, with the following architecture:</p>
+        
+        <div class="architecture-diagram">
+          <img src="assets/images/ai-threat-detection-architecture.png" alt="Threat Detection Architecture" loading="lazy">
+        </div>
+        
+        <div class="code-block">
+          <h4>Sample Feature Extraction Code</h4>
+          <pre><code>def extract_features(log_entry):
+    features = {
+        'api_call_frequency': calculate_call_frequency(log_entry['eventName']),
+        'time_of_day': get_time_feature(log_entry['eventTime']),
+        'source_ip_entropy': ip_entropy_score(log_entry['sourceIPAddress']),
+        'unusual_resource_access': check_resource_pattern(log_entry)
+    }
+    return features
+
+def predict_anomaly(features):
+    model = load_model('threat_detection_model.h5')
+    prediction = model.predict([features])
+    return prediction[0] > 0.95</code></pre>
+        </div>
+        
+        <h3>Results</h3>
+        <ul>
+          <li>94% accuracy in detecting real threats</li>
+          <li>70% reduction in false positives</li>
+          <li>Average detection time reduced from 4 hours to 8 minutes</li>
+          <li>Integrated with existing SIEM tools</li>
+        </ul>
+      </div>
+      
+      <div class="project-actions">
+        <a href="index.html#projects" class="btn-outline">Back to Projects</a>
+        <a href="https://github.com/LeonardKachi" target="_blank" class="btn-primary">View on GitHub</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <!-- Same footer as index.html -->
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
