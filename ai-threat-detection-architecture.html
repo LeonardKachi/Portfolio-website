@@ -3,15 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-Powered Threat Detection System | Henry Leo</title>
+    <title>AI Threat Detection Architecture | Henry Leo</title>
     <style>
         :root {
             --primary: #0d1f23;
             --secondary: #1e3d38;
             --accent: #3aafa9;
             --text: #feffff;
+            --alert: #e74c3c;
+            --normal: #2ecc71;
+            --processing: #f39c12;
             --text-muted: #a0aec0;
         }
+        
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--primary);
@@ -20,51 +24,165 @@
             margin: 0;
             padding: 0;
         }
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
         }
+        
         header {
             text-align: center;
             margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(58, 175, 169, 0.3);
         }
+        
         h1 {
             color: var(--accent);
             font-size: 2.5rem;
             margin-bottom: 1rem;
         }
+        
         .subtitle {
-            color: var(--text-muted);
+            color: var(--text);
+            opacity: 0.8;
             font-size: 1.25rem;
             max-width: 800px;
-            margin: 0 auto 2rem;
+            margin: 0 auto;
         }
-        .section {
+        
+        .architecture-section, .section {
             background-color: var(--secondary);
             border-radius: 8px;
             padding: 2rem;
             margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             border: 1px solid rgba(58, 175, 169, 0.3);
         }
+        
         h2 {
             color: var(--accent);
             border-bottom: 2px solid var(--accent);
             padding-bottom: 0.5rem;
             margin-top: 0;
         }
+        
         h3 {
             color: var(--accent);
             margin-top: 1.5rem;
         }
+        
+        .flow-diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex-grow: 1;
+        }
+        
+        .step-arrow {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .metric-card {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin: 0.5rem 0;
+        }
+        
+        .legend, .architecture-legend {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 1rem;
+        }
+        
+        .color-data {
+            background-color: #3498db;
+        }
+        
+        .color-processing {
+            background-color: var(--processing);
+        }
+        
+        .color-alert {
+            background-color: var(--alert);
+        }
+        
+        .color-normal {
+            background-color: var(--normal);
+        }
+        
         .architecture-overview {
             display: flex;
             gap: 2rem;
             margin-top: 2rem;
         }
+        
         .architecture-text {
             flex: 1;
         }
+        
         .architecture-visual {
             flex: 1;
             background-color: rgba(0,0,0,0.2);
@@ -75,17 +193,20 @@
             min-height: 300px;
             border: 2px dashed var(--accent);
         }
+        
         .component {
             margin-bottom: 2rem;
             padding: 1.5rem;
             background-color: rgba(0,0,0,0.2);
             border-radius: 6px;
         }
+        
         .component-header {
             display: flex;
             align-items: center;
             margin-bottom: 1rem;
         }
+        
         .component-icon {
             width: 50px;
             height: 50px;
@@ -99,12 +220,15 @@
             font-size: 1.5rem;
             font-weight: bold;
         }
+        
         .tech-spec {
             margin-left: 1.5rem;
         }
+        
         .tech-spec li {
             margin-bottom: 0.5rem;
         }
+        
         .btn {
             display: inline-block;
             background-color: var(--accent);
@@ -115,16 +239,23 @@
             font-weight: 600;
             margin-top: 1rem;
             transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: inherit;
         }
+        
         .btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(58, 175, 169, 0.3);
         }
+        
         .btn-outline {
             background-color: transparent;
             border: 2px solid var(--accent);
             color: var(--accent);
         }
+        
         .modal {
             display: none;
             position: fixed;
@@ -137,6 +268,7 @@
             align-items: center;
             justify-content: center;
         }
+        
         .modal-content {
             background-color: var(--secondary);
             padding: 2rem;
@@ -146,6 +278,7 @@
             overflow-y: auto;
             position: relative;
         }
+        
         .close-modal {
             position: absolute;
             top: 1rem;
@@ -154,13 +287,31 @@
             cursor: pointer;
             color: var(--accent);
         }
+        
         .architecture-img {
             width: 100%;
             border-radius: 6px;
         }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        
+        .top-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+        
         @media (max-width: 768px) {
             .architecture-overview {
                 flex-direction: column;
+            }
+            .nav-buttons, .top-navigation {
+                flex-direction: column;
+                gap: 1rem;
             }
         }
     </style>
@@ -168,236 +319,314 @@
 </head>
 <body>
     <div class="container">
+        <div class="top-navigation">
+            <a href="AI-Powered_Threat_Detection.html" class="btn btn-outline">← Back </a>
+            <button id="toggleViewBtn" class="btn btn-outline">Switch to Detailed View</button>
+        </div>
+
         <header>
-            <h1>AI-Powered Threat Detection System</h1>
-            <p class="subtitle">A machine learning pipeline for real-time anomaly detection in cloud infrastructure logs</p>
+            <h1 id="page-title">AI Threat Detection Architecture</h1>
+            <p class="subtitle" id="page-subtitle">Real-time anomaly detection system processing JSON logs every 5 minutes</p>
         </header>
 
-        <section class="section">
-            <h2>Architecture Overview</h2>
-            <p>This system processes AWS CloudTrail logs through a machine learning pipeline to detect suspicious activities in real-time. The architecture combines serverless components with managed ML services for scalable threat detection.</p>
-            
-            <div class="architecture-overview">
-                <div class="architecture-text">
-                    <h3>Key Characteristics</h3>
-                    <ul>
-                        <li><strong>Real-time processing:</strong> Analyzes logs within 60 seconds of generation</li>
-                        <li><strong>High accuracy:</strong> 94% detection rate with <1% false positives</li>
-                        <li><strong>Self-learning:</strong> Model retrains weekly with new data</li>
-                        <li><strong>Multi-output:</strong> Alerts for critical threats, archives normal activity</li>
-                    </ul>
+        <div id="simple-view">
+            <section class="architecture-section">
+                <h2>System Overview</h2>
+                <p>This serverless architecture processes streaming logs through machine learning to detect security threats with 94.2% accuracy.</p>
+                
+                <div class="flow-diagram">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>JSON Log Ingestion</h3>
+                            <p>Streaming JSON logs delivered every 5 minutes</p>
+                            <ul>
+                                <li>CloudTrail API events</li>
+                                <li>System activity logs</li>
+                                <li>Network traffic data</li>
+                            </ul>
+                        </div>
+                        <div class="step-arrow">↓</div>
+                    </div>
                     
-                    <button id="viewDiagramBtn" class="btn">View Architecture Diagram</button>
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Lambda Feature Extraction</h3>
+                            <p>Key features extracted:</p>
+                            <ul>
+                                <li><code>api_freq</code>: API call frequency</li>
+                                <li><code>ip_entropy</code>: IP address entropy</li>
+                                <li>128-dimensional feature vector</li>
+                            </ul>
+                            <p><strong>Performance:</strong> P99: 220ms | RAM: 1024MB</p>
+                        </div>
+                        <div class="step-arrow">↓</div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Amazon SageMaker Scoring</h3>
+                            <p>Machine learning model evaluation:</p>
+                            <ul>
+                                <li>Anomaly score generation (0-1)</li>
+                                <li>Threshold: 0.957 for alerts</li>
+                                <li>Model accuracy: 94.2% | AUC: 0.97</li>
+                            </ul>
+                        </div>
+                        <div class="step-arrow">↓</div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Alerting & Archival</h3>
+                            <p>Action based on threat score:</p>
+                            <ul>
+                                <li><strong>Score > 0.957:</strong> Slack/PagerDuty alert</li>
+                                <li><strong>Score ≤ threshold:</strong> Archive to Glacier</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="architecture-visual">
-                    <!-- This is where you'll add your diagram later -->
-                    <p>[Your visual diagram will appear here]</p>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="section">
-            <h2>Component Deep Dive</h2>
-            
-            <div class="component">
-                <div class="component-header">
-                    <div class="component-icon">1</div>
-                    <h3>CloudTrail Log Ingestion</h3>
+            <section class="architecture-section">
+                <h2>Key Metrics</h2>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <h3>Processing Speed</h3>
+                        <div class="metric-value">220ms</div>
+                        <p>P99 latency for feature extraction</p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Model Accuracy</h3>
+                        <div class="metric-value">94.2%</div>
+                        <p>Threat detection rate</p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Feature Dimensions</h3>
+                        <div class="metric-value">128</div>
+                        <p>Dimensional feature vector</p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>AUC Score</h3>
+                        <div class="metric-value">0.97</div>
+                        <p>Model discrimination ability</p>
+                    </div>
                 </div>
-                <p>The entry point for all security-relevant API activities across AWS services. We capture:</p>
-                <ul class="tech-spec">
-                    <li><strong>Log types:</strong> Management events, data events, and CloudTrail insights</li>
-                    <li><strong>Filtering:</strong> Focus on security-related APIs (IAM, S3, EC2, KMS)</li>
-                    <li><strong>Volume:</strong> Processes ~2.3M events/day across all accounts</li>
-                </ul>
-                <p><em>Implementation Note:</em> Uses CloudTrail Lake for cross-account log aggregation with 90-day retention.</p>
-            </div>
-            
-            <div class="component">
-                <div class="component-header">
-                    <div class="component-icon">2</div>
-                    <h3>S3 Raw Storage Layer</h3>
-                </div>
-                <p>The data lake foundation storing raw logs before processing:</p>
-                <ul class="tech-spec">
-                    <li><strong>Structure:</strong> Partitioned by account/region/day/hour</li>
-                    <li><strong>Security:</strong> SSE-KMS encryption with bucket policies restricting access</li>
-                    <li><strong>Lifecycle:</strong> Transitions to Glacier after 30 days</li>
-                </ul>
-                <p><em>Sample path:</em> <code>s3://security-logs/raw/AWSLogs/123456789012/CloudTrail/us-east-1/2023/11/15/</code></p>
-            </div>
-            
-            <div class="component">
-                <div class="component-header">
-                    <div class="component-icon">3</div>
-                    <h3>Lambda Feature Extractor</h3>
-                </div>
-                <p>Serverless function that transforms raw logs into ML-ready features:</p>
-                <ul class="tech-spec">
-                    <li><strong>Runtime:</strong> Python 3.9 with 1GB memory</li>
-                    <li><strong>Features extracted:</strong>
-                        <ul>
-                            <li>API call frequency per service</li>
-                            <li>Time-of-day patterns</li>
-                            <li>Geographic anomalies</li>
-                            <li>Resource access sequences</li>
-                        </ul>
-                    </li>
-                    <li><strong>Output:</strong> 128-dimensional feature vectors</li>
-                </ul>
-                <p><em>Optimization:</em> Batch processing 100 events per invocation to reduce costs.</p>
-            </div>
-            
-            <div class="component">
-                <div class="component-header">
-                    <div class="component-icon">4</div>
-                    <h3>TensorFlow Model Serving</h3>
-                </div>
-                <p>The anomaly detection brain of the system:</p>
-                <ul class="tech-spec">
-                    <li><strong>Architecture:</strong> 3-layer LSTM neural network</li>
-                    <li><strong>Deployment:</strong> SageMaker real-time endpoint</li>
-                    <li><strong>Performance:</strong> 8ms latency per prediction</li>
-                    <li><strong>Training:</strong> Weekly retraining with new data</li>
-                </ul>
-                <p><em>Key metric:</em> Model outputs anomaly scores from 0 (normal) to 1 (critical threat) with 0.95 threshold for alerts.</p>
-            </div>
-            
-            <div class="component">
-                <div class="component-header">
-                    <div class="component-icon">5</div>
-                    <h3>Alerting & Archival System</h3>
-                </div>
-                <p>Decision point routing anomalies to security teams and normal traffic to cold storage:</p>
-                <ul class="tech-spec">
-                    <li><strong>Critical alerts:</strong> Slack/PagerDuty notifications enriched with context</li>
-                    <li><strong>Normal traffic:</strong> Compressed and archived to S3 Glacier Deep Archive</li>
-                    <li><strong>Audit trail:</strong> All decisions logged in DynamoDB for forensics</li>
-                </ul>
-                <p><em>Escalation:</em> Repeated anomalies from same source auto-trigger AWS Security Hub actions.</p>
-            </div>
-        </section>
+            </section>
 
-        <section class="section">
-            <h2>Data Flow Explanation</h2>
-            <p>The system processes events through these stages:</p>
-            
-            <h3>1. Log Collection Phase</h3>
-            <p>CloudTrail logs are delivered to S3 via CloudTrail's native integration. We enhance this with:</p>
-            <ul>
-                <li>Event validation using CloudTrail log file integrity</li>
-                <li>Multi-region aggregation</li>
-                <li>Compression for storage efficiency</li>
-            </ul>
-            
-            <h3>2. Feature Engineering</h3>
-            <p>Lambda functions process logs in three stages:</p>
-            <ol>
-                <li><strong>Parsing:</strong> Extract key fields (identity, service, parameters)</li>
-                <li><strong>Normalization:</strong> Convert timestamps, IPs to numerical features</li>
-                <li><strong>Sequencing:</strong> Create temporal sequences of API calls</li>
-            </ol>
-            
-            <h3>3. Model Inference</h3>
-            <p>The TensorFlow model evaluates:</p>
-            <ul>
-                <li><strong>Point anomalies:</strong> Individual suspicious events</li>
-                <li><strong>Contextual anomalies:</strong> Unusual sequences</li>
-                <li><strong>Behavioral shifts:</strong> Long-term pattern changes</li>
-            </ul>
-            
-            <h3>4. Decision Routing</h3>
-            <p>Each event receives a final disposition:</p>
-            <table>
-                <tr>
-                    <th>Score Range</th>
-                    <th>Action</th>
-                    <th>Example Scenario</th>
-                </tr>
-                <tr>
-                    <td>0.95+</td>
-                    <td>Immediate alert</td>
-                    <td>IAM role assumption from new country</td>
-                </tr>
-                <tr>
-                    <td>0.85-0.94</td>
-                    <td>Daily digest</td>
-                    <td>Unusual S3 bucket enumeration</td>
-                </tr>
-                <tr>
-                    <td>&lt;0.85</td>
-                    <td>Archive</td>
-                    <td>Normal EC2 API activity</td>
-                </tr>
-            </table>
-        </section>
-
-        <section class="section">
-            <h2>Implementation Guide</h2>
-            <p>When creating your visual diagram, highlight these key aspects:</p>
-            
-            <h3>Visual Elements to Include</h3>
-            <ul>
-                <li><strong>Color coding:</strong>
-                    <ul>
-                        <li>Blue: Data collection paths</li>
-                        <li>Orange: Processing stages</li>
-                        <li>Red: Alerting paths</li>
-                        <li>Green: Normal traffic flow</li>
-                    </ul>
-                </li>
-                <li><strong>Key metrics:</strong> Annotate components with performance data</li>
-                <li><strong>Failure paths:</strong> Show error handling flows</li>
-            </ul>
-            
-            <h3>Recommended Tools</h3>
-            <ul>
-                <li><strong>Diagrams.net:</strong> Use AWS official icons</li>
-                <li><strong>Figma:</strong> For high-resolution presentations</li>
-                <li><strong>PowerPoint:</strong> For simple overview diagrams</li>
-            </ul>
-            
-            <a href="resources/AWS-Architecture-Icons.zip" class="btn btn-outline">Download AWS Architecture Icons</a>
-        </section>
-    </div>
-
-    <!-- Diagram Modal -->
-    <div id="diagramModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>AI Threat Detection Architecture Diagram</h2>
-            <img src="assets/images/ai-threat-detection-architecture.png" alt="Complete AI threat detection workflow" class="architecture-img">
-            <div class="legend">
-                <h3>Diagram Legend</h3>
+            <section class="architecture-section">
+                <h2>Architecture Legend</h2>
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color color-data"></div>
+                        <span><strong>Data Collection:</strong> JSON log streams (blue)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color color-processing"></div>
+                        <span><strong>Processing:</strong> Feature extraction (orange)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color color-alert"></div>
+                        <span><strong>Critical Alerts:</strong> Score > 0.957 (red)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color color-normal"></div>
+                        <span><strong>Normal Flow:</strong> Archive to Glacier (green)</span>
+                    </div>
+                </div>
+                
+                <h3>Technical Specifications</h3>
                 <ul>
-                    <li><strong>Solid blue arrows:</strong> Data collection paths</li>
-                    <li><strong>Dashed orange arrows:</strong> Feature processing</li>
-                    <li><strong>Thick red lines:</strong> Critical alert paths</li>
-                    <li><strong>Dotted green lines:</strong> Normal traffic flow</li>
+                    <li><strong>Lambda Function:</strong> Python runtime, 1024MB RAM</li>
+                    <li><strong>Feature Vector:</strong> 128 dimensions including API frequency and IP entropy</li>
+                    <li><strong>Alert Threshold:</strong> 0.957 anomaly score</li>
+                    <li><strong>Data Retention:</strong> Hot storage (30 days), Glacier archive (1 year+)</li>
                 </ul>
+            </section>
+
+            <div class="nav-buttons">
+                <button id="viewDiagramBtn" class="btn">View Architecture Diagram</button>
+            </div>
+        </div>
+
+        <div id="detailed-view" style="display: none;">
+            <section class="section">
+                <h2>Architecture Overview</h2>
+                <p>This system processes AWS CloudTrail logs through a machine learning pipeline to detect suspicious activities in real-time. The architecture combines serverless components with managed ML services for scalable threat detection.</p>
+                
+                <div class="architecture-overview">
+                    <div class="architecture-text">
+                        <h3>Key Characteristics</h3>
+                        <ul>
+                            <li><strong>Real-time processing:</strong> Analyzes logs within 60 seconds of generation</li>
+                            <li><strong>High accuracy:</strong> 94% detection rate with <1% false positives</li>
+                            <li><strong>Self-learning:</strong> Model retrains weekly with new data</li>
+                            <li><strong>Multi-output:</strong> Alerts for critical threats, archives normal activity</li>
+                        </ul>
+                    </div>
+                    <div class="architecture-visual">
+                        <img src="assets/images/ai-threat-detection-architecture.png" alt="Architecture Diagram Placeholder" class="architecture-img">
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Component Deep Dive</h2>
+                
+                <div class="component">
+                    <div class="component-header">
+                        <div class="component-icon">1</div>
+                        <h3>CloudTrail Log Ingestion</h3>
+                    </div>
+                    <p>The entry point for all security-relevant API activities across AWS services. We capture:</p>
+                    <ul class="tech-spec">
+                        <li><strong>Log types:</strong> Management events, data events, and CloudTrail insights</li>
+                        <li><strong>Filtering:</strong> Focus on security-related APIs (IAM, S3, EC2, KMS)</li>
+                        <li><strong>Volume:</strong> Processes ~2.3M events/day across all accounts</li>
+                    </ul>
+                    <p><em>Implementation Note:</em> Uses CloudTrail Lake for cross-account log aggregation with 90-day retention.</p>
+                </div>
+                
+                <div class="component">
+                    <div class="component-header">
+                        <div class="component-icon">2</div>
+                        <h3>S3 Raw Storage Layer</h3>
+                    </div>
+                    <p>The data lake foundation storing raw logs before processing:</p>
+                    <ul class="tech-spec">
+                        <li><strong>Structure:</strong> Partitioned by account/region/day/hour</li>
+                        <li><strong>Security:</strong> SSE-KMS encryption with bucket policies restricting access</li>
+                        <li><strong>Lifecycle:</strong> Transitions to Glacier after 30 days</li>
+                    </ul>
+                    <p><em>Sample path:</em> <code>s3://security-logs/raw/AWSLogs/123456789012/CloudTrail/us-east-1/2023/11/15/</code></p>
+                </div>
+                
+                <div class="component">
+                    <div class="component-header">
+                        <div class="component-icon">3</div>
+                        <h3>Lambda Feature Extractor</h3>
+                    </div>
+                    <p>Serverless function that transforms raw logs into ML-ready features:</p>
+                    <ul class="tech-spec">
+                        <li><strong>Runtime:</strong> Python 3.9 with 1GB memory</li>
+                        <li><strong>Features extracted:</strong>
+                            <ul>
+                                <li>API call frequency per service</li>
+                                <li>Time-of-day patterns</li>
+                                <li>Geographic anomalies</li>
+                                <li>Resource access sequences</li>
+                            </ul>
+                        </li>
+                        <li><strong>Output:</strong> 128-dimensional feature vectors</li>
+                    </ul>
+                    <p><em>Optimization:</em> Batch processing 100 events per invocation to reduce costs.</p>
+                </div>
+                
+                <div class="component">
+                    <div class="component-header">
+                        <div class="component-icon">4</div>
+                        <h3>TensorFlow Model Serving</h3>
+                    </div>
+                    <p>The anomaly detection brain of the system:</p>
+                    <ul class="tech-spec">
+                        <li><strong>Architecture:</strong> 3-layer LSTM neural network</li>
+                        <li><strong>Deployment:</strong> SageMaker real-time endpoint</li>
+                        <li><strong>Performance:</strong> 8ms latency per prediction</li>
+                        <li><strong>Training:</strong> Weekly retraining with new data</li>
+                    </ul>
+                    <p><em>Key metric:</em> Model outputs anomaly scores from 0 (normal) to 1 (critical threat) with 0.95 threshold for alerts.</p>
+                </div>
+                
+                <div class="component">
+                    <div class="component-header">
+                        <div class="component-icon">5</div>
+                        <h3>Alerting & Archival System</h3>
+                    </div>
+                    <p>Decision point routing anomalies to security teams and normal traffic to cold storage:</p>
+                    <ul class="tech-spec">
+                        <li><strong>Critical alerts:</strong> Slack/PagerDuty notifications enriched with context</li>
+                        <li><strong>Normal traffic:</strong> Compressed and archived to S3 Glacier Deep Archive</li>
+                        <li><strong>Audit trail:</strong> All decisions logged in DynamoDB for forensics</li>
+                    </ul>
+                    <p><em>Escalation:</em> Repeated anomalies from same source auto-trigger AWS Security Hub actions.</p>
+                </div>
+            </section>
+
+            <div class="nav-buttons">
+                <button id="viewDiagramBtn2" class="btn">View Architecture Diagram</button>
+            </div>
+        </div>
+
+        <!-- Diagram Modal -->
+        <div id="diagramModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>AI Threat Detection Architecture Diagram</h2>
+                <img src="assets/images/ai-threat-detection-architecture.png" alt="Complete AI threat detection workflow" class="architecture-img">
+                <div class="architecture-legend">
+                    <h3>AI Threat Detection Architecture Legend</h3>
+                    <ul>
+                        <li><strong>Streaming JSON Logs:</strong> Incoming log data every 5 minutes</li>
+                        <li><strong>Lambda Processing:</strong> Feature extraction (api_freq, ip_entropy)</li>
+                        <li><strong>Critical Alerts:</strong> Score > 0.957 triggers Slack/PagerDuty</li>
+                        <li><strong>Normal Flow:</strong> Score ≤ threshold continues to Glacier archive</li>
+                        <li><strong>Model Metrics:</strong> 94.2% accuracy | AUC 0.97 | 128-dim feature vector</li>
+                        <li><strong>Performance:</strong> P99: 220ms | RAM: 1024MB</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
+        // View toggling functionality
+        const simpleView = document.getElementById("simple-view");
+        const detailedView = document.getElementById("detailed-view");
+        const toggleViewBtn = document.getElementById("toggleViewBtn");
+        const pageTitle = document.getElementById("page-title");
+        const pageSubtitle = document.getElementById("page-subtitle");
+
+        toggleViewBtn.addEventListener("click", () => {
+            if (simpleView.style.display === "none") {
+                simpleView.style.display = "block";
+                detailedView.style.display = "none";
+                pageTitle.textContent = "AI Threat Detection Architecture";
+                pageSubtitle.textContent = "Real-time anomaly detection system processing JSON logs every 5 minutes";
+                toggleViewBtn.textContent = "Switch to Detailed View";
+            } else {
+                simpleView.style.display = "none";
+                detailedView.style.display = "block";
+                pageTitle.textContent = "AI-Powered Threat Detection System";
+                pageSubtitle.textContent = "A machine learning pipeline for real-time anomaly detection in cloud infrastructure logs";
+                toggleViewBtn.textContent = "Switch to Simple View";
+            }
+            window.scrollTo(0, 0);
+        });
+
         // Modal functionality
         const modal = document.getElementById("diagramModal");
-        const btn = document.getElementById("viewDiagramBtn");
+        const viewDiagramBtns = document.querySelectorAll("#viewDiagramBtn, #viewDiagramBtn2");
         const span = document.getElementsByClassName("close-modal")[0];
 
-        btn.onclick = function() {
-            modal.style.display = "flex";
-        }
+        viewDiagramBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                modal.style.display = "flex";
+            });
+        });
 
-        span.onclick = function() {
+        span.addEventListener("click", () => {
             modal.style.display = "none";
-        }
+        });
 
-        window.onclick = function(event) {
+        window.addEventListener("click", (event) => {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
-        }
+        });
     </script>
 </body>
 </html>
