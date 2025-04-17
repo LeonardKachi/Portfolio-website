@@ -34,7 +34,7 @@ const certifications = [
     issuer: "Google",
     year: "2024",
     image: "google-da.jpg",
-    category: "Data Analytics",
+    category: "data",
     description: "Professional training in data analysis, visualization, and machine learning fundamentals."
   },
   {
