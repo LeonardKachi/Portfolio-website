@@ -34,7 +34,7 @@ const certifications = [
     issuer: "Google",
     year: "2024",
     image: "google-da.jpg",
-    category: "data",
+    category: "Data Analytics",
     description: "Professional training in data analysis, visualization, and machine learning fundamentals."
   },
   {
@@ -127,7 +127,7 @@ function initCertFilters() {
     { id: 'all', label: 'All Certifications' },
     { id: 'security', label: 'Security' },
     { id: 'aws', label: 'AWS' },
-    { id: 'data', label: 'Data' },
+    { id: 'data', label: 'Data Analytics' },
     { id: 'ai', label: 'AI' }
   ];
   
