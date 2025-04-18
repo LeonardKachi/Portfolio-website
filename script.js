@@ -218,44 +218,20 @@ async function loadDevToArticles() {
   
   try {
     // Try to get from cache first
-   // const cacheKey = 'devto-articles';
-   // const cachedData = localStorage.getItem(cacheKey);
+    const cacheKey = 'devto-articles';
+    const cachedData = localStorage.getItem(cacheKey);
     
     let articles;
     
-   // if (cachedData) {
-    //  const { data, timestamp } = JSON.parse(cachedData);
+    if (cachedData) {
+      const { data, timestamp } = JSON.parse(cachedData);
       
       // Use cache if less than 1 hour old
-     // if (Date.now() - timestamp < 3600000) {
-       // articles = data;
-     // }
-  //  }
-    async function loadDevToArticles() {
-    const feed = document.getElementById('devto-feed');
-    
-    // Show loading state
-    feed.innerHTML = `
-        <div class="skeleton-card"></div>
-        <div class="skeleton-card"></div>
-        <div class="skeleton-card"></div>
-    `;
-    
-    try {
-        // Fetch fresh data directly from the API
-        const response = await fetch('https://dev.to/api/articles?username=leonardkachi&per_page=6');
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const articles = await response.json();
-        renderArticles(articles);
-    } catch (error) {
-        console.error('Error loading Dev.to articles:', error);
-        showErrorFallback();
+      if (Date.now() - timestamp < 3600000) {
+        articles = data;
+      }
     }
-}
+    
     // If no cache or cache expired, fetch fresh data
     if (!articles) {
       const response = await fetch('https://dev.to/api/articles?username=leonardkachi&per_page=6');
