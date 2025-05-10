@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Recommendation API | Henry Leo</title>
+  <meta name="description" content="Details of the Book Recommendation API project">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">Henry<span>Leo</span></a>
+      <div class="nav-links">
+        <a href="index.html#articles">Articles</a>
+        <a href="index.html#certifications">Certifications</a>
+        <a href="index.html#lab">Security Lab</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <button class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="container project-detail">
+    <section class="project-header">
+      <h1>Book Recommendation API</h1>
+      <div class="project-meta">
+        <span class="project-date">2023</span>
+        <div class="project-tech">
+          <span>Python</span>
+          <span>AWS Lambda</span>
+          <span>DynamoDB</span>
+          <span>JavaScript</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-content">
+      <div class="project-image">
+        <img src="assets/images/Book Recommendation APP.jpg" alt="Book Recommendation API" loading="lazy">
+      </div>
+      
+      <div class="project-description">
+        <h2>Project Overview</h2>
+        <p>The Book Recommendation API is a serverless application that fetches book data from the Google Books API and recommends titles based on user preferences such as genre, author, and keywords. Designed to be fast, scalable, and cost-effective.</p>
+        
+        <h3>Key Features</h3>
+        <ul>
+          <li>Real-time book search and recommendations</li>
+          <li>Integrated with Google Books API</li>
+          <li>Price display, filtering, and pagination</li>
+          <li>DynamoDB for caching results and fast lookups</li>
+          <li>Built-in logging with CloudWatch</li>
+        </ul>
+        
+        <h3>Technical Implementation</h3>
+        <p>The system was built using AWS Lambda for the backend, DynamoDB for caching, and JavaScript for the frontend, with infrastructure deployed using Terraform:</p>
+        
+        <div class="architecture-diagram">
+          <a href="https://leonardkachi.github.io/Next-Read/" class="btn-outline">View App</a>
+        </div>
+        
+        <div class="code-block">
+          <h4>Sample Lambda Function for Book Search</h4>
+          <pre><code>import boto3
+import requests
+import os
+from datetime import datetime
+
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('BookCache')
+
+def lambda_handler(event, context):
+    query = event.get('query', '')
+    max_results = event.get('max_results', 10)
+    start_index = event.get('start_index', 0)
+    
+    # Check cache first
+    cached = table.get_item(Key={'query': query})
+    if 'Item' in cached and (datetime.now() - cached['Item']['timestamp']).days < 1:
+        return cached['Item']['results']
+    
+    # Call Google Books API if not in cache
+    params = {
+        'q': query,
+        'maxResults': max_results,
+        'startIndex': start_index,
+        'key': os.environ['GOOGLE_API_KEY']
+    }
+    response = requests.get('https://www.googleapis.com/books/v1/volumes', params=params)
+    results = response.json().get('items', [])
+    
+    # Cache the results
+    table.put_item(Item={
+        'query': query,
+        'results': results,
+        'timestamp': datetime.now().isoformat()
+    })
+    
+    return results</code></pre>
+        </div>
+        
+        <div class="code-block">
+          <h4>Frontend API Call Example</h4>
+          <pre><code>async function fetchBooks(query, page = 1) {
+  const response = await fetch(`${API_ENDPOINT}/books`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query: query,
+      max_results: 10,
+      start_index: (page - 1) * 10
+    })
+  });
+  
+  if (!response.ok) {
+    throw new Error('Failed to fetch books');
+  }
+  
+  return await response.json();
+}
+
+// Example usage
+fetchBooks('science fiction', 2)
+  .then(books => displayBooks(books))
+  .catch(error => console.error('Error:', error));</code></pre>
+        </div>
+        
+        <h3>Results</h3>
+        <ul>
+          <li>Demonstrated serverless design for scalable content delivery</li>
+          <li>Average response time under 300ms for cached queries</li>
+          <li>Reduced Google Books API calls by 40% through caching</li>
+          <li>Educational tool for developers and readers alike</li>
+        </ul>
+      </div>
+      
+      <div class="project-actions">
+        <a href="index.html#projects" class="btn-outline">Back to Projects</a>
+        <a href="https://github.com/LeonardKachi/Next-Read" target="_blank" class="btn-primary">View on GitHub</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-about">
+          <h3>Henry Leo</h3>
+          <p>Cloud Security Architect specializing in AWS, Azure, and Zero Trust implementations.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#certifications">Certifications</a></li>
+            <li><a href="index.html#lab">Security Lab</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:henryleo480@gmail.com">henryleo480@gmail.com</a></li>
+            <li><a href="https://github.com/LeonardKachi" target="_blank">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/onyedikachi-obidiegwu" target="_blank">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <span id="year"></span> Obidiegwu Onyedikachi Henry Leonard. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

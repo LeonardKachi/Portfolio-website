@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fuel Finder Nigeria | Henry Leo</title>
+  <meta name="description" content="Details of the Fuel Finder Nigeria project">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">Henry<span>Leo</span></a>
+      <div class="nav-links">
+        <a href="index.html#articles">Articles</a>
+        <a href="index.html#certifications">Certifications</a>
+        <a href="index.html#lab">Security Lab</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <button class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="container project-detail">
+    <section class="project-header">
+      <h1>Fuel Finder Nigeria</h1>
+      <div class="project-meta">
+        <span class="project-date">2022</span>
+        <div class="project-tech">
+          <span>React Native</span>
+          <span>Firebase</span>
+          <span>Google Maps API</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-content">
+      <div class="project-image">
+        <img src="assets/images/Fuel Finder Nigeria.jpg" alt="Fuel Finder Nigeria App" loading="lazy">
+      </div>
+      
+      <div class="project-description">
+        <h2>Project Overview</h2>
+        <p>Fuel Finder Nigeria is a web and mobile app that helps users locate the nearest fuel stations, check current prices, and see fuel availability in real time. It was inspired by the frequent fuel scarcity and pricing inconsistencies across different regions in Nigeria.</p>
+        
+        <h3>Key Features</h3>
+        <ul>
+          <li>Geo-location based search for nearby stations</li>
+          <li>Real-time fuel availability status</li>
+          <li>Price comparison between stations</li>
+          <li>User-submitted updates and feedback</li>
+        </ul>
+        
+        <h3>Technical Implementation</h3>
+        <p>The app was built using React Native for cross-platform compatibility, Firebase for real-time data, and Google Maps API for location services:</p>
+        
+        
+        <div class="code-block">
+          <h4>Sample Location Search</h4>
+          <pre><code>import React, { useState, useEffect } from 'react';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+
+const FuelStationSearch = ({ onSelect }) => {
+  return (
+    &lt;GooglePlacesAutocomplete
+      placeholder="Search for fuel stations"
+      minLength={2}
+      autoFocus={false}
+      returnKeyType="search"
+      listViewDisplayed="auto"
+      fetchDetails={true}
+      onPress={(data, details = null) => {
+        onSelect({
+          name: data.description,
+          location: details.geometry.location,
+          address: details.formatted_address
+        });
+      }}
+      query={{
+        key: 'YOUR_GOOGLE_API_KEY',
+        language: 'en',
+        types: 'gas_station',
+        components: 'country:ng'
+      }}
+    /&gt;
+  );
+};
+
+export default FuelStationSearch;</code></pre>
+        </div>
+        
+        <h3>Results</h3>
+        <ul>
+          <li>Improved fuel accessibility for 500+ users during test phase</li>
+          <li>Reduced average time spent locating fuel stations by 65%</li>
+          <li>Created transparency in fuel pricing across regions</li>
+          <li>Community-driven updates improved data accuracy</li>
+        </ul>
+      </div>
+      
+      <div class="project-actions">
+        <a href="index.html#projects" class="btn-outline">Back to Projects</a>
+        <a href="https://github.com/LeonardKachi" target="_blank" class="btn-primary">GitHub</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-about">
+          <h3>Henry Leo</h3>
+          <p>Cloud Security Architect specializing in AWS, Azure, and Zero Trust implementations.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#certifications">Certifications</a></li>
+            <li><a href="index.html#lab">Security Lab</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:henryleo480@gmail.com">henryleo480@gmail.com</a></li>
+            <li><a href="https://github.com/LeonardKachi" target="_blank">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/onyedikachi-obidiegwu" target="_blank">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <span id="year"></span> Obidiegwu Onyedikachi Henry Leonard. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QEPS | Henry Leo</title>
+  <meta name="description" content="Details of the Quantum Error Prevention System (QEPS) project">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">Henry<span>Leo</span></a>
+      <div class="nav-links">
+        <a href="index.html#articles">Articles</a>
+        <a href="index.html#certifications">Certifications</a>
+        <a href="index.html#lab">Security Lab</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <button class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="container project-detail">
+    <section class="project-header">
+      <h1>Quantum Error Prevention System (QEPS)</h1>
+      <div class="project-meta">
+        <span class="project-date">2023</span>
+        <div class="project-tech">
+          <span>Python</span>
+          <span>Qiskit</span>
+          <span>Post-Quantum Cryptography</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-content">
+      <div class="project-image">
+        <img src="assets/images/Quantum Error Prevention System (QEPS).jpg" alt="Quantum Error Prevention System" loading="lazy">
+      </div>
+      
+      <div class="project-description">
+        <h2>Project Overview</h2>
+        <p>QEPS is a research-based initiative focused on preventing and mitigating quantum-related data transmission errors. Built to explore post-quantum cryptographic techniques, it's aimed at safeguarding sensitive communication against both current and emerging quantum threats.</p>
+        
+        <h3>Key Features</h3>
+        <ul>
+          <li>Quantum error simulation engine</li>
+          <li>Post-quantum cryptographic protocol testing</li>
+          <li>Error detection and correction modeling</li>
+          <li>Research-based technical documentation</li>
+        </ul>
+        
+        <h3>Technical Implementation</h3>
+        <p>The system was built using IBM's Qiskit framework for quantum simulation and Python for implementing post-quantum cryptographic algorithms:</p>
+        
+
+        
+        <div class="code-block">
+          <h4>Sample Quantum Error Simulation</h4>
+          <pre><code>from qiskit import QuantumCircuit, Aer, execute
+from qiskit.quantum_info import state_fidelity
+
+def simulate_quantum_error():
+    # Create ideal quantum circuit
+    qc_ideal = QuantumCircuit(1)
+    qc_ideal.h(0)
+    
+    # Create circuit with error
+    qc_error = QuantumCircuit(1)
+    qc_error.h(0)
+    qc_error.x(0)  # Simulated error
+    
+    # Simulate both circuits
+    simulator = Aer.get_backend('statevector_simulator')
+    ideal_result = execute(qc_ideal, simulator).result()
+    error_result = execute(qc_error, simulator).result()
+    
+    # Calculate fidelity
+    fidelity = state_fidelity(ideal_result.get_statevector(),
+                            error_result.get_statevector())
+    
+    return fidelity</code></pre>
+        </div>
+        
+        <h3>Results</h3>
+        <ul>
+          <li>Developed framework for quantum error simulation</li>
+          <li>Tested multiple post-quantum cryptographic algorithms</li>
+          <li>Created documentation for quantum-resistant protocols</li>
+          <li>Paved the way for future-ready security frameworks</li>
+        </ul>
+      </div>
+      
+      <div class="project-actions">
+        <a href="index.html#projects" class="btn-outline">Back to Projects</a>
+        <a href="https://github.com/LeonardKachi" target="_blank" class="btn-primary">GitHub</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-about">
+          <h3>Henry Leo</h3>
+          <p>Cloud Security Architect specializing in AWS, Azure, and Zero Trust implementations.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#certifications">Certifications</a></li>
+            <li><a href="index.html#lab">Security Lab</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:henryleo480@gmail.com">henryleo480@gmail.com</a></li>
+            <li><a href="https://github.com/LeonardKachi" target="_blank">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/onyedikachi-obidiegwu" target="_blank">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <span id="year"></span> Obidiegwu Onyedikachi Henry Leonard. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
