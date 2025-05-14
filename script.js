@@ -124,11 +124,11 @@ document.addEventListener('DOMContentLoaded', () => {
 function initCertFilters() {
   const filtersContainer = document.getElementById('cert-filters');
   const filterCategories = [
-    { id: 'all', label: 'All Certifications' },
     { id: 'security', label: 'Security' },
     { id: 'aws', label: 'AWS' },
     { id: 'data', label: 'Data Analytics' },
     { id: 'ai', label: 'AI' }
+    { id: 'all', label: 'All Certifications' },
   ];
   
   // Clear existing filters
