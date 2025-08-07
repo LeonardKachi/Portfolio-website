@@ -64,4 +64,5 @@ This project is licensed under the [LGPL-2.1 License](https://www.gnu.org/licens
 
 ---
 
-*Crafted with dedication by [LeonardKachi](https://github.com/LeonardKachi).*
+*Crafted with dedication by [Kachi](https://github.com/LeonardKachi).*
+
