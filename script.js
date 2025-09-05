@@ -74,7 +74,7 @@ const certifications = [
   },
   {
     title: "Cybersecurity | Ethical Hacking",
-    issuer: "Neo Cloud",
+    issuer: "Neo Cloud Technologies",
     year: "2024",
     image: "neo.jpg",
     category: "security",
@@ -82,7 +82,7 @@ const certifications = [
   },
   {
     title: "Solutions Architect",
-    issuer: "Neo Cloud",
+    issuer: "Neo Cloud Technologies",
     year: "2024",
     image: "neo.jpg",
     category: "aws",
@@ -1329,3 +1329,4 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
+
