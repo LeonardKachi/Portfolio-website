@@ -1266,6 +1266,41 @@ function initMobileNav() {
     });
   });
 }
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.querySelector('form'); // adjust selector to your form
+  const successMessage = document.getElementById('success-message');
+  const newMessageBtn = document.getElementById('new-message-btn');
+
+  if (form && successMessage) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const action = form.getAttribute('action');
+
+      try {
+        await fetch(action, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        form.classList.add('hidden');         // hide form
+        successMessage.classList.remove('hidden'); // show success message
+      } catch (err) {
+        alert("Something went wrong, please try again.");
+      }
+    });
+
+    if (newMessageBtn) {
+      newMessageBtn.addEventListener('click', () => {
+        successMessage.classList.add('hidden');
+        form.classList.remove('hidden');
+        form.reset();
+      });
+    }
+  }
+});
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
@@ -1292,4 +1327,5 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', () => {
     document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50);
   });
+
 });
