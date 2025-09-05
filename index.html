@@ -722,66 +722,68 @@
         </div>
         
         <form id="contact-form" class="contact-form" action="https://formspree.io/f/xldwoanq" method="POST">
-          <input type="hidden" name="_subject" value="New message from portfolio">
-          <input type="hidden" name="_replyto" value="%email%">
-          <input type="hidden" name="_next" value="#contact?success=true">
-          <input type="text" name="_gotcha" style="display:none">
+  <!-- Hidden fields -->
+  <input type="hidden" name="_subject" value="New message from portfolio">
+  <input type="hidden" name="_next" value="https://leonardkachi.github.io/Portfolio-website/#contact?success=true">
+  <input type="text" name="_gotcha" style="display:none">
 
-          <div class="form-group">
-            <label for="name">Your Name</label>
-            <input type="text" id="name" name="name" placeholder="John Doe" required
-                   minlength="2" maxlength="50"
-                   pattern="[A-Za-z ]+" title="Letters only please">
-            <span class="error-message"></span>
-          </div>
+  <div class="form-group">
+    <label for="name">Your Name</label>
+    <input type="text" id="name" name="name" placeholder="John Doe" required
+           minlength="2" maxlength="50"
+           pattern="[A-Za-z ]+" title="Letters only please">
+    <span class="error-message"></span>
+  </div>
 
-          <div class="form-group">
-            <label for="email">Your Email</label>
-            <input type="email" id="email" name="email" placeholder="john@example.com" required>
-            <span class="error-message"></span>
-          </div>
+  <div class="form-group">
+    <label for="email">Your Email</label>
+    <!-- Changed name="_replyto" (Formspree standard) -->
+    <input type="email" id="email" name="_replyto" placeholder="john@example.com" required>
+    <span class="error-message"></span>
+  </div>
 
-          <div class="form-group">
-            <label for="subject">Subject</label>
-            <select id="subject" name="subject" required>
-              <option value="">-- Select a subject --</option>
-              <option value="consulting">Consulting Inquiry</option>
-              <option value="job">Job Opportunity</option>
-              <option value="project">Project Collaboration</option>
-              <option value="other">Other</option>
-            </select>
-            <span class="error-message"></span>
-          </div>
+  <div class="form-group">
+    <label for="subject">Subject</label>
+    <select id="subject" name="subject" required>
+      <option value="">-- Select a subject --</option>
+      <option value="consulting">Consulting Inquiry</option>
+      <option value="job">Job Opportunity</option>
+      <option value="project">Project Collaboration</option>
+      <option value="other">Other</option>
+    </select>
+    <span class="error-message"></span>
+  </div>
 
-          <div class="form-group">
-            <label for="message">Your Message</label>
-            <textarea id="message" name="message" placeholder="Hello Kachi..." required
-                      minlength="10" maxlength="500"></textarea>
-            <span class="error-message"></span>
-          </div>
+  <div class="form-group">
+    <label for="message">Your Message</label>
+    <textarea id="message" name="message" placeholder="Hello Kachi..." required
+              minlength="10" maxlength="500"></textarea>
+    <span class="error-message"></span>
+  </div>
 
-          <div class="form-actions">
-            <button type="submit" class="btn-primary" id="submit-btn">
-              <span class="btn-text">Send Message</span>
-              <span class="spinner hidden">
-                <svg class="icon" viewBox="0 0 24 24" width="18" height="18">
-                  <path fill="currentColor" d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z"/>
-                </svg>
-              </span>
-            </button>
-            <div id="form-status" class="status-message hidden"></div>
-          </div>
-        </form>
+  <div class="form-actions">
+    <button type="submit" class="btn-primary" id="submit-btn">
+      <span class="btn-text">Send Message</span>
+      <span class="spinner hidden">
+        <svg class="icon" viewBox="0 0 24 24" width="18" height="18">
+          <path fill="currentColor" d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z"/>
+        </svg>
+      </span>
+    </button>
+    <div id="form-status" class="status-message hidden"></div>
+  </div>
+</form>
 
-        <!-- Success Message Template -->
-        <div id="success-message" class="success-message hidden">
-          <svg class="success-icon" viewBox="0 0 24 24" width="48" height="48">
-            <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/>
-          </svg>
-          <h3>Message Sent Successfully!</h3>
-          <p>Thank you for reaching out. I'll respond within 24 hours.</p>
-          <button class="btn-outline" id="new-message-btn">Send Another Message</button>
-        </div>
+<!-- Success Message Template -->
+<div id="success-message" class="success-message hidden">
+  <svg class="success-icon" viewBox="0 0 24 24" width="48" height="48">
+    <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/>
+  </svg>
+  <h3>Message Sent Successfully!</h3>
+  <p>Thank you for reaching out. I'll respond within 24 hours.</p>
+  <button class="btn-outline" id="new-message-btn">Send Another Message</button>
+</div>
+
       </div>
     </div>
   </section>
@@ -824,8 +826,52 @@
   </footer>
 
   <script src="script.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("contact-form");
+  const formStatus = document.getElementById("form-status");
+  const successMessage = document.getElementById("success-message");
+  const newMessageBtn = document.getElementById("new-message-btn");
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    formStatus.classList.remove("hidden");
+    formStatus.textContent = "Sending...";
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch(form.action, {
+        method: form.method,
+        body: formData,
+        headers: { Accept: "application/json" }
+      });
+
+      if (response.ok) {
+        form.reset();
+        form.classList.add("hidden");
+        formStatus.classList.add("hidden");
+        successMessage.classList.remove("hidden");
+      } else {
+        formStatus.textContent = "Oops! Something went wrong. Please try again.";
+      }
+    } catch (error) {
+      formStatus.textContent = "Error sending message. Please try again later.";
+    }
+  });
+
+  // Allow sending a new message
+  newMessageBtn.addEventListener("click", function () {
+    successMessage.classList.add("hidden");
+    form.classList.remove("hidden");
+  });
+});
+</script>
+
 </body>
 
 </html>
+
 
 
