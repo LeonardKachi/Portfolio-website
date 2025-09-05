@@ -81,7 +81,7 @@
       <h2>About Me</h2>
       <div class="about-grid">
         <div class="about-content">
-          <p>I'm a <strong>Cloud Security Engineer & Architect</strong> with a passion for building secure, scalable, and compliant cloud infrastructures. My expertise spans <strong>AWS & Azure security, Zero Trust frameworks, and AI-powered threat detection</strong>—blending hands-on technical skills with strategic risk mitigation.</p>
+          <p>I'm a <strong>Cloud Security Engineer & Architect</strong> with a passion for building secure, scalable, and compliant cloud infrastructures. My expertise spans <strong>AWS & Azure security, Zero Trust frameworks, and AI-powered threat detection</strong>blending hands-on technical skills with strategic risk mitigation.</p>
           
           <h3>What I Do</h3>
           <ul class="skills-list">
@@ -864,7 +864,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 </script>
-
+          
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
@@ -901,54 +901,10 @@ document.addEventListener("DOMContentLoaded", function () {
       </div>
     </div>
   </footer>
-
-  <script src="script.js"></script>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const form = document.getElementById("contact-form");
-  const formStatus = document.getElementById("form-status");
-  const successMessage = document.getElementById("success-message");
-  const newMessageBtn = document.getElementById("new-message-btn");
-
-  form.addEventListener("submit", async function (e) {
-    e.preventDefault();
-
-    formStatus.classList.remove("hidden");
-    formStatus.textContent = "Sending...";
-
-    try {
-      const formData = new FormData(form);
-      const response = await fetch(form.action, {
-        method: form.method,
-        body: formData,
-        headers: { Accept: "application/json" }
-      });
-
-      if (response.ok) {
-        form.reset();
-        form.classList.add("hidden");
-        formStatus.classList.add("hidden");
-        successMessage.classList.remove("hidden");
-      } else {
-        formStatus.textContent = "Oops! Something went wrong. Please try again.";
-      }
-    } catch (error) {
-      formStatus.textContent = "Error sending message. Please try again later.";
-    }
-  });
-
-  // Allow sending a new message
-  newMessageBtn.addEventListener("click", function () {
-    successMessage.classList.add("hidden");
-    form.classList.remove("hidden");
-  });
-});
-</script>
-
 </body>
 
 </html>
+
 
 
 
