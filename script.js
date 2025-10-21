@@ -226,10 +226,11 @@ async function loadDevToArticles() {
     if (cachedData) {
       const { data, timestamp } = JSON.parse(cachedData);
       
-      // Use cache if less than 1 hour old
-      if (Date.now() - timestamp < 3600000) {
-        articles = data;
-      }
+// Use cache if less than 10 minutes old
+if (Date.now() - timestamp < 600000) {
+  articles = data;
+}
+
     }
     
     // If no cache or cache expired, fetch fresh data
@@ -1329,4 +1330,5 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
+
 
