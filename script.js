@@ -1,25 +1,6 @@
-// Add this to your existing script.js
-function initProjectDetails() {
-  // Highlight current page in navigation
-  const currentPage = window.location.pathname.split('/').pop();
-  if (currentPage && currentPage !== 'index.html') {
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      if (link.getAttribute('href').includes(currentPage)) {
-        link.classList.add('active');
-      }
-    });
-  }
-}
-
-// Update the DOMContentLoaded event listener to include:
-document.addEventListener('DOMContentLoaded', () => {
-  // ... existing code ...
-  
-  // Initialize project details if on a project page
-  if (document.querySelector('.project-detail')) {
-    initProjectDetails();
-  }
-});// Certifications Data - Enhanced with more details
+// ==========================================
+// CERTIFICATIONS DATA
+// ==========================================
 const certifications = [
   {
     title: "Certified in Cybersecurity",
@@ -97,32 +78,14 @@ const certifications = [
     description: "Core principles of information security and cyber defense strategies."
   }
 ];
-// Add this to your existing JavaScript
-document.addEventListener('DOMContentLoaded', () => {
-  const viewMoreBtn = document.getElementById('view-more-tools');
-  const moreTools = document.getElementById('more-tools');
-  
-  if (viewMoreBtn && moreTools) {
-    viewMoreBtn.addEventListener('click', () => {
-      moreTools.classList.toggle('hidden');
-      viewMoreBtn.textContent = moreTools.classList.contains('hidden') 
-        ? 'View Full Technical Toolkit' 
-        : 'Show Less';
-      
-      // Update the icon
-      const icon = viewMoreBtn.querySelector('.icon');
-      if (icon) {
-        icon.setAttribute('d', moreTools.classList.contains('hidden') 
-          ? 'M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z' 
-          : 'M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z');
-      }
-    });
-  }
-});
 
-// Initialize Filters with better organization
+// ==========================================
+// CERTIFICATIONS FUNCTIONS
+// ==========================================
 function initCertFilters() {
   const filtersContainer = document.getElementById('cert-filters');
+  if (!filtersContainer) return;
+  
   const filterCategories = [
     { id: 'all', label: 'All Certifications' },
     { id: 'security', label: 'Security' },
@@ -131,7 +94,6 @@ function initCertFilters() {
     { id: 'ai', label: 'AI' }
   ];
   
-  // Clear existing filters
   filtersContainer.innerHTML = '';
   
   filterCategories.forEach(filter => {
@@ -146,11 +108,9 @@ function initCertFilters() {
     filtersContainer.appendChild(button);
   });
   
-  // Set 'all' as default active filter
   filtersContainer.firstChild.classList.add('active');
 }
 
-// Update active filter state
 function updateActiveFilter(activeButton) {
   document.querySelectorAll('#cert-filters button').forEach(btn => {
     btn.classList.remove('active');
@@ -158,14 +118,12 @@ function updateActiveFilter(activeButton) {
   activeButton.classList.add('active');
 }
 
-// Filter Certifications with better performance
 function filterCerts(filter) {
   const certGrid = document.querySelector('.cert-grid');
+  if (!certGrid) return;
   
-  // Show loading state
   certGrid.innerHTML = '<div class="loading-spinner"></div>';
   
-  // Use setTimeout to allow UI to update before heavy operation
   setTimeout(() => {
     const filteredCerts = filter === 'all' 
       ? certifications 
@@ -175,9 +133,9 @@ function filterCerts(filter) {
   }, 50);
 }
 
-// Render Certifications with enhanced UI
 function renderCerts(certs) {
   const certGrid = document.querySelector('.cert-grid');
+  if (!certGrid) return;
   
   if (certs.length === 0) {
     certGrid.innerHTML = '<p class="no-results">No certifications found in this category.</p>';
@@ -205,11 +163,13 @@ function renderCerts(certs) {
   });
 }
 
-// Enhanced Dev.to API Integration with caching
+// ==========================================
+// DEV.TO ARTICLES
+// ==========================================
 async function loadDevToArticles() {
   const feed = document.getElementById('devto-feed');
+  if (!feed) return;
   
-  // Show loading state
   feed.innerHTML = `
     <div class="skeleton-card"></div>
     <div class="skeleton-card"></div>
@@ -217,7 +177,6 @@ async function loadDevToArticles() {
   `;
   
   try {
-    // Try to get from cache first
     const cacheKey = 'devto-articles';
     const cachedData = localStorage.getItem(cacheKey);
     
@@ -225,15 +184,11 @@ async function loadDevToArticles() {
     
     if (cachedData) {
       const { data, timestamp } = JSON.parse(cachedData);
-      
-// Use cache if less than 10 minutes old
-if (Date.now() - timestamp < 600000) {
-  articles = data;
-}
-
+      if (Date.now() - timestamp < 600000) {
+        articles = data;
+      }
     }
     
-    // If no cache or cache expired, fetch fresh data
     if (!articles) {
       const response = await fetch('https://dev.to/api/articles?username=leonardkachi&per_page=6');
       
@@ -243,7 +198,6 @@ if (Date.now() - timestamp < 600000) {
       
       articles = await response.json();
       
-      // Update cache
       localStorage.setItem(cacheKey, JSON.stringify({
         data: articles,
         timestamp: Date.now()
@@ -259,6 +213,7 @@ if (Date.now() - timestamp < 600000) {
 
 function renderArticles(articles) {
   const feed = document.getElementById('devto-feed');
+  if (!feed) return;
   
   if (!articles || articles.length === 0) {
     showErrorFallback();
@@ -303,7 +258,7 @@ function showErrorFallback() {
   const fallbackArticles = [
     {
       title: "AWS Security Best Practices",
-      url: "https://dev.to/leonardkachi/aws-security",
+      url: "https://dev.to/leonardkachi",
       description: "Comprehensive guide to securing AWS infrastructure with IAM policies, encryption, and monitoring.",
       published_at: new Date().toISOString(),
       positive_reactions_count: 28,
@@ -312,7 +267,7 @@ function showErrorFallback() {
     },
     {
       title: "Terraform for Security Engineers",
-      url: "https://dev.to/leonardkachi/terraform-security",
+      url: "https://dev.to/leonardkachi",
       description: "Implementing security controls through Infrastructure as Code with Terraform modules.",
       published_at: new Date().toISOString(),
       positive_reactions_count: 34,
@@ -324,9 +279,10 @@ function showErrorFallback() {
   renderArticles(fallbackArticles);
 }
 
-// Security Lab Module
+// ==========================================
+// SECURITY LAB MODULE
+// ==========================================
 const SecurityLab = (() => {
-  // Cloud service actions database
   const cloudActions = {
     aws: {
       'Amazon S3': [
@@ -364,7 +320,6 @@ const SecurityLab = (() => {
     }
   };
 
-  // Attack patterns database
   const attackPatterns = {
     'data-exfiltration': {
       name: "Data Exfiltration",
@@ -397,10 +352,41 @@ const SecurityLab = (() => {
         "Monitor CloudTrail for unusual IAM activity",
         "Regularly review and rotate IAM policies"
       ]
+    },
+    'cryptomining': {
+      name: "Cryptomining Attack",
+      description: "Unauthorized use of cloud resources for cryptocurrency mining",
+      steps: [
+        "Compromising EC2 instance credentials",
+        "Launching high-CPU instances",
+        "Installing mining software",
+        "Connecting to mining pool"
+      ],
+      prevention: [
+        "Set up billing alerts for unusual resource usage",
+        "Monitor CloudWatch for CPU spikes",
+        "Implement instance launch restrictions",
+        "Use AWS Budgets for cost anomaly detection"
+      ]
+    },
+    'denial-of-service': {
+      name: "Denial of Service",
+      description: "Overwhelming resources to make services unavailable",
+      steps: [
+        "Identifying public-facing endpoints",
+        "Launching distributed attack from multiple IPs",
+        "Exhausting connection limits",
+        "Consuming all available bandwidth"
+      ],
+      prevention: [
+        "Implement AWS Shield for DDoS protection",
+        "Use CloudFront with WAF rules",
+        "Set up auto-scaling for resilience",
+        "Configure rate limiting on API Gateway"
+      ]
     }
   };
 
-  // Policy templates database
   const policyTemplates = {
     's3-readonly': {
       name: "S3 Read Only Access",
@@ -418,6 +404,20 @@ const SecurityLab = (() => {
         "arn:aws:s3:::example-bucket",
         "arn:aws:s3:::example-bucket/*"
       ]
+    }
+  ]
+}`
+    },
+    'ec2-full': {
+      name: "EC2 Full Access",
+      description: "Complete control over EC2 instances",
+      policy: `{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "ec2:*",
+      "Resource": "*"
     }
   ]
 }`
@@ -444,10 +444,23 @@ const SecurityLab = (() => {
     }
   ]
 }`
+    },
+    'admin-access': {
+      name: "Administrator Access",
+      description: "Full access to all AWS services (use with caution)",
+      policy: `{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "*",
+      "Resource": "*"
+    }
+  ]
+}`
     }
   };
 
-  // Initialize the security lab
   function init() {
     initScenarioSwitcher();
     initIAMSimulator();
@@ -456,17 +469,14 @@ const SecurityLab = (() => {
     initNetworkVisualizer();
   }
 
-  // Scenario switching functionality
   function initScenarioSwitcher() {
     const scenarioButtons = document.querySelectorAll('.scenario-btn');
     
     scenarioButtons.forEach(button => {
       button.addEventListener('click', () => {
-        // Update active button
         scenarioButtons.forEach(btn => btn.classList.remove('active'));
         button.classList.add('active');
         
-        // Show corresponding content
         const scenario = button.dataset.scenario;
         document.querySelectorAll('.scenario-content').forEach(content => {
           content.classList.remove('active');
@@ -478,7 +488,6 @@ const SecurityLab = (() => {
     });
   }
 
-  // IAM Policy Simulator
   function initIAMSimulator() {
     const cloudProvider = document.getElementById('cloud-provider');
     const actionListContainer = document.getElementById('action-list-container');
@@ -487,17 +496,19 @@ const SecurityLab = (() => {
     const resultsPanel = document.getElementById('policy-results');
     const actionPresets = document.getElementById('action-presets');
     
-    // Update actions when cloud provider changes
+    if (!cloudProvider || !actionListContainer) return;
+    
     cloudProvider.addEventListener('change', updateActionList);
     updateActionList();
     
-    // Test policy button handler
-    testButton.addEventListener('click', testPolicy);
+    if (testButton) {
+      testButton.addEventListener('click', testPolicy);
+    }
     
-    // Policy template selector
-    actionPresets.addEventListener('change', loadPolicyTemplate);
+    if (actionPresets) {
+      actionPresets.addEventListener('change', loadPolicyTemplate);
+    }
     
-    // Update available actions based on selected cloud provider
     function updateActionList() {
       const provider = cloudProvider.value;
       actionListContainer.innerHTML = '';
@@ -524,14 +535,12 @@ const SecurityLab = (() => {
       });
     }
     
-    // Load a policy template
     function loadPolicyTemplate(e) {
       if (e.target.value && policyTemplates[e.target.value]) {
         policyInput.value = policyTemplates[e.target.value].policy;
       }
     }
     
-    // Test the current policy against selected actions
     function testPolicy() {
       try {
         const policy = JSON.parse(policyInput.value);
@@ -551,7 +560,6 @@ const SecurityLab = (() => {
       }
     }
     
-    // Evaluate policy against actions
     function evaluatePolicy(policy, actions) {
       const results = [];
       const validation = validatePolicy(policy);
@@ -564,7 +572,6 @@ const SecurityLab = (() => {
           denyReason: ''
         };
         
-        // Check for explicit denies first
         const denyStatement = policy.Statement.find(s => 
           s.Effect === 'Deny' && matchesAction(s.Action, action)
         );
@@ -576,7 +583,6 @@ const SecurityLab = (() => {
           return;
         }
         
-        // Check for allows
         const allowStatement = policy.Statement.find(s => 
           s.Effect === 'Allow' && matchesAction(s.Action, action)
         );
@@ -592,24 +598,18 @@ const SecurityLab = (() => {
       return { actionResults: results, validation };
     }
     
-    // Check if policy action matches test action
     function matchesAction(policyActions, testAction) {
       if (typeof policyActions === 'string') {
         policyActions = [policyActions];
       }
       
       return policyActions.some(policyAction => {
-        // Exact match
         if (policyAction === testAction) return true;
-        
-        // Wildcard match
         if (policyAction === '*') return true;
         
-        // Service wildcard (e.g., "s3:*")
         const [service, permission] = testAction.split(':');
         if (policyAction === `${service}:*`) return true;
         
-        // Partial wildcard (e.g., "s3:Get*")
         if (policyAction.includes('*')) {
           const [policyService, policyPermission] = policyAction.split(':');
           if (service === policyService && 
@@ -622,7 +622,6 @@ const SecurityLab = (() => {
       });
     }
     
-    // Validate policy structure
     function validatePolicy(policy) {
       const issues = [];
       
@@ -654,7 +653,6 @@ const SecurityLab = (() => {
       return issues;
     }
     
-    // Render evaluation results
     function renderResults({ actionResults, validation }) {
       resultsPanel.innerHTML = '';
       
@@ -698,7 +696,6 @@ const SecurityLab = (() => {
       }
     }
     
-    // Show error in results panel
     function showResultError(message) {
       resultsPanel.innerHTML = `
         <div class="error-message">
@@ -709,7 +706,6 @@ const SecurityLab = (() => {
     }
   }
 
-  // Attack Simulator
   function initAttackSimulator() {
     const attackType = document.getElementById('attack-type');
     const startBtn = document.getElementById('start-attack');
@@ -717,19 +713,14 @@ const SecurityLab = (() => {
     const attackLog = document.getElementById('attack-log');
     let attackInterval;
     
-    // Initialize attack log
+    if (!attackType || !startBtn || !stopBtn || !attackLog) return;
+    
     attackLog.innerHTML = '<p class="info-message">Select an attack scenario to begin simulation</p>';
     
-    // Update attack details when type changes
     attackType.addEventListener('change', updateAttackDetails);
-    
-    // Start attack simulation
     startBtn.addEventListener('click', startAttack);
-    
-    // Stop attack simulation
     stopBtn.addEventListener('click', stopAttack);
     
-    // Update attack description and details
     function updateAttackDetails() {
       const attackId = attackType.value;
       
@@ -759,7 +750,6 @@ const SecurityLab = (() => {
       `;
     }
     
-    // Start the attack simulation
     function startAttack() {
       const attackId = attackType.value;
       
@@ -771,19 +761,16 @@ const SecurityLab = (() => {
       const attack = attackPatterns[attackId];
       let step = 0;
       
-      // Update UI state
       startBtn.disabled = true;
       stopBtn.disabled = false;
       attackType.disabled = true;
       
-      // Clear log and add simulation start message
       attackLog.innerHTML = `
         <div class="simulation-start">
           Starting simulation: ${attack.name}
         </div>
       `;
       
-      // Run simulation steps
       attackInterval = setInterval(() => {
         if (step < attack.steps.length) {
           const stepElement = document.createElement('div');
@@ -796,7 +783,6 @@ const SecurityLab = (() => {
           attackLog.appendChild(stepElement);
           step++;
         } else {
-          // Simulation complete
           clearInterval(attackInterval);
           attackLog.innerHTML += `
             <div class="simulation-end">
@@ -806,12 +792,10 @@ const SecurityLab = (() => {
           resetControls();
         }
         
-        // Scroll to bottom
         attackLog.scrollTop = attackLog.scrollHeight;
       }, 2000);
     }
     
-    // Stop the attack simulation
     function stopAttack() {
       clearInterval(attackInterval);
       attackLog.innerHTML += `
@@ -823,7 +807,6 @@ const SecurityLab = (() => {
       attackLog.scrollTop = attackLog.scrollHeight;
     }
     
-    // Reset control states
     function resetControls() {
       startBtn.disabled = false;
       stopBtn.disabled = true;
@@ -831,11 +814,12 @@ const SecurityLab = (() => {
     }
   }
 
-  // Policy Recommender
   function initPolicyRecommender() {
     const recommendBtn = document.getElementById('recommend-policy');
     const policyInput = document.getElementById('policy-input');
     const resultsPanel = document.getElementById('policy-results');
+    
+    if (!recommendBtn) return;
     
     recommendBtn.addEventListener('click', showRecommendations);
     
@@ -863,7 +847,6 @@ const SecurityLab = (() => {
         resultsPanel.appendChild(recommendation);
       });
       
-      // Add event listeners to apply buttons
       document.querySelectorAll('.apply-policy').forEach(btn => {
         btn.addEventListener('click', (e) => {
           policyInput.value = JSON.parse(e.target.dataset.policy);
@@ -877,28 +860,17 @@ const SecurityLab = (() => {
     }
   }
 
-  // Network Visualizer
   function initNetworkVisualizer() {
     const networkViz = document.querySelector('.network-visualization');
-    
     if (!networkViz) return;
     
-    // Initialize network security visualization
     initNetworkSecurity();
-    
-    // Add click handler for the button
-    const showSgBtn = document.getElementById('show-sg-btn');
-    if (showSgBtn) {
-      showSgBtn.addEventListener('click', initNetworkSecurity);
-    }
   }
 
-  // Network Security Visualization
   function initNetworkSecurity() {
     const networkViz = document.querySelector('.network-visualization');
     if (!networkViz) return;
 
-    // Security groups data
     const securityGroups = {
       'WebServerSG': {
         description: 'Security group for web servers',
@@ -934,7 +906,6 @@ const SecurityLab = (() => {
       }
     };
 
-    // Create the network visualization HTML
     networkViz.innerHTML = `
       <div class="network-diagram-container">
         <div class="network-diagram">
@@ -974,9 +945,7 @@ const SecurityLab = (() => {
       </div>
     `;
 
-    // Add hover effects and click handlers
     document.querySelectorAll('.instance').forEach(instance => {
-      // Hover effects
       instance.addEventListener('mouseenter', function() {
         this.classList.add('highlight');
       });
@@ -985,7 +954,6 @@ const SecurityLab = (() => {
         this.classList.remove('highlight');
       });
       
-      // Click handler to show security groups
       instance.addEventListener('click', function() {
         const sgName = this.dataset.sg;
         if (sgName && securityGroups[sgName]) {
@@ -994,7 +962,6 @@ const SecurityLab = (() => {
       });
     });
 
-    // Function to display security group details
     function showSecurityGroupDetails(sgName) {
       const sg = securityGroups[sgName];
       const detailsContainer = document.getElementById('sg-details');
@@ -1066,190 +1033,150 @@ const SecurityLab = (() => {
     }
   }
 
-  // Public API
-  return {
-    init
-  };
+  return { init };
 })();
 
-// Contact Form Handler
+// ==========================================
+// CONTACT FORM HANDLER
+// ==========================================
 const ContactForm = (() => {
-  // Initialize the contact form
   function init() {
     const form = document.getElementById('contact-form');
-    if (!form) return;
-    
-    // Check for success state in URL
-    checkForSuccessState();
-    
-    // Set up form validation and submission
-    setupFormValidation(form);
-    setupFormSubmission(form);
-    
-    // Initialize select dropdown styling
-    initSelectStyles();
-  }
-  
-  // Initialize select dropdown styles
-  function initSelectStyles() {
-    const selects = document.querySelectorAll('select');
-    selects.forEach(select => {
-      select.style.colorScheme = 'dark'; // Ensure dark mode for selects
-    });
-  }
-  
-  // Check URL for success param
-  function checkForSuccessState() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const form = document.getElementById('contact-form');
-    const successMessage = document.getElementById('success-message');
-    
-    if (urlParams.get('success') === 'true') {
-      form.classList.add('hidden');
-      successMessage.classList.remove('hidden');
-    }
-    
-    // Set up new message button
-    document.getElementById('new-message-btn')?.addEventListener('click', () => {
-      form.reset();
-      successMessage.classList.add('hidden');
-      form.classList.remove('hidden');
-      window.history.replaceState({}, document.title, window.location.pathname);
-    });
-  }
-  
-  // Set up form validation
-  function setupFormValidation(form) {
-    // Real-time validation for all inputs
-    form.querySelectorAll('input, textarea, select').forEach(input => {
-      input.addEventListener('input', () => validateField(input));
-    });
-    
-    // Add custom validation for the form
-    form.addEventListener('submit', function(e) {
-      if (!validateForm(this)) {
-        e.preventDefault();
-      }
-    });
-  }
-  
-  // Validate a single field
-  function validateField(field) {
-    const formGroup = field.closest('.form-group');
-    const errorMessage = formGroup.querySelector('.error-message');
-    
-    // Reset state
-    formGroup.classList.remove('invalid', 'valid');
-    errorMessage.textContent = '';
-    
-    // Validate based on field type
-    if (field.validity.valid) {
-      formGroup.classList.add('valid');
-    } else {
-      showFieldError(field, formGroup, errorMessage);
-    }
-  }
-  
-  // Show field error message
-  function showFieldError(field, formGroup, errorElement) {
-    formGroup.classList.add('invalid');
-    
-    if (field.validity.valueMissing) {
-      errorElement.textContent = 'This field is required';
-    } else if (field.validity.typeMismatch) {
-      errorElement.textContent = field.type === 'email' 
-        ? 'Please enter a valid email address' 
-        : 'Invalid format';
-    } else if (field.validity.tooShort) {
-      errorElement.textContent = `Minimum length is ${field.minLength} characters`;
-    } else if (field.validity.patternMismatch) {
-      errorElement.textContent = field.title || 'Invalid input format';
-    }
-  }
-  
-  // Validate entire form
-  function validateForm(form) {
-    let isValid = true;
-    const requiredFields = form.querySelectorAll('[required]');
-    
-    requiredFields.forEach(field => {
-      const formGroup = field.closest('.form-group');
-      const errorMessage = formGroup.querySelector('.error-message');
-      
-      if (!field.validity.valid) {
-        showFieldError(field, formGroup, errorMessage);
-        isValid = false;
-        
-        // Scroll to first error
-        if (isValid === false) {
-          field.focus();
-        }
-      }
-    });
-    
-    return isValid;
-  }
-  
-  // Set up form submission
-  function setupFormSubmission(form) {
     const submitBtn = document.getElementById('submit-btn');
-    const btnText = submitBtn.querySelector('.btn-text');
-    const spinner = submitBtn.querySelector('.spinner');
-    const statusMessage = document.getElementById('form-status');
-    
+    const btnText = submitBtn?.querySelector('.btn-text');
+    const spinner = submitBtn?.querySelector('.spinner');
+    const formStatus = document.getElementById('form-status');
+    const successMessage = document.getElementById('success-message');
+    const newMessageBtn = document.getElementById('new-message-btn');
+    const contactContainer = document.querySelector('.contact-container');
+    const contactInfo = document.querySelector('.contact-info');
+
+    if (!form) return;
+
+    function validateForm() {
+      let isValid = true;
+      const formGroups = form.querySelectorAll('.form-group');
+
+      formGroups.forEach(group => {
+        const input = group.querySelector('input, select, textarea');
+        const errorMsg = group.querySelector('.error-message');
+        
+        group.classList.remove('error');
+        errorMsg.textContent = '';
+
+        if (!input.value.trim()) {
+          group.classList.add('error');
+          errorMsg.textContent = 'This field is required';
+          isValid = false;
+        } else if (input.type === 'email' && !isValidEmail(input.value)) {
+          group.classList.add('error');
+          errorMsg.textContent = 'Please enter a valid email';
+          isValid = false;
+        }
+      });
+
+      return isValid;
+    }
+
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      
-      if (!validateForm(form)) return;
-      
+
+      if (!validateForm()) {
+        return;
+      }
+
+      submitBtn.disabled = true;
+      btnText.textContent = 'Sending...';
+      spinner.classList.remove('hidden');
+      formStatus.classList.add('hidden');
+
+      const formData = new FormData(form);
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        subject: formData.get('subject'),
+        message: formData.get('message')
+      };
+
       try {
-        // Show loading state
-        btnText.textContent = 'Sending...';
-        spinner.classList.remove('hidden');
-        submitBtn.disabled = true;
-        statusMessage.classList.add('hidden');
-        
-        // Submit form data
-        const formData = new FormData(form);
-        const response = await fetch(form.action, {
+        const response = await fetch('https://formsubmit.co/ajax/henryleo480@gmail.com', {
           method: 'POST',
-          body: formData,
           headers: {
+            'Content-Type': 'application/json',
             'Accept': 'application/json'
-          }
+          },
+          body: JSON.stringify(data)
         });
-        
+
         if (response.ok) {
-          // Show success state
-          document.getElementById('success-message').classList.remove('hidden');
-          form.classList.add('hidden');
-          form.reset();
-          
-          // Update URL without reload
-          window.history.pushState({}, '', '#contact?success=true');
+          if (contactContainer) {
+            contactContainer.style.gridTemplateColumns = '1fr';
+          }
+          form.style.display = 'none';
+          if (contactInfo) {
+            contactInfo.style.display = 'none';
+          }
+          successMessage.classList.remove('hidden');
+          successMessage.style.gridColumn = 'auto';
         } else {
           throw new Error('Form submission failed');
         }
       } catch (error) {
-        console.error('Form submission error:', error);
-        statusMessage.textContent = 'Error sending message. Please try again.';
-        statusMessage.classList.remove('hidden');
+        console.error('Form error:', error);
+        formStatus.textContent = 'Oops! Something went wrong. Please try again or email me directly.';
+        formStatus.classList.remove('hidden', 'success');
+        formStatus.classList.add('error');
       } finally {
-        // Reset button state
+        submitBtn.disabled = false;
         btnText.textContent = 'Send Message';
         spinner.classList.add('hidden');
-        submitBtn.disabled = false;
       }
     });
+
+    if (newMessageBtn) {
+      newMessageBtn.addEventListener('click', () => {
+        form.reset();
+        if (contactContainer) {
+          contactContainer.style.gridTemplateColumns = '';
+        }
+        form.style.display = 'block';
+        if (contactInfo) {
+          contactInfo.style.display = 'block';
+        }
+        successMessage.classList.add('hidden');
+        formStatus.classList.add('hidden');
+      });
+    }
+
+    form.querySelectorAll('input, select, textarea').forEach(input => {
+      input.addEventListener('blur', () => {
+        const formGroup = input.closest('.form-group');
+        const errorMsg = formGroup.querySelector('.error-message');
+        
+        formGroup.classList.remove('error');
+        errorMsg.textContent = '';
+
+        if (!input.value.trim()) {
+          formGroup.classList.add('error');
+          errorMsg.textContent = 'This field is required';
+        } else if (input.type === 'email' && !isValidEmail(input.value)) {
+          formGroup.classList.add('error');
+          errorMsg.textContent = 'Please enter a valid email';
+        }
+      });
+    });
   }
-  
-  // Public API
-  return {
-    init
-  };
+
+  return { init };
 })();
 
-// Mobile Navigation
+// ==========================================
+// MOBILE NAVIGATION
+// ==========================================
 function initMobileNav() {
   const hamburger = document.querySelector('.hamburger');
   const navLinks = document.querySelector('.nav-links');
@@ -1259,7 +1186,6 @@ function initMobileNav() {
     navLinks.classList.toggle('active');
   });
   
-  // Close menu when clicking on a link
   navLinks?.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       hamburger.classList.remove('active');
@@ -1267,45 +1193,45 @@ function initMobileNav() {
     });
   });
 }
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.querySelector('form'); // adjust selector to your form
-  const successMessage = document.getElementById('success-message');
-  const newMessageBtn = document.getElementById('new-message-btn');
 
-  if (form && successMessage) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+// ==========================================
+// ZERO TRUST PRINCIPLES SCROLL
+// ==========================================
+function initZeroTrustScroll() {
+  const leftBtn = document.querySelector('.left-scroll');
+  const rightBtn = document.querySelector('.right-scroll');
+  const principlesGrid = document.querySelector('.principles-grid');
+  
+  if (!leftBtn || !rightBtn || !principlesGrid) return;
+  
+  leftBtn.addEventListener('click', () => {
+    principlesGrid.scrollBy({ left: -300, behavior: 'smooth' });
+  });
+  
+  rightBtn.addEventListener('click', () => {
+    principlesGrid.scrollBy({ left: 300, behavior: 'smooth' });
+  });
+}
 
-      const formData = new FormData(form);
-      const action = form.getAttribute('action');
-
-      try {
-        await fetch(action, {
-          method: 'POST',
-          body: formData,
-          headers: { 'Accept': 'application/json' }
-        });
-
-        form.classList.add('hidden');         // hide form
-        successMessage.classList.remove('hidden'); // show success message
-      } catch (err) {
-        alert("Something went wrong, please try again.");
+// ==========================================
+// PROJECT DETAILS INITIALIZATION
+// ==========================================
+function initProjectDetails() {
+  const currentPage = window.location.pathname.split('/').pop();
+  if (currentPage && currentPage !== 'index.html') {
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      if (link.getAttribute('href').includes(currentPage)) {
+        link.classList.add('active');
       }
     });
-
-    if (newMessageBtn) {
-      newMessageBtn.addEventListener('click', () => {
-        successMessage.classList.add('hidden');
-        form.classList.remove('hidden');
-        form.reset();
-      });
-    }
   }
-});
+}
 
-// Initialize everything when DOM is loaded
+// ==========================================
+// MAIN INITIALIZATION
+// ==========================================
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize certifications section
+  // Initialize certifications
   initCertFilters();
   renderCerts(certifications);
   
@@ -1321,14 +1247,25 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize mobile navigation
   initMobileNav();
   
-  // Set current year in footer
-  document.getElementById('year').textContent = new Date().getFullYear();
+  // Initialize Zero Trust scroll
+  initZeroTrustScroll();
   
-  // Add scroll event for navbar
+  // Initialize project details
+  if (document.querySelector('.project-detail')) {
+    initProjectDetails();
+  }
+  
+  // Set current year in footer
+  const yearElement = document.getElementById('year');
+  if (yearElement) {
+    yearElement.textContent = new Date().getFullYear();
+  }
+  
+  // Navbar scroll effect
   window.addEventListener('scroll', () => {
-    document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50);
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    }
   });
-
 });
-
-
