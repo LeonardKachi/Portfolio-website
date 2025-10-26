@@ -791,130 +791,6 @@
       </div>
     </div>
   </section>
-
-<script>
-  const form = document.getElementById('contact-form');
-  const submitBtn = document.getElementById('submit-btn');
-  const btnText = submitBtn.querySelector('.btn-text');
-  const spinner = submitBtn.querySelector('.spinner');
-  const formStatus = document.getElementById('form-status');
-  const successMessage = document.getElementById('success-message');
-  const newMessageBtn = document.getElementById('new-message-btn');
-  const contactContainer = document.querySelector('.contact-container');
-
-  // Form validation
-  function validateForm() {
-    let isValid = true;
-    const formGroups = form.querySelectorAll('.form-group');
-
-    formGroups.forEach(group => {
-      const input = group.querySelector('input, select, textarea');
-      const errorMsg = group.querySelector('.error-message');
-      
-      group.classList.remove('error');
-      errorMsg.textContent = '';
-
-      if (!input.value.trim()) {
-        group.classList.add('error');
-        errorMsg.textContent = 'This field is required';
-        isValid = false;
-      } else if (input.type === 'email' && !isValidEmail(input.value)) {
-        group.classList.add('error');
-        errorMsg.textContent = 'Please enter a valid email';
-        isValid = false;
-      }
-    });
-
-    return isValid;
-  }
-
-  function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  }
-
-  // Form submission
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    if (!validateForm()) {
-      return;
-    }
-
-    // Show loading state
-    submitBtn.disabled = true;
-    btnText.textContent = 'Sending...';
-    spinner.classList.remove('hidden');
-    formStatus.classList.add('hidden');
-
-    const formData = new FormData(form);
-    const data = {
-      name: formData.get('name'),
-      email: formData.get('email'),
-      subject: formData.get('subject'),
-      message: formData.get('message')
-    };
-
-    try {
-      const response = await fetch('https://formsubmit.co/ajax/henryleo480@gmail.com', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(data)
-      });
-
-      if (response.ok) {
-        // Change grid to single column and show success
-        contactContainer.style.gridTemplateColumns = '1fr';
-        form.style.display = 'none';
-        document.querySelector('.contact-info').style.display = 'none';
-        successMessage.classList.remove('hidden');
-        successMessage.style.gridColumn = 'auto';
-      } else {
-        throw new Error('Form submission failed');
-      }
-    } catch (error) {
-      formStatus.textContent = 'Oops! Something went wrong. Please try again or email me directly.';
-      formStatus.classList.remove('hidden', 'success');
-      formStatus.classList.add('error');
-    } finally {
-      submitBtn.disabled = false;
-      btnText.textContent = 'Send Message';
-      spinner.classList.add('hidden');
-    }
-  });
-
-  // Reset form
-  newMessageBtn.addEventListener('click', () => {
-    form.reset();
-    contactContainer.style.gridTemplateColumns = '';
-    form.style.display = 'block';
-    document.querySelector('.contact-info').style.display = 'block';
-    successMessage.classList.add('hidden');
-    formStatus.classList.add('hidden');
-  });
-
-  // Real-time validation
-  form.querySelectorAll('input, select, textarea').forEach(input => {
-    input.addEventListener('blur', () => {
-      const formGroup = input.closest('.form-group');
-      const errorMsg = formGroup.querySelector('.error-message');
-      
-      formGroup.classList.remove('error');
-      errorMsg.textContent = '';
-
-      if (!input.value.trim()) {
-        formGroup.classList.add('error');
-        errorMsg.textContent = 'This field is required';
-      } else if (input.type === 'email' && !isValidEmail(input.value)) {
-        formGroup.classList.add('error');
-        errorMsg.textContent = 'Please enter a valid email';
-      }
-    });
-  });
-</script>
-
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
@@ -955,6 +831,7 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
