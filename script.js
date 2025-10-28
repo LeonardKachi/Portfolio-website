@@ -1227,6 +1227,10 @@ const ContactForm = (() => {
   return { init };
 })();
 
+window.Analytics = window.Analytics || {
+  trackInteraction: function() {}
+};
+
 // ==========================================
 // MOBILE NAVIGATION
 // ==========================================
@@ -1348,4 +1352,5 @@ document.addEventListener('DOMContentLoaded', () => {
   
   console.log('✅ Portfolio initialized successfully');
 });
+
 
