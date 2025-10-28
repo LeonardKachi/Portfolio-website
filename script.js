@@ -1147,7 +1147,7 @@ const ContactForm = (() => {
       };
 
       try {
-        const response = await fetch('https://formsubmit.co/ajax/henryleo480@gmail.com', {
+        const response = await fetch('https://formsubmit.co/henryleo480@gmail.com', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -1348,3 +1348,4 @@ document.addEventListener('DOMContentLoaded', () => {
   
   console.log('✅ Portfolio initialized successfully');
 });
+
