@@ -1078,9 +1078,16 @@ const SecurityLab = (() => {
 })();
 
 // ==========================================
-// CONTACT FORM MODULE - FIXED VERSION
+// CONTACT FORM MODULE - OPTIMIZED VERSION
 // ==========================================
 const ContactForm = (() => {
+  const FORM_ENDPOINTS = {
+    primary: 'https://formspree.io/f/xldwoanq',
+    fallback: 'https://formsubmit.co/ajax/henryleo480@gmail.com'
+  };
+  
+  const TIMEOUT_DURATION = 5000; // 5 seconds max wait
+
   function init() {
     const form = document.getElementById('contact-form');
     const submitBtn = document.getElementById('submit-btn');
@@ -1124,7 +1131,7 @@ const ContactForm = (() => {
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
 
-    // Form submission
+    // Enhanced form submission with timeout and fallback
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -1139,6 +1146,49 @@ const ContactForm = (() => {
       formStatus.classList.add('hidden');
 
       const formData = new FormData(form);
+      
+      // Create timeout promise
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('timeout')), TIMEOUT_DURATION);
+      });
+
+      try {
+        // Try primary endpoint with timeout
+        const submitPromise = submitToEndpoint(formData, FORM_ENDPOINTS.primary);
+        
+        await Promise.race([submitPromise, timeoutPromise]);
+        
+        // Success!
+        showSuccessMessage();
+        Analytics.trackInteraction('contact', 'form_submit', 'success');
+        
+      } catch (error) {
+        if (error.message === 'timeout') {
+          // Timeout - assume success but show different message
+          console.warn('Form submission timeout - showing optimistic success');
+          showSuccessMessage(true);
+          Analytics.trackInteraction('contact', 'form_submit', 'timeout_success');
+        } else {
+          // Try fallback endpoint
+          console.warn('Primary endpoint failed, trying fallback...');
+          try {
+            await submitToEndpoint(formData, FORM_ENDPOINTS.fallback);
+            showSuccessMessage();
+            Analytics.trackInteraction('contact', 'form_submit', 'fallback_success');
+          } catch (fallbackError) {
+            // Both failed - show error
+            showError();
+            Analytics.trackInteraction('contact', 'form_submit', 'error');
+          }
+        }
+      } finally {
+        submitBtn.disabled = false;
+        btnText.textContent = 'Send Message';
+        spinner.classList.add('hidden');
+      }
+    });
+
+    async function submitToEndpoint(formData, endpoint) {
       const data = {
         name: formData.get('name'),
         email: formData.get('email'),
@@ -1146,46 +1196,49 @@ const ContactForm = (() => {
         message: formData.get('message')
       };
 
-      try {
-        const response = await fetch('https://formsubmit.co/henryleo480@gmail.com', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify(data)
-        });
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
 
-        if (response.ok) {
-          // SUCCESS - Show success message
-          if (contactContainer) {
-            contactContainer.style.gridTemplateColumns = '1fr';
-          }
-          form.style.display = 'none';
-          if (contactInfo) {
-            contactInfo.style.display = 'none';
-          }
-          successMessage.classList.remove('hidden');
-          successMessage.style.display = 'block';
-          successMessage.style.gridColumn = 'auto';
-          
-          Analytics.trackInteraction('contact', 'form_submit', 'success');
-        } else {
-          throw new Error('Form submission failed');
-        }
-      } catch (error) {
-        console.error('Form error:', error);
-        formStatus.textContent = 'Oops! Something went wrong. Please try again or email me directly.';
-        formStatus.classList.remove('hidden', 'success');
-        formStatus.classList.add('error');
-        
-        Analytics.trackInteraction('contact', 'form_submit', 'error');
-      } finally {
-        submitBtn.disabled = false;
-        btnText.textContent = 'Send Message';
-        spinner.classList.add('hidden');
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
       }
-    });
+
+      return response;
+    }
+
+    function showSuccessMessage(isOptimistic = false) {
+      if (contactContainer) {
+        contactContainer.style.gridTemplateColumns = '1fr';
+      }
+      form.style.display = 'none';
+      if (contactInfo) {
+        contactInfo.style.display = 'none';
+      }
+      successMessage.classList.remove('hidden');
+      successMessage.style.display = 'block';
+      successMessage.style.gridColumn = 'auto';
+      
+      // Update message if optimistic
+      if (isOptimistic) {
+        const successText = successMessage.querySelector('p');
+        if (successText) {
+          successText.textContent = "Your message is being sent. I'll respond within 24 hours.";
+        }
+      }
+    }
+
+    function showError() {
+      formStatus.textContent = 'Unable to send message. Please email me directly at Kachi.Henry.Leo@gmail.com';
+      formStatus.classList.remove('hidden', 'success');
+      formStatus.classList.add('error');
+      formStatus.style.display = 'block';
+    }
 
     // Reset form
     if (newMessageBtn) {
@@ -1201,6 +1254,12 @@ const ContactForm = (() => {
         successMessage.classList.add('hidden');
         successMessage.style.display = 'none';
         formStatus.classList.add('hidden');
+        
+        // Reset success message text
+        const successText = successMessage.querySelector('p');
+        if (successText) {
+          successText.textContent = "Thank you for reaching out. I'll respond within 24 hours.";
+        }
       });
     }
 
@@ -1226,10 +1285,6 @@ const ContactForm = (() => {
 
   return { init };
 })();
-
-window.Analytics = window.Analytics || {
-  trackInteraction: function() {}
-};
 
 // ==========================================
 // MOBILE NAVIGATION
@@ -1352,5 +1407,3 @@ document.addEventListener('DOMContentLoaded', () => {
   
   console.log('✅ Portfolio initialized successfully');
 });
-
-
