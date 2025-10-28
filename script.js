@@ -1,91 +1,111 @@
 // ==========================================
-// CERTIFICATIONS DATA
+// PRODUCTION-READY CLOUD SECURITY PORTFOLIO
+// Complete JavaScript Module
 // ==========================================
-const certifications = [
-  {
-    title: "Certified in Cybersecurity",
-    issuer: "ISC2",
-    year: "2025",
-    image: "isc2-cc.png",
-    category: "security",
-    description: "Foundational cybersecurity certification covering security principles, risk management, and incident response."
-  },
-  {
-    title: "Data Analytics",
-    issuer: "Google",
-    year: "2024",
-    image: "google-da.jpg",
-    category: "data",
-    description: "Professional training in data analysis, visualization, and machine learning fundamentals."
-  },
-  {
-    title: "Security+",
-    issuer: "CompTIA",
-    year: "Candidate (2025)",
-    image: "security-plus.png",
-    category: "security",
-    candidate: true,
-    description: "Global certification validating baseline cybersecurity skills."
-  },
-  {
-    title: "Solutions Architect",
-    issuer: "AWS",
-    year: "Candidate (2025)",
-    image: "aws-sa.png",
-    category: "aws",
-    candidate: true,
-    description: "Demonstrates expertise in designing distributed systems on AWS."
-  },
-  {
-    title: "Security",
-    issuer: "AWS",
-    year: "Candidate (2025)",
-    image: "aws-ss.png",
-    category: "aws",
-    candidate: true,
-    description: "Demonstrates expertise in designing distributed systems on AWS."
-  },
-  {
-    title: "AI Essentials",
-    issuer: "Google",
-    year: "2024",
-    image: "google-ai.jpg",
-    category: "ai",
-    description: "Fundamentals of artificial intelligence and machine learning applications."
-  },
-  {
-    title: "Cybersecurity | Ethical Hacking",
-    issuer: "Neo Cloud Technologies",
-    year: "2024",
-    image: "neo.jpg",
-    category: "security",
-    description: "Practical training in penetration testing and vulnerability assessment."
-  },
-  {
-    title: "Solutions Architect",
-    issuer: "Neo Cloud Technologies",
-    year: "2024",
-    image: "neo.jpg",
-    category: "aws",
-    description: "Practical training in Cloud Enviroment (AWS, Azure, GPC)."
-  },
-  {
-    title: "Cybersecurity Foundations",
-    issuer: "MasterCard",
-    year: "2024",
-    image: "mf.png",
-    category: "security",
-    description: "Core principles of information security and cyber defense strategies."
-  }
-];
+
+'use strict';
 
 // ==========================================
-// CERTIFICATIONS FUNCTIONS
+// ANALYTICS & LOGGING SYSTEM
 // ==========================================
-function initCertFilters() {
-  const filtersContainer = document.getElementById('cert-filters');
-  if (!filtersContainer) return;
+const Analytics = {
+  log(eventType, details) {
+    console.log(`[Analytics] ${eventType}:`, details);
+    // Future: send to analytics endpoint
+    // fetch('/api/analytics', { method: 'POST', body: JSON.stringify({ eventType, details }) });
+  },
   
+  trackPageView() {
+    this.log('page_view', { path: window.location.pathname, timestamp: Date.now() });
+  },
+  
+  trackInteraction(category, action, label) {
+    this.log('interaction', { category, action, label, timestamp: Date.now() });
+  }
+};
+
+// ==========================================
+// CERTIFICATIONS DATA & MANAGEMENT
+// ==========================================
+const CertificationsModule = (() => {
+  const certifications = [
+    {
+      title: "Certified in Cybersecurity",
+      issuer: "ISC2",
+      year: "2025",
+      image: "isc2-cc.png",
+      category: "security",
+      description: "Foundational cybersecurity certification covering security principles, risk management, and incident response."
+    },
+    {
+      title: "Data Analytics",
+      issuer: "Google",
+      year: "2024",
+      image: "google-da.jpg",
+      category: "data",
+      description: "Professional training in data analysis, visualization, and machine learning fundamentals."
+    },
+    {
+      title: "Security+",
+      issuer: "CompTIA",
+      year: "Candidate (2025)",
+      image: "security-plus.png",
+      category: "security",
+      candidate: true,
+      description: "Global certification validating baseline cybersecurity skills."
+    },
+    {
+      title: "Solutions Architect",
+      issuer: "AWS",
+      year: "Candidate (2025)",
+      image: "aws-sa.png",
+      category: "aws",
+      candidate: true,
+      description: "Demonstrates expertise in designing distributed systems on AWS."
+    },
+    {
+      title: "Security",
+      issuer: "AWS",
+      year: "Candidate (2025)",
+      image: "aws-ss.png",
+      category: "aws",
+      candidate: true,
+      description: "Demonstrates expertise in AWS security best practices."
+    },
+    {
+      title: "AI Essentials",
+      issuer: "Google",
+      year: "2024",
+      image: "google-ai.jpg",
+      category: "ai",
+      description: "Fundamentals of artificial intelligence and machine learning applications."
+    },
+    {
+      title: "Cybersecurity | Ethical Hacking",
+      issuer: "Neo Cloud Technologies",
+      year: "2024",
+      image: "neo.jpg",
+      category: "security",
+      description: "Practical training in penetration testing and vulnerability assessment."
+    },
+    {
+      title: "Solutions Architect",
+      issuer: "Neo Cloud Technologies",
+      year: "2024",
+      image: "neo.jpg",
+      category: "aws",
+      description: "Practical training in Cloud Environment (AWS, Azure, GCP)."
+    },
+    {
+      title: "Cybersecurity Foundations",
+      issuer: "MasterCard",
+      year: "2024",
+      image: "mf.png",
+      category: "security",
+      description: "Core principles of information security and cyber defense strategies."
+    }
+  ];
+
   const filterCategories = [
     { id: 'all', label: 'All Certifications' },
     { id: 'security', label: 'Security' },
@@ -93,63 +113,56 @@ function initCertFilters() {
     { id: 'data', label: 'Data' },
     { id: 'ai', label: 'AI' }
   ];
-  
-  filtersContainer.innerHTML = '';
-  
-  filterCategories.forEach(filter => {
-    const button = document.createElement('button');
-    button.textContent = filter.label;
-    button.dataset.filter = filter.id;
-    button.classList.add('filter-btn');
-    button.addEventListener('click', () => {
-      filterCerts(filter.id);
-      updateActiveFilter(button);
-    });
-    filtersContainer.appendChild(button);
-  });
-  
-  filtersContainer.firstChild.classList.add('active');
-}
 
-function updateActiveFilter(activeButton) {
-  document.querySelectorAll('#cert-filters button').forEach(btn => {
-    btn.classList.remove('active');
-  });
-  activeButton.classList.add('active');
-}
-
-function filterCerts(filter) {
-  const certGrid = document.querySelector('.cert-grid');
-  if (!certGrid) return;
-  
-  certGrid.innerHTML = '<div class="loading-spinner"></div>';
-  
-  setTimeout(() => {
-    const filteredCerts = filter === 'all' 
-      ? certifications 
-      : certifications.filter(cert => cert.category === filter);
+  function init() {
+    const filtersContainer = document.getElementById('cert-filters');
+    const certGrid = document.querySelector('.cert-grid');
     
-    renderCerts(filteredCerts);
-  }, 50);
-}
-
-function renderCerts(certs) {
-  const certGrid = document.querySelector('.cert-grid');
-  if (!certGrid) return;
-  
-  if (certs.length === 0) {
-    certGrid.innerHTML = '<p class="no-results">No certifications found in this category.</p>';
-    return;
+    if (!filtersContainer || !certGrid) return;
+    
+    renderFilters(filtersContainer);
+    renderCerts(certifications, certGrid);
+    setupEventDelegation();
   }
-  
-  certGrid.innerHTML = '';
-  
-  certs.forEach(cert => {
-    const certCard = document.createElement('div');
-    certCard.className = 'cert-card';
-    certCard.innerHTML = `
+
+  function renderFilters(container) {
+    container.innerHTML = '';
+    filterCategories.forEach((filter, index) => {
+      const button = document.createElement('button');
+      button.textContent = filter.label;
+      button.dataset.filter = filter.id;
+      button.classList.add('filter-btn');
+      if (index === 0) button.classList.add('active');
+      container.appendChild(button);
+    });
+  }
+
+  function renderCerts(certs, container) {
+    if (certs.length === 0) {
+      container.innerHTML = '<p class="no-results">No certifications found in this category.</p>';
+      return;
+    }
+    
+    container.innerHTML = '';
+    
+    const fragment = document.createDocumentFragment();
+    certs.forEach(cert => {
+      const certCard = createCertCard(cert);
+      fragment.appendChild(certCard);
+    });
+    
+    container.appendChild(fragment);
+  }
+
+  function createCertCard(cert) {
+    const card = document.createElement('div');
+    card.className = 'cert-card';
+    card.innerHTML = `
       <div class="cert-badge">
-        <img src="assets/images/cert-badges/${cert.image}" alt="${cert.issuer} ${cert.title}" loading="lazy">
+        <img src="assets/images/cert-badges/${cert.image}" 
+             alt="${cert.issuer} ${cert.title}" 
+             loading="lazy"
+             onerror="this.src='assets/images/cert-badges/default.png'">
         ${cert.candidate ? '<span class="candidate-badge">In Progress</span>' : ''}
       </div>
       <div class="cert-details">
@@ -159,78 +172,136 @@ function renderCerts(certs) {
         <p class="cert-description">${cert.description}</p>
       </div>
     `;
-    certGrid.appendChild(certCard);
-  });
-}
+    return card;
+  }
+
+  function filterCerts(filter) {
+    const certGrid = document.querySelector('.cert-grid');
+    if (!certGrid) return;
+    
+    certGrid.innerHTML = '<div class="loading-spinner"></div>';
+    
+    Analytics.trackInteraction('certifications', 'filter', filter);
+    
+    requestAnimationFrame(() => {
+      const filteredCerts = filter === 'all' 
+        ? certifications 
+        : certifications.filter(cert => cert.category === filter);
+      
+      renderCerts(filteredCerts, certGrid);
+    });
+  }
+
+  function setupEventDelegation() {
+    document.getElementById('cert-filters')?.addEventListener('click', (e) => {
+      if (e.target.matches('.filter-btn')) {
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        e.target.classList.add('active');
+        filterCerts(e.target.dataset.filter);
+      }
+    });
+  }
+
+  return { init };
+})();
 
 // ==========================================
-// DEV.TO ARTICLES
+// DEV.TO ARTICLES MODULE
 // ==========================================
-async function loadDevToArticles() {
-  const feed = document.getElementById('devto-feed');
-  if (!feed) return;
-  
-  feed.innerHTML = `
-    <div class="skeleton-card"></div>
-    <div class="skeleton-card"></div>
-    <div class="skeleton-card"></div>
-  `;
-  
-  try {
-    const cacheKey = 'devto-articles';
-    const cachedData = localStorage.getItem(cacheKey);
+const DevToArticles = (() => {
+  const CACHE_KEY = 'devto-articles';
+  const CACHE_DURATION = 600000; // 10 minutes
+  const API_URL = 'https://dev.to/api/articles?username=leonardkachi&per_page=6';
+
+  async function init() {
+    const feed = document.getElementById('devto-feed');
+    if (!feed) return;
     
-    let articles;
+    showLoadingState(feed);
     
-    if (cachedData) {
-      const { data, timestamp } = JSON.parse(cachedData);
-      if (Date.now() - timestamp < 600000) {
-        articles = data;
-      }
+    try {
+      const articles = await fetchArticles();
+      renderArticles(articles, feed);
+    } catch (error) {
+      console.error('Error loading Dev.to articles:', error);
+      showErrorFallback(feed);
     }
+  }
+
+  function showLoadingState(container) {
+    container.innerHTML = `
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+    `;
+  }
+
+  async function fetchArticles() {
+    const cached = getCache();
+    if (cached) return cached;
     
-    if (!articles) {
-      const response = await fetch('https://dev.to/api/articles?username=leonardkachi&per_page=6');
+    const response = await fetch(API_URL);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    
+    const articles = await response.json();
+    setCache(articles);
+    
+    return articles;
+  }
+
+  function getCache() {
+    try {
+      const cached = localStorage.getItem(CACHE_KEY);
+      if (!cached) return null;
       
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      const { data, timestamp } = JSON.parse(cached);
+      if (Date.now() - timestamp < CACHE_DURATION) {
+        return data;
       }
-      
-      articles = await response.json();
-      
-      localStorage.setItem(cacheKey, JSON.stringify({
-        data: articles,
+    } catch (error) {
+      console.warn('Cache retrieval failed:', error);
+    }
+    return null;
+  }
+
+  function setCache(data) {
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify({
+        data,
         timestamp: Date.now()
       }));
+    } catch (error) {
+      console.warn('Cache storage failed:', error);
+    }
+  }
+
+  function renderArticles(articles, container) {
+    if (!articles || articles.length === 0) {
+      showErrorFallback(container);
+      return;
     }
     
-    renderArticles(articles);
-  } catch (error) {
-    console.error('Error loading Dev.to articles:', error);
-    showErrorFallback();
+    container.innerHTML = '';
+    
+    const fragment = document.createDocumentFragment();
+    articles.forEach(article => {
+      const card = createArticleCard(article);
+      fragment.appendChild(card);
+    });
+    
+    container.appendChild(fragment);
   }
-}
 
-function renderArticles(articles) {
-  const feed = document.getElementById('devto-feed');
-  if (!feed) return;
-  
-  if (!articles || articles.length === 0) {
-    showErrorFallback();
-    return;
-  }
-  
-  feed.innerHTML = '';
-  
-  articles.forEach(article => {
-    const articleCard = document.createElement('article');
-    articleCard.className = 'article-card';
-    articleCard.innerHTML = `
+  function createArticleCard(article) {
+    const card = document.createElement('article');
+    card.className = 'article-card';
+    card.innerHTML = `
       <div class="article-image-container">
         <img src="${article.cover_image || getPlaceholderImage(article.title)}" 
              alt="${article.title}" 
              class="article-image" 
-             loading="lazy">
+             loading="lazy"
+             onerror="this.src='${getPlaceholderImage(article.title)}'">
         <div class="reading-time">${article.reading_time_minutes || 5} min read</div>
       </div>
       <div class="article-content">
@@ -244,40 +315,42 @@ function renderArticles(articles) {
         </div>
       </div>
     `;
-    feed.appendChild(articleCard);
-  });
-}
+    return card;
+  }
 
-function getPlaceholderImage(title) {
-  const colors = ['1e3d38', '0d1f23', '11232b'];
-  const randomColor = colors[Math.floor(Math.random() * colors.length)];
-  return `https://via.placeholder.com/600x400/${randomColor}/3aafa9?text=${encodeURIComponent(title.substring(0, 30))}`;
-}
+  function getPlaceholderImage(title) {
+    const colors = ['1e3d38', '0d1f23', '11232b'];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    return `https://via.placeholder.com/600x400/${randomColor}/3aafa9?text=${encodeURIComponent(title.substring(0, 30))}`;
+  }
 
-function showErrorFallback() {
-  const fallbackArticles = [
-    {
-      title: "AWS Security Best Practices",
-      url: "https://dev.to/leonardkachi",
-      description: "Comprehensive guide to securing AWS infrastructure with IAM policies, encryption, and monitoring.",
-      published_at: new Date().toISOString(),
-      positive_reactions_count: 28,
-      reading_time_minutes: 5,
-      cover_image: getPlaceholderImage("AWS Security")
-    },
-    {
-      title: "Terraform for Security Engineers",
-      url: "https://dev.to/leonardkachi",
-      description: "Implementing security controls through Infrastructure as Code with Terraform modules.",
-      published_at: new Date().toISOString(),
-      positive_reactions_count: 34,
-      reading_time_minutes: 8,
-      cover_image: getPlaceholderImage("Terraform Security")
-    }
-  ];
-  
-  renderArticles(fallbackArticles);
-}
+  function showErrorFallback(container) {
+    const fallbackArticles = [
+      {
+        title: "AWS Security Best Practices",
+        url: "https://dev.to/leonardkachi",
+        description: "Comprehensive guide to securing AWS infrastructure with IAM policies, encryption, and monitoring.",
+        published_at: new Date().toISOString(),
+        positive_reactions_count: 28,
+        reading_time_minutes: 5,
+        cover_image: getPlaceholderImage("AWS Security")
+      },
+      {
+        title: "Terraform for Security Engineers",
+        url: "https://dev.to/leonardkachi",
+        description: "Implementing security controls through Infrastructure as Code with Terraform modules.",
+        published_at: new Date().toISOString(),
+        positive_reactions_count: 34,
+        reading_time_minutes: 8,
+        cover_image: getPlaceholderImage("Terraform Security")
+      }
+    ];
+    
+    renderArticles(fallbackArticles, container);
+  }
+
+  return { init };
+})();
 
 // ==========================================
 // SECURITY LAB MODULE
@@ -470,240 +543,233 @@ const SecurityLab = (() => {
   }
 
   function initScenarioSwitcher() {
-    const scenarioButtons = document.querySelectorAll('.scenario-btn');
-    
-    scenarioButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        scenarioButtons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
+    document.querySelector('.lab-container')?.addEventListener('click', (e) => {
+      if (e.target.matches('.scenario-btn')) {
+        document.querySelectorAll('.scenario-btn').forEach(btn => btn.classList.remove('active'));
+        e.target.classList.add('active');
         
-        const scenario = button.dataset.scenario;
+        const scenario = e.target.dataset.scenario;
         document.querySelectorAll('.scenario-content').forEach(content => {
           content.classList.remove('active');
-          if (content.id === `${scenario}-scenario`) {
-            content.classList.add('active');
-          }
         });
-      });
+        document.getElementById(`${scenario}-scenario`)?.classList.add('active');
+        
+        Analytics.trackInteraction('security_lab', 'scenario_switch', scenario);
+      }
     });
   }
 
   function initIAMSimulator() {
     const cloudProvider = document.getElementById('cloud-provider');
-    const actionListContainer = document.getElementById('action-list-container');
     const testButton = document.getElementById('test-policy-btn');
-    const policyInput = document.getElementById('policy-input');
-    const resultsPanel = document.getElementById('policy-results');
     const actionPresets = document.getElementById('action-presets');
     
-    if (!cloudProvider || !actionListContainer) return;
+    if (!cloudProvider) return;
     
     cloudProvider.addEventListener('change', updateActionList);
     updateActionList();
     
-    if (testButton) {
-      testButton.addEventListener('click', testPolicy);
-    }
+    testButton?.addEventListener('click', testPolicy);
+    actionPresets?.addEventListener('change', loadPolicyTemplate);
+  }
+
+  function updateActionList() {
+    const provider = document.getElementById('cloud-provider')?.value;
+    const container = document.getElementById('action-list-container');
+    if (!container || !provider) return;
     
-    if (actionPresets) {
-      actionPresets.addEventListener('change', loadPolicyTemplate);
-    }
+    container.innerHTML = '';
     
-    function updateActionList() {
-      const provider = cloudProvider.value;
-      actionListContainer.innerHTML = '';
-      
-      Object.entries(cloudActions[provider]).forEach(([service, actions]) => {
-        const serviceGroup = document.createElement('div');
-        serviceGroup.className = 'action-group';
-        serviceGroup.innerHTML = `<h5>${service}</h5>`;
-        
-        actions.forEach(action => {
-          const actionId = action.replace(/[:.]/g, '-');
-          const label = document.createElement('label');
-          label.innerHTML = `
-            <input type="checkbox" 
-                   name="action" 
-                   id="${actionId}"
-                   value="${action}">
-            ${action}
-          `;
-          serviceGroup.appendChild(label);
-        });
-        
-        actionListContainer.appendChild(serviceGroup);
-      });
-    }
-    
-    function loadPolicyTemplate(e) {
-      if (e.target.value && policyTemplates[e.target.value]) {
-        policyInput.value = policyTemplates[e.target.value].policy;
-      }
-    }
-    
-    function testPolicy() {
-      try {
-        const policy = JSON.parse(policyInput.value);
-        const selectedActions = Array.from(
-          document.querySelectorAll('input[name="action"]:checked')
-        ).map(el => el.value);
-        
-        if (selectedActions.length === 0) {
-          showResultError('Please select at least one action to test');
-          return;
-        }
-        
-        const results = evaluatePolicy(policy, selectedActions);
-        renderResults(results);
-      } catch (error) {
-        showResultError(`Invalid policy: ${error.message}`);
-      }
-    }
-    
-    function evaluatePolicy(policy, actions) {
-      const results = [];
-      const validation = validatePolicy(policy);
+    const fragment = document.createDocumentFragment();
+    Object.entries(cloudActions[provider]).forEach(([service, actions]) => {
+      const serviceGroup = document.createElement('div');
+      serviceGroup.className = 'action-group';
+      serviceGroup.innerHTML = `<h5>${service}</h5>`;
       
       actions.forEach(action => {
-        const result = {
-          action,
-          allowed: false,
-          reason: 'No matching Allow statement found',
-          denyReason: ''
-        };
-        
-        const denyStatement = policy.Statement.find(s => 
-          s.Effect === 'Deny' && matchesAction(s.Action, action)
-        );
-        
-        if (denyStatement) {
-          result.allowed = false;
-          result.denyReason = 'Explicitly denied by policy';
-          results.push(result);
-          return;
-        }
-        
-        const allowStatement = policy.Statement.find(s => 
-          s.Effect === 'Allow' && matchesAction(s.Action, action)
-        );
-        
-        if (allowStatement) {
-          result.allowed = true;
-          result.reason = 'Allowed by policy';
-        }
-        
-        results.push(result);
-      });
-      
-      return { actionResults: results, validation };
-    }
-    
-    function matchesAction(policyActions, testAction) {
-      if (typeof policyActions === 'string') {
-        policyActions = [policyActions];
-      }
-      
-      return policyActions.some(policyAction => {
-        if (policyAction === testAction) return true;
-        if (policyAction === '*') return true;
-        
-        const [service, permission] = testAction.split(':');
-        if (policyAction === `${service}:*`) return true;
-        
-        if (policyAction.includes('*')) {
-          const [policyService, policyPermission] = policyAction.split(':');
-          if (service === policyService && 
-              permission.startsWith(policyPermission.replace('*', ''))) {
-            return true;
-          }
-        }
-        
-        return false;
-      });
-    }
-    
-    function validatePolicy(policy) {
-      const issues = [];
-      
-      if (!policy.Version) {
-        issues.push('Policy is missing Version field');
-      }
-      
-      if (!policy.Statement || !Array.isArray(policy.Statement)) {
-        issues.push('Policy must contain a Statement array');
-      } else if (policy.Statement.length === 0) {
-        issues.push('Policy must contain at least one Statement');
-      } else {
-        policy.Statement.forEach((stmt, i) => {
-          if (!stmt.Effect) {
-            issues.push(`Statement ${i+1}: Missing Effect (must be "Allow" or "Deny")`);
-          }
-          
-          if (!stmt.Action || 
-              (Array.isArray(stmt.Action) && stmt.Action.length === 0)) {
-            issues.push(`Statement ${i+1}: No actions specified`);
-          }
-          
-          if (stmt.Resource === '*') {
-            issues.push(`Statement ${i+1}: Using wildcard (*) resource may be overly permissive`);
-          }
-        });
-      }
-      
-      return issues;
-    }
-    
-    function renderResults({ actionResults, validation }) {
-      resultsPanel.innerHTML = '';
-      
-      const resultsHeader = document.createElement('h4');
-      resultsHeader.textContent = 'Policy Evaluation Results';
-      resultsPanel.appendChild(resultsHeader);
-      
-      actionResults.forEach(result => {
-        const resultItem = document.createElement('div');
-        resultItem.className = `result-item ${result.allowed ? 'allowed' : 'denied'}`;
-        
-        resultItem.innerHTML = `
-          <div class="result-action">
-            <strong>${result.action}</strong>
-            <span class="result-status">
-              ${result.allowed ? '✅ Allowed' : '❌ Denied'}
-            </span>
-          </div>
-          ${result.denyReason ? `
-            <div class="result-reason deny">${result.denyReason}</div>
-          ` : `
-            <div class="result-reason">${result.reason}</div>
-          `}
+        const actionId = action.replace(/[:.]/g, '-');
+        const label = document.createElement('label');
+        label.innerHTML = `
+          <input type="checkbox" name="action" id="${actionId}" value="${action}">
+          ${action}
         `;
-        
-        resultsPanel.appendChild(resultItem);
+        serviceGroup.appendChild(label);
       });
       
-      if (validation.length > 0) {
-        const validationHeader = document.createElement('h4');
-        validationHeader.textContent = 'Policy Validation Issues';
-        validationHeader.style.marginTop = '1rem';
-        resultsPanel.appendChild(validationHeader);
-        
-        validation.forEach(issue => {
-          const issueItem = document.createElement('div');
-          issueItem.className = 'validation-issue';
-          issueItem.textContent = issue;
-          resultsPanel.appendChild(issueItem);
-        });
+      fragment.appendChild(serviceGroup);
+    });
+    
+    container.appendChild(fragment);
+  }
+
+  function loadPolicyTemplate(e) {
+    const template = policyTemplates[e.target.value];
+    const policyInput = document.getElementById('policy-input');
+    if (template && policyInput) {
+      policyInput.value = template.policy;
+    }
+  }
+
+  function testPolicy() {
+    const policyInput = document.getElementById('policy-input');
+    const resultsPanel = document.getElementById('policy-results');
+    
+    try {
+      const policy = JSON.parse(policyInput.value);
+      const selectedActions = Array.from(
+        document.querySelectorAll('input[name="action"]:checked')
+      ).map(el => el.value);
+      
+      if (selectedActions.length === 0) {
+        showResultError('Please select at least one action to test', resultsPanel);
+        return;
       }
+      
+      const results = evaluatePolicy(policy, selectedActions);
+      renderPolicyResults(results, resultsPanel);
+      
+      Analytics.trackInteraction('security_lab', 'policy_test', `${selectedActions.length}_actions`);
+    } catch (error) {
+      showResultError(`Invalid policy: ${error.message}`, resultsPanel);
+    }
+  }
+
+  function evaluatePolicy(policy, actions) {
+    const results = [];
+    const validation = validatePolicy(policy);
+    
+    actions.forEach(action => {
+      const result = {
+        action,
+        allowed: false,
+        reason: 'No matching Allow statement found',
+        denyReason: ''
+      };
+      
+      const denyStatement = policy.Statement.find(s => 
+        s.Effect === 'Deny' && matchesAction(s.Action, action)
+      );
+      
+      if (denyStatement) {
+        result.allowed = false;
+        result.denyReason = 'Explicitly denied by policy';
+        results.push(result);
+        return;
+      }
+      
+      const allowStatement = policy.Statement.find(s => 
+        s.Effect === 'Allow' && matchesAction(s.Action, action)
+      );
+      
+      if (allowStatement) {
+        result.allowed = true;
+        result.reason = 'Allowed by policy';
+      }
+      
+      results.push(result);
+    });
+    
+    return { actionResults: results, validation };
+  }
+
+  function matchesAction(policyActions, testAction) {
+    if (typeof policyActions === 'string') {
+      policyActions = [policyActions];
     }
     
-    function showResultError(message) {
-      resultsPanel.innerHTML = `
-        <div class="error-message">
-          <h4>Error</h4>
-          <p>${message}</p>
+    return policyActions.some(policyAction => {
+      if (policyAction === testAction) return true;
+      if (policyAction === '*') return true;
+      
+      const [service, permission] = testAction.split(':');
+      if (policyAction === `${service}:*`) return true;
+      
+      if (policyAction.includes('*')) {
+        const [policyService, policyPermission] = policyAction.split(':');
+        if (service === policyService && 
+            permission.startsWith(policyPermission.replace('*', ''))) {
+          return true;
+        }
+      }
+      
+      return false;
+    });
+  }
+
+  function validatePolicy(policy) {
+    const issues = [];
+    
+    if (!policy.Version) {
+      issues.push('Policy is missing Version field');
+    }
+    
+    if (!policy.Statement || !Array.isArray(policy.Statement)) {
+      issues.push('Policy must contain a Statement array');
+    } else if (policy.Statement.length === 0) {
+      issues.push('Policy must contain at least one Statement');
+    } else {
+      policy.Statement.forEach((stmt, i) => {
+        if (!stmt.Effect) {
+          issues.push(`Statement ${i+1}: Missing Effect (must be "Allow" or "Deny")`);
+        }
+        
+        if (!stmt.Action || (Array.isArray(stmt.Action) && stmt.Action.length === 0)) {
+          issues.push(`Statement ${i+1}: No actions specified`);
+        }
+        
+        if (stmt.Resource === '*') {
+          issues.push(`Statement ${i+1}: Using wildcard (*) resource may be overly permissive`);
+        }
+      });
+    }
+    
+    return issues;
+  }
+
+  function renderPolicyResults({ actionResults, validation }, container) {
+    container.innerHTML = '<h4>Policy Evaluation Results</h4>';
+    
+    const fragment = document.createDocumentFragment();
+    
+    actionResults.forEach(result => {
+      const resultItem = document.createElement('div');
+      resultItem.className = `result-item ${result.allowed ? 'allowed' : 'denied'}`;
+      resultItem.innerHTML = `
+        <div class="result-action">
+          <strong>${result.action}</strong>
+          <span class="result-status">
+            ${result.allowed ? '✅ Allowed' : '❌ Denied'}
+          </span>
+        </div>
+        <div class="result-reason ${result.denyReason ? 'deny' : ''}">
+          ${result.denyReason || result.reason}
         </div>
       `;
+      fragment.appendChild(resultItem);
+    });
+    
+    if (validation.length > 0) {
+      const validationSection = document.createElement('div');
+      validationSection.innerHTML = '<h4 style="margin-top: 1rem">Policy Validation Issues</h4>';
+      validation.forEach(issue => {
+        const issueItem = document.createElement('div');
+        issueItem.className = 'validation-issue';
+        issueItem.textContent = issue;
+        validationSection.appendChild(issueItem);
+      });
+      fragment.appendChild(validationSection);
     }
+    
+    container.appendChild(fragment);
+  }
+
+  function showResultError(message, container) {
+    container.innerHTML = `
+      <div class="error-message">
+        <h4>Error</h4>
+        <p>${message}</p>
+      </div>
+    `;
   }
 
   function initAttackSimulator() {
@@ -765,11 +831,9 @@ const SecurityLab = (() => {
       stopBtn.disabled = false;
       attackType.disabled = true;
       
-      attackLog.innerHTML = `
-        <div class="simulation-start">
-          Starting simulation: ${attack.name}
-        </div>
-      `;
+      attackLog.innerHTML = `<div class="simulation-start">Starting simulation: ${attack.name}</div>`;
+      
+      Analytics.trackInteraction('security_lab', 'attack_start', attackId);
       
       attackInterval = setInterval(() => {
         if (step < attack.steps.length) {
@@ -779,30 +843,20 @@ const SecurityLab = (() => {
             <div class="step-number">Step ${step + 1}</div>
             <div class="step-description">${attack.steps[step]}</div>
           `;
-          
           attackLog.appendChild(stepElement);
           step++;
+          attackLog.scrollTop = attackLog.scrollHeight;
         } else {
           clearInterval(attackInterval);
-          attackLog.innerHTML += `
-            <div class="simulation-end">
-              Attack simulation completed
-            </div>
-          `;
+          attackLog.innerHTML += '<div class="simulation-end">Attack simulation completed</div>';
           resetControls();
         }
-        
-        attackLog.scrollTop = attackLog.scrollHeight;
       }, 2000);
     }
     
     function stopAttack() {
       clearInterval(attackInterval);
-      attackLog.innerHTML += `
-        <div class="simulation-stop">
-          Simulation stopped by user
-        </div>
-      `;
+      attackLog.innerHTML += '<div class="simulation-stop">Simulation stopped by user</div>';
       resetControls();
       attackLog.scrollTop = attackLog.scrollHeight;
     }
@@ -821,9 +875,7 @@ const SecurityLab = (() => {
     
     if (!recommendBtn) return;
     
-    recommendBtn.addEventListener('click', showRecommendations);
-    
-    function showRecommendations() {
+    recommendBtn.addEventListener('click', () => {
       resultsPanel.innerHTML = `
         <h4>Recommended Policy Templates</h4>
         <p class="recommendation-intro">
@@ -838,39 +890,27 @@ const SecurityLab = (() => {
           <h5>${template.name}</h5>
           <p class="recommendation-description">${template.description}</p>
           <pre>${template.policy}</pre>
-          <button class="btn-outline apply-policy" 
-                  data-policy='${JSON.stringify(template.policy)}'>
+          <button class="btn-outline apply-policy" data-policy='${JSON.stringify(template.policy)}'>
             Apply This Policy
           </button>
         `;
-        
         resultsPanel.appendChild(recommendation);
       });
       
-      document.querySelectorAll('.apply-policy').forEach(btn => {
+      // Event delegation for apply buttons
+      resultsPanel.querySelectorAll('.apply-policy').forEach(btn => {
         btn.addEventListener('click', (e) => {
           policyInput.value = JSON.parse(e.target.dataset.policy);
-          resultsPanel.innerHTML = `
-            <div class="applied-notice">
-              Policy template applied to editor
-            </div>
-          `;
+          resultsPanel.innerHTML = '<div class="applied-notice">Policy template applied to editor</div>';
         });
       });
-    }
+    });
   }
 
   function initNetworkVisualizer() {
     const networkViz = document.querySelector('.network-visualization');
     if (!networkViz) return;
     
-    initNetworkSecurity();
-  }
-
-  function initNetworkSecurity() {
-    const networkViz = document.querySelector('.network-visualization');
-    if (!networkViz) return;
-
     const securityGroups = {
       'WebServerSG': {
         description: 'Security group for web servers',
@@ -945,7 +985,8 @@ const SecurityLab = (() => {
       </div>
     `;
 
-    document.querySelectorAll('.instance').forEach(instance => {
+    // Setup event listeners for instances
+    networkViz.querySelectorAll('.instance').forEach(instance => {
       instance.addEventListener('mouseenter', function() {
         this.classList.add('highlight');
       });
@@ -957,12 +998,12 @@ const SecurityLab = (() => {
       instance.addEventListener('click', function() {
         const sgName = this.dataset.sg;
         if (sgName && securityGroups[sgName]) {
-          showSecurityGroupDetails(sgName);
+          showSecurityGroupDetails(sgName, securityGroups);
         }
       });
     });
 
-    function showSecurityGroupDetails(sgName) {
+    function showSecurityGroupDetails(sgName, securityGroups) {
       const sg = securityGroups[sgName];
       const detailsContainer = document.getElementById('sg-details');
       
@@ -1037,7 +1078,7 @@ const SecurityLab = (() => {
 })();
 
 // ==========================================
-// CONTACT FORM HANDLER
+// CONTACT FORM MODULE - FIXED VERSION
 // ==========================================
 const ContactForm = (() => {
   function init() {
@@ -1053,6 +1094,7 @@ const ContactForm = (() => {
 
     if (!form) return;
 
+    // Validation functions
     function validateForm() {
       let isValid = true;
       const formGroups = form.querySelectorAll('.form-group');
@@ -1082,6 +1124,7 @@ const ContactForm = (() => {
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
 
+    // Form submission
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -1089,6 +1132,7 @@ const ContactForm = (() => {
         return;
       }
 
+      // Show loading state
       submitBtn.disabled = true;
       btnText.textContent = 'Sending...';
       spinner.classList.remove('hidden');
@@ -1113,6 +1157,7 @@ const ContactForm = (() => {
         });
 
         if (response.ok) {
+          // SUCCESS - Show success message
           if (contactContainer) {
             contactContainer.style.gridTemplateColumns = '1fr';
           }
@@ -1121,7 +1166,10 @@ const ContactForm = (() => {
             contactInfo.style.display = 'none';
           }
           successMessage.classList.remove('hidden');
+          successMessage.style.display = 'block';
           successMessage.style.gridColumn = 'auto';
+          
+          Analytics.trackInteraction('contact', 'form_submit', 'success');
         } else {
           throw new Error('Form submission failed');
         }
@@ -1130,6 +1178,8 @@ const ContactForm = (() => {
         formStatus.textContent = 'Oops! Something went wrong. Please try again or email me directly.';
         formStatus.classList.remove('hidden', 'success');
         formStatus.classList.add('error');
+        
+        Analytics.trackInteraction('contact', 'form_submit', 'error');
       } finally {
         submitBtn.disabled = false;
         btnText.textContent = 'Send Message';
@@ -1137,6 +1187,7 @@ const ContactForm = (() => {
       }
     });
 
+    // Reset form
     if (newMessageBtn) {
       newMessageBtn.addEventListener('click', () => {
         form.reset();
@@ -1148,10 +1199,12 @@ const ContactForm = (() => {
           contactInfo.style.display = 'block';
         }
         successMessage.classList.add('hidden');
+        successMessage.style.display = 'none';
         formStatus.classList.add('hidden');
       });
     }
 
+    // Real-time validation
     form.querySelectorAll('input, select, textarea').forEach(input => {
       input.addEventListener('blur', () => {
         const formGroup = input.closest('.form-group');
@@ -1177,82 +1230,114 @@ const ContactForm = (() => {
 // ==========================================
 // MOBILE NAVIGATION
 // ==========================================
-function initMobileNav() {
-  const hamburger = document.querySelector('.hamburger');
-  const navLinks = document.querySelector('.nav-links');
-  
-  hamburger?.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navLinks.classList.toggle('active');
-  });
-  
-  navLinks?.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      hamburger.classList.remove('active');
-      navLinks.classList.remove('active');
+const MobileNav = (() => {
+  function init() {
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (!hamburger || !navLinks) return;
+    
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('active');
     });
-  });
-}
+    
+    // Close menu when clicking on a link
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('active');
+      });
+    });
+  }
+
+  return { init };
+})();
 
 // ==========================================
 // ZERO TRUST PRINCIPLES SCROLL
 // ==========================================
-function initZeroTrustScroll() {
-  const leftBtn = document.querySelector('.left-scroll');
-  const rightBtn = document.querySelector('.right-scroll');
-  const principlesGrid = document.querySelector('.principles-grid');
-  
-  if (!leftBtn || !rightBtn || !principlesGrid) return;
-  
-  leftBtn.addEventListener('click', () => {
-    principlesGrid.scrollBy({ left: -300, behavior: 'smooth' });
-  });
-  
-  rightBtn.addEventListener('click', () => {
-    principlesGrid.scrollBy({ left: 300, behavior: 'smooth' });
-  });
-}
+const ZeroTrustScroll = (() => {
+  function init() {
+    const leftBtn = document.querySelector('.left-scroll');
+    const rightBtn = document.querySelector('.right-scroll');
+    const principlesGrid = document.querySelector('.principles-grid');
+    
+    if (!leftBtn || !rightBtn || !principlesGrid) return;
+    
+    leftBtn.addEventListener('click', () => {
+      principlesGrid.scrollBy({ left: -300, behavior: 'smooth' });
+    });
+    
+    rightBtn.addEventListener('click', () => {
+      principlesGrid.scrollBy({ left: 300, behavior: 'smooth' });
+    });
+  }
+
+  return { init };
+})();
 
 // ==========================================
 // PROJECT DETAILS INITIALIZATION
 // ==========================================
-function initProjectDetails() {
-  const currentPage = window.location.pathname.split('/').pop();
-  if (currentPage && currentPage !== 'index.html') {
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      if (link.getAttribute('href').includes(currentPage)) {
-        link.classList.add('active');
+const ProjectDetails = (() => {
+  function init() {
+    const currentPage = window.location.pathname.split('/').pop();
+    if (currentPage && currentPage !== 'index.html') {
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        if (link.getAttribute('href').includes(currentPage)) {
+          link.classList.add('active');
+        }
+      });
+    }
+  }
+
+  return { init };
+})();
+
+// ==========================================
+// NAVBAR SCROLL EFFECT
+// ==========================================
+const NavbarScroll = (() => {
+  function init() {
+    const navbar = document.querySelector('.navbar');
+    if (!navbar) return;
+    
+    let ticking = false;
+    
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          navbar.classList.toggle('scrolled', window.scrollY > 50);
+          ticking = false;
+        });
+        ticking = true;
       }
     });
   }
-}
+
+  return { init };
+})();
 
 // ==========================================
 // MAIN INITIALIZATION
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize certifications
-  initCertFilters();
-  renderCerts(certifications);
+  // Track page view
+  Analytics.trackPageView();
   
-  // Load Dev.to articles
-  loadDevToArticles();
-  
-  // Initialize security lab
+  // Initialize all modules
+  CertificationsModule.init();
+  DevToArticles.init();
   SecurityLab.init();
-  
-  // Initialize contact form
   ContactForm.init();
+  MobileNav.init();
+  ZeroTrustScroll.init();
+  NavbarScroll.init();
   
-  // Initialize mobile navigation
-  initMobileNav();
-  
-  // Initialize Zero Trust scroll
-  initZeroTrustScroll();
-  
-  // Initialize project details
+  // Initialize project details if on a project page
   if (document.querySelector('.project-detail')) {
-    initProjectDetails();
+    ProjectDetails.init();
   }
   
   // Set current year in footer
@@ -1261,11 +1346,5 @@ document.addEventListener('DOMContentLoaded', () => {
     yearElement.textContent = new Date().getFullYear();
   }
   
-  // Navbar scroll effect
-  window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('.navbar');
-    if (navbar) {
-      navbar.classList.toggle('scrolled', window.scrollY > 50);
-    }
-  });
+  console.log('✅ Portfolio initialized successfully');
 });
