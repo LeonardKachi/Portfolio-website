@@ -1086,8 +1086,8 @@ window.Analytics = window.Analytics || {
 // ==========================================
 const ContactForm = (() => {
   const FORM_ENDPOINTS = {
-    primary: 'https://formspree.io/f/xldwoanq',
-    fallback: 'https://formsubmit.co/Kachi.Henry.Leo@gmail.com'
+    primary: 'https://formspree.io/f/mvgvkvwj',
+    fallback: 'https://formsubmit.co/ajax/Kachi.Henry.Leo@gmail.com'
   };
   
   const TIMEOUT_DURATION = 3000; // 3 seconds max wait
@@ -1411,4 +1411,5 @@ document.addEventListener('DOMContentLoaded', () => {
   
   console.log('✅ Portfolio initialized successfully');
 });
+
 
