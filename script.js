@@ -1077,16 +1077,20 @@ const SecurityLab = (() => {
   return { init };
 })();
 
+window.Analytics = window.Analytics || {
+  trackInteraction: function() {}
+};
+
 // ==========================================
 // CONTACT FORM MODULE - OPTIMIZED VERSION
 // ==========================================
 const ContactForm = (() => {
   const FORM_ENDPOINTS = {
     primary: 'https://formspree.io/f/xldwoanq',
-    fallback: 'https://formsubmit.co/ajax/henryleo480@gmail.com'
+    fallback: 'https://formsubmit.co/Kachi.Henry.Leo@gmail.com'
   };
   
-  const TIMEOUT_DURATION = 5000; // 5 seconds max wait
+  const TIMEOUT_DURATION = 3000; // 3 seconds max wait
 
   function init() {
     const form = document.getElementById('contact-form');
@@ -1407,3 +1411,4 @@ document.addEventListener('DOMContentLoaded', () => {
   
   console.log('✅ Portfolio initialized successfully');
 });
+
