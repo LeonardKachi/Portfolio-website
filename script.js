@@ -48,10 +48,9 @@ const CertificationsModule = (() => {
     {
       title: "Security+",
       issuer: "CompTIA",
-      year: "Candidate (2025)",
+      year: "2025",
       image: "security-plus.png",
       category: "security",
-      candidate: true,
       description: "Global certification validating baseline cybersecurity skills."
     },
     {
