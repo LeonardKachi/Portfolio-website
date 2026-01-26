@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuel Finder | Coming Soon</title>
+    <meta name="description" content="Fuel Finder is coming soon. Intelligent fuel discovery platform.">
+    <style>
+        :root {
+            --primary-dark: #004d40;
+            --primary: #00796b;
+            --primary-light: #009688;
+            --accent: #8bc34a;
+            --accent-dark: #689f38;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --dark-bg: #121212;
+            --card-dark: #1e1e1e;
+            --text-light: #ffffff;
+            --text-muted: #b0b0b0;
+            --border-dark: #333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            height: 100%;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 61, 54, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            border-bottom: 2px solid var(--primary-light);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo-dot {
+            color: var(--primary-light);
+        }
+        
+        /* Main Content */
+        .coming-soon-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 2rem 2rem;
+            text-align: center;
+        }
+        
+        .content-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 150, 136, 0.2);
+            color: var(--primary-light);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(0, 150, 136, 0.3);
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        .main-title {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+        
+        .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+        
+        .feature-card {
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 2px solid rgba(0, 150, 136, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-title {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 0.8rem;
+        }
+        
+        .feature-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            margin: 4rem 0;
+        }
+        
+        .cta-button {
+            background: var(--accent);
+            color: var(--dark-bg);
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .cta-button:hover {
+            background: var(--accent-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(139, 195, 74, 0.3);
+        }
+        
+        /* Company Info */
+        .company-info {
+            background: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 600px;
+            margin: 3rem auto;
+            border: 1px solid rgba(0, 150, 136, 0.2);
+        }
+        
+        .company-name {
+            color: var(--accent);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .company-tagline {
+            color: var(--primary-light);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .team-member {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .member-name {
+            color: var(--text-light);
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+        
+        .member-role {
+            color: var(--primary-light);
+            font-size: 0.9rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background: rgba(0, 61, 54, 0.95);
+            padding: 3rem 2rem;
+            border-top: 2px solid var(--primary-light);
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .footer-tagline {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text-muted);
+        }
+        
+        .contact-icon {
+            color: var(--primary-light);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .footer-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-link:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav {
+                padding: 1rem;
+            }
+            
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .coming-soon-container {
+                padding: 5rem 1rem 2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .company-info {
+                padding: 1.5rem;
+                margin: 2rem auto;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="logo">
+                <span>FUEL</span><span class="logo-dot">.</span><span>FINDER</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="coming-soon-container">
+        <div class="content-wrapper">
+            <div class="status-badge fade-in">
+                <span class="status-dot"></span>
+                COMING SOON • ACTIVE DEVELOPMENT
+            </div>
+            
+            <h1 class="main-title fade-in">
+                Intelligent Fuel Discovery<br>
+                Is Coming
+            </h1>
+            
+            <p class="subtitle fade-in">
+                We're building a revolutionary platform that connects drivers with real-time 
+                fuel availability, smart pricing, and seamless payments. 
+                <span class="highlight">Sign up to be notified when we launch.</span>
+            </p>
+            
+            <div class="features-grid fade-in">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Live Station Discovery</h3>
+                    <p class="feature-desc">Real-time mapping of fuel stations with live availability and pricing.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="feature-title">Smart Payments</h3>
+                    <p class="feature-desc">Multi-bank integration with in-app payments and reference generation.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="feature-title">Community Powered</h3>
+                    <p class="feature-desc">Crowd-sourced queue reports and real-time station reviews.</p>
+                </div>
+            </div>
+            
+            <div class="cta-section fade-in">
+                <a href="mailto:Henryleo480@gmail.com?subject=Fuel Finder Demo Request&body=Hello,%0D%0A%0D%0AI would like to request a demo of the Fuel Finder platform.%0D%0A%0D%0AThanks!" class="cta-button">
+                    <i class="fas fa-calendar-check"></i>
+                    Request Live Demo
+                </a>
+            </div>
+            
+            <div class="company-info fade-in">
+                <div class="company-name">AKANSE TECHNOLOGIES</div>
+                <div class="company-tagline">Building solutions that move people forward</div>
+                
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-name">Leonard Kachi</div>
+                        <div class="member-role">CTO & Lead Architect</div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-name">Coming Soon</div>
+                        <div class="member-role">Co-Founder & CEO</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">FUEL.FINDER</div>
+            <p class="footer-tagline">
+                Intelligent fuel discovery platform connecting drivers with 
+                real-time availability, pricing, and seamless payments.
+            </p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-building contact-icon"></i>
+                    <span>Akanse Technologies</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-user contact-icon"></i>
+                    <span>Leonard Kachi | CTO & Lead Architect</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope contact-icon"></i>
+                    <span>Henryleo480@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone contact-icon"></i>
+                    <span>+234 814 279 5186</span>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <a href="mailto:Henryleo480@gmail.com?subject=Fuel Finder Platform Inquiry" class="footer-link">Platform</a>
+                <a href="mailto:Henryleo480@gmail.com?subject=Fuel Finder API Inquiry" class="footer-link">API Documentation</a>
+                <a href="mailto:Henryleo480@gmail.com?subject=Fuel Finder Documentation Request" class="footer-link">Documentation</a>
+                <a href="mailto:Henryleo480@gmail.com?subject=Fuel Finder Support Request" class="footer-link">Support</a>
+                <a href="mailto:Henryleo480@gmail.com?subject=About Fuel Finder" class="footer-link">About Us</a>
+                <a href="mailto:Henryleo480@gmail.com?subject=Fuel Finder Team Information" class="footer-link">Team</a>
+                <a href="mailto:Henryleo480@gmail.com?subject=Fuel Finder Career Inquiry" class="footer-link">Careers</a>
+                <a href="mailto:Henryleo480@gmail.com?subject=Contact Fuel Finder" class="footer-link">Contact</a>
+            </div>
+            
+            <div class="copyright">
+                © 2024 Akanse Technologies. Fuel Finder Platform. All rights reserved.<br>
+                Built with passion by Leonard Kachi & Team.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple fade-in animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            fadeElements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+            
+            // Mailto links for demo requests
+            const demoLinks = document.querySelectorAll('a[href^="mailto"]');
+            demoLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    // Optional: Add tracking or confirmation
+                    console.log('Demo request clicked');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
