@@ -1379,12 +1379,22 @@ const NavbarScroll = (() => {
   }
 
   return { init };
-})();
-// ==========================================
-// EXPANDABLE SKILLS SECTION
+})();// ==========================================
+// EXPANDABLE SKILLS SECTION - FIXED VERSION
 // ==========================================
 const ExpandableSkills = (() => {
   function init() {
+    // Initialize skill bars animation
+    animateSkillBars();
+    
+    // Setup expandable sections
+    setupExpandableSections();
+    
+    // Animate skill bars on scroll
+    setupScrollAnimation();
+  }
+  
+  function setupExpandableSections() {
     const expandButtons = document.querySelectorAll('.expand-toggle');
     
     expandButtons.forEach(button => {
@@ -1399,16 +1409,15 @@ const ExpandableSkills = (() => {
         const isExpanded = content.classList.contains('expanded');
         
         if (isExpanded) {
+          // Collapse
           content.classList.remove('expanded');
+          content.style.maxHeight = '0';
           icon.classList.remove('expanded');
         } else {
+          // Expand
           content.classList.add('expanded');
+          content.style.maxHeight = content.scrollHeight + 'px';
           icon.classList.add('expanded');
-          
-          // Animate skill bars when section is expanded
-          if (targetId === 'cloud-platforms') {
-            animateSkillBars();
-          }
         }
       });
     });
@@ -1422,38 +1431,44 @@ const ExpandableSkills = (() => {
       
       if (firstContent && firstIcon) {
         firstContent.classList.add('expanded');
+        firstContent.style.maxHeight = firstContent.scrollHeight + 'px';
         firstIcon.classList.add('expanded');
       }
     }
-    
-    // Animate skill bars on page load
-    animateSkillBars();
   }
   
   function animateSkillBars() {
     const skillBars = document.querySelectorAll('.skill-level');
     
     skillBars.forEach(bar => {
-      // Reset width to 0
-      bar.style.width = '0';
-      
-      // Get target width from inline style
-      const targetWidth = bar.style.width || '0%';
-      
-      // Remove inline style temporarily for animation
-      bar.style.width = '';
-      
-      // Force reflow
-      bar.offsetHeight;
-      
-      // Set custom property for animation
-      bar.style.setProperty('--target-width', targetWidth);
-      
-      // Start animation
+      const width = bar.getAttribute('data-width') || '0';
+      // Set the width directly with transition
       setTimeout(() => {
-        bar.style.width = targetWidth;
-      }, 100);
+        bar.style.width = width + '%';
+      }, 300);
     });
+  }
+  
+  function setupScrollAnimation() {
+    // Use Intersection Observer to animate skill bars when they come into view
+    const observerOptions = {
+      threshold: 0.2,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateSkillBars();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+    
+    const skillsSection = document.querySelector('.skills-visualization');
+    if (skillsSection) {
+      observer.observe(skillsSection);
+    }
   }
   
   return { init };
@@ -1487,6 +1502,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   console.log('✅ Portfolio initialized successfully');
 });
+
 
 
 
