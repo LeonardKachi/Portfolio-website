@@ -1,36 +1,63 @@
 /* styles.css */
+/* ===== About Section Layout ===== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+  margin-bottom: 3rem;
+}
+
+.about-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
 /* ===== Skills Visualization ===== */
 .skills-visualization {
-  margin: 2rem 0;
-  padding: 1.5rem;
   background: rgba(255, 255, 255, 0.05);
   border-radius: var(--radius);
+  padding: 1.5rem;
   border: 1px solid rgba(58, 175, 169, 0.2);
+  height: 100%;
+}
+
+.skills-visualization h3 {
+  margin-bottom: 1.5rem;
+  color: var(--accent);
 }
 
 .skill-visual-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: 1fr;
   gap: 1rem;
-  margin-top: 1rem;
 }
 
 .skill-item {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.5rem;
 }
 
 .skill-name {
   font-size: 0.9rem;
   color: var(--text);
-  margin-bottom: 0.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.skill-percentage {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
 }
 
 .skill-bar {
-  height: 6px;
+  height: 8px;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
+  border-radius: 4px;
   overflow: hidden;
   position: relative;
 }
@@ -38,36 +65,70 @@
 .skill-level {
   height: 100%;
   background: linear-gradient(90deg, var(--accent), #5cd6d0);
-  border-radius: 3px;
-  position: relative;
+  border-radius: 4px;
+  width: 0%; /* Start at 0 */
   transition: width 1.5s ease-out;
 }
 
-/* Animation for skill bars */
-.skill-item:nth-child(1) .skill-level { animation: loadSkill 1s 0.1s forwards; }
-.skill-item:nth-child(2) .skill-level { animation: loadSkill 1s 0.2s forwards; }
-.skill-item:nth-child(3) .skill-level { animation: loadSkill 1s 0.3s forwards; }
-.skill-item:nth-child(4) .skill-level { animation: loadSkill 1s 0.4s forwards; }
-.skill-item:nth-child(5) .skill-level { animation: loadSkill 1s 0.5s forwards; }
-.skill-item:nth-child(6) .skill-level { animation: loadSkill 1s 0.6s forwards; }
-
-@keyframes loadSkill {
-  from { width: 0; }
-  to { width: var(--target-width); }
+/* ===== "What I Do" Section ===== */
+.what-i-do {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius);
+  border-left: 4px solid var(--accent);
 }
 
-/* ===== Expandable Sections ===== */
+.what-i-do h3 {
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.skills-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.skills-list li {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.skills-list li::before {
+  content: '▹';
+  color: var(--accent);
+  position: absolute;
+  left: 0;
+}
+
+/* ===== Technical Toolkit ===== */
+.technical-toolkit {
+  margin-top: 2rem;
+}
+
+.technical-toolkit h3 {
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+}
+
 .expandable-sections {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  margin-top: 1rem;
+  gap: 0.75rem;
 }
 
 .expandable-section {
   border-radius: var(--radius-sm);
   overflow: hidden;
   border: 1px solid rgba(58, 175, 169, 0.2);
+  transition: var(--transition);
+}
+
+.expandable-section:hover {
+  border-color: var(--accent);
+  box-shadow: 0 4px 12px rgba(58, 175, 169, 0.15);
 }
 
 .expand-toggle {
@@ -115,6 +176,12 @@
 .expandable-content.expanded {
   max-height: 500px;
   padding: 1rem 1.25rem;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* Ensure tech-tags inside expandable sections look good */
@@ -140,9 +207,24 @@
 }
 
 /* ===== Responsive Adjustments ===== */
-@media (max-width: 768px) {
-  .skill-visual-grid {
+@media (max-width: 1024px) {
+  .about-grid {
     grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .skills-visualization {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .skill-visual-grid {
     gap: 0.75rem;
   }
   
@@ -162,6 +244,10 @@
   .expandable-content .tech-tags span {
     padding: 0.3rem 0.6rem;
     font-size: 0.8rem;
+  }
+  
+  .what-i-do {
+    padding: 1rem;
   }
 }
 .zt-step {
@@ -2060,4 +2146,5 @@ h1 {
     width: 100%;
   }
 }
+
 
