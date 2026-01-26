@@ -1380,7 +1380,84 @@ const NavbarScroll = (() => {
 
   return { init };
 })();
-
+// ==========================================
+// EXPANDABLE SKILLS SECTION
+// ==========================================
+const ExpandableSkills = (() => {
+  function init() {
+    const expandButtons = document.querySelectorAll('.expand-toggle');
+    
+    expandButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const targetId = this.getAttribute('data-target');
+        const content = document.getElementById(targetId);
+        const icon = this.querySelector('.toggle-icon');
+        
+        if (!content) return;
+        
+        // Toggle expanded class
+        const isExpanded = content.classList.contains('expanded');
+        
+        if (isExpanded) {
+          content.classList.remove('expanded');
+          icon.classList.remove('expanded');
+        } else {
+          content.classList.add('expanded');
+          icon.classList.add('expanded');
+          
+          // Animate skill bars when section is expanded
+          if (targetId === 'cloud-platforms') {
+            animateSkillBars();
+          }
+        }
+      });
+    });
+    
+    // Initialize with first section open
+    const firstButton = document.querySelector('.expand-toggle');
+    if (firstButton) {
+      const firstTarget = firstButton.getAttribute('data-target');
+      const firstContent = document.getElementById(firstTarget);
+      const firstIcon = firstButton.querySelector('.toggle-icon');
+      
+      if (firstContent && firstIcon) {
+        firstContent.classList.add('expanded');
+        firstIcon.classList.add('expanded');
+      }
+    }
+    
+    // Animate skill bars on page load
+    animateSkillBars();
+  }
+  
+  function animateSkillBars() {
+    const skillBars = document.querySelectorAll('.skill-level');
+    
+    skillBars.forEach(bar => {
+      // Reset width to 0
+      bar.style.width = '0';
+      
+      // Get target width from inline style
+      const targetWidth = bar.style.width || '0%';
+      
+      // Remove inline style temporarily for animation
+      bar.style.width = '';
+      
+      // Force reflow
+      bar.offsetHeight;
+      
+      // Set custom property for animation
+      bar.style.setProperty('--target-width', targetWidth);
+      
+      // Start animation
+      setTimeout(() => {
+        bar.style.width = targetWidth;
+      }, 100);
+    });
+  }
+  
+  return { init };
+})();
 // ==========================================
 // MAIN INITIALIZATION
 // ==========================================
@@ -1410,5 +1487,6 @@ document.addEventListener('DOMContentLoaded', () => {
   
   console.log('✅ Portfolio initialized successfully');
 });
+
 
 
