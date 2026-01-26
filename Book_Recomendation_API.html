@@ -1,201 +1,801 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Book Recommendation API | Leonard Kachi</title>
-  <meta name="description" content="Details of the Book Recommendation API project">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Book Recommendation System | Leonard Kachi</title>
+    <meta name="description" content="An intelligent book recommendation system using AI and Google Books API">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #7209b7;
+            --light-bg: #f8f9fa;
+            --dark-bg: #0f172a;
+            --card-light: #ffffff;
+            --card-dark: #1e293b;
+            --text-light: #1a1a1a;
+            --text-dark: #f8fafc;
+            --border-light: #e1e5e9;
+            --border-dark: #334155;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --radius: 12px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6;
+            background: var(--light-bg);
+            color: var(--text-light);
+            transition: all 0.3s ease;
+        }
+        
+        body.dark-theme {
+            background: var(--dark-bg);
+            color: var(--text-dark);
+        }
+        
+        .project-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        .project-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+            border-radius: 0 0 30px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.1;
+        }
+        
+        .project-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .project-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .project-meta {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .meta-tag {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Content Cards */
+        .project-section {
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+            border-left: 4px solid var(--primary);
+            padding-left: 1rem;
+        }
+        
+        .dark-theme .section-title {
+            color: var(--text-dark);
+        }
+        
+        .content-card {
+            background: var(--card-light);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-light);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .dark-theme .content-card {
+            background: var(--card-dark);
+            border-color: var(--border-dark);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Feature Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-item {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.05) 0%, rgba(58, 12, 163, 0.05) 100%);
+            border-radius: var(--radius);
+            border: 1px solid rgba(67, 97, 238, 0.1);
+        }
+        
+        .dark-theme .feature-item {
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.1) 0%, rgba(58, 12, 163, 0.1) 100%);
+            border-color: rgba(67, 97, 238, 0.2);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-light);
+        }
+        
+        .dark-theme .feature-title {
+            color: var(--text-dark);
+        }
+        
+        /* Code Snippets */
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            border: 1px solid #333;
+        }
+        
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid #333;
+        }
+        
+        .code-lang {
+            color: #569cd6;
+            font-weight: 600;
+        }
+        
+        .copy-btn {
+            background: #2d2d2d;
+            color: #d4d4d4;
+            border: 1px solid #555;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s ease;
+        }
+        
+        .copy-btn:hover {
+            background: #3d3d3d;
+            border-color: #777;
+        }
+        
+        .code-keyword { color: #569cd6; }
+        .code-string { color: #ce9178; }
+        .code-comment { color: #6a9955; }
+        .code-function { color: #dcdcaa; }
+        .code-operator { color: #d4d4d4; }
+        .code-number { color: #b5cea8; }
+        
+        /* Tech Stack */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .tech-item {
+            padding: 0.8rem 1.2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-radius: var(--radius);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        /* Architecture Diagram */
+        .architecture-diagram {
+            width: 100%;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .dark-theme .architecture-diagram {
+            background: #1a1a1a;
+            border: 1px solid #333;
+        }
+        
+        .diagram-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+        
+        .dark-theme .diagram-title {
+            color: var(--text-dark);
+        }
+        
+        /* Buttons */
+        .project-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-primary:hover {
+            background: var(--secondary);
+            border-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--border-light);
+        }
+        
+        .dark-theme .btn-secondary {
+            color: var(--text-dark);
+            border-color: var(--border-dark);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(67, 97, 238, 0.1);
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        /* Demo Preview */
+        .demo-preview {
+            text-align: center;
+            margin: 3rem 0;
+        }
+        
+        .preview-image {
+            width: 100%;
+            max-width: 800px;
+            border-radius: var(--radius);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+            border: 1px solid var(--border-light);
+            margin: 2rem auto;
+            display: block;
+        }
+        
+        .dark-theme .preview-image {
+            border-color: var(--border-dark);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: 2.2rem;
+            }
+            
+            .project-header {
+                padding: 3rem 0;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Footer */
+        .project-footer {
+            background: var(--dark-bg);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            border-radius: 30px 30px 0 0;
+        }
+        
+        .footer-content {
+            text-align: center;
+        }
+        
+        .back-link {
+            color: #a5d6a7;
+            text-decoration: none;
+            margin-top: 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .back-link:hover {
+            color: white;
+            text-decoration: underline;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <nav class="navbar">
-    <div class="container">
-      <a href="index.html" class="logo">Leonard<span>Kachi</span></a>
-      <div class="nav-links">
-        <a href="index.html#articles">Articles</a>
-        <a href="index.html#certifications">Certifications</a>
-        <a href="index.html#lab">Security Lab</a>
-        <a href="index.html#projects">Projects</a>
-        <a href="index.html#contact">Contact</a>
-      </div>
-      <button class="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
-  </nav>
+    <div class="project-container">
+        <!-- Header -->
+        <header class="project-header">
+            <h1 class="project-title">AI-Powered Book Recommendation System</h1>
+            <p class="project-subtitle">An intelligent book discovery platform leveraging AI and Google Books API for personalized recommendations</p>
+            <div class="project-meta">
+                <span class="meta-tag"><i class="fas fa-code"></i> JavaScript</span>
+                <span class="meta-tag"><i class="fas fa-cloud"></i> AWS API Gateway</span>
+                <span class="meta-tag"><i class="fas fa-book"></i> Google Books API</span>
+                <span class="meta-tag"><i class="fas fa-brain"></i> AI-Powered</span>
+                <span class="meta-tag"><i class="fas fa-mobile-alt"></i> Responsive</span>
+            </div>
+        </header>
 
-  <main class="container project-detail">
-    <section class="project-header">
-      <h1>Book Recommendation API</h1>
-      <div class="project-meta">
-        <span class="project-date">2023</span>
-        <div class="project-tech">
-          <span>Python</span>
-          <span>AWS Lambda</span>
-          <span>DynamoDB</span>
-          <span>JavaScript</span>
-        </div>
-      </div>
-    </section>
+        <!-- Demo Preview -->
+        <section class="demo-preview">
+            <h2 class="section-title">Live Demo Preview</h2>
+            <a href="book-recommender.html" target="_blank" class="btn btn-primary">
+                <i class="fas fa-external-link-alt"></i>
+                Open Live Application
+            </a>
+        </section>
 
-    <section class="project-content">
-      <div class="project-image">
-        <img src="assets/images/Book Recommendation APP.jpg" alt="Book Recommendation API" loading="lazy">
-      </div>
-      
-      <div class="project-description">
-        <h2>Project Overview</h2>
-        <p>The Book Recommendation API is a serverless application that fetches book data from the Google Books API and recommends titles based on user preferences such as genre, author, and keywords. Designed to be fast, scalable, and cost-effective.</p>
-        
-        <h3>Key Features</h3>
-        <ul>
-          <li>Real-time book search and recommendations</li>
-          <li>Integrated with Google Books API</li>
-          <li>Price display, filtering, and pagination</li>
-          <li>DynamoDB for caching results and fast lookups</li>
-          <li>Built-in logging with CloudWatch</li>
-        </ul>
-        
-        <h3>Technical Implementation</h3>
-        <p>The system was built using AWS Lambda for the backend, DynamoDB for caching, and JavaScript for the frontend, with infrastructure deployed using Terraform:</p>
-        
-        <div class="architecture-diagram">
-          <a href="https://leonardkachi.github.io/Next-Read/" class="btn-outline">View App</a>
-        </div>
-        
-        <div class="code-block">
-          <h4>Sample Lambda Function for Book Search</h4>
-          <pre><code>import boto3
-import requests
-import os
-from datetime import datetime
+        <!-- Project Overview -->
+        <section class="project-section">
+            <h2 class="section-title">Project Overview</h2>
+            <div class="content-card">
+                <p>The AI-Powered Book Recommendation System is a sophisticated web application that helps users discover books tailored to their interests. By combining Google Books API data with intelligent filtering algorithms, the platform delivers personalized book recommendations based on genre, ratings, page count, and popularity.</p>
+                
+                <p>This project demonstrates advanced frontend development techniques including state management, debounced search, pagination, theme switching, and wishlist functionality. The application features a clean, modern UI with both light and dark themes, responsive design, and comprehensive accessibility features.</p>
+                
+                <h3>Key Challenges Solved:</h3>
+                <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                    <li>Efficient API integration with real-time search capabilities</li>
+                    <li>State management for complex filtering and pagination</li>
+                    <li>Performance optimization with debouncing and lazy loading</li>
+                    <li>Accessible UI with keyboard navigation and screen reader support</li>
+                    <li>Cross-browser compatibility and responsive design</li>
+                </ul>
+            </div>
+        </section>
 
-dynamodb = boto3.resource('dynamodb')
-table = dynamodb.Table('BookCache')
+        <!-- Features -->
+        <section class="project-section">
+            <h2 class="section-title">Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="feature-title">Smart Search</h3>
+                    <p>Debounced search functionality that queries titles, authors, and keywords with intelligent filtering and real-time feedback.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-filter"></i>
+                    </div>
+                    <h3 class="feature-title">Advanced Filtering</h3>
+                    <p>Filter by genre, page count, publication date, and ratings with intuitive UI controls and instant result updates.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="feature-title">AI Recommendations</h3>
+                    <p>Intelligent sorting algorithms that prioritize relevance, popularity, and user preferences for personalized results.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="feature-title">Wishlist Management</h3>
+                    <p>Save books to wishlist with localStorage persistence and visual feedback across sessions.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <h3 class="feature-title">Theme Switching</h3>
+                    <p>Light and dark theme support with automatic detection and persistent user preference storage.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Responsive Design</h3>
+                    <p>Fully responsive layout that works seamlessly on desktop, tablet, and mobile devices.</p>
+                </div>
+            </div>
+        </section>
 
-def lambda_handler(event, context):
-    query = event.get('query', '')
-    max_results = event.get('max_results', 10)
-    start_index = event.get('start_index', 0)
+        <!-- Technical Implementation -->
+        <section class="project-section">
+            <h2 class="section-title">Technical Implementation</h2>
+            <div class="content-card">
+                <h3>Architecture Overview</h3>
+                <p>The application follows a modern frontend architecture with clear separation of concerns:</p>
+                
+                <div class="architecture-diagram">
+                    <div class="diagram-title">System Architecture</div>
+                    <pre style="color: var(--text-light); font-family: monospace; line-height: 1.6;">
+┌─────────────────────────────────────────────────────────────┐
+│                    USER INTERFACE                            │
+├─────────────────────────────────────────────────────────────┤
+│  • Search Bar (Debounced)                                   │
+│  • Genre Filters                                            │
+│  • Sort Options                                             │
+│  • Pagination Controls                                      │
+│  • Theme Toggle                                             │
+└─────────────────────┬───────────────────────────────────────┘
+                      │
+                      ▼
+┌─────────────────────────────────────────────────────────────┐
+│                STATE MANAGEMENT LAYER                        │
+├─────────────────────────────────────────────────────────────┤
+│  • Search State                                             │
+│  • Filter State                                             │
+│  • Pagination State                                         │
+│  • Wishlist State                                           │
+│  • Theme State                                              │
+└─────────────────────┬───────────────────────────────────────┘
+                      │
+                      ▼
+┌─────────────────────────────────────────────────────────────┐
+│                API INTEGRATION LAYER                         │
+├─────────────────────────────────────────────────────────────┤
+│  • AWS API Gateway                                          │
+│  • Google Books API Integration                             │
+│  • Error Handling                                           │
+│  • Response Processing                                      │
+└─────────────────────────────────────────────────────────────┘
+                    </pre>
+                </div>
+                
+                <h3 style="margin-top: 2rem;">State Management Implementation</h3>
+                <p>The application uses a centralized state management approach to handle complex user interactions:</p>
+                
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">JavaScript</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+<pre><code><span class="code-keyword">const</span> <span class="code-function">state</span> = {
+    <span class="code-comment">// Theme configuration</span>
+    currentTheme: localStorage.<span class="code-function">getItem</span>(<span class="code-string">'theme'</span>) || <span class="code-string">'light'</span>,
     
-    # Check cache first
-    cached = table.get_item(Key={'query': query})
-    if 'Item' in cached and (datetime.now() - cached['Item']['timestamp']).days < 1:
-        return cached['Item']['results']
+    <span class="code-comment">// Books data</span>
+    allBooks: [],
+    filteredBooks: [],
     
-    # Call Google Books API if not in cache
-    params = {
-        'q': query,
-        'maxResults': max_results,
-        'startIndex': start_index,
-        'key': os.environ['GOOGLE_API_KEY']
+    <span class="code-comment">// Filter states</span>
+    currentGenre: <span class="code-string">'all'</span>,
+    currentSort: <span class="code-string">'relevance'</span>,
+    currentPageFilter: <span class="code-string">'any'</span>,
+    
+    <span class="code-comment">// Search state</span>
+    searchQuery: <span class="code-string">''</span>,
+    
+    <span class="code-comment">// Pagination state</span>
+    currentPage: <span class="code-number">1</span>,
+    totalBooks: <span class="code-number">0</span>,
+    totalPages: <span class="code-number">1</span>,
+    
+    <span class="code-comment">// Loading state</span>
+    isLoading: <span class="code-keyword">false</span>,
+    
+    <span class="code-comment">// Wishlist state</span>
+    wishlist: <span class="code-function">JSON</span>.<span class="code-function">parse</span>(
+        localStorage.<span class="code-function">getItem</span>(<span class="code-string">'wishlist'</span>) || <span class="code-string">'[]'</span>
+    ),
+    
+    <span class="code-comment">// Search debouncing</span>
+    searchTimeout: <span class="code-keyword">null</span>
+};</code></pre>
+                </div>
+                
+                <h3>API Integration</h3>
+                <p>The application integrates with AWS API Gateway to fetch book data from Google Books API:</p>
+                
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">JavaScript</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+<pre><code><span class="code-keyword">async</span> <span class="code-keyword">function</span> <span class="code-function">loadBooks</span>() {
+    <span class="code-keyword">if</span> (state.isLoading) <span class="code-keyword">return</span>;
+    
+    state.isLoading = <span class="code-keyword">true</span>;
+    <span class="code-function">showLoadingState</span>();
+    
+    <span class="code-keyword">try</span> {
+        <span class="code-comment">// Construct API query parameters</span>
+        <span class="code-keyword">const</span> params = <span class="code-keyword">new</span> <span class="code-function">URLSearchParams</span>();
+        <span class="code-keyword">if</span> (state.searchQuery) params.<span class="code-function">append</span>(<span class="code-string">'query'</span>, state.searchQuery);
+        <span class="code-keyword">if</span> (state.currentGenre !== <span class="code-string">'all'</span>) {
+            params.<span class="code-function">append</span>(<span class="code-string">'genre'</span>, state.currentGenre);
+        }
+        params.<span class="code-function">append</span>(<span class="code-string">'page'</span>, state.currentPage - <span class="code-number">1</span>);
+        params.<span class="code-function">append</span>(<span class="code-string">'perPage'</span>, config.booksPerPage);
+        
+        <span class="code-comment">// Call API Gateway endpoint</span>
+        <span class="code-keyword">const</span> response = <span class="code-keyword">await</span> <span class="code-function">fetch</span>(
+            <span class="code-string">`${config.apiEndpoint}?${params.toString()}`</span>,
+            {
+                headers: {
+                    <span class="code-string">'Content-Type'</span>: <span class="code-string">'application/json'</span>
+                }
+            }
+        );
+        
+        <span class="code-keyword">if</span> (!response.ok) {
+            <span class="code-keyword">throw new</span> <span class="code-function">Error</span>(
+                <span class="code-string">`Failed to fetch books: ${response.status}`</span>
+            );
+        }
+        
+        <span class="code-keyword">const</span> data = <span class="code-keyword">await</span> response.<span class="code-function">json</span>();
+        
+        <span class="code-comment">// Process and display books</span>
+        state.allBooks = <span class="code-function">processBooks</span>(data.books);
+        state.totalBooks = data.totalItems || data.books.length;
+        state.totalPages = <span class="code-function">Math</span>.<span class="code-function">ceil</span>(
+            state.totalBooks / config.booksPerPage
+        );
+        
+        <span class="code-function">applyFilters</span>();
+        <span class="code-function">updatePagination</span>();
+        <span class="code-function">showToast</span>(<span class="code-string">`Found ${state.totalBooks} books`</span>, <span class="code-string">'success'</span>);
+        
+    } <span class="code-keyword">catch</span> (error) {
+        console.<span class="code-function">error</span>(<span class="code-string">'Error loading books:'</span>, error);
+        <span class="code-function">showErrorState</span>(<span class="code-string">'Failed to load books. Please try again.'</span>);
+    } <span class="code-keyword">finally</span> {
+        state.isLoading = <span class="code-keyword">false</span>;
     }
-    response = requests.get('https://www.googleapis.com/books/v1/volumes', params=params)
-    results = response.json().get('items', [])
+}</code></pre>
+                </div>
+                
+                <h3>Debounced Search Implementation</h3>
+                <p>Efficient search with debouncing to prevent excessive API calls:</p>
+                
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">JavaScript</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+<pre><code><span class="code-keyword">function</span> <span class="code-function">debounceSearch</span>() {
+    <span class="code-comment">// Clear existing timeout</span>
+    <span class="code-keyword">clearTimeout</span>(state.searchTimeout);
     
-    # Cache the results
-    table.put_item(Item={
-        'query': query,
-        'results': results,
-        'timestamp': datetime.now().isoformat()
-    })
-    
-    return results</code></pre>
-        </div>
-        
-        <div class="code-block">
-          <h4>Frontend API Call Example</h4>
-          <pre><code>async function fetchBooks(query, page = 1) {
-  const response = await fetch(`${API_ENDPOINT}/books`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      query: query,
-      max_results: 10,
-      start_index: (page - 1) * 10
-    })
-  });
-  
-  if (!response.ok) {
-    throw new Error('Failed to fetch books');
-  }
-  
-  return await response.json();
+    <span class="code-comment">// Set new timeout</span>
+    state.searchTimeout = <span class="code-keyword">setTimeout</span>(
+        executeSearch,
+        config.debounceDelay
+    );
 }
 
-// Example usage
-fetchBooks('science fiction', 2)
-  .then(books => displayBooks(books))
-  .catch(error => console.error('Error:', error));</code></pre>
-        </div>
-        
-        <h3>Results</h3>
-        <ul>
-          <li>Demonstrated serverless design for scalable content delivery</li>
-          <li>Average response time under 300ms for cached queries</li>
-          <li>Reduced Google Books API calls by 40% through caching</li>
-          <li>Educational tool for developers and readers alike</li>
-        </ul>
-      </div>
-      
-      <div class="project-actions">
-        <a href="index.html#projects" class="btn-outline">Back to Projects</a>
-        <a href="https://github.com/LeonardKachi/Next-Read" target="_blank" class="btn-primary">View on GitHub</a>
-      </div>
-    </section>
-  </main>
+<span class="code-keyword">function</span> <span class="code-function">executeSearch</span>() {
+    <span class="code-comment">// Get search query from input</span>
+    state.searchQuery = elements.searchInput
+        ? elements.searchInput.value.<span class="code-function">trim</span>()
+        : <span class="code-string">''</span>;
+    
+    <span class="code-comment">// Reset to first page</span>
+    state.currentPage = <span class="code-number">1</span>;
+    
+    <span class="code-comment">// Load books with new query</span>
+    <span class="code-function">loadBooks</span>();
+}</code></pre>
+                </div>
+            </div>
+        </section>
 
-  
- <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-about">
-          <h3>Leonard Kachi</h3>
-          <p>Cloud Security Architect specializing in AWS, Azure, and Zero Trust implementations.</p>
-          <p>Turning threats into design. By blending AWS, Zero Trust, and automation, I build security infrastructures that scale and stories that launch careers.</p>
-        </div>
-        <div class="footer-links">
-          <h4>Quick Links</h4>
-          <ul>
-            <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#about">About</a></li>
-            <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#projects">Projects</a></li>
-            <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#lab">Security Lab</a></li>
-            <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#articles">Articles</a></li>
-            <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#certifications">Certifications</a></li>
-            <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#contact">Contact</a></li>
-          </ul>
-        </div>
+        <!-- Tech Stack -->
+        <section class="project-section">
+            <h2 class="section-title">Technology Stack</h2>
+            <div class="content-card">
+                <div class="tech-stack">
+                    <div class="tech-item">
+                        <i class="fab fa-html5"></i>
+                        <span>HTML5</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-css3-alt"></i>
+                        <span>CSS3</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-js"></i>
+                        <span>JavaScript (ES6+)</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-cloud"></i>
+                        <span>AWS API Gateway</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-book"></i>
+                        <span>Google Books API</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Responsive Design</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-palette"></i>
+                        <span>CSS Custom Properties</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-universal-access"></i>
+                        <span>Accessibility (ARIA)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <div class="footer-contact">
-          <h4>Contact</h4>
-          <ul>
-            <li><a href="mailto:Kachi.Henry.Leo@gmail.com">Kachi.Henry.Leo@gmail.com</a></li>
-            <li><a href="https://github.com/LeonardKachi" target="_blank">GitHub</a></li>
-            <li><a href="https://www.linkedin.com/in/onyedikachi-obidiegwu" target="_blank">LinkedIn</a></li>
-            <li><a href="https://twitter.com/Leonard_kachi" target="_blank">Twitter</a></li>
-            <li><a href="https://dev.to/leonardkachi" target="_blank">Dev.to</a></li>
-            <li><a href="#resume">Resume</a></li>
-          </ul>
+        <!-- Project Actions -->
+        <div class="project-actions">
+            <a href="book-recommender.html" target="_blank" class="btn btn-primary">
+                <i class="fas fa-external-link-alt"></i>
+                View Live Application
+            </a>
+            <a href="https://github.com/LeonardKachi" target="_blank" class="btn btn-secondary">
+                <i class="fab fa-github"></i>
+                View on GitHub
+            </a>
+            <a href="index.html#projects" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i>
+                Back to Projects
+            </a>
         </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; <span id="year"></span> Obidiegwu Onyedikachi Henry Leonard. All rights reserved.</p>
-      </div>
     </div>
-  </footer>
 
-  <script src="script.js"></script>
+    <!-- Footer -->
+    <footer class="project-footer">
+        <div class="project-container">
+            <div class="footer-content">
+                <p>AI-Powered Book Recommendation System</p>
+                <p>Built with modern web technologies and best practices</p>
+                <a href="index.html#projects" class="back-link">
+                    <i class="fas fa-arrow-left"></i>
+                    Return to Portfolio
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Copy code functionality
+        function copyCode(button) {
+            const codeBlock = button.parentElement.nextElementSibling;
+            const text = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+        
+        // Theme toggle
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('project-theme') || 'light';
+            document.body.classList.toggle('dark-theme', savedTheme === 'dark');
+            
+            // Create theme toggle button
+            const themeToggle = document.createElement('button');
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            themeToggle.className = 'btn btn-secondary';
+            themeToggle.style.position = 'fixed';
+            themeToggle.style.top = '20px';
+            themeToggle.style.right = '20px';
+            themeToggle.style.zIndex = '1000';
+            themeToggle.title = 'Toggle theme';
+            
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-theme');
+                const isDark = document.body.classList.contains('dark-theme');
+                localStorage.setItem('project-theme', isDark ? 'dark' : 'light');
+                themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            });
+            
+            themeToggle.innerHTML = savedTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            document.body.appendChild(themeToggle);
+        });
+    </script>
 </body>
-
 </html>
-
-
-
-
