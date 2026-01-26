@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -352,7 +352,7 @@
                 <div class="content-card">
                     <h2>Architecture Diagram</h2>
                     <div class="architecture-image">
-                        <img src="https://via.placeholder.com/1200x700/0073bb/ffffff?text=AWS+Three-Tier+Architecture+Diagram" alt="AWS Three-Tier Architecture">
+                        <img src="assets/images/AWS-Achitecture.png" alt="AWS Three-Tier Architecture">
                         <p class="image-caption" style="text-align: center; margin-top: 0.5rem; font-style: italic; color: #666;">Three-tier web architecture with public and private subnets</p>
                     </div>
                 </div>
@@ -502,8 +502,8 @@
                 </div>
                 
                 <div class="btn-container">
-                    <a href="#" class="btn btn-primary"><i class="fab fa-github"></i> View GitHub Repository</a>
-                    <a href="#" class="btn btn-secondary"><i class="fas fa-file-pdf"></i> Download Workshop Guide</a>
+                    <a href="https://github.com/LeonardKachi/AWS-Three-Tier-Web-Architecture-Project.git" class="btn btn-primary"><i class="fab fa-github"></i> View GitHub Repository</a>
+                    <a href="Workshop-Guide.pdf" class="btn btn-secondary"><i class="fas fa-file-pdf"></i> Download Workshop Guide</a>
                 </div>
             </div>
             
@@ -551,7 +551,17 @@
             </div>
         </div>
     </main>
-     <a href="index.html#projects" class="back-link"><i class="fas fa-arrow-left"></i> Back to Projects</a>
+
+    <footer class="project-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>AWS Three-Tier Web Architecture Workshop</p>
+                <p>Hands-on implementation of scalable cloud infrastructure</p>
+                <a href="index.html#projects" class="back-link"><i class="fas fa-arrow-left"></i> Back to Projects</a>
+            </div>
+        </div>
+    </footer>
+
     <script>
         // Simple script to enhance interactivity
         document.addEventListener('DOMContentLoaded', function() {
@@ -565,61 +575,8 @@
                     }, 150);
                 });
             });
-            document.getElementById('currentYear').textContent = new Date().getFullYear();
-        });
-    </script>
-</body>
-</html>
-<!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-about">
-          <h3>Leonard Kachi</h3>
-          <p>Cloud Security Architect specializing in AWS, Azure, and Zero Trust implementations.</p>
-          <p>Turning threats into design. By blending AWS, Zero Trust, and automation, I build security infrastructures that scale and stories that launch careers.</p>
-        </div>
-        <div class="footer-links">
-          <h4>Quick Links</h4>
-          <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#lab">Security Lab</a></li>
-            <li><a href="#articles">Articles</a></li>
-            <li><a href="#certifications">Certifications</a></li>
-            <li><a href="https://discord.com/users/967213149252104242" target="_blank" rel="noopener">Discord</a></li>
-          </ul>
-        </div>
-        <div class="footer-contact">
-          <h4>Contact</h4>
-          <ul>
-            <li><a href="mailto:Kachi.Henry.Leo@gmail.com">Kachi.Henry.Leo@gmail.com</a></li>
-            <li><a href="https://github.com/LeonardKachi" target="_blank" rel="noopener">GitHub</a></li>
-            <li><a href="https://www.linkedin.com/in/onyedikachi-obidiegwu" target="_blank" rel="noopener">LinkedIn</a></li>
-            <li><a href="https://twitter.com/Leonard_kachi" target="_blank" rel="noopener">Twitter</a></li>
-            <li><a href="https://dev.to/leonardkachi" target="_blank" rel="noopener">Dev.to</a></li>
-            <li><a href="https://medium.com/@leonardkachi" target="_blank" rel="noopener">Medium</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; <span id="year"></span> Obidiegwu Onyedikachi Henry Leonard. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
-    <script>
-        // Simple script to enhance interactivity
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add click animation to step items
-            const stepItems = document.querySelectorAll('.step-item');
-            stepItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    this.style.transform = 'scale(1.02)';
-                    setTimeout(() => {
-                        this.style.transform = 'scale(1)';
-                    }, 150);
-                });
-            });
+            
+            // Update year in footer
             document.getElementById('currentYear').textContent = new Date().getFullYear();
         });
     </script>
