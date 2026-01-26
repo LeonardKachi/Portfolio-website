@@ -6,403 +6,430 @@
     <title>AI-Powered Book Recommendation System | Leonard Kachi</title>
     <meta name="description" content="An intelligent book recommendation system using AI and Google Books API">
     <style>
-        :root {
-            --primary: #4361ee;
-            --secondary: #3a0ca3;
-            --accent: #7209b7;
-            --light-bg: #f8f9fa;
-            --dark-bg: #0f172a;
-            --card-light: #ffffff;
-            --card-dark: #1e293b;
-            --text-light: #1a1a1a;
-            --text-dark: #f8fafc;
-            --border-light: #e1e5e9;
-            --border-dark: #334155;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --radius: 12px;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', 'Roboto', sans-serif;
-            line-height: 1.6;
-            background: var(--light-bg);
-            color: var(--text-light);
-            transition: all 0.3s ease;
-        }
-        
-        body.dark-theme {
-            background: var(--dark-bg);
-            color: var(--text-dark);
-        }
-        
-        .project-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header */
-        .project-header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            padding: 4rem 0;
-            margin-bottom: 3rem;
-            border-radius: 0 0 30px 30px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .project-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
-            opacity: 0.1;
-        }
-        
-        .project-title {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .project-subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto 2rem;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .project-meta {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 2rem;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .meta-tag {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 0.6rem 1.2rem;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        /* Content Cards */
-        .project-section {
-            margin-bottom: 4rem;
-        }
-        
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            color: var(--text-light);
-            border-left: 4px solid var(--primary);
-            padding-left: 1rem;
-        }
-        
-        .dark-theme .section-title {
-            color: var(--text-dark);
-        }
-        
-        .content-card {
-            background: var(--card-light);
-            border-radius: var(--radius);
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            margin-bottom: 2rem;
-            border: 1px solid var(--border-light);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .dark-theme .content-card {
-            background: var(--card-dark);
-            border-color: var(--border-dark);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        .content-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-        }
-        
-        /* Feature Grid */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .feature-item {
-            padding: 1.5rem;
-            background: linear-gradient(135deg, rgba(67, 97, 238, 0.05) 0%, rgba(58, 12, 163, 0.05) 100%);
-            border-radius: var(--radius);
-            border: 1px solid rgba(67, 97, 238, 0.1);
-        }
-        
-        .dark-theme .feature-item {
-            background: linear-gradient(135deg, rgba(67, 97, 238, 0.1) 0%, rgba(58, 12, 163, 0.1) 100%);
-            border-color: rgba(67, 97, 238, 0.2);
-        }
-        
-        .feature-icon {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-        
-        .feature-title {
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
-            color: var(--text-light);
-        }
-        
-        .dark-theme .feature-title {
-            color: var(--text-dark);
-        }
-        
-        /* Code Snippets */
-        .code-block {
-            background: #1e1e1e;
-            color: #d4d4d4;
-            border-radius: var(--radius);
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            overflow-x: auto;
-            font-family: 'Consolas', 'Monaco', monospace;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            border: 1px solid #333;
-        }
-        
-        .code-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding-bottom: 0.8rem;
-            border-bottom: 1px solid #333;
-        }
-        
-        .code-lang {
-            color: #569cd6;
-            font-weight: 600;
-        }
-        
-        .copy-btn {
-            background: #2d2d2d;
-            color: #d4d4d4;
-            border: 1px solid #555;
-            padding: 0.4rem 0.8rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: all 0.2s ease;
-        }
-        
-        .copy-btn:hover {
-            background: #3d3d3d;
-            border-color: #777;
-        }
-        
-        .code-keyword { color: #569cd6; }
-        .code-string { color: #ce9178; }
-        .code-comment { color: #6a9955; }
-        .code-function { color: #dcdcaa; }
-        .code-operator { color: #d4d4d4; }
-        .code-number { color: #b5cea8; }
-        
-        /* Tech Stack */
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-        
-        .tech-item {
-            padding: 0.8rem 1.2rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            border-radius: var(--radius);
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-        
-        /* Architecture Diagram */
-        .architecture-diagram {
-            width: 100%;
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: white;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-        }
-        
-        .dark-theme .architecture-diagram {
-            background: #1a1a1a;
-            border: 1px solid #333;
-        }
-        
-        .diagram-title {
-            text-align: center;
-            margin-bottom: 2rem;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-light);
-        }
-        
-        .dark-theme .diagram-title {
-            color: var(--text-dark);
-        }
-        
-        /* Buttons */
-        .project-actions {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-top: 3rem;
-            justify-content: center;
-        }
-        
-        .btn {
-            padding: 1rem 2rem;
-            border-radius: var(--radius);
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.8rem;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-        }
-        
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-            border: 2px solid var(--primary);
-        }
-        
-        .btn-primary:hover {
-            background: var(--secondary);
-            border-color: var(--secondary);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
-        }
-        
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-light);
-            border: 2px solid var(--border-light);
-        }
-        
-        .dark-theme .btn-secondary {
-            color: var(--text-dark);
-            border-color: var(--border-dark);
-        }
-        
-        .btn-secondary:hover {
-            background: rgba(67, 97, 238, 0.1);
-            border-color: var(--primary);
-            transform: translateY(-3px);
-        }
-        
-        /* Demo Preview */
-        .demo-preview {
-            text-align: center;
-            margin: 3rem 0;
-        }
-        
-        .preview-image {
-            width: 100%;
-            max-width: 800px;
-            border-radius: var(--radius);
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
-            border: 1px solid var(--border-light);
-            margin: 2rem auto;
-            display: block;
-        }
-        
-        .dark-theme .preview-image {
-            border-color: var(--border-dark);
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .project-title {
-                font-size: 2.2rem;
-            }
-            
-            .project-header {
-                padding: 3rem 0;
-            }
-            
-            .section-title {
-                font-size: 1.8rem;
-            }
-            
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .btn {
-                padding: 0.8rem 1.5rem;
-                font-size: 0.9rem;
-            }
-        }
-        
-        /* Footer */
-        .project-footer {
-            background: var(--dark-bg);
-            color: white;
-            padding: 3rem 0;
-            margin-top: 4rem;
-            border-radius: 30px 30px 0 0;
-        }
-        
-        .footer-content {
-            text-align: center;
-        }
-        
-        .back-link {
-            color: #a5d6a7;
-            text-decoration: none;
-            margin-top: 2rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: color 0.3s ease;
-        }
-        
-        .back-link:hover {
-            color: white;
-            text-decoration: underline;
-        }
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --secondary: #7c3aed;
+    --accent: #8b5cf6;
+    --light-bg: #f8fafc;
+    --dark-bg: #0f172a;
+    --card-light: #ffffff;
+    --card-dark: #1e293b;
+    --text-light: #1e293b;
+    --text-dark: #f1f5f9;
+    --border-light: #e2e8f0;
+    --border-dark: #334155;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --radius: 8px;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    line-height: 1.6;
+    background: var(--light-bg);
+    color: var(--text-light);
+    font-size: 16px;
+}
+
+body.dark-theme {
+    background: var(--dark-bg);
+    color: var(--text-dark);
+}
+
+.project-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+.project-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    padding: 3rem 0;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.project-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    letter-spacing: -0.025em;
+}
+
+.project-subtitle {
+    font-size: 1.125rem;
+    opacity: 0.95;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    line-height: 1.5;
+}
+
+.project-meta {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+}
+
+.meta-tag {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Sections */
+.project-section {
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary);
+}
+
+.dark-theme .section-title {
+    color: var(--text-dark);
+}
+
+/* Content Cards */
+.content-card {
+    background: var(--card-light);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-light);
+}
+
+.dark-theme .content-card {
+    background: var(--card-dark);
+    border-color: var(--border-dark);
+}
+
+.content-card p {
+    margin-bottom: 1rem;
+}
+
+.content-card ul {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.content-card li {
+    margin-bottom: 0.5rem;
+}
+
+/* Features Grid */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.feature-item {
+    background: var(--card-light);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-sm);
+}
+
+.dark-theme .feature-item {
+    background: var(--card-dark);
+    border-color: var(--border-dark);
+}
+
+.feature-icon {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.feature-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--text-light);
+}
+
+.dark-theme .feature-title {
+    color: var(--text-dark);
+}
+
+.feature-item p {
+    font-size: 0.9375rem;
+    color: var(--text-light);
+    opacity: 0.9;
+}
+
+.dark-theme .feature-item p {
+    color: var(--text-dark);
+}
+
+/* Code Blocks */
+.code-block {
+    background: #1a1a1a;
+    color: #e6e6e6;
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border: 1px solid #333;
+}
+
+.code-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #333;
+}
+
+.code-lang {
+    color: #569cd6;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.copy-btn {
+    background: #2d2d2d;
+    color: #e6e6e6;
+    border: 1px solid #444;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-family: inherit;
+}
+
+.copy-btn:hover {
+    background: #3d3d3d;
+}
+
+/* Architecture Diagram as Code */
+.architecture-code {
+    background: #1a1a1a;
+    color: #e6e6e6;
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border: 1px solid #333;
+}
+
+.architecture-code .code-comment {
+    color: #6a9955;
+}
+
+.architecture-code .code-keyword {
+    color: #569cd6;
+}
+
+.architecture-code .code-function {
+    color: #dcdcaa;
+}
+
+.architecture-code .code-string {
+    color: #ce9178;
+}
+
+/* Tech Stack */
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1.5rem 0;
+}
+
+.tech-item {
+    padding: 0.5rem 1rem;
+    background: var(--primary);
+    color: white;
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tech-item i {
+    font-size: 1rem;
+}
+
+/* Buttons */
+.project-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin: 3rem 0;
+    justify-content: center;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius);
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+    font-size: 0.9375rem;
+    border: 1px solid transparent;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text-light);
+    border-color: var(--border-light);
+}
+
+.dark-theme .btn-secondary {
+    color: var(--text-dark);
+    border-color: var(--border-dark);
+}
+
+.btn-secondary:hover {
+    background: rgba(37, 99, 235, 0.1);
+    border-color: var(--primary);
+}
+
+/* Demo Preview */
+.demo-preview {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+/* Footer */
+.project-footer {
+    background: var(--dark-bg);
+    color: white;
+    padding: 2rem 0;
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.footer-content p {
+    margin-bottom: 0.5rem;
+    opacity: 0.9;
+}
+
+.back-link {
+    color: #93c5fd;
+    text-decoration: none;
+    margin-top: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9375rem;
+}
+
+.back-link:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* Theme Toggle */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: var(--card-light);
+    border: 1px solid var(--border-light);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-light);
+    box-shadow: var(--shadow-sm);
+}
+
+.dark-theme .theme-toggle {
+    background: var(--card-dark);
+    border-color: var(--border-dark);
+    color: var(--text-dark);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .project-title {
+        font-size: 2rem;
+    }
+    
+    .project-header {
+        padding: 2rem 0;
+    }
+    
+    .section-title {
+        font-size: 1.25rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .project-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .btn {
+        justify-content: center;
+    }
+    
+    .project-container {
+        padding: 0 16px;
+    }
+}
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -510,42 +537,43 @@
                 <h3>Architecture Overview</h3>
                 <p>The application follows a modern frontend architecture with clear separation of concerns:</p>
                 
-                <div class="architecture-diagram">
-                    <div class="diagram-title">System Architecture</div>
-                    <pre style="color: var(--text-light); font-family: monospace; line-height: 1.6;">
-<pre><code>
-┌─────────────────────────────────────────────────────────────┐
-│                    USER INTERFACE                            │
-├─────────────────────────────────────────────────────────────┤
-│  • Search Bar (Debounced)                                   │
-│  • Genre Filters                                            │
-│  • Sort Options                                             │
-│  • Pagination Controls                                      │
-│  • Theme Toggle                                             │
-└─────────────────────┬───────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────────────────┐
-│                STATE MANAGEMENT LAYER                        │
-├─────────────────────────────────────────────────────────────┤
-│  • Search State                                             │
-│  • Filter State                                             │
-│  • Pagination State                                         │
-│  • Wishlist State                                           │
-│  • Theme State                                              │
-└─────────────────────┬───────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────────────────┐
-│                API INTEGRATION LAYER                         │
-├─────────────────────────────────────────────────────────────┤
-│  • AWS API Gateway                                          │
-│  • Google Books API Integration                             │
-│  • Error Handling                                           │
-│  • Response Processing                                      │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+               <!-- Architecture Diagram as Code -->
+<div class="architecture-code">
+    <div class="code-header">
+        <span class="code-lang">System Architecture</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+<pre><code><span class="code-comment">// System Architecture Layers</span>
+<span class="code-comment">// ==========================</span>
 
+<span class="code-keyword">LAYER 1:</span> <span class="code-string">User Interface</span>
+├── Search Bar (Debounced Input)
+├── Genre Filter Selector
+├── Sort Options (Relevance/Rating/New)
+├── Pagination Controls
+├── Theme Toggle Switch
+└── Wishlist Manager
+
+<span class="code-keyword">LAYER 2:</span> <span class="code-string">State Management</span>
+├── Search State (query, filters)
+├── Book Data State (all/displayed)
+├── Pagination State (current/total pages)
+├── Wishlist State (localStorage)
+├── Theme State (light/dark)
+└── Loading State
+
+<span class="code-keyword">LAYER 3:</span> <span class="code-string">API Integration Layer</span>
+├── AWS API Gateway Proxy
+├── Google Books API Client
+├── Request/Response Handler
+├── Error Handler
+└── Data Transformer
+
+<span class="code-keyword">LAYER 4:</span> <span class="code-string">Data Layer</span>
+├── Google Books API
+├── Local Storage (Wishlist)
+└── Session Storage (Temporary State)</code></pre>
+</div>
                     </pre>
                 </div>
                 
@@ -802,4 +830,5 @@
     </script>
 </body>
 </html>
+
 
