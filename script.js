@@ -1502,6 +1502,22 @@ document.addEventListener('DOMContentLoaded', () => {
   
   console.log('✅ Portfolio initialized successfully');
 });
+document.addEventListener('DOMContentLoaded', () => {
+  // Track page view
+  Analytics.trackPageView();
+  
+  // Initialize all modules
+  CertificationsModule.init();
+  DevToArticles.init();
+  SecurityLab.init();
+  ContactForm.init();
+  MobileNav.init();
+  ZeroTrustScroll.init();
+  NavbarScroll.init();
+  ExpandableSkills.init(); // ← MAKE SURE THIS LINE IS HERE
+  
+  // ... rest of your code
+});
 
 
 
