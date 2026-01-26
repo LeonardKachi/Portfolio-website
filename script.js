@@ -11,8 +11,6 @@
 const Analytics = {
   log(eventType, details) {
     console.log(`[Analytics] ${eventType}:`, details);
-    // Future: send to analytics endpoint
-    // fetch('/api/analytics', { method: 'POST', body: JSON.stringify({ eventType, details }) });
   },
   
   trackPageView() {
@@ -352,6 +350,106 @@ const DevToArticles = (() => {
 })();
 
 // ==========================================
+// EXPANDABLE SKILLS SECTION - FIXED VERSION
+// ==========================================
+const ExpandableSkills = (() => {
+  function init() {
+    // Initialize skill bars animation
+    animateSkillBars();
+    
+    // Setup expandable sections
+    setupExpandableSections();
+    
+    // Animate skill bars on scroll
+    setupScrollAnimation();
+  }
+  
+  function setupExpandableSections() {
+    const expandButtons = document.querySelectorAll('.expand-toggle');
+    
+    expandButtons.forEach(button => {
+      // Initialize first section as expanded
+      const targetId = button.getAttribute('data-target');
+      const content = document.getElementById(targetId);
+      const icon = button.querySelector('.toggle-icon');
+      
+      if (button === expandButtons[0] && content && icon) {
+        content.classList.add('expanded');
+        content.style.maxHeight = content.scrollHeight + 'px';
+        icon.style.transform = 'rotate(180deg)';
+      }
+      
+      button.addEventListener('click', function() {
+        const targetId = this.getAttribute('data-target');
+        const content = document.getElementById(targetId);
+        const icon = this.querySelector('.toggle-icon');
+        
+        if (!content) return;
+        
+        const isExpanded = content.classList.contains('expanded');
+        
+        // Close all other sections
+        document.querySelectorAll('.expandable-content').forEach(item => {
+          if (item !== content) {
+            item.classList.remove('expanded');
+            item.style.maxHeight = '0';
+            const otherIcon = item.previousElementSibling?.querySelector('.toggle-icon');
+            if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+          }
+        });
+        
+        if (isExpanded) {
+          // Collapse
+          content.classList.remove('expanded');
+          content.style.maxHeight = '0';
+          if (icon) icon.style.transform = 'rotate(0deg)';
+        } else {
+          // Expand
+          content.classList.add('expanded');
+          content.style.maxHeight = content.scrollHeight + 'px';
+          if (icon) icon.style.transform = 'rotate(180deg)';
+        }
+      });
+    });
+  }
+  
+  function animateSkillBars() {
+    const skillBars = document.querySelectorAll('.skill-level');
+    
+    skillBars.forEach(bar => {
+      const width = bar.getAttribute('data-width') || '0';
+      // Set the width directly with transition
+      setTimeout(() => {
+        bar.style.width = width + '%';
+      }, 300);
+    });
+  }
+  
+  function setupScrollAnimation() {
+    const observerOptions = {
+      threshold: 0.2,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateSkillBars();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+    
+    const skillsSection = document.querySelector('.skills-visualization');
+    if (skillsSection) {
+      observer.observe(skillsSection);
+    }
+  }
+  
+  return { init };
+})();
+
+// ==========================================
 // SECURITY LAB MODULE
 // ==========================================
 const SecurityLab = (() => {
@@ -542,19 +640,26 @@ const SecurityLab = (() => {
   }
 
   function initScenarioSwitcher() {
-    document.querySelector('.lab-container')?.addEventListener('click', (e) => {
-      if (e.target.matches('.scenario-btn')) {
-        document.querySelectorAll('.scenario-btn').forEach(btn => btn.classList.remove('active'));
-        e.target.classList.add('active');
+    const scenarioButtons = document.querySelectorAll('.scenario-btn');
+    if (!scenarioButtons.length) return;
+    
+    scenarioButtons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
         
-        const scenario = e.target.dataset.scenario;
+        const scenario = this.dataset.scenario;
         document.querySelectorAll('.scenario-content').forEach(content => {
           content.classList.remove('active');
         });
-        document.getElementById(`${scenario}-scenario`)?.classList.add('active');
+        
+        const targetScenario = document.getElementById(`${scenario}-scenario`);
+        if (targetScenario) {
+          targetScenario.classList.add('active');
+        }
         
         Analytics.trackInteraction('security_lab', 'scenario_switch', scenario);
-      }
+      });
     });
   }
 
@@ -563,19 +668,24 @@ const SecurityLab = (() => {
     const testButton = document.getElementById('test-policy-btn');
     const actionPresets = document.getElementById('action-presets');
     
-    if (!cloudProvider) return;
+    if (cloudProvider) {
+      cloudProvider.addEventListener('change', updateActionList);
+      updateActionList();
+    }
     
-    cloudProvider.addEventListener('change', updateActionList);
-    updateActionList();
+    if (testButton) {
+      testButton.addEventListener('click', testPolicy);
+    }
     
-    testButton?.addEventListener('click', testPolicy);
-    actionPresets?.addEventListener('change', loadPolicyTemplate);
+    if (actionPresets) {
+      actionPresets.addEventListener('change', loadPolicyTemplate);
+    }
   }
 
   function updateActionList() {
     const provider = document.getElementById('cloud-provider')?.value;
     const container = document.getElementById('action-list-container');
-    if (!container || !provider) return;
+    if (!container || !provider || !cloudActions[provider]) return;
     
     container.innerHTML = '';
     
@@ -726,6 +836,8 @@ const SecurityLab = (() => {
   }
 
   function renderPolicyResults({ actionResults, validation }, container) {
+    if (!container) return;
+    
     container.innerHTML = '<h4>Policy Evaluation Results</h4>';
     
     const fragment = document.createDocumentFragment();
@@ -763,6 +875,8 @@ const SecurityLab = (() => {
   }
 
   function showResultError(message, container) {
+    if (!container) return;
+    
     container.innerHTML = `
       <div class="error-message">
         <h4>Error</h4>
@@ -795,6 +909,8 @@ const SecurityLab = (() => {
       }
       
       const attack = attackPatterns[attackId];
+      if (!attack) return;
+      
       attackLog.innerHTML = `
         <h4>${attack.name}</h4>
         <p class="attack-description">${attack.description}</p>
@@ -875,6 +991,8 @@ const SecurityLab = (() => {
     if (!recommendBtn) return;
     
     recommendBtn.addEventListener('click', () => {
+      if (!resultsPanel) return;
+      
       resultsPanel.innerHTML = `
         <h4>Recommended Policy Templates</h4>
         <p class="recommendation-intro">
@@ -899,8 +1017,10 @@ const SecurityLab = (() => {
       // Event delegation for apply buttons
       resultsPanel.querySelectorAll('.apply-policy').forEach(btn => {
         btn.addEventListener('click', (e) => {
-          policyInput.value = JSON.parse(e.target.dataset.policy);
-          resultsPanel.innerHTML = '<div class="applied-notice">Policy template applied to editor</div>';
+          if (policyInput) {
+            policyInput.value = JSON.parse(e.target.dataset.policy);
+            resultsPanel.innerHTML = '<div class="applied-notice">Policy template applied to editor</div>';
+          }
         });
       });
     });
@@ -944,45 +1064,6 @@ const SecurityLab = (() => {
         ]
       }
     };
-
-    networkViz.innerHTML = `
-      <div class="network-diagram-container">
-        <div class="network-diagram">
-          <div class="vpc">
-            <h4>VPC Architecture</h4>
-            <div class="subnets">
-              <div class="subnet public-subnet">
-                <h5>Public Subnet</h5>
-                <div class="instance web-server" data-sg="WebServerSG">
-                  <span>Web Server</span>
-                </div>
-                <div class="instance nat">
-                  <span>NAT Gateway</span>
-                </div>
-              </div>
-              <div class="subnet private-subnet">
-                <h5>Private Subnet</h5>
-                <div class="instance app-server" data-sg="AppServerSG">
-                  <span>App Server</span>
-                </div>
-                <div class="instance db-server" data-sg="DBServerSG">
-                  <span>Database</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="security-details-panel">
-          <h4>Security Group Details</h4>
-          <div id="sg-details">
-            <p>Click on an instance to view its security group rules</p>
-          </div>
-        </div>
-      </div>
-      <div class="network-controls">
-        <button class="btn-outline" id="show-sg-btn">Show Security Groups</button>
-      </div>
-    `;
 
     // Setup event listeners for instances
     networkViz.querySelectorAll('.instance').forEach(instance => {
@@ -1076,10 +1157,6 @@ const SecurityLab = (() => {
   return { init };
 })();
 
-window.Analytics = window.Analytics || {
-  trackInteraction: function() {}
-};
-
 // ==========================================
 // CONTACT FORM MODULE - OPTIMIZED VERSION
 // ==========================================
@@ -1146,7 +1223,7 @@ const ContactForm = (() => {
       submitBtn.disabled = true;
       btnText.textContent = 'Sending...';
       spinner.classList.remove('hidden');
-      formStatus.classList.add('hidden');
+      if (formStatus) formStatus.classList.add('hidden');
 
       const formData = new FormData(form);
       
@@ -1223,24 +1300,28 @@ const ContactForm = (() => {
       if (contactInfo) {
         contactInfo.style.display = 'none';
       }
-      successMessage.classList.remove('hidden');
-      successMessage.style.display = 'block';
-      successMessage.style.gridColumn = 'auto';
-      
-      // Update message if optimistic
-      if (isOptimistic) {
-        const successText = successMessage.querySelector('p');
-        if (successText) {
-          successText.textContent = "Your message is being sent. I'll respond within 24 hours.";
+      if (successMessage) {
+        successMessage.classList.remove('hidden');
+        successMessage.style.display = 'block';
+        successMessage.style.gridColumn = 'auto';
+        
+        // Update message if optimistic
+        if (isOptimistic) {
+          const successText = successMessage.querySelector('p');
+          if (successText) {
+            successText.textContent = "Your message is being sent. I'll respond within 24 hours.";
+          }
         }
       }
     }
 
     function showError() {
-      formStatus.textContent = 'Unable to send message. Please email me directly at Kachi.Henry.Leo@gmail.com';
-      formStatus.classList.remove('hidden', 'success');
-      formStatus.classList.add('error');
-      formStatus.style.display = 'block';
+      if (formStatus) {
+        formStatus.textContent = 'Unable to send message. Please email me directly at Kachi.Henry.Leo@gmail.com';
+        formStatus.classList.remove('hidden', 'success');
+        formStatus.classList.add('error');
+        formStatus.style.display = 'block';
+      }
     }
 
     // Reset form
@@ -1254,14 +1335,20 @@ const ContactForm = (() => {
         if (contactInfo) {
           contactInfo.style.display = 'block';
         }
-        successMessage.classList.add('hidden');
-        successMessage.style.display = 'none';
-        formStatus.classList.add('hidden');
+        if (successMessage) {
+          successMessage.classList.add('hidden');
+          successMessage.style.display = 'none';
+        }
+        if (formStatus) {
+          formStatus.classList.add('hidden');
+        }
         
         // Reset success message text
-        const successText = successMessage.querySelector('p');
-        if (successText) {
-          successText.textContent = "Thank you for reaching out. I'll respond within 24 hours.";
+        if (successMessage) {
+          const successText = successMessage.querySelector('p');
+          if (successText) {
+            successText.textContent = "Thank you for reaching out. I'll respond within 24 hours.";
+          }
         }
       });
     }
@@ -1340,24 +1427,6 @@ const ZeroTrustScroll = (() => {
 })();
 
 // ==========================================
-// PROJECT DETAILS INITIALIZATION
-// ==========================================
-const ProjectDetails = (() => {
-  function init() {
-    const currentPage = window.location.pathname.split('/').pop();
-    if (currentPage && currentPage !== 'index.html') {
-      document.querySelectorAll('.nav-links a').forEach(link => {
-        if (link.getAttribute('href').includes(currentPage)) {
-          link.classList.add('active');
-        }
-      });
-    }
-  }
-
-  return { init };
-})();
-
-// ==========================================
 // NAVBAR SCROLL EFFECT
 // ==========================================
 const NavbarScroll = (() => {
@@ -1379,100 +1448,8 @@ const NavbarScroll = (() => {
   }
 
   return { init };
-})();// ==========================================
-// EXPANDABLE SKILLS SECTION - FIXED VERSION
-// ==========================================
-const ExpandableSkills = (() => {
-  function init() {
-    // Initialize skill bars animation
-    animateSkillBars();
-    
-    // Setup expandable sections
-    setupExpandableSections();
-    
-    // Animate skill bars on scroll
-    setupScrollAnimation();
-  }
-  
-  function setupExpandableSections() {
-    const expandButtons = document.querySelectorAll('.expand-toggle');
-    
-    expandButtons.forEach(button => {
-      button.addEventListener('click', function() {
-        const targetId = this.getAttribute('data-target');
-        const content = document.getElementById(targetId);
-        const icon = this.querySelector('.toggle-icon');
-        
-        if (!content) return;
-        
-        // Toggle expanded class
-        const isExpanded = content.classList.contains('expanded');
-        
-        if (isExpanded) {
-          // Collapse
-          content.classList.remove('expanded');
-          content.style.maxHeight = '0';
-          icon.classList.remove('expanded');
-        } else {
-          // Expand
-          content.classList.add('expanded');
-          content.style.maxHeight = content.scrollHeight + 'px';
-          icon.classList.add('expanded');
-        }
-      });
-    });
-    
-    // Initialize with first section open
-    const firstButton = document.querySelector('.expand-toggle');
-    if (firstButton) {
-      const firstTarget = firstButton.getAttribute('data-target');
-      const firstContent = document.getElementById(firstTarget);
-      const firstIcon = firstButton.querySelector('.toggle-icon');
-      
-      if (firstContent && firstIcon) {
-        firstContent.classList.add('expanded');
-        firstContent.style.maxHeight = firstContent.scrollHeight + 'px';
-        firstIcon.classList.add('expanded');
-      }
-    }
-  }
-  
-  function animateSkillBars() {
-    const skillBars = document.querySelectorAll('.skill-level');
-    
-    skillBars.forEach(bar => {
-      const width = bar.getAttribute('data-width') || '0';
-      // Set the width directly with transition
-      setTimeout(() => {
-        bar.style.width = width + '%';
-      }, 300);
-    });
-  }
-  
-  function setupScrollAnimation() {
-    // Use Intersection Observer to animate skill bars when they come into view
-    const observerOptions = {
-      threshold: 0.2,
-      rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          animateSkillBars();
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-    
-    const skillsSection = document.querySelector('.skills-visualization');
-    if (skillsSection) {
-      observer.observe(skillsSection);
-    }
-  }
-  
-  return { init };
 })();
+
 // ==========================================
 // MAIN INITIALIZATION
 // ==========================================
@@ -1488,11 +1465,7 @@ document.addEventListener('DOMContentLoaded', () => {
   MobileNav.init();
   ZeroTrustScroll.init();
   NavbarScroll.init();
-  
-  // Initialize project details if on a project page
-  if (document.querySelector('.project-detail')) {
-    ProjectDetails.init();
-  }
+  ExpandableSkills.init();
   
   // Set current year in footer
   const yearElement = document.getElementById('year');
@@ -1502,23 +1475,3 @@ document.addEventListener('DOMContentLoaded', () => {
   
   console.log('✅ Portfolio initialized successfully');
 });
-document.addEventListener('DOMContentLoaded', () => {
-  // Track page view
-  Analytics.trackPageView();
-  
-  // Initialize all modules
-  CertificationsModule.init();
-  DevToArticles.init();
-  SecurityLab.init();
-  ContactForm.init();
-  MobileNav.init();
-  ZeroTrustScroll.init();
-  NavbarScroll.init();
-  ExpandableSkills.init(); // ← MAKE SURE THIS LINE IS HERE
-  
-  // ... rest of your code
-});
-
-
-
-
