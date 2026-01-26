@@ -1,0 +1,627 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Three-Tier Web Architecture Workshop</title>
+    <meta name="description" content="Hands-on workshop implementing a scalable three-tier web architecture in AWS">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        .project-header {
+            background: linear-gradient(135deg, #232f3e 0%, #0a1a2d 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-bottom: 5px solid #ff9900;
+        }
+        
+        .project-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .project-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+        
+        .project-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .meta-tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        /* Main Content Styles */
+        .project-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        @media (min-width: 992px) {
+            .project-content {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+        
+        .content-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 1.5rem;
+        }
+        
+        .content-card h2 {
+            color: #232f3e;
+            border-bottom: 2px solid #ff9900;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.2rem;
+            font-size: 1.8rem;
+        }
+        
+        .content-card h3 {
+            color: #333;
+            margin: 1.5rem 0 0.8rem;
+            font-size: 1.3rem;
+        }
+        
+        /* Architecture Image */
+        .architecture-image {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin: 1.5rem 0;
+        }
+        
+        .architecture-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .architecture-image img:hover {
+            transform: scale(1.02);
+        }
+        
+        /* Steps Component */
+        .steps-container {
+            margin-top: 1.5rem;
+        }
+        
+        .step-item {
+            display: flex;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .step-number {
+            background: #232f3e;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .step-content h4 {
+            color: #232f3e;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* AWS Resource Tags */
+        .aws-tag {
+            display: inline-block;
+            background: #f1faff;
+            border-left: 4px solid #0073bb;
+            padding: 0.5rem 0.8rem;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        /* Security Groups Table */
+        .sg-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        .sg-table th {
+            background: #232f3e;
+            color: white;
+            text-align: left;
+            padding: 0.8rem;
+        }
+        
+        .sg-table td {
+            padding: 0.8rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .sg-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        /* Sidebar */
+        .project-sidebar {
+            margin-top: 0;
+        }
+        
+        .sidebar-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 1.5rem;
+        }
+        
+        .sidebar-card h3 {
+            color: #232f3e;
+            border-bottom: 2px solid #ff9900;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .tech-list {
+            list-style: none;
+        }
+        
+        .tech-list li {
+            padding: 0.6rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .tech-list li:before {
+            content: "✓";
+            color: #00a400;
+            font-weight: bold;
+            margin-right: 0.8rem;
+        }
+        
+        /* Buttons */
+        .btn-container {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: #ff9900;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #e68900;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-secondary {
+            background: #232f3e;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #1a2530;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Footer */
+        .project-footer {
+            background: #232f3e;
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .back-link {
+            color: #ff9900;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .project-header h1 {
+                font-size: 2rem;
+            }
+            
+            .content-card, .sidebar-card {
+                padding: 1.2rem;
+            }
+            
+            .btn-container {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+        
+        /* Highlight */
+        .highlight {
+            background: #fff8e1;
+            border-left: 4px solid #ff9900;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="project-header">
+        <div class="container">
+            <h1>AWS Three-Tier Web Architecture Workshop</h1>
+            <p class="project-subtitle">Hands-on walkthrough of implementing a scalable, available three-tier web architecture in AWS</p>
+            <div class="project-meta">
+                <span class="meta-tag"><i class="fas fa-cloud"></i> AWS</span>
+                <span class="meta-tag"><i class="fas fa-layer-group"></i> Three-Tier Architecture</span>
+                <span class="meta-tag"><i class="fas fa-server"></i> EC2, RDS, ALB</span>
+                <span class="meta-tag"><i class="fas fa-shield-alt"></i> Security Groups</span>
+                <span class="meta-tag"><i class="fas fa-expand-alt"></i> Auto Scaling</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="project-content">
+            <div class="project-main">
+                <div class="content-card">
+                    <h2>Project Overview</h2>
+                    <p>This workshop is a hands-on walkthrough of implementing a three-tier web architecture in AWS. I created the necessary network, security, application, and database components and configurations to run this architecture in an available and scalable manner.</p>
+                    
+                    <div class="highlight">
+                        <p><strong>Architecture Summary:</strong> A public-facing Application Load Balancer forwards client traffic to web tier EC2 instances running Nginx webservers. The web tier serves a React.js website and redirects API calls to an internal load balancer for the application tier (Node.js). The application tier manipulates data in an Aurora MySQL multi-AZ database. Load balancing, health checks and autoscaling groups maintain availability at each layer.</p>
+                    </div>
+                </div>
+                
+                <div class="content-card">
+                    <h2>Architecture Diagram</h2>
+                    <div class="architecture-image">
+                        <img src="https://via.placeholder.com/1200x700/0073bb/ffffff?text=AWS+Three-Tier+Architecture+Diagram" alt="AWS Three-Tier Architecture">
+                        <p class="image-caption" style="text-align: center; margin-top: 0.5rem; font-style: italic; color: #666;">Three-tier web architecture with public and private subnets</p>
+                    </div>
+                </div>
+                
+                <div class="content-card">
+                    <h2>Implementation Steps</h2>
+                    <div class="steps-container">
+                        <div class="step-item">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Download Code & Create S3 Buckets</h4>
+                                <p>Download code from GitHub and create two S3 buckets: one for storing web-server & app-server code, and another for VPC flow logs.</p>
+                                <div>
+                                    <span class="aws-tag">S3</span>
+                                    <span class="aws-tag">GitHub</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Create IAM Role with Policies</h4>
+                                <p>Create IAM role with S3 read-only and SSM managed instance core policies for EC2 instances.</p>
+                                <div>
+                                    <span class="aws-tag">IAM</span>
+                                    <span class="aws-tag">S3</span>
+                                    <span class="aws-tag">SSM</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Create VPC with Networking Components</h4>
+                                <p>Create VPC with public and private subnets, Internet Gateway, NAT Gateway, Route Tables. Enable auto-assign public IP for web-tier public subnets and create VPC flow logs.</p>
+                                <div>
+                                    <span class="aws-tag">VPC</span>
+                                    <span class="aws-tag">Subnets</span>
+                                    <span class="aws-tag">IGW</span>
+                                    <span class="aws-tag">NAT Gateway</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Create Security Groups</h4>
+                                <p>Create security groups for each tier with appropriate ingress rules:</p>
+                                <table class="sg-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Security Group</th>
+                                            <th>Protocol/Port</th>
+                                            <th>Source</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>External-Load-Balancer-SG</td>
+                                            <td>HTTP (80)</td>
+                                            <td>0.0.0.0/0</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Web-Tier-SG</td>
+                                            <td>HTTP (80)</td>
+                                            <td>External-LB-SG</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Internal-Load-Balancer-SG</td>
+                                            <td>HTTP (80)</td>
+                                            <td>Web-Tier-SG</td>
+                                        </tr>
+                                        <tr>
+                                            <td>App-Tier-SG</td>
+                                            <td>Port 4000</td>
+                                            <td>Internal-LB-SG</td>
+                                        </tr>
+                                        <tr>
+                                            <td>DB-Tier-SG</td>
+                                            <td>MySQL (3306)</td>
+                                            <td>App-Tier-SG</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <h4>Create Database Tier</h4>
+                                <p>Create DB subnet group and RDS Aurora MySQL multi-AZ database placed in private subnets.</p>
+                                <div>
+                                    <span class="aws-tag">RDS</span>
+                                    <span class="aws-tag">Aurora</span>
+                                    <span class="aws-tag">MySQL</span>
+                                    <span class="aws-tag">Multi-AZ</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-number">6</div>
+                            <div class="step-content">
+                                <h4>Create Application Tier</h4>
+                                <p>Create test app server (Node.js), install packages, test connections, create AMI, launch template, target group, internal load balancer, and autoscaling group.</p>
+                                <div>
+                                    <span class="aws-tag">EC2</span>
+                                    <span class="aws-tag">Node.js</span>
+                                    <span class="aws-tag">ALB</span>
+                                    <span class="aws-tag">Auto Scaling</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-number">7</div>
+                            <div class="step-content">
+                                <h4>Create Web Tier</h4>
+                                <p>Create test web server with Nginx and Node.js (React), install packages, test connections, create AMI, launch template, target group, external load balancer, and autoscaling group.</p>
+                                <div>
+                                    <span class="aws-tag">EC2</span>
+                                    <span class="aws-tag">Nginx</span>
+                                    <span class="aws-tag">React.js</span>
+                                    <span class="aws-tag">ALB</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-number">8</div>
+                            <div class="step-content">
+                                <h4>Add DNS & Monitoring</h4>
+                                <p>Add external ALB DNS record in Route 53, create CloudWatch alarms with SNS, and set up CloudTrail for auditing.</p>
+                                <div>
+                                    <span class="aws-tag">Route 53</span>
+                                    <span class="aws-tag">CloudWatch</span>
+                                    <span class="aws-tag">SNS</span>
+                                    <span class="aws-tag">CloudTrail</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="btn-container">
+                    <a href="#" class="btn btn-primary"><i class="fab fa-github"></i> View GitHub Repository</a>
+                    <a href="#" class="btn btn-secondary"><i class="fas fa-file-pdf"></i> Download Workshop Guide</a>
+                </div>
+            </div>
+            
+            <div class="project-sidebar">
+                <div class="sidebar-card">
+                    <h3>AWS Services Used</h3>
+                    <ul class="tech-list">
+                        <li>Amazon VPC</li>
+                        <li>Amazon EC2</li>
+                        <li>Amazon RDS (Aurora MySQL)</li>
+                        <li>Application Load Balancer</li>
+                        <li>Auto Scaling Groups</li>
+                        <li>Amazon S3</li>
+                        <li>Amazon IAM</li>
+                        <li>Amazon Route 53</li>
+                        <li>AWS CloudWatch</li>
+                        <li>AWS CloudTrail</li>
+                        <li>AWS SNS</li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-card">
+                    <h3>Technical Stack</h3>
+                    <ul class="tech-list">
+                        <li>Nginx Web Server</li>
+                        <li>Node.js Application Server</li>
+                        <li>React.js Frontend</li>
+                        <li>MySQL Database</li>
+                        <li>Multi-AZ Deployment</li>
+                        <li>Security Groups & NACLs</li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-card">
+                    <h3>Key Features</h3>
+                    <ul class="tech-list">
+                        <li>High Availability Architecture</li>
+                        <li>Auto Scaling at Web & App Tiers</li>
+                        <li>Multi-AZ Database</li>
+                        <li>Secure Network Segmentation</li>
+                        <li>Comprehensive Monitoring</li>
+                        <li>Infrastructure as Code Ready</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+     <a href="index.html#projects" class="back-link"><i class="fas fa-arrow-left"></i> Back to Projects</a>
+    <script>
+        // Simple script to enhance interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click animation to step items
+            const stepItems = document.querySelectorAll('.step-item');
+            stepItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    this.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>
+<!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-about">
+          <h3>Leonard Kachi</h3>
+          <p>Cloud Security Architect specializing in AWS, Azure, and Zero Trust implementations.</p>
+          <p>Turning threats into design. By blending AWS, Zero Trust, and automation, I build security infrastructures that scale and stories that launch careers.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#lab">Security Lab</a></li>
+            <li><a href="#articles">Articles</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="https://discord.com/users/967213149252104242" target="_blank" rel="noopener">Discord</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:Kachi.Henry.Leo@gmail.com">Kachi.Henry.Leo@gmail.com</a></li>
+            <li><a href="https://github.com/LeonardKachi" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/onyedikachi-obidiegwu" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://twitter.com/Leonard_kachi" target="_blank" rel="noopener">Twitter</a></li>
+            <li><a href="https://dev.to/leonardkachi" target="_blank" rel="noopener">Dev.to</a></li>
+            <li><a href="https://medium.com/@leonardkachi" target="_blank" rel="noopener">Medium</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <span id="year"></span> Obidiegwu Onyedikachi Henry Leonard. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+    <script>
+        // Simple script to enhance interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click animation to step items
+            const stepItems = document.querySelectorAll('.step-item');
+            stepItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    this.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>
