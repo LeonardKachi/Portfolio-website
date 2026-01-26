@@ -30,6 +30,7 @@
     <div class="container">
       <a href="#" class="logo">Leonard<span>Kachi</span></a>
       <div class="nav-links">
+        <a href="#about">About</a>
         <a href="#projects">Projects</a>
         <a href="#lab">Security Lab</a>
         <a href="#articles">Articles</a>
@@ -48,9 +49,9 @@
   <header class="hero">
     <div class="hero-overlay"></div>
     <div class="container">
-      <img src="assets/images/profile.jpg" alt="Henry Leo - Cloud Security Architect" class="profile-pic" width="150" height="150">
+      <img src="assets/images/profile.jpg" alt="Leonard Kachi - Cloud Security Architect" class="profile-pic" width="150" height="150">
       <h1>Obidiegwu Onyedikachi Henry</h1>
-      <p class="subtitle">Cloud Security Architect</p>
+      <p class="subtitle">Cloud Security Architect | DevOps Engineer</p>
       <div class="social-links">
         <a href="https://github.com/LeonardKachi" target="_blank" rel="noopener" aria-label="GitHub">
           <svg class="icon" viewBox="0 0 24 24" width="24" height="24">
@@ -64,7 +65,7 @@
         </a>
         <a href="https://x.com/Leonard_kachi" target="_blank" rel="noopener" aria-label="Twitter / X">
           <svg class="icon" viewBox="0 0 24 24" width="24" height="24">
-            <path fill="currentColor" d="M18.244 2H21.5l-7.52 8.62L22 22h-5.795l-4.54-6.027L6.16 22H2.9l8.04-9.22L2 2h5.91l4.07 5.433L18.244 2zM16.56 20h2.27L7.61 4h-2.3l11.25 16z"/>
+            <path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
           </svg>
         </a>
         <a href="https://dev.to/leonardkachi" target="_blank" rel="noopener" aria-label="Dev.to">
@@ -79,6 +80,7 @@
         </a>
       </div>
       <div class="buttons">
+        <a href="#about" class="btn-outline">About</a>
         <a href="#projects" class="btn-outline">Projects</a>
         <a href="#lab" class="btn-outline">Security Lab</a>
         <a href="#articles" class="btn-outline">Articles</a>
@@ -175,7 +177,7 @@
         
         <div class="expandable-section">
           <button class="expand-toggle" data-target="cloud-platforms">
-            <span class="expand-title">☁️ Cloud Platforms & Infrastructure</span>
+            <span class="expand-title">Cloud Platforms & Infrastructure</span>
             <svg class="toggle-icon" viewBox="0 0 24 24" width="16" height="16">
               <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
             </svg>
@@ -315,7 +317,6 @@
     </div>
   </div>
 </section>
-
    
   <!-- Projects Section -->
   <section id="projects" class="section-light">
@@ -645,8 +646,44 @@
               <h3>Network Security</h3>
               <p>Visualize security groups and network ACLs in a cloud environment.</p>
             </div>
-            <div class="network-visualization"></div>
-            <div class="network-controls"></div>
+            <div class="network-visualization">
+              <div class="network-diagram-container">
+                <div class="network-diagram">
+                  <div class="vpc">
+                    <h4>VPC Architecture</h4>
+                    <div class="subnets">
+                      <div class="subnet public-subnet">
+                        <h5>Public Subnet</h5>
+                        <div class="instance web-server" data-sg="WebServerSG">
+                          <span>Web Server</span>
+                        </div>
+                        <div class="instance nat">
+                          <span>NAT Gateway</span>
+                        </div>
+                      </div>
+                      <div class="subnet private-subnet">
+                        <h5>Private Subnet</h5>
+                        <div class="instance app-server" data-sg="AppServerSG">
+                          <span>App Server</span>
+                        </div>
+                        <div class="instance db-server" data-sg="DBServerSG">
+                          <span>Database</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="security-details-panel">
+                  <h4>Security Group Details</h4>
+                  <div id="sg-details">
+                    <p>Click on an instance to view its security group rules</p>
+                  </div>
+                </div>
+              </div>
+              <div class="network-controls">
+                <button class="btn-outline" id="show-sg-btn">Show Security Groups</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -966,9 +1003,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-
-
