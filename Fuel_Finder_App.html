@@ -1,162 +1,1292 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fuel Finder Nigeria | Leonard Kachi</title>
-  <meta name="description" content="Details of the Fuel Finder Nigeria project">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FUEL FINDER | Smart Fuel Discovery Platform</title>
+    <meta name="description" content="Real-time fuel station discovery with intelligent pricing, availability tracking, and seamless payments">
+    <style>
+        :root {
+            --primary-dark: #004d40;
+            --primary: #00796b;
+            --primary-light: #009688;
+            --accent: #8bc34a;
+            --accent-dark: #689f38;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --dark-bg: #121212;
+            --card-dark: #1e1e1e;
+            --text-light: #ffffff;
+            --text-muted: #b0b0b0;
+            --border-dark: #333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            height: 100%;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 61, 54, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            border-bottom: 2px solid var(--primary-light);
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo-dot {
+            color: var(--primary-light);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+        
+        .nav-link:hover {
+            color: var(--accent);
+            background: rgba(139, 195, 74, 0.1);
+        }
+        
+        .cta-button {
+            background: var(--accent);
+            color: var(--dark-bg);
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .cta-button:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 195, 74, 0.3);
+        }
+        
+        /* Hero Section - Full Screen */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.9)), 
+                        url('https://images.unsplash.com/photo-1518365050014-70fe7232897f?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            padding: 6rem 2rem 2rem;
+        }
+        
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+        
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 150, 136, 0.2);
+            color: var(--primary-light);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(0, 150, 136, 0.3);
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            line-height: 1.6;
+            max-width: 600px;
+        }
+        
+        /* Startup Info */
+        .company-info {
+            background: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 500px;
+            border: 1px solid rgba(0, 150, 136, 0.2);
+            margin-top: 3rem;
+        }
+        
+        .company-name {
+            color: var(--accent);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .company-tagline {
+            color: var(--primary-light);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .team-member {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .member-name {
+            color: var(--text-light);
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+        
+        .member-role {
+            color: var(--primary-light);
+            font-size: 0.9rem;
+        }
+        
+        /* Problems Section */
+        .problems-section {
+            min-height: 100vh;
+            background: var(--dark-bg);
+            padding: 6rem 2rem;
+            border-top: 2px solid rgba(0, 150, 136, 0.2);
+        }
+        
+        .problems-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+        
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .problem-card {
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 2px solid rgba(244, 67, 54, 0.3);
+            transition: all 0.3s;
+        }
+        
+        .problem-card:hover {
+            border-color: rgba(244, 67, 54, 0.6);
+            transform: translateY(-5px);
+        }
+        
+        .problem-icon {
+            font-size: 2.5rem;
+            color: var(--danger);
+            margin-bottom: 1.5rem;
+        }
+        
+        .problem-title {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+        
+        .problem-desc {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        
+        /* Solutions Section */
+        .solutions-section {
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(0, 77, 64, 0.1), rgba(0, 121, 107, 0.1));
+            padding: 6rem 2rem;
+            border-top: 2px solid rgba(139, 195, 74, 0.2);
+        }
+        
+        .solutions-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .solution-card {
+            background: rgba(0, 77, 64, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 2px solid rgba(0, 150, 136, 0.3);
+            transition: all 0.3s;
+            height: 100%;
+        }
+        
+        .solution-card:hover {
+            border-color: rgba(139, 195, 74, 0.6);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 150, 136, 0.2);
+        }
+        
+        .solution-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+        
+        .solution-title {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+        
+        .solution-desc {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        
+        /* Architecture Section */
+        .architecture-section {
+            min-height: 100vh;
+            background: var(--dark-bg);
+            padding: 6rem 2rem;
+            border-top: 2px solid rgba(0, 150, 136, 0.2);
+        }
+        
+        .architecture-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .architecture-diagram {
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-top: 3rem;
+            border: 2px solid rgba(0, 150, 136, 0.3);
+            overflow-x: auto;
+        }
+        
+        .arch-layer {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .layer-title {
+            min-width: 200px;
+            color: var(--primary-light);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .layer-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            flex: 1;
+        }
+        
+        .tech-pill {
+            background: rgba(0, 150, 136, 0.2);
+            color: var(--primary-light);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(0, 150, 136, 0.3);
+        }
+        
+        /* Tech Stack */
+        .tech-section {
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(0, 77, 64, 0.1), rgba(0, 121, 107, 0.1));
+            padding: 6rem 2rem;
+            border-top: 2px solid rgba(139, 195, 74, 0.2);
+        }
+        
+        .tech-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .tech-category {
+            background: rgba(0, 77, 64, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 2px solid rgba(0, 150, 136, 0.3);
+        }
+        
+        .category-title {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .tech-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+        
+        .tech-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .tech-item:hover {
+            background: rgba(139, 195, 74, 0.2);
+            border-color: var(--accent);
+        }
+        
+        /* Features Section */
+        .features-section {
+            min-height: 100vh;
+            background: var(--dark-bg);
+            padding: 6rem 2rem;
+            border-top: 2px solid rgba(0, 150, 136, 0.2);
+        }
+        
+        .features-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-card {
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 2px solid rgba(139, 195, 74, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+        
+        .feature-badge {
+            display: inline-block;
+            background: rgba(139, 195, 74, 0.2);
+            color: var(--accent);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-title {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-desc {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        
+        /* Footer */
+        .footer {
+            background: rgba(0, 61, 54, 0.95);
+            padding: 4rem 2rem;
+            border-top: 2px solid var(--primary-light);
+        }
+        
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .footer-tagline {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text-muted);
+        }
+        
+        .contact-icon {
+            color: var(--primary-light);
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-column h3 {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        .footer-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-link:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 3rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav {
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero {
+                padding: 5rem 1rem 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .problems-section,
+            .solutions-section,
+            .architecture-section,
+            .tech-section,
+            .features-section {
+                padding: 4rem 1rem;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+        
+        /* Scroll Animation */
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);}
+            40% {transform: translateY(-10px) translateX(-50%);}
+            60% {transform: translateY(-5px) translateX(-50%);}
+        }
+        
+        /* Highlight */
+        .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <nav class="navbar">
-    <div class="container">
-      <a href="index.html" class="logo">Leonard<span>Kachi</span></a>
-      <div class="nav-links">
-        <a href="index.html#articles">Articles</a>
-        <a href="index.html#certifications">Certifications</a>
-        <a href="index.html#lab">Security Lab</a>
-        <a href="index.html#projects">Projects</a>
-        <a href="index.html#contact">Contact</a>
-      </div>
-      <button class="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
-  </nav>
-
-  <main class="container project-detail">
-    <section class="project-header">
-      <h1>Fuel Finder Nigeria</h1>
-      <div class="project-meta">
-        <span class="project-date">2022</span>
-        <div class="project-tech">
-          <span>React Native</span>
-          <span>Firebase</span>
-          <span>Google Maps API</span>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="logo">
+                <span>FUEL</span><span class="logo-dot">.</span><span>FINDER</span>
+            </div>
+            <div class="nav-links">
+                <a href="#problem" class="nav-link">The Problem</a>
+                <a href="#solution" class="nav-link">Our Solution</a>
+                <a href="#tech" class="nav-link">Technology</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <a href="#demo" class="cta-button">Request Demo</a>
         </div>
-      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content fade-in">
+                <div class="status-badge">
+                    <span class="status-dot"></span>
+                    ACTIVE DEVELOPMENT • STARTUP MODE
+                </div>
+                
+                <h1 class="hero-title">
+                    Intelligent Fuel Discovery<br>
+                    <span style="font-size: 3.5rem;">For The Modern Driver</span>
+                </h1>
+                
+                <p class="hero-subtitle">
+                    Real-time fuel availability, smart pricing, seamless payments, and community-powered 
+                    insights. We're building the definitive platform that connects drivers with their 
+                    perfect fuel station—every time.
+                </p>
+                
+                <div class="company-info">
+                    <div class="company-name">AKANSE TECHNOLOGIES</div>
+                    <div class="company-tagline">Building solutions that move people forward</div>
+                    
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <div class="member-name">Leonard Kachi</div>
+                            <div class="member-role">CTO & Lead Architect</div>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-name">[Co-Founder Name]</div>
+                            <div class="member-role">CEO & Product Lead</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="scroll-hint">
+            <span>Explore the Platform</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
     </section>
 
-    <section class="project-content">
-      <div class="project-image">
-        <img src="assets/images/Fuel Finder Nigeria.jpg" alt="Fuel Finder Nigeria App" loading="lazy">
-      </div>
-      
-      <div class="project-description">
-        <h2>Project Overview</h2>
-        <p>Fuel Finder Nigeria is a web and mobile app that helps users locate the nearest fuel stations, check current prices, and see fuel availability in real time. It was inspired by the frequent fuel scarcity and pricing inconsistencies across different regions in Nigeria.</p>
-        
-        <h3>Key Features</h3>
-        <ul>
-          <li>Geo-location based search for nearby stations</li>
-          <li>Real-time fuel availability status</li>
-          <li>Price comparison between stations</li>
-          <li>User-submitted updates and feedback</li>
-        </ul>
-        
-        <h3>Technical Implementation</h3>
-        <p>The app was built using React Native for cross-platform compatibility, Firebase for real-time data, and Google Maps API for location services:</p>
-        
-        
-        <div class="code-block">
-          <h4>Sample Location Search</h4>
-          <pre><code>import React, { useState, useEffect } from 'react';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+    <!-- Problems Section -->
+    <section id="problem" class="problems-section">
+        <div class="problems-container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">The Fuel Discovery Problem</h2>
+                <p class="section-subtitle">
+                    Traditional fuel station discovery is broken. We're fixing it.
+                </p>
+            </div>
+            
+            <div class="problems-grid">
+                <div class="problem-card fade-in">
+                    <div class="problem-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3 class="problem-title">Real-time Uncertainty</h3>
+                    <p class="problem-desc">
+                        No way to know actual fuel availability before arrival. 
+                        Drivers waste time and fuel searching during shortages.
+                    </p>
+                </div>
+                
+                <div class="problem-card fade-in">
+                    <div class="problem-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="problem-title">Price Volatility</h3>
+                    <p class="problem-desc">
+                        Inconsistent pricing across stations with no transparency. 
+                        No access to historical data or price trends.
+                    </p>
+                </div>
+                
+                <div class="problem-card fade-in">
+                    <div class="problem-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="problem-title">Queue Chaos</h3>
+                    <p class="problem-desc">
+                        No visibility into station queues. Arrive to find 
+                        unexpected waits with no way to plan around them.
+                    </p>
+                </div>
+                
+                <div class="problem-card fade-in">
+                    <div class="problem-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h3 class="problem-title">Payment Fragmentation</h3>
+                    <p class="problem-desc">
+                        Multiple payment methods, no unified system. 
+                        No loyalty benefits or cashless convenience.
+                    </p>
+                </div>
+                
+                <div class="problem-card fade-in">
+                    <div class="problem-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="problem-title">Trust Deficit</h3>
+                    <p class="problem-desc">
+                        No reliable reviews or verification system. 
+                        Can't distinguish between quality stations and poor ones.
+                    </p>
+                </div>
+                
+                <div class="problem-card fade-in">
+                    <div class="problem-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3 class="problem-title">Route Inefficiency</h3>
+                    <p class="problem-desc">
+                        No integration with navigation systems. 
+                        Can't optimize fuel stops along travel routes.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-const FuelStationSearch = ({ onSelect }) => {
-  return (
-    &lt;GooglePlacesAutocomplete
-      placeholder="Search for fuel stations"
-      minLength={2}
-      autoFocus={false}
-      returnKeyType="search"
-      listViewDisplayed="auto"
-      fetchDetails={true}
-      onPress={(data, details = null) => {
-        onSelect({
-          name: data.description,
-          location: details.geometry.location,
-          address: details.formatted_address
+    <!-- Solutions Section -->
+    <section id="solution" class="solutions-section">
+        <div class="solutions-container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Our Complete Solution</h2>
+                <p class="section-subtitle">
+                    End-to-end platform connecting drivers with intelligent fuel discovery
+                </p>
+            </div>
+            
+            <div class="solutions-grid">
+                <div class="solution-card fade-in">
+                    <div class="solution-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3 class="solution-title">Live Station Discovery</h3>
+                    <p class="solution-desc">
+                        Real-time mapping of all fuel stations with live availability, 
+                        pricing, and queue status. Filter by proximity, price, or rating.
+                    </p>
+                </div>
+                
+                <div class="solution-card fade-in">
+                    <div class="solution-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="solution-title">Smart Payment Engine</h3>
+                    <p class="solution-desc">
+                        Multi-bank integration with in-app payments and reference generation. 
+                        Unified payment system across all partner stations.
+                    </p>
+                </div>
+                
+                <div class="solution-card fade-in">
+                    <div class="solution-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="solution-title">Community Intelligence</h3>
+                    <p class="solution-desc">
+                        Twitter-style commenting system with real-time updates. 
+                        Crowd-sourced queue reports and station reviews.
+                    </p>
+                </div>
+                
+                <div class="solution-card fade-in">
+                    <div class="solution-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3 class="solution-title">Loyalty & Rewards</h3>
+                    <p class="solution-desc">
+                        Points per purchase redeemable for fuel discounts. 
+                        Gamified ranking system for stations and users.
+                    </p>
+                </div>
+                
+                <div class="solution-card fade-in">
+                    <div class="solution-icon">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <h3 class="solution-title">Route Optimization</h3>
+                    <p class="solution-desc">
+                        Google Maps integration for route-based suggestions. 
+                        Find optimal fuel stops along your journey.
+                    </p>
+                </div>
+                
+                <div class="solution-card fade-in">
+                    <div class="solution-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="solution-title">Station Management</h3>
+                    <p class="solution-desc">
+                        Complete dashboard for station owners to manage pricing, 
+                        availability, and customer engagement.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section class="architecture-section">
+        <div class="architecture-container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">System Architecture</h2>
+                <p class="section-subtitle">
+                    Enterprise-grade infrastructure built for scale and reliability
+                </p>
+            </div>
+            
+            <div class="architecture-diagram fade-in">
+                <div class="arch-layer">
+                    <div class="layer-title">Frontend Layer</div>
+                    <div class="layer-tech">
+                        <span class="tech-pill">React.js</span>
+                        <span class="tech-pill">S3 + CloudFront</span>
+                        <span class="tech-pill">Progressive Web App</span>
+                        <span class="tech-pill">Responsive Design</span>
+                    </div>
+                </div>
+                
+                <div class="arch-layer">
+                    <div class="layer-title">API Gateway</div>
+                    <div class="layer-tech">
+                        <span class="tech-pill">AWS API Gateway</span>
+                        <span class="tech-pill">REST + WebSocket APIs</span>
+                        <span class="tech-pill">Rate Limiting</span>
+                        <span class="tech-pill">JWT Authentication</span>
+                    </div>
+                </div>
+                
+                <div class="arch-layer">
+                    <div class="layer-title">Microservices</div>
+                    <div class="layer-tech">
+                        <span class="tech-pill">ECS Fargate</span>
+                        <span class="tech-pill">AWS Lambda</span>
+                        <span class="tech-pill">Node.js / Python</span>
+                        <span class="tech-pill">Docker Containers</span>
+                    </div>
+                </div>
+                
+                <div class="arch-layer">
+                    <div class="layer-title">Data Layer</div>
+                    <div class="layer-tech">
+                        <span class="tech-pill">Amazon Aurora</span>
+                        <span class="tech-pill">DynamoDB</span>
+                        <span class="tech-pill">Redis Cache</span>
+                        <span class="tech-pill">Amazon S3</span>
+                    </div>
+                </div>
+                
+                <div class="arch-layer">
+                    <div class="layer-title">Integrations</div>
+                    <div class="layer-tech">
+                        <span class="tech-pill">Google Maps API</span>
+                        <span class="tech-pill">Bank APIs</span>
+                        <span class="tech-pill">SMS Gateways</span>
+                        <span class="tech-pill">Push Notifications</span>
+                    </div>
+                </div>
+                
+                <div class="arch-layer">
+                    <div class="layer-title">DevOps</div>
+                    <div class="layer-tech">
+                        <span class="tech-pill">Terraform</span>
+                        <span class="tech-pill">GitHub Actions</span>
+                        <span class="tech-pill">AWS CodePipeline</span>
+                        <span class="tech-pill">Monitoring Stack</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section id="tech" class="tech-section">
+        <div class="tech-container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Technology Stack</h2>
+                <p class="section-subtitle">
+                    Modern tools and services powering our platform
+                </p>
+            </div>
+            
+            <div class="tech-grid">
+                <div class="tech-category fade-in">
+                    <h3 class="category-title">
+                        <i class="fas fa-server"></i> Cloud Infrastructure
+                    </h3>
+                    <div class="tech-items">
+                        <span class="tech-item">AWS VPC</span>
+                        <span class="tech-item">ECS Fargate</span>
+                        <span class="tech-item">API Gateway</span>
+                        <span class="tech-item">Lambda Functions</span>
+                        <span class="tech-item">S3 + CloudFront</span>
+                        <span class="tech-item">CloudWatch</span>
+                        <span class="tech-item">X-Ray</span>
+                        <span class="tech-item">Secrets Manager</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category fade-in">
+                    <h3 class="category-title">
+                        <i class="fas fa-database"></i> Data & Storage
+                    </h3>
+                    <div class="tech-items">
+                        <span class="tech-item">Aurora PostgreSQL</span>
+                        <span class="tech-item">DynamoDB</span>
+                        <span class="tech-item">Redis Cache</span>
+                        <span class="tech-item">Amazon S3</span>
+                        <span class="tech-item">EventBridge</span>
+                        <span class="tech-item">SQS Queues</span>
+                        <span class="tech-item">SNS Topics</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category fade-in">
+                    <h3 class="category-title">
+                        <i class="fas fa-code"></i> Development
+                    </h3>
+                    <div class="tech-items">
+                        <span class="tech-item">React.js</span>
+                        <span class="tech-item">Node.js</span>
+                        <span class="tech-item">TypeScript</span>
+                        <span class="tech-item">Python</span>
+                        <span class="tech-item">Docker</span>
+                        <span class="tech-item">Terraform</span>
+                        <span class="tech-item">GitHub Actions</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category fade-in">
+                    <h3 class="category-title">
+                        <i class="fas fa-shield-alt"></i> Security
+                    </h3>
+                    <div class="tech-items">
+                        <span class="tech-item">AWS Cognito</span>
+                        <span class="tech-item">IAM Roles</span>
+                        <span class="tech-item">WAF + Shield</span>
+                        <span class="tech-item">KMS Encryption</span>
+                        <span class="tech-item">Webhook Signatures</span>
+                        <span class="tech-item">API Throttling</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category fade-in">
+                    <h3 class="category-title">
+                        <i class="fas fa-plug"></i> Integrations
+                    </h3>
+                    <div class="tech-items">
+                        <span class="tech-item">Google Maps API</span>
+                        <span class="tech-item">Bank APIs</span>
+                        <span class="tech-item">Payment Processors</span>
+                        <span class="tech-item">SMS Services</span>
+                        <span class="tech-item">Push Notifications</span>
+                        <span class="tech-item">Email Services</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category fade-in">
+                    <h3 class="category-title">
+                        <i class="fas fa-tools"></i> DevOps
+                    </h3>
+                    <div class="tech-items">
+                        <span class="tech-item">AWS CodePipeline</span>
+                        <span class="tech-item">GitHub</span>
+                        <span class="tech-item">Docker Registry</span>
+                        <span class="tech-item">Monitoring</span>
+                        <span class="tech-item">Logging</span>
+                        <span class="tech-item">Alerting</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="features-container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Core Features</h2>
+                <p class="section-subtitle">
+                    Comprehensive functionality for drivers, stations, and administrators
+                </p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <span class="feature-badge">DRIVER FEATURE</span>
+                    <h3 class="feature-title">Real-time Fuel Search</h3>
+                    <p class="feature-desc">
+                        Search stations by proximity, price, queue length, and availability. 
+                        Live updates with filtering and sorting options.
+                    </p>
+                </div>
+                
+                <div class="feature-card fade-in">
+                    <span class="feature-badge">PAYMENT SYSTEM</span>
+                    <h3 class="feature-title">Multi-bank Payments</h3>
+                    <p class="feature-desc">
+                        In-app payments with multiple bank integrations. 
+                        Generate payment references for external bank app transactions.
+                    </p>
+                </div>
+                
+                <div class="feature-card fade-in">
+                    <span class="feature-badge">SOCIAL FEATURE</span>
+                    <h3 class="feature-title">Twitter-style Comments</h3>
+                    <p class="feature-desc">
+                        Threaded comment system with real-time updates. 
+                        Community-driven station reviews and queue reports.
+                    </p>
+                </div>
+                
+                <div class="feature-card fade-in">
+                    <span class="feature-badge">LOYALTY SYSTEM</span>
+                    <h3 class="feature-title">Points & Rewards</h3>
+                    <p class="feature-desc">
+                        Earn points per purchase redeemable for discounts. 
+                        Station ranking based on user engagement and reliability.
+                    </p>
+                </div>
+                
+                <div class="feature-card fade-in">
+                    <span class="feature-badge">STATION TOOL</span>
+                    <h3 class="feature-title">Owner Dashboard</h3>
+                    <p class="feature-desc">
+                        Complete management interface for station owners. 
+                        Update pricing, availability, and view analytics.
+                    </p>
+                </div>
+                
+                <div class="feature-card fade-in">
+                    <span class="feature-badge">NAVIGATION</span>
+                    <h3 class="feature-title">Route Integration</h3>
+                    <p class="feature-desc">
+                        Google Maps API integration for route-based suggestions. 
+                        Find fuel stops along your travel path.
+                    </p>
+                </div>
+                
+                <div class="feature-card fade-in">
+                    <span class="feature-badge">ADMIN SYSTEM</span>
+                    <h3 class="feature-title">Admin Control Panel</h3>
+                    <p class="feature-desc">
+                        System monitoring, fraud detection, station approvals, 
+                        and comprehensive analytics dashboard.
+                    </p>
+                </div>
+                
+                <div class="feature-card fade-in">
+                    <span class="feature-badge">EMERGENCY FEATURE</span>
+                    <h3 class="feature-title">Fuel Scarcity Finder</h3>
+                    <p class="feature-desc">
+                        Special mode during fuel shortages. 
+                        Locate stations with confirmed availability during crises.
+                    </p>
+                </div>
+                
+                <div class="feature-card fade-in">
+                    <span class="feature-badge">ANALYTICS</span>
+                    <h3 class="feature-title">Price History & Forecasting</h3>
+                    <p class="feature-desc">
+                        View historical pricing trends and get price forecasts. 
+                        Make informed decisions on when and where to fuel.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="footer-container">
+            <div class="footer-info">
+                <div class="footer-logo">FUEL.FINDER</div>
+                <p class="footer-tagline">
+                    Intelligent fuel discovery platform connecting drivers with 
+                    real-time availability, pricing, and seamless payments.
+                </p>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-building contact-icon"></i>
+                        <span>Akanse Technologies</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-user contact-icon"></i>
+                        <span>Leonard Kachi | CTO & Lead Architect</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope contact-icon"></i>
+                        <span>Henryleo480@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone contact-icon"></i>
+                        <span>+234 814 279 5186</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>Platform</h3>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">Driver App</a>
+                        <a href="#" class="footer-link">Station Dashboard</a>
+                        <a href="#" class="footer-link">Admin Panel</a>
+                        <a href="#" class="footer-link">API Documentation</a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">Documentation</a>
+                        <a href="#" class="footer-link">API Reference</a>
+                        <a href="#" class="footer-link">Integration Guide</a>
+                        <a href="#" class="footer-link">Support</a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">About Us</a>
+                        <a href="#" class="footer-link">Team</a>
+                        <a href="#" class="footer-link">Careers</a>
+                        <a href="#" class="footer-link">Contact</a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Connect</h3>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">GitHub</a>
+                        <a href="#" class="footer-link">LinkedIn</a>
+                        <a href="#" class="footer-link">Twitter</a>
+                        <a href="#" class="footer-link">Blog</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            © 2024 Akanse Technologies. Fuel Finder Platform. All rights reserved. 
+            Built with passion by Leonard Kachi & Team.
+        </div>
+    </footer>
+
+    <script>
+        // Simple scroll animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            fadeElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(el);
+            });
+            
+            // Smooth scroll for navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
         });
-      }}
-      query={{
-        key: 'YOUR_GOOGLE_API_KEY',
-        language: 'en',
-        types: 'gas_station',
-        components: 'country:ng'
-      }}
-    /&gt;
-  );
-};
-
-export default FuelStationSearch;</code></pre>
-        </div>
-        
-        <h3>Results</h3>
-        <ul>
-          <li>Improved fuel accessibility for 500+ users during test phase</li>
-          <li>Reduced average time spent locating fuel stations by 65%</li>
-          <li>Created transparency in fuel pricing across regions</li>
-          <li>Community-driven updates improved data accuracy</li>
-        </ul>
-      </div>
-      
-      <div class="project-actions">
-        <a href="index.html#projects" class="btn-outline">Back to Projects</a>
-        <a href="https://github.com/LeonardKachi" target="_blank" class="btn-primary">GitHub</a>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-about">
-          <h3>Leonard Kachi</h3>
-          <p>Cloud Security Architect specializing in AWS, Azure, and Zero Trust implementations.</p>
-          <p>Turning threats into design. By blending AWS, Zero Trust, and automation, I build security infrastructures that scale and stories that launch careers.</p>
-        </div>
-        <div class="footer-links">
-          <h4>Quick Links</h4>
-          <ul>
-            <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#about">About</a></li>
-            <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#projects">Projects</a></li>
-            <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#lab">Security Lab</a></li>
-            <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#articles">Articles</a></li>
-            <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#certifications">Certifications</a></li>
-            <li><a href="https://discord.com/users/967213149252104242" target="_blank" rel="noopener">Discord</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-contact">
-          <h4>Contact</h4>
-          <ul>
-            <li><a href="mailto:Kachi.Henry.Leo@gmail.com">Kachi.Henry.Leo@gmail.com</a></li>
-            <li><a href="https://github.com/LeonardKachi" target="_blank">GitHub</a></li>
-            <li><a href="https://www.linkedin.com/in/onyedikachi-obidiegwu" target="_blank">LinkedIn</a></li>
-            <li><a href="https://twitter.com/Leonard_kachi" target="_blank">Twitter</a></li>
-            <li><a href="https://dev.to/leonardkachi" target="_blank">Dev.to</a></li>
-            <li><a href="https://leonardkachi.medium.com/">Medium</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; <span id="year"></span> Obidiegwu Onyedikachi Henry Leonard. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
+    </script>
 </body>
-
 </html>
-
-
-
-
-
