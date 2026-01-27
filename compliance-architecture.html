@@ -68,6 +68,14 @@
       justify-content: space-between;
       margin-top: 2rem;
     }
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
     .diagram-button svg {
       width: 20px;
       height: 20px;
@@ -97,7 +105,7 @@
   <main class="container">
     <section class="project-detail">
       <h1>Compliance Automation Architecture</h1>
-      
+      <h3><h3> 
       <h3>Implementation Details</h3>
       <p>The framework was built using AWS Config, Lambda, and Step Functions, with the following workflow:</p>
       
@@ -119,7 +127,7 @@
             <li><strong>Security Check:</strong> SSH attempt from unexpected IP (<code>203.0.113.42</code>)</li>
           </ul>
         </div>
-        
+        <h3><h3>
         <div class="step">
           <h4>2. AWS Config Rules</h4>
           <p>Predefined and custom rules for compliance evaluation:</p>
@@ -129,7 +137,7 @@
         return config_item['configuration']['disableApiTermination']
     return 'NON_COMPLIANT'</code></pre>
         </div>
-        
+        <h3><h3>
         <div class="step">
           <h4>3. Lambda Evaluator</h4>
           <p>Custom business logic processing:</p>
@@ -138,7 +146,7 @@
         return 'COMPLIANT'
     trigger_remediation()</code></pre>
         </div>
-        
+        <h3><h3>
         <div class="step">
           <h4>4. Remediation Workflow</h4>
           <p>Step Functions state machine handles complex fixes:</p>
@@ -169,7 +177,7 @@
     </div>
   </div>
   <div class="nav-buttons">
-            <a href="Compliance_Automation_Framework.html" class="btn btn-outline">← Back </a>
+            <a href="Compliance_Automation_Framework.html" class="btn btn-outline">← Back</a>
         </div>
 
   <footer class="footer">
@@ -277,6 +285,7 @@
 
 </body>
 </html>
+
 
 
 
