@@ -68,14 +68,6 @@
       justify-content: space-between;
       margin-top: 2rem;
     }
-    .nav-buttons {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-
     .diagram-button svg {
       width: 20px;
       height: 20px;
@@ -105,7 +97,7 @@
   <main class="container">
     <section class="project-detail">
       <h1>Compliance Automation Architecture</h1>
-      <h3><h3> 
+      <h3><h3>
       <h3>Implementation Details</h3>
       <p>The framework was built using AWS Config, Lambda, and Step Functions, with the following workflow:</p>
       
@@ -120,6 +112,7 @@
       <!-- Detailed Workflow Explanation -->
       <div class="workflow-steps">
         <div class="step">
+          <h3><h3>
           <h4>1. CloudTrail/VPC Flow Logs</h4>
           <p>Raw data sources tracking all API calls and network traffic:</p>
           <ul>
@@ -127,8 +120,9 @@
             <li><strong>Security Check:</strong> SSH attempt from unexpected IP (<code>203.0.113.42</code>)</li>
           </ul>
         </div>
-        <h3><h3>
+        
         <div class="step">
+          <h3><h3>
           <h4>2. AWS Config Rules</h4>
           <p>Predefined and custom rules for compliance evaluation:</p>
           <pre><code>def evaluate_compliance(config_item):
@@ -137,8 +131,9 @@
         return config_item['configuration']['disableApiTermination']
     return 'NON_COMPLIANT'</code></pre>
         </div>
-        <h3><h3>
+        
         <div class="step">
+          <h3><h3>
           <h4>3. Lambda Evaluator</h4>
           <p>Custom business logic processing:</p>
           <pre><code>if event['configRuleName'] == 's3-encryption-check':
@@ -146,8 +141,9 @@
         return 'COMPLIANT'
     trigger_remediation()</code></pre>
         </div>
-        <h3><h3>
+        
         <div class="step">
+          <h3><h3>
           <h4>4. Remediation Workflow</h4>
           <p>Step Functions state machine handles complex fixes:</p>
           <ul>
@@ -167,6 +163,7 @@
       <h2>AWS Compliance Automation Architecture</h2>
       <img src="assets/images/compliance-architecture.jpg" alt="AWS Compliance Automation Workflow" class="architecture-img">
       <div class="legend">
+        <h3><h3>
         <h4>Key Components:</h4>
         <ul>
           <li><strong>Blue Arrows:</strong> Data flow direction</li>
@@ -177,7 +174,7 @@
     </div>
   </div>
   <div class="nav-buttons">
-            <a href="Compliance_Automation_Framework.html" class="btn btn-outline">← Back</a>
+            <a href="Compliance_Automation_Framework.html" class="btn btn-outline"> Back </a>
         </div>
 
   <footer class="footer">
