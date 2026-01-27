@@ -59,30 +59,33 @@
           <li>Centralized compliance dashboard</li>
           <li>Scheduled reporting and alerts</li>
         </ul>
-        
+        <h3><h3>
         <h3>Implementation Details</h3>
         <p>The framework was built using AWS Config, Lambda, and Step Functions, with the following workflow:</p>
         
         <div class="architecture-diagram">
           <a href="compliance-architecture.html" class="btn-outline">View Full Architecture</a>
         </div>
-        
-        <div class="code-block">
-          <h4>Sample Remediation Lambda</h4>
-          <pre><code>def lambda_handler(event, context):
-    # Parse the non-compliant resource
-    resource = event['detail']['resourceId']
-    rule = event['detail']['configRuleName']
+        <h3><h3>
+        <div class="code-block"> 
+        <h3>Sample Remediation Lambda</h3>
+          <pre><code>
+            
+            def lambda_handler(event, context):
+                # Parse the non-compliant resource
+                resource = event['detail']['resourceId']
+                rule = event['detail']['configRuleName']
     
-    # Apply appropriate remediation
-    if 's3-bucket-public-read-prohibited' in rule:
-        remediate_s3_public_access(resource)
-    elif 'rds-instance-public-access-check' in rule:
-        remediate_rds_public_access(resource)
+                # Apply appropriate remediation
+                if 's3-bucket-public-read-prohibited' in rule:
+                    remediate_s3_public_access(resource)
+                elif 'rds-instance-public-access-check' in rule:
+                    remediate_rds_public_access(resource)
     
-    return {
-        'statusCode': 200,
-        'body': f'Remediation initiated for {resource}'
+                return {
+                    'statusCode': 200,
+                    'body': f'Remediation initiated for {resource}'
+            
     }</code></pre>
         </div>
         
@@ -144,6 +147,7 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
