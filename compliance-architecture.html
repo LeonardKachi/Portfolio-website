@@ -98,7 +98,7 @@
     <section class="project-detail">
       <h1>Compliance Automation Architecture</h1>
       <h3><h3>
-      <h3>Implementation Details</h3>
+      <h2>Implementation Details</h2>
       <p>The framework was built using AWS Config, Lambda, and Step Functions, with the following workflow:</p>
       
       <!-- Interactive Diagram Button -->
@@ -113,7 +113,7 @@
       <div class="workflow-steps">
         <div class="step">
           <h3><h3>
-          <h4>1. CloudTrail/VPC Flow Logs</h4>
+          <h3>1. CloudTrail/VPC Flow Logs</h3>
           <p>Raw data sources tracking all API calls and network traffic:</p>
           <ul>
             <li><strong>Example Event:</strong> <code>s3:PutBucketPolicy</code> API call</li>
@@ -123,7 +123,7 @@
         
         <div class="step">
           <h3><h3>
-          <h4>2. AWS Config Rules</h4>
+          <h3>2. AWS Config Rules</h3>
           <p>Predefined and custom rules for compliance evaluation:</p>
           <pre><code>def evaluate_compliance(config_item):
     # Check if EC2 has termination protection
@@ -134,7 +134,7 @@
         
         <div class="step">
           <h3><h3>
-          <h4>3. Lambda Evaluator</h4>
+          <h3>3. Lambda Evaluator</h3>
           <p>Custom business logic processing:</p>
           <pre><code>if event['configRuleName'] == 's3-encryption-check':
     if bucket_config['ServerSideEncryption'] == 'AES256':
@@ -144,7 +144,7 @@
         
         <div class="step">
           <h3><h3>
-          <h4>4. Remediation Workflow</h4>
+          <h3>4. Remediation Workflow</h3>
           <p>Step Functions state machine handles complex fixes:</p>
           <ul>
             <li>Auto-enable S3 bucket encryption</li>
@@ -282,6 +282,7 @@
 
 </body>
 </html>
+
 
 
 
