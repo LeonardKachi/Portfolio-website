@@ -38,7 +38,7 @@ const CertificationsModule = (() => {
     {
       title: "Data Analytics",
       issuer: "Google",
-      year: "2024",
+      year: "2023",
       image: "google-da.jpg",
       category: "data",
       description: "Professional training in data analysis, visualization, and machine learning fundamentals."
@@ -72,7 +72,7 @@ const CertificationsModule = (() => {
     {
       title: "AI Essentials",
       issuer: "Google",
-      year: "2024",
+      year: "2023",
       image: "google-ai.jpg",
       category: "ai",
       description: "Fundamentals of artificial intelligence and machine learning applications."
@@ -88,7 +88,7 @@ const CertificationsModule = (() => {
     {
       title: "Solutions Architect",
       issuer: "Neo Cloud Technologies",
-      year: "2024",
+      year: "2025",
       image: "neo.jpg",
       category: "aws",
       description: "Practical training in Cloud Environment (AWS, Azure, GCP)."
@@ -1475,4 +1475,5 @@ document.addEventListener('DOMContentLoaded', () => {
   
   console.log('✅ Portfolio initialized successfully');
 });
+
 
