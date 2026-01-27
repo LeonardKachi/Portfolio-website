@@ -52,18 +52,18 @@ const CertificationsModule = (() => {
       description: "Global certification validating baseline cybersecurity skills."
     },
     {
-      title: "Solutions Architect",
+      title: "Solutions Architect (Associate)",
       issuer: "AWS",
-      year: "Candidate (2025)",
+      year: "Candidate (March 2026)",
       image: "aws-sa.png",
       category: "aws",
       candidate: true,
       description: "Demonstrates expertise in designing distributed systems on AWS."
     },
     {
-      title: "Security",
+      title: "DevOps Engineer (Professional)",
       issuer: "AWS",
-      year: "Candidate (2025)",
+      year: "Candidate (2026)",
       image: "aws-ss.png",
       category: "aws",
       candidate: true,
@@ -1475,3 +1475,4 @@ document.addEventListener('DOMContentLoaded', () => {
   
   console.log('✅ Portfolio initialized successfully');
 });
+
