@@ -64,7 +64,7 @@ const CertificationsModule = (() => {
       title: "DevOps Engineer (Professional)",
       issuer: "AWS",
       year: "Candidate (2026)",
-      image: "aws-ss.png",
+      image: "aws-doe.png",
       category: "aws",
       candidate: true,
       description: "Demonstrates expertise in AWS security best practices."
@@ -1475,6 +1475,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   console.log('✅ Portfolio initialized successfully');
 });
+
 
 
 
