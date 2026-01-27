@@ -37,7 +37,7 @@ const CertificationsModule = (() => {
     },
     {
       title: "Data Analytics",
-      issuer: "Google",
+      issuer: "Google (Coursera)",
       year: "2023",
       image: "google-da.jpg",
       category: "data",
@@ -1475,5 +1475,6 @@ document.addEventListener('DOMContentLoaded', () => {
   
   console.log('✅ Portfolio initialized successfully');
 });
+
 
 
