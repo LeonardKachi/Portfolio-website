@@ -65,7 +65,9 @@
         
         <div class="code-block">
           <h4>Sample Facial Recognition Code</h4>
-          <pre><code>def detect_faces(frame):
+          <pre><code>
+            
+            def detect_faces(frame):
     face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
@@ -79,7 +81,9 @@
         if match['confidence'] > 0.9:
             alert_security(match['identity'])
     
-    return frame</code></pre>
+      return frame
+          
+          </code></pre>
         </div>
         
         <h3>Results</h3>
@@ -93,7 +97,6 @@
       
       <div class="project-actions">
         <a href="index.html#projects" class="btn-outline">Back to Projects</a>
-        <a href="https://github.com/LeonardKachi" target="_blank" class="btn-primary">GitHub</a>
       </div>
     </section>
   </main>
@@ -140,6 +143,7 @@
 </body>
 
 </html>
+
 
 
 
