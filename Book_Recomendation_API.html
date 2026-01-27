@@ -3,660 +3,865 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-Powered Book Recommendation System | Leonard Kachi</title>
-    <meta name="description" content="An intelligent book recommendation system using AI and Google Books API">
-    <style>
-:root {
-    --primary: #2563eb;
-    --primary-dark: #1d4ed8;
-    --secondary: #7c3aed;
-    --accent: #8b5cf6;
-    --light-bg: #f8fafc;
-    --dark-bg: #0f172a;
-    --card-light: #ffffff;
-    --card-dark: #1e293b;
-    --text-light: #1e293b;
-    --text-dark: #f1f5f9;
-    --border-light: #e2e8f0;
-    --border-dark: #334155;
-    --success: #10b981;
-    --warning: #f59e0b;
-    --danger: #ef4444;
-    --radius: 8px;
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-    line-height: 1.6;
-    background: var(--light-bg);
-    color: var(--text-light);
-    font-size: 16px;
-}
-
-body.dark-theme {
-    background: var(--dark-bg);
-    color: var(--text-dark);
-}
-
-.project-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* Header */
-.project-header {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-    color: white;
-    padding: 3rem 0;
-    margin-bottom: 2rem;
-    text-align: center;
-}
-
-.project-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    letter-spacing: -0.025em;
-}
-
-.project-subtitle {
-    font-size: 1.125rem;
-    opacity: 0.95;
-    max-width: 600px;
-    margin: 0 auto 2rem;
-    line-height: 1.5;
-}
-
-.project-meta {
-    display: flex;
-    gap: 0.75rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 1.5rem;
-}
-
-.meta-tag {
-    background: rgba(255, 255, 255, 0.2);
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.875rem;
-    font-weight: 500;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-/* Sections */
-.project-section {
-    margin-bottom: 3rem;
-}
-
-.section-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-    color: var(--text-light);
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--primary);
-}
-
-.dark-theme .section-title {
-    color: var(--text-dark);
-}
-
-/* Content Cards */
-.content-card {
-    background: var(--card-light);
-    border-radius: var(--radius);
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    box-shadow: var(--shadow-md);
-    border: 1px solid var(--border-light);
-}
-
-.dark-theme .content-card {
-    background: var(--card-dark);
-    border-color: var(--border-dark);
-}
-
-.content-card p {
-    margin-bottom: 1rem;
-}
-
-.content-card ul {
-    margin-left: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-.content-card li {
-    margin-bottom: 0.5rem;
-}
-
-/* Features Grid */
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1.5rem;
-}
-
-.feature-item {
-    background: var(--card-light);
-    border-radius: var(--radius);
-    padding: 1.5rem;
-    border: 1px solid var(--border-light);
-    box-shadow: var(--shadow-sm);
-}
-
-.dark-theme .feature-item {
-    background: var(--card-dark);
-    border-color: var(--border-dark);
-}
-
-.feature-icon {
-    font-size: 1.5rem;
-    color: var(--primary);
-    margin-bottom: 1rem;
-}
-
-.feature-title {
-    font-size: 1.125rem;
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-    color: var(--text-light);
-}
-
-.dark-theme .feature-title {
-    color: var(--text-dark);
-}
-
-.feature-item p {
-    font-size: 0.9375rem;
-    color: var(--text-light);
-    opacity: 0.9;
-}
-
-.dark-theme .feature-item p {
-    color: var(--text-dark);
-}
-
-/* Code Blocks */
-.code-block {
-    background: #1a1a1a;
-    color: #e6e6e6;
-    border-radius: var(--radius);
-    padding: 1.5rem;
-    margin: 1.5rem 0;
-    overflow-x: auto;
-    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-    font-size: 0.875rem;
-    line-height: 1.5;
-    border: 1px solid #333;
-}
-
-.code-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid #333;
-}
-
-.code-lang {
-    color: #569cd6;
-    font-weight: 600;
-    font-size: 0.875rem;
-}
-
-.copy-btn {
-    background: #2d2d2d;
-    color: #e6e6e6;
-    border: 1px solid #444;
-    padding: 0.25rem 0.75rem;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.75rem;
-    font-family: inherit;
-}
-
-.copy-btn:hover {
-    background: #3d3d3d;
-}
-
-/* Architecture Diagram as Code */
-.architecture-code {
-    background: #1a1a1a;
-    color: #e6e6e6;
-    border-radius: var(--radius);
-    padding: 1.5rem;
-    margin: 1.5rem 0;
-    overflow-x: auto;
-    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-    font-size: 0.875rem;
-    line-height: 1.5;
-    border: 1px solid #333;
-}
-
-.architecture-code .code-comment {
-    color: #6a9955;
-}
-
-.architecture-code .code-keyword {
-    color: #569cd6;
-}
-
-.architecture-code .code-function {
-    color: #dcdcaa;
-}
-
-.architecture-code .code-string {
-    color: #ce9178;
-}
-
-/* Tech Stack */
-.section-title {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin: 1.5rem 0;
-    justify-content: center;
-    align-items: center;
-}
-.tech-stack {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin: 1.5rem 0;
-    justify-content: center;
-    align-items: center;
-}
-
-.tech-item {
-    padding: 0.5rem 1rem;
-    background: var(--primary);
-    color: white;
-    border-radius: var(--radius);
-    font-size: 0.875rem;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    text-align: center;
-}
-
-.tech-item i {
-    font-size: 1rem;
-}
-
-/* Buttons */
-.project-actions {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin: 3rem 0;
-    justify-content: center;
-}
-
-.btn {
-    padding: 0.75rem 1.5rem;
-    border-radius: var(--radius);
-    font-weight: 500;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: all 0.2s ease;
-    font-size: 0.9375rem;
-    border: 1px solid transparent;
-}
-
-.btn-primary {
-    background: var(--primary);
-    color: white;
-}
-
-.btn-primary:hover {
-    background: var(--primary-dark);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-md);
-}
-
-.btn-secondary {
-    background: transparent;
-    color: var(--text-light);
-    border-color: var(--border-light);
-}
-
-.dark-theme .btn-secondary {
-    color: var(--text-dark);
-    border-color: var(--border-dark);
-}
-
-.btn-secondary:hover {
-    background: rgba(37, 99, 235, 0.1);
-    border-color: var(--primary);
-}
-
-/* Demo Preview */
-.demo-preview {
-    text-align: center;
-    margin: 2rem 0;
-}
-
-/* Footer */
-.project-footer {
-    background: var(--dark-bg);
-    color: white;
-    padding: 2rem 0;
-    margin-top: 3rem;
-    text-align: center;
-}
-
-.footer-content p {
-    margin-bottom: 0.5rem;
-    opacity: 0.9;
-}
-
-.back-link {
-    color: #93c5fd;
-    text-decoration: none;
-    margin-top: 1rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9375rem;
-}
-
-.back-link:hover {
-    color: white;
-    text-decoration: underline;
-}
-
-/* Theme Toggle */
-.theme-toggle {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
-    background: var(--card-light);
-    border: 1px solid var(--border-light);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: var(--text-light);
-    box-shadow: var(--shadow-sm);
-}
-
-.dark-theme .theme-toggle {
-    background: var(--card-dark);
-    border-color: var(--border-dark);
-    color: var(--text-dark);
-}
-
-.theme-toggle:hover {
-    transform: scale(1.1);
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .project-title {
-        font-size: 2rem;
-    }
-    
-    .project-header {
-        padding: 2rem 0;
-    }
-    
-    .section-title {
-        font-size: 1.25rem;
-    }
-    
-    .features-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .project-actions {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    
-    .btn {
-        justify-content: center;
-    }
-    
-    .project-container {
-        padding: 0 16px;
-    }
-}
-    </style>
+    <title>The Bibliotheca - AI Literary Curator | Leonard Kachi</title>
+    <meta name="description" content="A refined AI-powered literary curator inspired by historic libraries and vintage collections">
+    <meta name="keywords" content="rare books, vintage library, literary collection, curated reading, antique books, AI book recommendations">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Libre+Baskerville:wght@400;700&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Old Library Color Palette */
+            --parchment: #f5f1e8;
+            --aged-paper: #f0e6d6;
+            --leather-brown: #3a2718;
+            --mahogany: #4a2c2a;
+            --dusty-green: #5a716a;
+            --gold-leaf: #c9a87a;
+            --ink-black: #1a1818;
+            --velvet-red: #8b1e1e;
+            --brass: #b38e5d;
+            --slate: #3a4a4a;
+            
+            /* Theme Variables */
+            --background: var(--parchment);
+            --card-bg: var(--aged-paper);
+            --text-primary: var(--leather-brown);
+            --text-secondary: var(--mahogany);
+            --accent: var(--velvet-red);
+            --accent-secondary: var(--gold-leaf);
+            --border: #d4c9b8;
+            --shadow: rgba(58, 39, 24, 0.15);
+            --overlay: rgba(58, 39, 24, 0.05);
+        }
+        
+        [data-theme="dark"] {
+            --background: #1a1818;
+            --card-bg: #2a2420;
+            --text-primary: #e8e0d5;
+            --text-secondary: #c9b8a3;
+            --accent: #b86d6d;
+            --accent-secondary: #d4b483;
+            --border: #3d352a;
+            --shadow: rgba(0, 0, 0, 0.4);
+            --overlay: rgba(255, 255, 255, 0.05);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 10% 20%, var(--overlay) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, var(--overlay) 0%, transparent 20%);
+            transition: all 0.5s ease;
+            letter-spacing: 0.3px;
+        }
+        
+        /* Decorative Elements */
+        .vintage-border {
+            border: 1px solid var(--border);
+            position: relative;
+        }
+        
+        .vintage-border::before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            right: 4px;
+            bottom: 4px;
+            border: 1px solid var(--border);
+            pointer-events: none;
+        }
+        
+        .ornamental-divider {
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                var(--border) 20%, 
+                var(--accent-secondary) 50%, 
+                var(--border) 80%, 
+                transparent 100%);
+            margin: 2rem 0;
+        }
+        
+        /* Project Header */
+        .project-header {
+            background: linear-gradient(135deg, var(--leather-brown) 0%, var(--mahogany) 100%);
+            color: var(--parchment);
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 3px solid var(--gold-leaf);
+            text-align: center;
+        }
+        
+        .project-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23c9a87a' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+        
+        .project-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .project-title {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--parchment);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .project-subtitle {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.4rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+            font-style: italic;
+            color: var(--gold-leaf);
+        }
+        
+        .project-meta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .meta-tag {
+            background: rgba(201, 168, 122, 0.2);
+            color: var(--parchment);
+            padding: 0.75rem 1.5rem;
+            border-radius: 2px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border: 1px solid rgba(201, 168, 122, 0.3);
+            font-family: 'Crimson Text', serif;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Sections */
+        .project-section {
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--accent);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        /* Content Cards */
+        .content-card {
+            background: var(--card-bg);
+            border-radius: 2px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px var(--shadow);
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--leather-brown), var(--gold-leaf), var(--leather-brown));
+        }
+        
+        .content-card p {
+            margin-bottom: 1.5rem;
+            font-size: 1.15rem;
+            line-height: 1.8;
+        }
+        
+        .content-card ul {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .content-card li {
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+            position: relative;
+        }
+        
+        .content-card li::before {
+            content: '•';
+            color: var(--accent);
+            font-weight: bold;
+            position: absolute;
+            left: -1rem;
+        }
+        
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .feature-item {
+            background: var(--card-bg);
+            border-radius: 2px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 12px var(--shadow);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(58, 39, 24, 0.2);
+            border-color: var(--accent);
+        }
+        
+        .feature-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            padding: 0.75rem;
+            background: rgba(139, 30, 30, 0.1);
+            border-radius: 2px;
+        }
+        
+        .feature-title {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            letter-spacing: 0.5px;
+        }
+        
+        .feature-item p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        /* Code Blocks */
+        .code-block {
+            background: #1a1818;
+            color: #e8e0d5;
+            border-radius: 2px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            border: 1px solid #3a2718;
+            position: relative;
+        }
+        
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #3a2718;
+            font-family: 'Libre Baskerville', serif;
+        }
+        
+        .code-lang {
+            color: var(--gold-leaf);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .copy-btn {
+            background: rgba(201, 168, 122, 0.2);
+            color: var(--gold-leaf);
+            border: 1px solid rgba(201, 168, 122, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-family: 'Crimson Text', serif;
+            transition: all 0.3s ease;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(201, 168, 122, 0.3);
+            transform: translateY(-1px);
+        }
+        
+        /* Architecture Code */
+        .architecture-code {
+            background: #1a1818;
+            color: #e8e0d5;
+            border-radius: 2px;
+            padding: 2rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            border: 1px solid #3a2718;
+            position: relative;
+        }
+        
+        .architecture-code .code-comment {
+            color: #6a9955;
+        }
+        
+        .architecture-code .code-keyword {
+            color: #569cd6;
+        }
+        
+        .architecture-code .code-function {
+            color: #dcdcaa;
+        }
+        
+        .architecture-code .code-string {
+            color: #ce9178;
+        }
+        
+        .architecture-code .code-number {
+            color: #b5cea8;
+        }
+        
+        /* Tech Stack */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+            justify-content: center;
+        }
+        
+        .tech-item {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--leather-brown) 0%, var(--mahogany) 100%);
+            color: var(--parchment);
+            border-radius: 2px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: 'Crimson Text', serif;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(201, 168, 122, 0.3);
+        }
+        
+        .tech-item i {
+            font-size: 1.2rem;
+            color: var(--gold-leaf);
+        }
+        
+        /* Buttons */
+        .project-actions {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin: 4rem 0;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 2px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            border: 2px solid transparent;
+            font-family: 'Libre Baskerville', serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--leather-brown) 0%, var(--mahogany) 100%);
+            color: var(--parchment);
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--mahogany) 0%, var(--velvet-red) 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(58, 39, 24, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border-color: var(--border);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(139, 30, 30, 0.1);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        /* Demo Preview */
+        .demo-preview {
+            text-align: center;
+            margin: 3rem 0;
+        }
+        
+        /* Footer */
+        .project-footer {
+            background: var(--leather-brown);
+            color: var(--parchment);
+            padding: 3rem 0 2rem;
+            margin-top: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold-leaf), transparent);
+        }
+        
+        .footer-content {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .footer-content p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .back-link {
+            color: var(--gold-leaf);
+            text-decoration: none;
+            margin-top: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            font-family: 'Crimson Text', serif;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            color: var(--parchment);
+            text-decoration: underline;
+            transform: translateX(-5px);
+        }
+        
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(201, 168, 122, 0.2);
+            border: 2px solid var(--gold-leaf);
+            color: var(--gold-leaf);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            font-size: 1.3rem;
+        }
+        
+        .theme-toggle:hover {
+            transform: rotate(15deg) scale(1.1);
+            box-shadow: 0 0 20px rgba(201, 168, 122, 0.4);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .project-title {
+                font-size: 2.3rem;
+            }
+            
+            .project-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+            
+            .project-container {
+                padding: 0 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: 2rem;
+            }
+            
+            .project-header {
+                padding: 2rem 0;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .project-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .btn {
+                justify-content: center;
+                padding: 0.875rem 1.5rem;
+            }
+            
+            .tech-item {
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+            }
+            
+            .content-card {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .project-title {
+                font-size: 1.8rem;
+            }
+            
+            .project-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 1.3rem;
+            }
+            
+            .meta-tag {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+            
+            .project-actions {
+                gap: 1rem;
+            }
+            
+            .theme-toggle {
+                width: 45px;
+                height: 45px;
+                top: 15px;
+                right: 15px;
+            }
+        }
+        
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        .focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
+    </style>
 </head>
-<body>
+<body data-theme="light">
     <div class="project-container">
         <!-- Header -->
         <header class="project-header">
-            <h1 class="project-title">AI-Powered Book Recommendation System</h1>
-            <p class="project-subtitle">An intelligent book discovery platform leveraging AI and Google Books API for personalized recommendations</p>
-            <div class="project-meta">
-                <span class="meta-tag"><i class="fas fa-code"></i> JavaScript</span>
-                <span class="meta-tag"><i class="fas fa-cloud"></i> AWS API Gateway</span>
-                <span class="meta-tag"><i class="fas fa-book"></i> Google Books API</span>
-                <span class="meta-tag"><i class="fas fa-brain"></i> AI-Powered</span>
-                <span class="meta-tag"><i class="fas fa-mobile-alt"></i> Responsive</span>
+            <div class="project-container">
+                <h1 class="project-title">The Bibliotheca</h1>
+                <p class="project-subtitle">A Vintage-Inspired AI Literary Curator for Connoisseurs of Fine Literature</p>
+                <div class="project-meta">
+                    <span class="meta-tag"><i class="fas fa-feather-alt"></i> Digital Curation</span>
+                    <span class="meta-tag"><i class="fas fa-brain"></i> AI-Powered Discovery</span>
+                    <span class="meta-tag"><i class="fas fa-archive"></i> Google Books API</span>
+                    <span class="meta-tag"><i class="fas fa-cloud"></i> AWS Gateway</span>
+                    <span class="meta-tag"><i class="fas fa-university"></i> Vintage Aesthetic</span>
+                </div>
             </div>
         </header>
 
         <!-- Demo Preview -->
         <section class="demo-preview">
-            <h2 class="section-title">Live Demo Preview</h2>
+            <h2 class="section-title">Digital Collection Preview</h2>
+            <div class="ornamental-divider"></div>
             <a href="https://leonardkachi.github.io/Next-Read/" target="_blank" class="btn btn-primary">
-                <i class="fas fa-external-link-alt"></i>
-                Open Live Application
+                <i class="fas fa-door-open"></i>
+                Enter The Bibliotheca
             </a>
         </section>
 
         <!-- Project Overview -->
         <section class="project-section">
-            <h2 class="section-title">Project Overview</h2>
+            <h2 class="section-title">Archival Overview</h2>
             <div class="content-card">
-                <p>The AI-Powered Book Recommendation System is a sophisticated web application that helps users discover books tailored to their interests. By combining Google Books API data with intelligent filtering algorithms, the platform delivers personalized book recommendations based on genre, ratings, page count, and popularity.</p>
+                <p><em>The Bibliotheca</em> represents a digital renaissance of classic library curation, blending timeless aesthetics with modern technology. This sophisticated web application serves as an intelligent literary curator, helping discerning readers discover volumes that resonate with their refined tastes.</p>
                 
-                <p>This project demonstrates advanced frontend development techniques including state management, debounced search, pagination, theme switching, and wishlist functionality. The application features a clean, modern UI with both light and dark themes, responsive design, and comprehensive accessibility features.</p>
+                <p>Inspired by historic libraries and vintage collections, the platform combines Google Books API data with intelligent filtering algorithms to deliver personalized book recommendations based on literary genre, critical ratings, volume length, and historical significance.</p>
                 
-                <h3>Key Challenges Solved:</h3>
-                <ul style="margin-top: 1rem; padding-left: 1.5rem;">
-                    <li>Efficient API integration with real-time search capabilities</li>
-                    <li>State management for complex filtering and pagination</li>
-                    <li>Performance optimization with debouncing and lazy loading</li>
-                    <li>Accessible UI with keyboard navigation and screen reader support</li>
-                    <li>Cross-browser compatibility and responsive design</li>
+                <p>This project demonstrates advanced frontend craftsmanship including comprehensive state management, debounced search algorithms, sophisticated pagination systems, theme architecture, and collection management. The application features a distinguished, vintage-inspired UI with both light and dark reading modes, responsive design for all viewing devices, and comprehensive accessibility features.</p>
+                
+                <h3 style="margin-top: 2rem; color: var(--accent); font-family: 'Libre Baskerville', serif;">Key Archival Challenges Addressed:</h3>
+                <ul style="margin-top: 1rem;">
+                    <li>Elegant API integration with real-time search capabilities</li>
+                    <li>Sophisticated state management for complex filtering and pagination</li>
+                    <li>Performance optimization through intelligent caching and lazy loading</li>
+                    <li>Accessible interface with keyboard navigation and screen reader support</li>
+                    <li>Cross-era compatibility and responsive presentation</li>
+                    <li>Vintage aesthetic preservation in a digital medium</li>
                 </ul>
             </div>
         </section>
 
         <!-- Features -->
         <section class="project-section">
-            <h2 class="section-title">Key Features</h2>
+            <h2 class="section-title">Curatorial Features</h2>
             <div class="features-grid">
                 <div class="feature-item">
                     <div class="feature-icon">
-                        <i class="fas fa-search"></i>
+                        <i class="fas fa-feather-alt"></i>
                     </div>
-                    <h3 class="feature-title">Smart Search</h3>
-                    <p>Debounced search functionality that queries titles, authors, and keywords with intelligent filtering and real-time feedback.</p>
+                    <h3 class="feature-title">Intelligent Search</h3>
+                    <p>Debounced search functionality that queries titles, authors, and literary themes with sophisticated filtering and real-time feedback.</p>
                 </div>
                 
                 <div class="feature-item">
                     <div class="feature-icon">
                         <i class="fas fa-filter"></i>
                     </div>
-                    <h3 class="feature-title">Advanced Filtering</h3>
-                    <p>Filter by genre, page count, publication date, and ratings with intuitive UI controls and instant result updates.</p>
+                    <h3 class="feature-title">Refined Filtering</h3>
+                    <p>Filter by literary genre, volume length, publication era, and critical ratings with intuitive controls and instant collection updates.</p>
                 </div>
                 
                 <div class="feature-item">
                     <div class="feature-icon">
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-crown"></i>
                     </div>
-                    <h3 class="feature-title">AI Recommendations</h3>
-                    <p>Intelligent sorting algorithms that prioritize relevance, popularity, and user preferences for personalized results.</p>
+                    <h3 class="feature-title">AI Curation</h3>
+                    <p>Intelligent sorting algorithms that prioritize literary relevance, historical significance, and reader preferences.</p>
                 </div>
                 
                 <div class="feature-item">
                     <div class="feature-icon">
                         <i class="fas fa-heart"></i>
                     </div>
-                    <h3 class="feature-title">Wishlist Management</h3>
-                    <p>Save books to wishlist with localStorage persistence and visual feedback across sessions.</p>
+                    <h3 class="feature-title">Personal Collection</h3>
+                    <p>Preserve books to your personal collection with localStorage persistence and visual documentation across sessions.</p>
                 </div>
                 
                 <div class="feature-item">
                     <div class="feature-icon">
-                        <i class="fas fa-moon"></i>
+                        <i class="fas fa-hourglass"></i>
                     </div>
-                    <h3 class="feature-title">Theme Switching</h3>
-                    <p>Light and dark theme support with automatic detection and persistent user preference storage.</p>
+                    <h3 class="feature-title">Temporal Themes</h3>
+                    <p>Light and dark reading modes with automatic detection and persistent reader preference storage.</p>
                 </div>
                 
                 <div class="feature-item">
                     <div class="feature-icon">
-                        <i class="fas fa-mobile-alt"></i>
+                        <i class="fas fa-scroll"></i>
                     </div>
-                    <h3 class="feature-title">Responsive Design</h3>
-                    <p>Fully responsive layout that works seamlessly on desktop, tablet, and mobile devices.</p>
+                    <h3 class="feature-title">Responsive Presentation</h3>
+                    <p>Fully responsive layout that maintains its distinguished appearance across desktop, tablet, and mobile viewing devices.</p>
                 </div>
             </div>
         </section>
 
         <!-- Technical Implementation -->
         <section class="project-section">
-            <h2 class="section-title">Technical Implementation</h2>
+            <h2 class="section-title">Architectural Documentation</h2>
             <div class="content-card">
-                <h3>Architecture Overview</h3>
-                <p>The application follows a modern frontend architecture with clear separation of concerns:</p>
+                <h3 style="color: var(--accent); font-family: 'Libre Baskerville', serif;">Architecture Overview</h3>
+                <p>The application follows a distinguished architectural pattern with clear separation of archival responsibilities:</p>
                 
-               <!-- Architecture Diagram as Code -->
-<div class="architecture-code">
-    <div class="code-header">
-        <span class="code-lang">System Architecture</span>
-        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-<pre><code><span class="code-comment"></span>
-<span class="code-comment"></span>
+                <!-- Architecture Diagram as Code -->
+                <div class="architecture-code">
+                    <div class="code-header">
+                        <span class="code-lang">Archival Architecture</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy Documentation</button>
+                    </div>
+<pre><code><span class="code-comment">// THE BIBLIOTHECA - DIGITAL CURATION SYSTEM</span>
+<span class="code-comment">// ARCHITECTURE DOCUMENTATION</span>
 
-<span class="code-keyword">LAYER 1:</span> <span class="code-string">User Interface</span>
-├── Search Bar (Debounced Input)
-├── Genre Filter Selector
-├── Sort Options (Relevance/Rating/New)
-├── Pagination Controls
-├── Theme Toggle Switch
-└── Wishlist Manager
+<span class="code-keyword">LAYER 1:</span> <span class="code-string">CURATORIAL INTERFACE</span>
+├── Search Desk (Debounced Literary Inquiry)
+├── Genre Catalogue Selector
+├── Arrangement Options (Relevance/Historical/Rating)
+├── Volume Navigation Controls
+├── Reading Environment Toggle
+└── Personal Collection Manager
 
-<span class="code-keyword">LAYER 2:</span> <span class="code-string">State Management</span>
-├── Search State (query, filters)
-├── Book Data State (all/displayed)
-├── Pagination State (current/total pages)
-├── Wishlist State (localStorage)
-├── Theme State (light/dark)
-└── Loading State
+<span class="code-keyword">LAYER 2:</span> <span class="code-string">STATE ARCHIVE</span>
+├── Search State (query, curation filters)
+├── Volume Data State (complete/displayed collection)
+├── Navigation State (current/total volumes)
+├── Personal Collection State (localStorage)
+├── Reading Environment State (light/dark)
+└── Loading Documentation
 
-<span class="code-keyword">LAYER 3:</span> <span class="code-string">API Integration Layer</span>
-├── AWS API Gateway Proxy
-├── Google Books API Client
-├── Request/Response Handler
-├── Error Handler
-└── Data Transformer
+<span class="code-keyword">LAYER 3:</span> <span class="code-string">API CONNECTOR</span>
+├── AWS Gateway Interface
+├── Google Books Archive Client
+├── Request/Response Curator
+├── Error Archivist
+└── Data Transformation System
 
-<span class="code-keyword">LAYER 4:</span> <span class="code-string">Data Layer</span>
-├── Google Books API
-├── Local Storage (Wishlist)
-└── Session Storage (Temporary State)</code></pre>
-</div>
-                    </pre>
+<span class="code-keyword">LAYER 4:</span> <span class="code-string">DATA REPOSITORY</span>
+├── Google Books Literary Archive
+├── Local Storage (Personal Collection)
+└── Session Archive (Temporary State)</code></pre>
                 </div>
                 
-                <h3 style="margin-top: 2rem;">State Management Implementation</h3>
-                <p>The application uses a centralized state management approach to handle complex user interactions:</p>
+                <h3 style="margin-top: 2rem; color: var(--accent); font-family: 'Libre Baskerville', serif;">State Archive Implementation</h3>
+                <p>The application employs a centralized state management approach to handle sophisticated user interactions:</p>
                 
                 <div class="code-block">
                     <div class="code-header">
-                        <span class="code-lang">JavaScript</span>
-                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <span class="code-lang">JavaScript Archive</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
                     </div>
-<pre><code><span class="code-keyword">const</span> <span class="code-function">state</span> = {
-    <span class="code-comment">// Theme configuration</span>
-    currentTheme: localStorage.<span class="code-function">getItem</span>(<span class="code-string">'theme'</span>) || <span class="code-string">'light'</span>,
+<pre><code><span class="code-keyword">const</span> <span class="code-function">archive</span> = {
+    <span class="code-comment">// Reading environment configuration</span>
+    currentEnvironment: localStorage.<span class="code-function">getItem</span>(<span class="code-string">'environment'</span>) || <span class="code-string">'light'</span>,
     
-    <span class="code-comment">// Books data</span>
-    allBooks: [],
-    filteredBooks: [],
+    <span class="code-comment">// Literary collection data</span>
+    completeCollection: [],
+    curatedCollection: [],
     
-    <span class="code-comment">// Filter states</span>
+    <span class="code-comment">// Curation parameters</span>
     currentGenre: <span class="code-string">'all'</span>,
-    currentSort: <span class="code-string">'relevance'</span>,
-    currentPageFilter: <span class="code-string">'any'</span>,
+    currentArrangement: <span class="code-string">'relevance'</span>,
+    currentVolumeLength: <span class="code-string">'any'</span>,
     
-    <span class="code-comment">// Search state</span>
-    searchQuery: <span class="code-string">''</span>,
+    <span class="code-comment">// Search documentation</span>
+    searchInquiry: <span class="code-string">''</span>,
     
-    <span class="code-comment">// Pagination state</span>
-    currentPage: <span class="code-number">1</span>,
-    totalBooks: <span class="code-number">0</span>,
-    totalPages: <span class="code-number">1</span>,
+    <span class="code-comment">// Navigation documentation</span>
+    currentVolume: <span class="code-number">1</span>,
+    totalVolumes: <span class="code-number">0</span>,
+    totalCollections: <span class="code-number">1</span>,
     
-    <span class="code-comment">// Loading state</span>
-    isLoading: <span class="code-keyword">false</span>,
+    <span class="code-comment">// Loading documentation</span>
+    isCurating: <span class="code-keyword">false</span>,
     
-    <span class="code-comment">// Wishlist state</span>
-    wishlist: <span class="code-function">JSON</span>.<span class="code-function">parse</span>(
-        localStorage.<span class="code-function">getItem</span>(<span class="code-string">'wishlist'</span>) || <span class="code-string">'[]'</span>
+    <span class="code-comment">// Personal collection</span>
+    personalCollection: <span class="code-function">JSON</span>.<span class="code-function">parse</span>(
+        localStorage.<span class="code-function">getItem</span>(<span class="code-string">'collection'</span>) || <span class="code-string">'[]'</span>
     ),
     
-    <span class="code-comment">// Search debouncing</span>
-    searchTimeout: <span class="code-keyword">null</span>
+    <span class="code-comment">// Search temporal management</span>
+    searchTemporal: <span class="code-keyword">null</span>
 };</code></pre>
                 </div>
                 
-                <h3>API Integration</h3>
-                <p>The application integrates with AWS API Gateway to fetch book data from Google Books API:</p>
+                <h3 style="margin-top: 2rem; color: var(--accent); font-family: 'Libre Baskerville', serif;">Archive Integration</h3>
+                <p>The application integrates with AWS Gateway to access literary data from Google Books Archive:</p>
                 
                 <div class="code-block">
                     <div class="code-header">
-                        <span class="code-lang">JavaScript</span>
-                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <span class="code-lang">JavaScript Archive</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
                     </div>
-<pre><code><span class="code-keyword">async</span> <span class="code-keyword">function</span> <span class="code-function">loadBooks</span>() {
-    <span class="code-keyword">if</span> (state.isLoading) <span class="code-keyword">return</span>;
+<pre><code><span class="code-keyword">async</span> <span class="code-keyword">function</span> <span class="code-function">curateCollection</span>() {
+    <span class="code-keyword">if</span> (archive.isCurating) <span class="code-keyword">return</span>;
     
-    state.isLoading = <span class="code-keyword">true</span>;
-    <span class="code-function">showLoadingState</span>();
+    archive.isCurating = <span class="code-keyword">true</span>;
+    <span class="code-function">documentCuratingState</span>();
     
     <span class="code-keyword">try</span> {
-        <span class="code-comment">// Construct API query parameters</span>
-        <span class="code-keyword">const</span> params = <span class="code-keyword">new</span> <span class="code-function">URLSearchParams</span>();
-        <span class="code-keyword">if</span> (state.searchQuery) params.<span class="code-function">append</span>(<span class="code-string">'query'</span>, state.searchQuery);
-        <span class="code-keyword">if</span> (state.currentGenre !== <span class="code-string">'all'</span>) {
-            params.<span class="code-function">append</span>(<span class="code-string">'genre'</span>, state.currentGenre);
+        <span class="code-comment">// Construct archival query parameters</span>
+        <span class="code-keyword">const</span> parameters = <span class="code-keyword">new</span> <span class="code-function">URLSearchParams</span>();
+        <span class="code-keyword">if</span> (archive.searchInquiry) {
+            parameters.<span class="code-function">append</span>(<span class="code-string">'inquiry'</span>, archive.searchInquiry);
         }
-        params.<span class="code-function">append</span>(<span class="code-string">'page'</span>, state.currentPage - <span class="code-number">1</span>);
-        params.<span class="code-function">append</span>(<span class="code-string">'perPage'</span>, config.booksPerPage);
+        <span class="code-keyword">if</span> (archive.currentGenre !== <span class="code-string">'all'</span>) {
+            parameters.<span class="code-function">append</span>(<span class="code-string">'genre'</span>, archive.currentGenre);
+        }
+        parameters.<span class="code-function">append</span>(<span class="code-string">'volume'</span>, archive.currentVolume - <span class="code-number">1</span>);
+        parameters.<span class="code-function">append</span>(<span class="code-string">'volumesPerCollection'</span>, configuration.volumesPerCollection);
         
-        <span class="code-comment">// Call API Gateway endpoint</span>
+        <span class="code-comment">// Access Gateway endpoint</span>
         <span class="code-keyword">const</span> response = <span class="code-keyword">await</span> <span class="code-function">fetch</span>(
-            <span class="code-string">`${config.apiEndpoint}?${params.toString()}`</span>,
+            <span class="code-string">`${configuration.archiveEndpoint}?${parameters.toString()}`</span>,
             {
                 headers: {
                     <span class="code-string">'Content-Type'</span>: <span class="code-string">'application/json'</span>
@@ -666,62 +871,67 @@ body.dark-theme {
         
         <span class="code-keyword">if</span> (!response.ok) {
             <span class="code-keyword">throw new</span> <span class="code-function">Error</span>(
-                <span class="code-string">`Failed to fetch books: ${response.status}`</span>
+                <span class="code-string">`Archival access failed: ${response.status}`</span>
             );
         }
         
-        <span class="code-keyword">const</span> data = <span class="code-keyword">await</span> response.<span class="code-function">json</span>();
+        <span class="code-keyword">const</span> archivalData = <span class="code-keyword">await</span> response.<span class="code-function">json</span>();
         
-        <span class="code-comment">// Process and display books</span>
-        state.allBooks = <span class="code-function">processBooks</span>(data.books);
-        state.totalBooks = data.totalItems || data.books.length;
-        state.totalPages = <span class="code-function">Math</span>.<span class="code-function">ceil</span>(
-            state.totalBooks / config.booksPerPage
+        <span class="code-comment">// Process and present collection</span>
+        archive.completeCollection = <span class="code-function">processVolumes</span>(archivalData.volumes);
+        archive.totalVolumes = archivalData.totalItems || archivalData.volumes.length;
+        archive.totalCollections = <span class="code-function">Math</span>.<span class="code-function">ceil</span>(
+            archive.totalVolumes / configuration.volumesPerCollection
         );
         
-        <span class="code-function">applyFilters</span>();
-        <span class="code-function">updatePagination</span>();
-        <span class="code-function">showToast</span>(<span class="code-string">`Found ${state.totalBooks} books`</span>, <span class="code-string">'success'</span>);
+        <span class="code-function">applyCuration</span>();
+        <span class="code-function">updateNavigation</span>();
+        <span class="code-function">documentDiscovery</span>(
+            <span class="code-string">`Curated ${archive.totalVolumes} volumes`</span>, 
+            <span class="code-string">'success'</span>
+        );
         
     } <span class="code-keyword">catch</span> (error) {
-        console.<span class="code-function">error</span>(<span class="code-string">'Error loading books:'</span>, error);
-        <span class="code-function">showErrorState</span>(<span class="code-string">'Failed to load books. Please try again.'</span>);
+        console.<span class="code-function">error</span>(<span class="code-string">'Curatorial error:'</span>, error);
+        <span class="code-function">documentErrorState</span>(
+            <span class="code-string">'Archival system temporarily unavailable. Please retry.'</span>
+        );
     } <span class="code-keyword">finally</span> {
-        state.isLoading = <span class="code-keyword">false</span>;
+        archive.isCurating = <span class="code-keyword">false</span>;
     }
 }</code></pre>
                 </div>
                 
-                <h3>Debounced Search Implementation</h3>
-                <p>Efficient search with debouncing to prevent excessive API calls:</p>
+                <h3 style="margin-top: 2rem; color: var(--accent); font-family: 'Libre Baskerville', serif;">Temporal Search Implementation</h3>
+                <p>Efficient literary inquiry with temporal management to prevent excessive archival access:</p>
                 
                 <div class="code-block">
                     <div class="code-header">
-                        <span class="code-lang">JavaScript</span>
-                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <span class="code-lang">JavaScript Archive</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
                     </div>
-<pre><code><span class="code-keyword">function</span> <span class="code-function">debounceSearch</span>() {
-    <span class="code-comment">// Clear existing timeout</span>
-    <span class="code-keyword">clearTimeout</span>(state.searchTimeout);
+<pre><code><span class="code-keyword">function</span> <span class="code-function">manageTemporalSearch</span>() {
+    <span class="code-comment">// Clear existing temporal documentation</span>
+    <span class="code-keyword">clearTimeout</span>(archive.searchTemporal);
     
-    <span class="code-comment">// Set new timeout</span>
-    state.searchTimeout = <span class="code-keyword">setTimeout</span>(
-        executeSearch,
-        config.debounceDelay
+    <span class="code-comment">// Establish new temporal documentation</span>
+    archive.searchTemporal = <span class="code-keyword">setTimeout</span>(
+        executeLiteraryInquiry,
+        configuration.temporalDelay
     );
 }
 
-<span class="code-keyword">function</span> <span class="code-function">executeSearch</span>() {
-    <span class="code-comment">// Get search query from input</span>
-    state.searchQuery = elements.searchInput
-        ? elements.searchInput.value.<span class="code-function">trim</span>()
+<span class="code-keyword">function</span> <span class="code-function">executeLiteraryInquiry</span>() {
+    <span class="code-comment">// Document search inquiry from input</span>
+    archive.searchInquiry = archivalElements.searchInput
+        ? archivalElements.searchInput.value.<span class="code-function">trim</span>()
         : <span class="code-string">''</span>;
     
-    <span class="code-comment">// Reset to first page</span>
-    state.currentPage = <span class="code-number">1</span>;
+    <span class="code-comment">// Reset to initial volume</span>
+    archive.currentVolume = <span class="code-number">1</span>;
     
-    <span class="code-comment">// Load books with new query</span>
-    <span class="code-function">loadBooks</span>();
+    <span class="code-comment">// Curate collection with new inquiry</span>
+    <span class="code-function">curateCollection</span>();
 }</code></pre>
                 </div>
             </div>
@@ -729,36 +939,36 @@ body.dark-theme {
 
         <!-- Tech Stack -->
         <section class="project-section">
-            <h2 class="section-title">Technology Stack</h2>
+            <h2 class="section-title">Archival Technologies</h2>
             <div class="content-card">
                 <div class="tech-stack">
                     <div class="tech-item">
-                        <i class="fab fa-html5"></i>
+                        <i class="fas fa-scroll"></i>
                         <span>HTML5</span>
                     </div>
                     <div class="tech-item">
-                        <i class="fab fa-css3-alt"></i>
+                        <i class="fas fa-pen-fancy"></i>
                         <span>CSS3</span>
                     </div>
                     <div class="tech-item">
-                        <i class="fab fa-js"></i>
-                        <span>JavaScript (ES6+)</span>
+                        <i class="fas fa-feather-alt"></i>
+                        <span>JavaScript ES6+</span>
                     </div>
                     <div class="tech-item">
                         <i class="fas fa-cloud"></i>
-                        <span>AWS API Gateway</span>
+                        <span>AWS Gateway</span>
                     </div>
                     <div class="tech-item">
-                        <i class="fas fa-book"></i>
-                        <span>Google Books API</span>
+                        <i class="fas fa-archive"></i>
+                        <span>Google Books Archive</span>
                     </div>
                     <div class="tech-item">
                         <i class="fas fa-mobile-alt"></i>
-                        <span>Responsive Design</span>
+                        <span>Responsive Curation</span>
                     </div>
                     <div class="tech-item">
                         <i class="fas fa-palette"></i>
-                        <span>CSS Custom Properties</span>
+                        <span>CSS Archival Properties</span>
                     </div>
                     <div class="tech-item">
                         <i class="fas fa-universal-access"></i>
@@ -771,16 +981,16 @@ body.dark-theme {
         <!-- Project Actions -->
         <div class="project-actions">
             <a href="https://leonardkachi.github.io/Next-Read/" target="_blank" class="btn btn-primary">
-                <i class="fas fa-external-link-alt"></i>
-                View Live Application
+                <i class="fas fa-door-open"></i>
+                Access The Bibliotheca
             </a>
             <a href="https://github.com/LeonardKachi" target="_blank" class="btn btn-secondary">
                 <i class="fab fa-github"></i>
-                View on GitHub
+                View Archival Repository
             </a>
             <a href="index.html#projects" class="btn btn-secondary">
                 <i class="fas fa-arrow-left"></i>
-                Back to Projects
+                Return to Portfolio
             </a>
         </div>
     </div>
@@ -789,60 +999,110 @@ body.dark-theme {
     <footer class="project-footer">
         <div class="project-container">
             <div class="footer-content">
-                <p>AI-Powered Book Recommendation System</p>
-                <p>Built with modern web technologies and best practices</p>
+                <p><em>The Bibliotheca</em> - A Digital Literary Curator</p>
+                <p>Est. 2025 • Preserving literary heritage through digital curation</p>
                 <a href="index.html#projects" class="back-link">
                     <i class="fas fa-arrow-left"></i>
-                    Return to Portfolio
+                    Return to Archival Portfolio
                 </a>
             </div>
         </div>
     </footer>
 
     <script>
-        // Copy code functionality
+        // Copy archival documentation functionality
         function copyCode(button) {
             const codeBlock = button.parentElement.nextElementSibling;
             const text = codeBlock.textContent;
             
             navigator.clipboard.writeText(text).then(() => {
-                button.textContent = 'Copied!';
+                const originalText = button.textContent;
+                button.textContent = 'Documentation Copied';
+                button.style.background = 'rgba(16, 185, 129, 0.3)';
+                button.style.borderColor = '#10b981';
+                
                 setTimeout(() => {
-                    button.textContent = 'Copy';
+                    button.textContent = originalText;
+                    button.style.background = 'rgba(201, 168, 122, 0.2)';
+                    button.style.borderColor = 'rgba(201, 168, 122, 0.3)';
                 }, 2000);
             });
         }
         
-        // Theme toggle
+        // Environment (theme) management
         document.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('project-theme') || 'light';
-            document.body.classList.toggle('dark-theme', savedTheme === 'dark');
+            const savedEnvironment = localStorage.getItem('archival-environment') || 'light';
+            document.body.setAttribute('data-theme', savedEnvironment);
             
-            // Create theme toggle button
-            const themeToggle = document.createElement('button');
-            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-            themeToggle.className = 'btn btn-secondary';
-            themeToggle.style.position = 'fixed';
-            themeToggle.style.top = '20px';
-            themeToggle.style.right = '20px';
-            themeToggle.style.zIndex = '1000';
-            themeToggle.title = 'Toggle theme';
+            // Create environment toggle
+            const environmentToggle = document.createElement('button');
+            environmentToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            environmentToggle.className = 'theme-toggle';
+            environmentToggle.title = 'Toggle reading environment';
             
-            themeToggle.addEventListener('click', () => {
-                document.body.classList.toggle('dark-theme');
-                const isDark = document.body.classList.contains('dark-theme');
-                localStorage.setItem('project-theme', isDark ? 'dark' : 'light');
-                themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            environmentToggle.addEventListener('click', () => {
+                const currentEnvironment = document.body.getAttribute('data-theme');
+                const newEnvironment = currentEnvironment === 'light' ? 'dark' : 'light';
+                
+                document.body.setAttribute('data-theme', newEnvironment);
+                localStorage.setItem('archival-environment', newEnvironment);
+                
+                environmentToggle.innerHTML = newEnvironment === 'dark' 
+                    ? '<i class="fas fa-sun"></i>' 
+                    : '<i class="fas fa-moon"></i>';
+                
+                // Document environment change
+                const toast = document.createElement('div');
+                toast.className = 'toast';
+                toast.style.cssText = `
+                    position: fixed;
+                    bottom: 20px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: var(--leather-brown);
+                    color: var(--parchment);
+                    padding: 12px 24px;
+                    border-radius: 2px;
+                    border-left: 4px solid var(--gold-leaf);
+                    font-family: 'Crimson Text', serif;
+                    z-index: 1000;
+                    animation: fadeInUp 0.3s ease;
+                `;
+                
+                toast.textContent = newEnvironment === 'dark' 
+                    ? 'Dark reading environment activated' 
+                    : 'Light reading environment activated';
+                
+                document.body.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
             });
             
-            themeToggle.innerHTML = savedTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-            document.body.appendChild(themeToggle);
+            environmentToggle.innerHTML = savedEnvironment === 'dark' 
+                ? '<i class="fas fa-sun"></i>' 
+                : '<i class="fas fa-moon"></i>';
+            
+            document.body.appendChild(environmentToggle);
+            
+            // Add fadeInUp animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fadeInUp {
+                    from {
+                        opacity: 0;
+                        transform: translate(-50%, 20px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translate(-50%, 0);
+                    }
+                }
+            `;
+            document.head.appendChild(style);
         });
     </script>
 </body>
 </html>
-
-
-
-
-
