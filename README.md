@@ -2,11 +2,11 @@
 
 A personal portfolio website showcasing my expertise in cybersecurity, cloud security, and automation. Built with HTML, CSS, and JavaScript, this site highlights my projects, skills, and contact information. Deployed using GitHub Pages.
 
-🔗 Live Site: [Portfolio-website](https://leonardkachi.github.io/Portfolio-website/)
+ Live Site: [Portfolio-website](https://leonardkachi.github.io/Portfolio-website/)
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 - `index.html`: Main landing page.
 - `styles.css`: Custom CSS styles for the website.
@@ -34,14 +34,14 @@ A personal portfolio website showcasing my expertise in cybersecurity, cloud sec
 
 ---
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 - **Frontend**: HTML5, CSS3, JavaScript
 - **Deployment**: GitHub Pages
 
 ---
 
-## 📦 Installation & Setup
+## Installation & Setup
 
 To run this project locally:
 
@@ -58,11 +58,12 @@ To run this project locally:
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the [LGPL-2.1 License](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html).
 
 ---
 
 *Crafted with dedication by [Kachi](https://github.com/LeonardKachi).*
+
 
