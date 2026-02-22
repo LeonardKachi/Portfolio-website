@@ -3,10 +3,151 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Certification Visualizer</title>
+  <title>Certifications Visualizer</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* Modal Styles - Added */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      padding: 20px 0;
+    }
+
+    .cert-card {
+      background: #1a1f2e;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .cert-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      border-color: #4a6cf7;
+    }
+
+    /* Image Square Container - All images in perfect squares */
+    .cert-image-container {
+      width: 100%;
+      aspect-ratio: 1 / 1; /* Creates perfect square */
+      background: linear-gradient(145deg, #2a2f3f 0%, #1a1f2e 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      border-bottom: 2px solid rgba(74, 108, 247, 0.3);
+    }
+
+    .cert-image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* Maintains aspect ratio within square */
+      transition: transform 0.5s ease;
+      filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3));
+    }
+
+    .cert-card:hover .cert-image-container img {
+      transform: scale(1.05);
+    }
+
+    /* Coming Soon Badge */
+    .coming-soon {
+      position: relative;
+    }
+
+    .coming-soon-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: #ff6b6b;
+      color: white;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      z-index: 2;
+      box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
+    }
+
+    /* Certificate Details */
+    .cert-details {
+      padding: 20px;
+      background: #1a1f2e;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cert-details h3 {
+      color: #ffffff;
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      font-weight: 600;
+      line-height: 1.4;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      position: relative;
+      display: inline-block;
+    }
+
+    .cert-details h3:hover {
+      color: #4a6cf7;
+    }
+
+    .cert-details h3::after {
+      content: '🔍';
+      font-size: 0.8rem;
+      margin-left: 8px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .cert-details h3:hover::after {
+      opacity: 1;
+    }
+
+    .cert-details p {
+      color: #a0a8c0;
+      font-size: 0.95rem;
+      margin: 4px 0;
+    }
+
+    .cert-details .cert-issuer {
+      color: #4a6cf7;
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .cert-details .cert-date {
+      color: #8088a0;
+      font-size: 0.85rem;
+      margin-top: 8px;
+      display: inline-block;
+      background: rgba(74, 108, 247, 0.1);
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(74, 108, 247, 0.2);
+    }
+
+    .cert-details .cert-description {
+      color: #b0b8d0;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Modal Styles */
     .modal {
       display: none;
       position: fixed;
@@ -15,269 +156,437 @@
       top: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0,0,0,0.9);
-      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(5px);
     }
 
     .modal-content {
       margin: auto;
-      display: block;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       max-width: 90%;
       max-height: 90%;
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      text-align: center;
     }
 
     .modal-content img {
-      width: 100%;
-      height: auto;
-      max-height: 90vh;
+      max-width: 100%;
+      max-height: 80vh;
       object-fit: contain;
-      border-radius: 5px;
+      border-radius: 12px;
+      box-shadow: 0 0 30px rgba(74, 108, 247, 0.3);
     }
 
     .close {
       position: absolute;
-      top: 20px;
-      right: 35px;
-      color: #f1f1f1;
+      top: 30px;
+      right: 40px;
+      color: #fff;
       font-size: 40px;
       font-weight: bold;
       cursor: pointer;
       z-index: 1001;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transition: all 0.3s ease;
     }
 
     .close:hover {
-      color: #999;
+      background: #4a6cf7;
+      transform: rotate(90deg);
     }
 
     #modal-cert-name {
+      color: white;
+      font-size: 1.3rem;
+      margin-top: 20px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 10px 25px;
+      border-radius: 30px;
+      border: 1px solid #4a6cf7;
+    }
+
+    /* Filter Buttons */
+    .cert-filters {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: 2px solid #4a6cf7;
+      color: white;
+      padding: 10px 25px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: #4a6cf7;
+      color: white;
+    }
+
+    /* Section Header */
+    .section-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-header h2 {
+      color: white;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-header h2::after {
+      content: '';
       position: absolute;
-      bottom: 30px;
+      bottom: -10px;
       left: 50%;
       transform: translateX(-50%);
-      color: white;
-      font-size: 1.5em;
-      text-align: center;
-      background: rgba(0,0,0,0.7);
-      padding: 10px 20px;
-      border-radius: 5px;
-      width: auto;
-      max-width: 80%;
+      width: 60px;
+      height: 3px;
+      background: #4a6cf7;
+      border-radius: 2px;
     }
 
-    /* Make cert names clickable - Added */
-    .cert-details h3 {
-      cursor: pointer;
-      transition: color 0.3s ease;
+    .section-header p {
+      color: #a0a8c0;
+      font-size: 1.1rem;
     }
 
-    .cert-details h3:hover {
-      color: #007bff;
-      text-decoration: underline;
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .cert-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 10px;
+      }
+
+      .cert-image-container {
+        padding: 15px;
+      }
+
+      .cert-details h3 {
+        font-size: 1.1rem;
+      }
+
+      .close {
+        top: 20px;
+        right: 20px;
+        font-size: 30px;
+      }
+
+      .filter-btn {
+        padding: 8px 20px;
+        font-size: 0.85rem;
+      }
     }
 
-    /* Ensure images are centered - Added */
-    .cert-card {
-      display: flex;
-      flex-direction: column;
+    /* Loading Animation */
+    @keyframes shimmer {
+      0% { background-position: -1000px 0; }
+      100% { background-position: 1000px 0; }
     }
 
-    .cert-card img {
-      margin: 0 auto;
-      display: block;
+    .loading {
+      background: linear-gradient(90deg, #2a2f3f 25%, #3a3f4f 50%, #2a2f3f 75%);
+      background-size: 1000px 100%;
+      animation: shimmer 2s infinite;
     }
   </style>
 </head>
 <body>
-    <!-- Certifications -->
-    <section id="certifications" class="section-dark">
-      <div class="container">
+  <!-- Certifications Section -->
+  <section id="certifications" class="section-dark">
+    <div class="container">
+      <div class="section-header">
         <h2>Professional Certifications</h2>
-        <div class="cert-grid">
-    
-          <!-- ISC2 CC -->
-          <div class="cert-card">
+        <p>Industry-recognized credentials in cloud, security, and data analytics</p>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div class="cert-filters">
+        <button class="filter-btn active" onclick="filterCertifications('all')">All</button>
+        <button class="filter-btn" onclick="filterCertifications('security')">Security</button>
+        <button class="filter-btn" onclick="filterCertifications('aws')">AWS</button>
+        <button class="filter-btn" onclick="filterCertifications('data')">Data & AI</button>
+      </div>
+
+      <!-- Certifications Grid -->
+      <div class="cert-grid" id="cert-grid">
+        <!-- ISC2 CC -->
+        <div class="cert-card" data-category="security">
+          <div class="cert-image-container">
             <img src="assets/images/cert-badges/isc2-cc.png" alt="ISC2 Certified in Cybersecurity" loading="lazy">
-            <div class="cert-details">
-              <h3 onclick="showCertificate('assets/images/cert-badges/isc2-cc.png', 'Certified in Cybersecurity - ISC2')">Certified in Cybersecurity</h3>
-              <p>ISC2</p>
-              <p class="cert-date">2025</p>
-            </div>
           </div>
-    
-          <!-- CompTIA Security+ -->
-          <div class="cert-card">
-            <img src="assets/images/cert-badges/security-plus.png" alt="CompTIA Security+" loading="lazy">
-            <div class="cert-details">
-              <h3 onclick="showCertificate('assets/images/cert-badges/security-plus.png', 'Security+ - CompTIA')">Security+</h3>
-              <p>CompTIA</p>
-              <p class="cert-date">Candidate (2025)</p>
-            </div>
-          </div>
-    
-          <!-- AWS Solutions Architect -->
-          <div class="cert-card">
-            <img src="assets/images/cert-badges/aws-sa.png" alt="AWS Solutions Architect" loading="lazy">
-            <div class="cert-details">
-              <h3 onclick="showCertificate('assets/images/cert-badges/aws-sa.png', 'Solutions Architect - AWS')">Solutions Architect</h3>
-              <p>AWS</p>
-              <p class="cert-date">Candidate (March 2026)</p>
-            </div>
-          </div>
-    
-          <!-- Coming Soon Badge -->
-          <div class="cert-card coming-soon">
-            <div class="coming-soon-badge">Coming Soon</div>
-            <img src="assets/images/cert-badges/aws-ss.png" alt="Planned Certifications" loading="lazy">
-            <div class="cert-details">
-              <h3 onclick="showCertificate('assets/images/cert-badges/aws-ss.png', 'AWS Security Specialty')">AWS Security Specialty</h3>
-              <p>In Progress</p>
-              <p class="cert-date">2026 Target</p>
-            </div>
-          </div>
-    
-          <!-- Google Data Analytics -->
-          <div class="cert-card">
-            <img src="assets/images/cert-badges/google-da.jpg" alt="Google Data Analytics Certificate" loading="lazy">
-            <div class="cert-details">
-              <h3 onclick="showCertificate('assets/images/cert-badges/google-da.jpg', 'Data Analytics - Google')">Data Analytics</h3>
-              <p>Google</p>
-              <p class="cert-date">2023</p>
-            </div>
-          </div>
-    
-          <!-- Google AI -->
-          <div class="cert-card">
-            <img src="assets/images/cert-badges/google-ai.jpg" alt="Google AI Essentials" loading="lazy">
-            <div class="cert-details">
-              <h3 onclick="showCertificate('assets/images/cert-badges/google-ai.jpg', 'AI Essentials - Google')">AI Essentials</h3>
-              <p>Google</p>
-              <p class="cert-date">2023</p>
-            </div>
-          </div>
-    
-          <!-- Cybersecurity Certificate -->
-          <div class="cert-card">
-            <img src="assets/images/cert-badges/neo.jpg" alt="Cybersecurity Certificate" loading="lazy">
-            <div class="cert-details">
-              <h3 onclick="showCertificate('assets/images/cert-badges/neo.jpg', 'Cybersecurity | Ethical Hacking - Neo Cloud')">Cybersecurity | Ethical Hacking</h3>
-              <p>Neo Cloud Technologies</p>
-              <p class="cert-date">2024</p>
-            </div>
-          </div>
-          
-          <!-- Cybersecurity Certificate -->
-          <div class="cert-card">
-            <img src="assets/images/cert-badges/neo.jpg" alt="Cybersecurity Certificate" loading="lazy">
-            <div class="cert-details">
-              <h3 onclick="showCertificate('assets/images/cert-badges/neo.jpg', 'Solutions Architect - Neo Cloud')">Solutions Architect</h3>
-              <p>Neo Cloud Technologies</p>
-              <p class="cert-date">2025</p>
-            </div>
-          </div>
-    
-          <!-- MasterCard Cybersecurity -->
-          <div class="cert-card">
-            <img src="assets/images/cert-badges/mf.png" alt="MasterCard Cybersecurity" loading="lazy">
-            <div class="cert-details">
-              <h3 onclick="showCertificate('assets/images/cert-badges/mf.png', 'Cybersecurity Foundations - MasterCard')">Cybersecurity Foundations</h3>
-              <p>MasterCard</p>
-              <p class="cert-date">2024</p>
-            </div>
+          <div class="cert-details">
+            <h3 onclick="showCertificate('assets/images/cert-badges/isc2-cc.png', 'Certified in Cybersecurity - ISC2')">Certified in Cybersecurity</h3>
+            <p class="cert-issuer">ISC2</p>
+            <p class="cert-description">Foundational cybersecurity certification covering security principles, risk management, and incident response.</p>
+            <p class="cert-date">2025</p>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- Modal for displaying certificates - Added -->
-    <div id="cert-modal" class="modal">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <div class="modal-content">
-        <img id="modal-image" src="" alt="Certificate">
-        <div id="modal-cert-name"></div>
+        <!-- CompTIA Security+ -->
+        <div class="cert-card" data-category="security">
+          <div class="cert-image-container">
+            <img src="assets/images/cert-badges/security-plus.png" alt="CompTIA Security+" loading="lazy">
+          </div>
+          <div class="cert-details">
+            <h3 onclick="showCertificate('assets/images/cert-badges/security-plus.png', 'Security+ - CompTIA')">Security+</h3>
+            <p class="cert-issuer">CompTIA</p>
+            <p class="cert-description">Global certification validating baseline cybersecurity skills and best practices.</p>
+            <p class="cert-date">Candidate (2025)</p>
+          </div>
+        </div>
+
+        <!-- AWS Solutions Architect -->
+        <div class="cert-card" data-category="aws">
+          <div class="cert-image-container">
+            <img src="assets/images/cert-badges/aws-sa.png" alt="AWS Solutions Architect" loading="lazy">
+          </div>
+          <div class="cert-details">
+            <h3 onclick="showCertificate('assets/images/cert-badges/aws-sa.png', 'Solutions Architect - AWS')">Solutions Architect</h3>
+            <p class="cert-issuer">AWS</p>
+            <p class="cert-description">Demonstrates expertise in designing distributed systems and applications on AWS.</p>
+            <p class="cert-date">Candidate (March 2026)</p>
+          </div>
+        </div>
+
+        <!-- AWS Security Specialty -->
+        <div class="cert-card coming-soon" data-category="aws">
+          <div class="coming-soon-badge">Coming Soon</div>
+          <div class="cert-image-container">
+            <img src="assets/images/cert-badges/aws-ss.png" alt="AWS Security Specialty" loading="lazy">
+          </div>
+          <div class="cert-details">
+            <h3 onclick="showCertificate('assets/images/cert-badges/aws-ss.png', 'AWS Security Specialty')">AWS Security Specialty</h3>
+            <p class="cert-issuer">AWS</p>
+            <p class="cert-description">Demonstrates expertise in AWS security best practices and implementations.</p>
+            <p class="cert-date">2025 Target</p>
+          </div>
+        </div>
+
+        <!-- Google Data Analytics -->
+        <div class="cert-card" data-category="data">
+          <div class="cert-image-container">
+            <img src="assets/images/cert-badges/google-da.jpg" alt="Google Data Analytics Certificate" loading="lazy">
+          </div>
+          <div class="cert-details">
+            <h3 onclick="showCertificate('assets/images/cert-badges/google-da.jpg', 'Data Analytics - Google')">Data Analytics</h3>
+            <p class="cert-issuer">Google (Coursera)</p>
+            <p class="cert-description">Professional training in data analysis, visualization, and machine learning fundamentals.</p>
+            <p class="cert-date">2023</p>
+          </div>
+        </div>
+
+        <!-- Google AI -->
+        <div class="cert-card" data-category="ai">
+          <div class="cert-image-container">
+            <img src="assets/images/cert-badges/google-ai.jpg" alt="Google AI Essentials" loading="lazy">
+          </div>
+          <div class="cert-details">
+            <h3 onclick="showCertificate('assets/images/cert-badges/google-ai.jpg', 'AI Essentials - Google')">AI Essentials</h3>
+            <p class="cert-issuer">Google</p>
+            <p class="cert-description">Fundamentals of artificial intelligence and machine learning applications.</p>
+            <p class="cert-date">2023</p>
+          </div>
+        </div>
+
+        <!-- Neo Cloud Cybersecurity -->
+        <div class="cert-card" data-category="security">
+          <div class="cert-image-container">
+            <img src="assets/images/cert-badges/neo.jpg" alt="Cybersecurity Certificate" loading="lazy">
+          </div>
+          <div class="cert-details">
+            <h3 onclick="showCertificate('assets/images/cert-badges/neo.jpg', 'Cybersecurity | Ethical Hacking - Neo Cloud')">Cybersecurity | Ethical Hacking</h3>
+            <p class="cert-issuer">Neo Cloud Technologies</p>
+            <p class="cert-description">Practical training in penetration testing and vulnerability assessment.</p>
+            <p class="cert-date">2024</p>
+          </div>
+        </div>
+
+        <!-- Neo Cloud Solutions Architect -->
+        <div class="cert-card" data-category="aws">
+          <div class="cert-image-container">
+            <img src="assets/images/cert-badges/neo.jpg" alt="Solutions Architect Certificate" loading="lazy">
+          </div>
+          <div class="cert-details">
+            <h3 onclick="showCertificate('assets/images/cert-badges/neo.jpg', 'Solutions Architect - Neo Cloud')">Solutions Architect</h3>
+            <p class="cert-issuer">Neo Cloud Technologies</p>
+            <p class="cert-description">Practical training in Cloud Environment (AWS, Azure, GCP).</p>
+            <p class="cert-date">2025</p>
+          </div>
+        </div>
+
+        <!-- MasterCard Cybersecurity -->
+        <div class="cert-card" data-category="security">
+          <div class="cert-image-container">
+            <img src="assets/images/cert-badges/mf.png" alt="MasterCard Cybersecurity" loading="lazy">
+          </div>
+          <div class="cert-details">
+            <h3 onclick="showCertificate('assets/images/cert-badges/mf.png', 'Cybersecurity Foundations - MasterCard')">Cybersecurity Foundations</h3>
+            <p class="cert-issuer">MasterCard</p>
+            <p class="cert-description">Core principles of information security and cyber defense strategies.</p>
+            <p class="cert-date">2024</p>
+          </div>
+        </div>
       </div>
     </div>
+  </section>
 
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-content">
-          <div class="footer-about">
-            <h3>Leonard Kachi</h3>
-            <p>Cloud Security Architect specializing in AWS, Azure, and Zero Trust implementations.</p>
-            <p>Turning threats into design. By blending AWS, Zero Trust, and automation, I build security infrastructures that scale and stories that launch careers.</p>
-          </div>
-          <div class="footer-links">
-            <h4>Quick Links</h4>
-            <ul>
-              <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#about">About</a></li>
-              <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#projects">Projects</a></li>
-              <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#lab">Security Lab</a></li>
-              <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#articles">Articles</a></li>
-              <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#certifications">Certifications</a></li>
-              <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#contact">Contact</a></li>
-            </ul>
-          </div>
-          <div class="footer-contact">
-            <h4>Contact</h4>
-            <ul>
-              <li><a href="mailto:Kachi.Henry.Leo@gmail.com">Kachi.Henry.Leo@gmail.com</a></li>
-              <li><a href="https://github.com/LeonardKachi" target="_blank">GitHub</a></li>
-              <li><a href="https://www.linkedin.com/in/onyedikachi-obidiegwu" target="_blank">LinkedIn</a></li>
-              <li><a href="https://twitter.com/Leonard_kachi" target="_blank">Twitter</a></li>
-              <li><a href="https://dev.to/leonardkachi" target="_blank">Dev.to</a></li>
-              <li><a href="#resume">Resume</a></li>
-            </ul>
-          </div>
+  <!-- Modal for displaying certificates -->
+  <div id="cert-modal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+      <img id="modal-image" src="" alt="Certificate">
+      <div id="modal-cert-name"></div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-about">
+          <h3>Leonard Kachi</h3>
+          <p>Cloud Security Architect specializing in AWS, Azure, and Zero Trust implementations.</p>
+          <p>Turning threats into design. By blending AWS, Zero Trust, and automation, I build security infrastructures that scale and stories that launch careers.</p>
         </div>
-        <div class="footer-bottom">
-          <p>&copy; <span id="year"></span> Obidiegwu Onyedikachi Henry Leonard. All rights reserved.</p>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#about">About</a></li>
+            <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#projects">Projects</a></li>
+            <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#lab">Security Lab</a></li>
+            <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#articles">Articles</a></li>
+            <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#certifications">Certifications</a></li>
+            <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:Kachi.Henry.Leo@gmail.com">Kachi.Henry.Leo@gmail.com</a></li>
+            <li><a href="https://github.com/LeonardKachi" target="_blank">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/onyedikachi-obidiegwu" target="_blank">LinkedIn</a></li>
+            <li><a href="https://twitter.com/Leonard_kachi" target="_blank">Twitter</a></li>
+            <li><a href="https://dev.to/leonardkachi" target="_blank">Dev.to</a></li>
+            <li><a href="#resume">Resume</a></li>
+          </ul>
         </div>
       </div>
-    </footer>
+      <div class="footer-bottom">
+        <p>&copy; <span id="year"></span> Obidiegwu Onyedikachi Henry Leonard. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
 
-    <script>
-      // Function to show certificate in modal - Added
-      function showCertificate(imagePath, certName) {
-        const modal = document.getElementById('cert-modal');
-        const modalImage = document.getElementById('modal-image');
-        const modalCertName = document.getElementById('modal-cert-name');
-        
-        modalImage.src = imagePath;
-        modalCertName.textContent = certName;
-        
-        modal.style.display = 'block';
-        document.body.style.overflow = 'hidden'; // Prevent scrolling
-      }
+  <script>
+    // ==========================================
+    // CERTIFICATIONS MODULE
+    // ==========================================
+    
+    // Show certificate in modal
+    function showCertificate(imagePath, certName) {
+      const modal = document.getElementById('cert-modal');
+      const modalImage = document.getElementById('modal-image');
+      const modalCertName = document.getElementById('modal-cert-name');
+      
+      modalImage.src = imagePath;
+      modalCertName.textContent = certName;
+      
+      modal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
 
-      // Function to close modal - Added
-      function closeModal() {
-        const modal = document.getElementById('cert-modal');
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto'; // Re-enable scrolling
-      }
+    // Close modal
+    function closeModal() {
+      const modal = document.getElementById('cert-modal');
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
 
-      // Close modal when clicking outside - Added
-      window.onclick = function(event) {
-        const modal = document.getElementById('cert-modal');
-        if (event.target === modal) {
-          closeModal();
-        }
-      }
-
-      // Handle escape key to close modal - Added
-      document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape') {
-          closeModal();
+    // Filter certifications by category
+    function filterCertifications(category) {
+      const cards = document.querySelectorAll('.cert-card');
+      const buttons = document.querySelectorAll('.filter-btn');
+      
+      // Update active button
+      buttons.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.textContent.toLowerCase().includes(category) || 
+            (category === 'all' && btn.textContent === 'All')) {
+          btn.classList.add('active');
         }
       });
+      
+      // Filter cards
+      cards.forEach(card => {
+        if (category === 'all') {
+          card.style.display = 'flex';
+        } else {
+          const cardCategory = card.dataset.category;
+          if (cardCategory === category) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        }
+      });
+    }
 
-      // Update copyright year
-      document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      const modal = document.getElementById('cert-modal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    }
+
+    // Handle escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    // Update copyright year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Add loading animation class to images
+    document.addEventListener('DOMContentLoaded', function() {
+      const images = document.querySelectorAll('.cert-image-container img');
+      images.forEach(img => {
+        img.addEventListener('load', function() {
+          this.parentElement.classList.remove('loading');
+        });
+        img.addEventListener('error', function() {
+          this.parentElement.classList.remove('loading');
+          this.src = 'assets/images/cert-badges/placeholder.png';
+        });
+      });
+    });
+  </script>
 </body>
 </html>
-
