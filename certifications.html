@@ -3,108 +3,204 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Certifications Visualizer</title>
+  <title>Certifications | Leonard Kachi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
-    .cert-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
-      padding: 20px 0;
+    :root {
+      --primary: #0d1f23;
+      --secondary: #1e3d38;
+      --accent: #3aafa9;
+      --accent-dark: #2b837e;
+      --text: #feffff;
+      --text-muted: #a0aec0;
+      --text-dark: #2d3748;
+      --transition: all 0.3s ease;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.2);
+      --radius: 8px;
+      --radius-sm: 4px;
     }
 
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--primary);
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+      text-align: center;
+    }
+
+    .section-description {
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .cert-filters {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .filter-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: var(--text);
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 0.95rem;
+      font-weight: 500;
+      border: 1px solid transparent;
+    }
+
+    .filter-btn:hover {
+      background: rgba(58, 175, 169, 0.2);
+      border-color: var(--accent);
+    }
+
+    .filter-btn.active {
+      background: var(--accent);
+      color: var(--primary);
+      border-color: var(--accent);
+    }
+
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    /* Card styles - consistent height always */
     .cert-card {
-      background: #1a1f2e;
-      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius);
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: var(--transition);
+      border: 1px solid rgba(58, 175, 169, 0.2);
       display: flex;
       flex-direction: column;
       height: 100%;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
     }
 
     .cert-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-      border-color: #2D5A27; /* Forest Green */
+      box-shadow: var(--shadow-lg);
+      border-color: var(--accent);
     }
 
-    /* Image Square Container - All images in perfect squares */
+    /* Image container - FIXED SIZE - NEVER CHANGES */
     .cert-image-container {
       width: 100%;
-      aspect-ratio: 1 / 1; /* Creates perfect square */
-      background: linear-gradient(145deg, #2a2f3f 0%, #1a1f2e 100%);
+      height: 180px;
+      min-height: 180px;
+      max-height: 180px;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
-      border-bottom: 2px solid rgba(45, 90, 39, 0.3); /* Forest Green with opacity */
+      padding: 1.5rem;
+      background: rgba(0, 0, 0, 0.2);
+      position: relative;
+      border-bottom: 1px solid rgba(58, 175, 169, 0.2);
     }
 
     .cert-image-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain; /* Maintains aspect ratio within square */
-      transition: transform 0.5s ease;
-      filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3));
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      transition: transform 0.3s ease;
     }
 
     .cert-card:hover .cert-image-container img {
       transform: scale(1.05);
     }
 
-    /* Coming Soon Badge */
-    .coming-soon {
-      position: relative;
-    }
-
-    .coming-soon-badge {
+    /* Candidate badge */
+    .candidate-badge {
       position: absolute;
-      top: 15px;
-      right: 15px;
-      background: #2D5A27; /* Forest Green */
-      color: white;
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      top: 1rem;
+      right: 1rem;
+      background: #fcd34d;
+      color: #0d1f23;
+      padding: 0.35rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
       z-index: 2;
-      box-shadow: 0 3px 10px rgba(45, 90, 39, 0.3); /* Forest Green shadow */
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
 
-    /* Certificate Details */
+    /* Content area - flexible but consistent */
     .cert-details {
-      padding: 20px;
-      background: #1a1f2e;
+      padding: 1.5rem;
       flex: 1;
       display: flex;
       flex-direction: column;
     }
 
     .cert-details h3 {
-      color: #ffffff;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
       font-size: 1.2rem;
-      margin-bottom: 8px;
-      font-weight: 600;
       line-height: 1.4;
+      font-weight: 600;
       cursor: pointer;
       transition: color 0.3s ease;
-      position: relative;
       display: inline-block;
+      position: relative;
+      /* Ensure consistent height for titles */
+      min-height: 3.2rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .cert-details h3:hover {
-      color: #2D5A27; /* Forest Green */
+      color: var(--text);
+      text-decoration: underline;
     }
 
     .cert-details h3::after {
       content: '🔍';
       font-size: 0.8rem;
-      margin-left: 8px;
+      margin-left: 0.5rem;
       opacity: 0;
       transition: opacity 0.3s ease;
     }
@@ -113,372 +209,592 @@
       opacity: 1;
     }
 
-    .cert-details p {
-      color: #a0a8c0;
-      font-size: 0.95rem;
-      margin: 4px 0;
-    }
-
-    .cert-details .cert-issuer {
-      color: #2D5A27; /* Forest Green */
+    .cert-issuer {
+      color: var(--accent);
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
       font-weight: 500;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
     }
 
-    .cert-details .cert-date {
-      color: #8088a0;
+    .cert-date {
+      color: var(--text-muted);
       font-size: 0.85rem;
-      margin-top: 8px;
+      margin: 0.5rem 0 0.75rem;
       display: inline-block;
-      background: rgba(45, 90, 39, 0.1); /* Forest Green with opacity */
-      padding: 4px 12px;
-      border-radius: 20px;
-      border: 1px solid rgba(45, 90, 39, 0.2); /* Forest Green with opacity */
+      background: rgba(58, 175, 169, 0.1);
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      width: fit-content;
     }
 
-    .cert-details .cert-description {
-      color: #b0b8d0;
-      font-size: 0.9rem;
+    .cert-description {
+      font-size: 0.85rem;
+      color: var(--text-muted);
       line-height: 1.5;
-      margin-top: 12px;
-      padding-top: 12px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-top: 0.5rem;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 0.75rem;
     }
 
-    /* Modal Styles */
-    .modal {
+    /* Empty states - maintain grid layout */
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: var(--radius);
+      border: 1px dashed rgba(58, 175, 169, 0.3);
+    }
+
+    .loading-spinner {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem;
+      color: var(--accent);
+    }
+
+    /* Stats bar */
+    .cert-stats {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: var(--radius);
+      border: 1px solid rgba(58, 175, 169, 0.2);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .stats-count {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .stats-count span {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-right: 0.25rem;
+    }
+
+    .reset-btn {
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: var(--transition);
+    }
+
+    .reset-btn:hover:not(:disabled) {
+      background: rgba(58, 175, 169, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .reset-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem 0.5rem;
+      }
+      
+      h2 {
+        font-size: 2rem;
+      }
+      
+      .cert-image-container {
+        height: 150px;
+        min-height: 150px;
+        max-height: 150px;
+        padding: 1rem;
+      }
+      
+      .cert-details h3 {
+        font-size: 1.1rem;
+        min-height: 2.8rem;
+      }
+      
+      .cert-description {
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+      }
+      
+      .cert-filters {
+        gap: 0.5rem;
+      }
+      
+      .filter-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .cert-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .cert-image-container {
+        height: 140px;
+        min-height: 140px;
+        max-height: 140px;
+      }
+      
+      .cert-stats {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .cert-card {
+      animation: fadeIn 0.4s ease forwards;
+    }
+
+    /* Back button */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--accent);
+      text-decoration: none;
+      margin-bottom: 2rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .back-link:hover {
+      color: var(--text);
+      transform: translateX(-5px);
+    }
+
+    .back-link svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Modal styles for certificate viewing */
+    .cert-modal {
       display: none;
       position: fixed;
-      z-index: 1000;
-      left: 0;
       top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.95);
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
       backdrop-filter: blur(5px);
     }
 
-    .modal-content {
-      margin: auto;
+    .cert-modal.active {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+    }
+
+    .modal-content {
       max-width: 90%;
       max-height: 90%;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      position: relative;
+      text-align: center;
     }
 
-    .modal-content img {
+    .modal-content img,
+    .modal-content iframe,
+    .modal-content embed {
       max-width: 100%;
       max-height: 80vh;
-      object-fit: contain;
-      border-radius: 12px;
-      box-shadow: 0 0 30px rgba(45, 90, 39, 0.3); /* Forest Green shadow */
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      border: 2px solid var(--accent);
     }
 
-    .close {
+    .modal-close {
       position: absolute;
-      top: 30px;
-      right: 40px;
-      color: #fff;
-      font-size: 40px;
-      font-weight: bold;
+      top: -40px;
+      right: -40px;
+      color: white;
+      font-size: 2rem;
       cursor: pointer;
-      z-index: 1001;
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
       background: rgba(255, 255, 255, 0.1);
       border-radius: 50%;
-      transition: all 0.3s ease;
+      transition: var(--transition);
     }
 
-    .close:hover {
-      background: #2D5A27; /* Forest Green */
+    .modal-close:hover {
+      background: var(--accent);
       transform: rotate(90deg);
     }
 
-    #modal-cert-name {
+    .modal-title {
       color: white;
-      font-size: 1.3rem;
-      margin-top: 20px;
-      text-align: center;
-      background: rgba(0, 0, 0, 0.5);
-      padding: 10px 25px;
-      border-radius: 30px;
-      border: 1px solid #2D5A27; /* Forest Green */
+      margin-top: 1rem;
+      font-size: 1.2rem;
     }
 
-    /* Filter Buttons */
-    .cert-filters {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
+    /* PDF icon for download */
+    .pdf-download {
+      margin-top: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(58, 175, 169, 0.2);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: var(--transition);
     }
 
-    .filter-btn {
-      background: transparent;
-      border: 2px solid #2D5A27; /* Forest Green */
-      color: white;
-      padding: 10px 25px;
-      border-radius: 30px;
-      cursor: pointer;
-      font-size: 0.95rem;
-      font-weight: 500;
-      transition: all 0.3s ease;
-    }
-
-    .filter-btn:hover,
-    .filter-btn.active {
-      background: #2D5A27; /* Forest Green */
-      color: white;
-    }
-
-    /* Section Header */
-    .section-header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    .section-header h2 {
-      color: white;
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-      position: relative;
-      display: inline-block;
-    }
-
-    .section-header h2::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60px;
-      height: 3px;
-      background: #2D5A27; /* Forest Green */
-      border-radius: 2px;
-    }
-
-    .section-header p {
-      color: #a0a8c0;
-      font-size: 1.1rem;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .cert-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 10px;
-      }
-
-      .cert-image-container {
-        padding: 15px;
-      }
-
-      .cert-details h3 {
-        font-size: 1.1rem;
-      }
-
-      .close {
-        top: 20px;
-        right: 20px;
-        font-size: 30px;
-      }
-
-      .filter-btn {
-        padding: 8px 20px;
-        font-size: 0.85rem;
-      }
-    }
-
-    /* Loading Animation */
-    @keyframes shimmer {
-      0% { background-position: -1000px 0; }
-      100% { background-position: 1000px 0; }
-    }
-
-    .loading {
-      background: linear-gradient(90deg, #2a2f3f 25%, #3a3f4f 50%, #2a2f3f 75%);
-      background-size: 1000px 100%;
-      animation: shimmer 2s infinite;
+    .pdf-download:hover {
+      background: var(--accent);
+      color: var(--primary);
     }
   </style>
 </head>
 <body>
-  <!-- Certifications Section -->
-  <section id="certifications" class="section-dark">
-    <div class="container">
-      <div class="section-header">
-        <h2>Professional Certifications</h2>
-        <p>Industry-recognized credentials in cloud, security, and data analytics</p>
-      </div>
+  <div class="container">
+    <!-- Back link -->
+    <a href="index.html" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      Back to Portfolio
+    </a>
 
-      <!-- Filter Buttons -->
-      <div class="cert-filters">
-        <button class="filter-btn active" onclick="filterCertifications('all')">All</button>
-        <button class="filter-btn" onclick="filterCertifications('security')">Security</button>
-        <button class="filter-btn" onclick="filterCertifications('aws')">AWS</button>
-        <button class="filter-btn" onclick="filterCertifications('data')">Data & AI</button>
-      </div>
+    <!-- Header -->
+    <h2>Professional Certifications</h2>
+    <p class="section-description">
+      Industry-recognized credentials in cloud security, AWS, and data analytics
+    </p>
 
-      <!-- Certifications Grid -->
-      <div class="cert-grid" id="cert-grid">
-        <!-- ISC2 CC -->
-        <div class="cert-card" data-category="security">
-          <div class="cert-image-container">
-            <img src="assets/images/cert-badges/isc2-cc.png" alt="ISC2 Certified in Cybersecurity" loading="lazy">
-          </div>
-          <div class="cert-details">
-            <h3 onclick="showCertificate('assets/images/cert-badges/isc2-cc.pdf', 'Certified in Cybersecurity - ISC2')">Certified in Cybersecurity</h3>
-            <p class="cert-issuer">ISC2</p>
-            <p class="cert-description">Foundational cybersecurity certification covering security principles, risk management, and incident response.</p>
-            <p class="cert-date">2025</p>
-          </div>
-        </div>
+    <!-- Certifications Visualizer -->
+    <div id="certifications-visualizer"></div>
+  </div>
 
-        <!-- CompTIA Security+ -->
-        <div class="cert-card" data-category="security">
-          <div class="cert-image-container">
-            <img src="assets/images/cert-badges/security-plus.png" alt="CompTIA Security+" loading="lazy">
-          </div>
-          <div class="cert-details">
-            <h3 onclick="showCertificate('assets/images/cert-badges/security-plus.pdf', 'Security+ - CompTIA')">Security+</h3>
-            <p class="cert-issuer">CompTIA</p>
-            <p class="cert-description">Global certification validating baseline cybersecurity skills and best practices.</p>
-            <p class="cert-date">2025</p>
-          </div>
-        </div>
-
-        <!-- AWS Solutions Architect -->
-        <div class="cert-card" data-category="aws">
-          <div class="cert-image-container">
-            <img src="assets/images/cert-badges/aws-sa.png" alt="AWS Solutions Architect" loading="lazy">
-          </div>
-          <div class="cert-details">
-            <h3 onclick="showCertificate('assets/images/cert-badges/aws-sa.png', 'Solutions Architect - AWS')">Solutions Architect</h3>
-            <p class="cert-issuer">AWS</p>
-            <p class="cert-description">Demonstrates expertise in designing distributed systems and applications on AWS.</p>
-            <p class="cert-date">Candidate (March 2026)</p>
-          </div>
-        </div>
-
-        <!-- AWS DevOps Engineer (Coming Soon) -->
-        <div class="cert-card coming-soon" data-category="aws">
-          <div class="coming-soon-badge">Coming Soon</div>
-          <div class="cert-image-container">
-            <img src="assets/images/cert-badges/aws-doe.png" alt="AWS DevOps Engineer Professional" loading="lazy">
-          </div>
-          <div class="cert-details">
-            <h3 onclick="showCertificate('assets/images/cert-badges/aws-doe.png', 'DevOps Engineer Professional - AWS')">DevOps Engineer Professional</h3>
-            <p class="cert-issuer">AWS</p>
-            <p class="cert-description">Validates technical expertise in provisioning, operating, and managing distributed application systems on AWS.</p>
-            <p class="cert-date">2026 Target</p>
-          </div>
-        </div>
-        
-        <!-- AWS Security Specialty -->
-        <div class="cert-card coming-soon" data-category="aws">
-          <div class="coming-soon-badge">Coming Soon</div>
-          <div class="cert-image-container">
-            <img src="assets/images/cert-badges/aws-ss.png" alt="AWS Security Specialty" loading="lazy">
-          </div>
-          <div class="cert-details">
-            <h3 onclick="showCertificate('assets/images/cert-badges/aws-ss.png', 'AWS Security Specialty')">AWS Security Specialty</h3>
-            <p class="cert-issuer">AWS</p>
-            <p class="cert-description">Demonstrates expertise in AWS security best practices and implementations.</p>
-            <p class="cert-date">2026 Target</p>
-          </div>
-        </div>
-
-        <!-- Google Data Analytics -->
-        <div class="cert-card" data-category="data">
-          <div class="cert-image-container">
-            <img src="assets/images/cert-badges/google-da.jpg" alt="Google Data Analytics Certificate" loading="lazy">
-          </div>
-          <div class="cert-details">
-            <h3 onclick="showCertificate('assets/images/cert-badges/google-da.jpg', 'Data Analytics - Google')">Data Analytics</h3>
-            <p class="cert-issuer">Google</p>
-            <p class="cert-description">Professional training in data analysis, visualization, and machine learning fundamentals.</p>
-            <p class="cert-date">2023</p>
-          </div>
-        </div>
-
-        <!-- Google AI -->
-        <div class="cert-card" data-category="ai">
-          <div class="cert-image-container">
-            <img src="assets/images/cert-badges/google-ai.jpg" alt="Google AI Essentials" loading="lazy">
-          </div>
-          <div class="cert-details">
-            <h3 onclick="showCertificate('assets/images/cert-badges/google-ai-cert.pdf', 'AI Essentials - Google')">AI Essentials</h3>
-            <p class="cert-issuer">Google</p>
-            <p class="cert-description">Fundamentals of artificial intelligence and machine learning applications.</p>
-            <p class="cert-date">2023</p>
-          </div>
-        </div>
-
-        <!-- Neo Cloud Cybersecurity -->
-        <div class="cert-card" data-category="security">
-          <div class="cert-image-container">
-            <img src="assets/images/cert-badges/neo.jpg" alt="Cybersecurity Certificate" loading="lazy">
-          </div>
-          <div class="cert-details">
-            <h3 onclick="showCertificate('assets/images/cert-badges/neo1.pdf', 'Cybersecurity | Ethical Hacking - Neo Cloud')">Cybersecurity | Ethical Hacking</h3>
-            <p class="cert-issuer">Neo Cloud Technologies</p>
-            <p class="cert-description">Practical training in penetration testing and vulnerability assessment.</p>
-            <p class="cert-date">2024</p>
-          </div>
-        </div>
-
-        <!-- Neo Cloud Solutions Architect -->
-        <div class="cert-card" data-category="aws">
-          <div class="cert-image-container">
-            <img src="assets/images/cert-badges/neo.jpg" alt="Solutions Architect Certificate" loading="lazy">
-          </div>
-          <div class="cert-details">
-            <h3 onclick="showCertificate('assets/images/cert-badges/neo2.pdf', 'Solutions Architect - Neo Cloud')">Solutions Architect</h3>
-            <p class="cert-issuer">Neo Cloud Technologies</p>
-            <p class="cert-description">Practical training in Cloud Environment (AWS, Azure, GCP).</p>
-            <p class="cert-date">2025</p>
-          </div>
-        </div>
-
-        <!-- MasterCard Cybersecurity -->
-        <div class="cert-card" data-category="security">
-          <div class="cert-image-container">
-            <img src="assets/images/cert-badges/mf.png" alt="MasterCard Cybersecurity" loading="lazy">
-          </div>
-          <div class="cert-details">
-            <h3 onclick="showCertificate('assets/images/cert-badges/mf.pdf', 'Cybersecurity Foundations - MasterCard')">Cybersecurity Foundations</h3>
-            <p class="cert-issuer">MasterCard</p>
-            <p class="cert-description">Core principles of information security and cyber defense strategies.</p>
-            <p class="cert-date">2024</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Modal for displaying certificates -->
-  <div id="cert-modal" class="modal">
-    <span class="close" onclick="closeModal()">&times;</span>
+  <!-- Modal for certificate viewing -->
+  <div id="cert-modal" class="cert-modal">
     <div class="modal-content">
-      <img id="modal-image" src="" alt="Certificate">
-      <div id="modal-cert-name"></div>
+      <span class="modal-close" onclick="closeModal()">&times;</span>
+      <div id="modal-body"></div>
+      <div id="modal-title" class="modal-title"></div>
     </div>
   </div>
 
+  <script>
+    const certifications = [
+      {
+        title: "Certified in Cybersecurity",
+        issuer: "ISC2",
+        year: "2025",
+        badge: "isc2-cc.png",
+        certificate: "isc2-cc-cert.pdf",
+        category: "security",
+        description: "Foundational cybersecurity certification covering security principles, risk management, and incident response."
+      },
+      {
+        title: "Data Analytics",
+        issuer: "Google (Coursera)",
+        year: "2023",
+        badge: "google-da.jpg",
+        certificate: "google-da-cert.pdf",
+        category: "data",
+        description: "Professional training in data analysis, visualization, and machine learning fundamentals."
+      },
+      {
+        title: "Security+",
+        issuer: "CompTIA",
+        year: "2025",
+        badge: "security-plus.png",
+        certificate: "security-plus-cert.pdf",
+        category: "security",
+        candidate: true,
+        description: "Global certification validating baseline cybersecurity skills."
+      },
+      {
+        title: "Solutions Architect (Associate)",
+        issuer: "AWS",
+        year: "Candidate (March 2026)",
+        badge: "aws-sa.png",
+        certificate: "aws-sa-cert.pdf",
+        category: "aws",
+        candidate: true,
+        description: "Demonstrates expertise in designing distributed systems on AWS."
+      },
+      // AWS DevOps certification added here with separate badge and cert
+      {
+        title: "DevOps Engineer (Professional)",
+        issuer: "AWS",
+        year: "Candidate (2026)",
+        badge: "aws-doe.png",
+        certificate: "aws-doe-cert.pdf",
+        category: "aws",
+        candidate: true,
+        description: "Validates technical expertise in provisioning, operating, and managing distributed application systems on AWS."
+      },
+      {
+        title: "AI Essentials",
+        issuer: "Google",
+        year: "2023",
+        badge: "google-ai.jpg",
+        certificate: "google-ai-cert.pdf",
+        category: "ai",
+        description: "Fundamentals of artificial intelligence and machine learning applications."
+      },
+      {
+        title: "Cybersecurity | Ethical Hacking",
+        issuer: "Neo Cloud Technologies",
+        year: "2024",
+        badge: "neo.jpg",
+        certificate: "neo-cert.pdf",
+        category: "security",
+        description: "Practical training in penetration testing and vulnerability assessment."
+      },
+      {
+        title: "Solutions Architect",
+        issuer: "Neo Cloud Technologies",
+        year: "2025",
+        badge: "neo.jpg",
+        certificate: "neo-sa-cert.pdf",
+        category: "aws",
+        description: "Practical training in Cloud Environment (AWS, Azure, GCP)."
+      },
+      {
+        title: "Cybersecurity Foundations",
+        issuer: "MasterCard",
+        year: "2024",
+        badge: "mf.png",
+        certificate: "mf-cert.pdf",
+        category: "security",
+        description: "Core principles of information security and cyber defense strategies."
+      }
+    ];
+
+    // Filter categories
+    const filterCategories = [
+      { id: 'all', label: 'All' },
+      { id: 'security', label: 'Security' },
+      { id: 'aws', label: 'AWS' },
+      { id: 'data', label: 'Data' },
+      { id: 'ai', label: 'AI' }
+    ];
+
+    // Current filter
+    let currentFilter = 'all';
+
+    // Initialize the visualizer
+    function initVisualizer() {
+      const container = document.getElementById('certifications-visualizer');
+      if (!container) return;
+
+      // Create filter buttons
+      const filtersHTML = `
+        <div class="cert-filters">
+          ${filterCategories.map(filter => `
+            <button class="filter-btn ${filter.id === 'all' ? 'active' : ''}" 
+                    data-filter="${filter.id}">
+              ${filter.label}
+            </button>
+          `).join('')}
+        </div>
+        
+        <div class="cert-stats">
+          <div class="stats-count">
+            <span id="cert-count">${certifications.length}</span> certifications shown
+          </div>
+          <button class="reset-btn" id="reset-filter" ${currentFilter === 'all' ? 'disabled' : ''}>
+            Reset Filter
+          </button>
+        </div>
+        
+        <div class="cert-grid" id="cert-grid"></div>
+      `;
+
+      container.innerHTML = filtersHTML;
+
+      // Render all certifications
+      renderCertifications(certifications);
+
+      // Add event listeners
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const filter = btn.dataset.filter;
+          filterCertifications(filter);
+        });
+      });
+
+      document.getElementById('reset-filter')?.addEventListener('click', () => {
+        filterCertifications('all');
+      });
+    }
+
+    // Render certifications
+    function renderCertifications(certsToRender) {
+      const grid = document.getElementById('cert-grid');
+      if (!grid) return;
+
+      if (certsToRender.length === 0) {
+        grid.innerHTML = `
+          <div class="no-results">
+            No certifications found in this category.
+          </div>
+        `;
+        return;
+      }
+
+      // Create card for each certification - badge image shown, certificate linked in click
+      grid.innerHTML = certsToRender.map(cert => `
+        <div class="cert-card" data-category="${cert.category}">
+          <div class="cert-image-container">
+            <img src="assets/images/cert-badges/${cert.badge}" 
+                 alt="${cert.issuer} ${cert.title}" 
+                 loading="lazy"
+                 onerror="this.src='https://via.placeholder.com/200x150/1e3d38/3aafa9?text=${encodeURIComponent(cert.issuer)}'">
+            ${cert.candidate ? '<span class="candidate-badge">In Progress</span>' : ''}
+          </div>
+          <div class="cert-details">
+            <h3 onclick="showCertificate('${cert.certificate}', '${cert.title} - ${cert.issuer}', '${cert.badge}')">${cert.title}</h3>
+            <p class="cert-issuer">${cert.issuer}</p>
+            <p class="cert-date">${cert.year}</p>
+            <p class="cert-description">${cert.description}</p>
+          </div>
+        </div>
+      `).join('');
+
+      // Update count
+      const countSpan = document.getElementById('cert-count');
+      if (countSpan) {
+        countSpan.textContent = certsToRender.length;
+      }
+    }
+
+    // Filter certifications
+    function filterCertifications(filter) {
+      currentFilter = filter;
+      
+      // Update active button
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filter === filter);
+      });
+
+      // Filter certifications
+      const filtered = filter === 'all' 
+        ? certifications 
+        : certifications.filter(cert => cert.category === filter);
+
+      // Update grid
+      renderCertifications(filtered);
+
+      // Update reset button
+      const resetBtn = document.getElementById('reset-filter');
+      if (resetBtn) {
+        resetBtn.disabled = filter === 'all';
+      }
+    }
+
+    // Modal functions - shows the actual certificate file
+    function showCertificate(certPath, title, badgePath) {
+      const modal = document.getElementById('cert-modal');
+      const modalBody = document.getElementById('modal-body');
+      const modalTitle = document.getElementById('modal-title');
+      
+      // Determine file type by extension
+      const fileExt = certPath.split('.').pop().toLowerCase();
+      
+      let content = '';
+      
+      if (fileExt === 'pdf') {
+        // For PDF files, show embed with download option
+        content = `
+          <embed src="assets/images/cert-badges/${certPath}" type="application/pdf" width="100%" height="600px" />
+          <a href="assets/images/cert-badges/${certPath}" download class="pdf-download">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+            </svg>
+            Download Certificate
+          </a>
+        `;
+      } else {
+        // For image files
+        content = `<img src="assets/images/cert-badges/${certPath}" alt="${title}">`;
+      }
+      
+      modalBody.innerHTML = content;
+      modalTitle.textContent = title;
+      
+      // Fallback if certificate doesn't exist
+      const img = modalBody.querySelector('img');
+      const embed = modalBody.querySelector('embed');
+      
+      if (img) {
+        img.onerror = function() {
+          this.src = 'assets/images/cert-badges/' + badgePath;
+          modalTitle.textContent = title + ' (Certificate preview not available)';
+        };
+      }
+      
+      if (embed) {
+        embed.onerror = function() {
+          modalBody.innerHTML = `
+            <img src="assets/images/cert-badges/${badgePath}" alt="${title}">
+            <p style="color: white; margin-top: 1rem;">Certificate PDF not available. Showing badge instead.</p>
+          `;
+        };
+      }
+      
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('cert-modal');
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close modal with escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    // Close modal when clicking outside
+    document.getElementById('cert-modal')?.addEventListener('click', (e) => {
+      if (e.target.classList.contains('cert-modal')) {
+        closeModal();
+      }
+    });
+
+    // Initialize when DOM is ready
+    document.addEventListener('DOMContentLoaded', initVisualizer);
+  </script>
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
@@ -515,93 +831,7 @@
       </div>
     </div>
   </footer>
-
-  <script>
-    // ==========================================
-    // CERTIFICATIONS MODULE
-    // ==========================================
-    
-    // Show certificate in modal
-    function showCertificate(imagePath, certName) {
-      const modal = document.getElementById('cert-modal');
-      const modalImage = document.getElementById('modal-image');
-      const modalCertName = document.getElementById('modal-cert-name');
-      
-      modalImage.src = imagePath;
-      modalCertName.textContent = certName;
-      
-      modal.style.display = 'block';
-      document.body.style.overflow = 'hidden';
-    }
-
-    // Close modal
-    function closeModal() {
-      const modal = document.getElementById('cert-modal');
-      modal.style.display = 'none';
-      document.body.style.overflow = 'auto';
-    }
-
-    // Filter certifications by category
-    function filterCertifications(category) {
-      const cards = document.querySelectorAll('.cert-card');
-      const buttons = document.querySelectorAll('.filter-btn');
-      
-      // Update active button
-      buttons.forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.textContent.toLowerCase().includes(category) || 
-            (category === 'all' && btn.textContent === 'All')) {
-          btn.classList.add('active');
-        }
-      });
-      
-      // Filter cards
-      cards.forEach(card => {
-        if (category === 'all') {
-          card.style.display = 'flex';
-        } else {
-          const cardCategory = card.dataset.category;
-          if (cardCategory === category) {
-            card.style.display = 'flex';
-          } else {
-            card.style.display = 'none';
-          }
-        }
-      });
-    }
-
-    // Close modal when clicking outside
-    window.onclick = function(event) {
-      const modal = document.getElementById('cert-modal');
-      if (event.target === modal) {
-        closeModal();
-      }
-    }
-
-    // Handle escape key
-    document.addEventListener('keydown', function(event) {
-      if (event.key === 'Escape') {
-        closeModal();
-      }
-    });
-
-    // Update copyright year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Add loading animation class to images
-    document.addEventListener('DOMContentLoaded', function() {
-      const images = document.querySelectorAll('.cert-image-container img');
-      images.forEach(img => {
-        img.addEventListener('load', function() {
-          this.parentElement.classList.remove('loading');
-        });
-        img.addEventListener('error', function() {
-          this.parentElement.classList.remove('loading');
-          this.src = 'assets/images/cert-badges/placeholder.png';
-        });
-      });
-    });
-  </script>
 </body>
 </html>
+
 
