@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>Certifications | Leonard Kachi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
   <style>
     :root {
       --primary: #0d1f23;
@@ -36,18 +35,20 @@
       color: var(--text);
       background: var(--primary);
       min-height: 100vh;
-      padding: 2rem 1rem;
+      padding: 1rem 0.5rem;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     .container {
       width: 100%;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 0 1rem;
     }
 
     h2 {
-      font-size: 2.5rem;
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
       font-weight: 600;
       line-height: 1.2;
       margin-bottom: 0.5rem;
@@ -57,31 +58,37 @@
 
     .section-description {
       max-width: 700px;
-      margin: 0 auto 2rem;
+      margin: 0 auto 1.5rem;
       text-align: center;
       color: var(--text-muted);
-      font-size: 1.1rem;
+      font-size: clamp(0.9rem, 3vw, 1.1rem);
+      padding: 0 0.5rem;
     }
 
     .cert-filters {
       display: flex;
-      gap: 0.75rem;
-      margin-bottom: 2rem;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
       flex-wrap: wrap;
       justify-content: center;
+      padding: 0 0.5rem;
     }
 
     .filter-btn {
       background: rgba(255, 255, 255, 0.1);
       border: none;
       color: var(--text);
-      padding: 0.6rem 1.2rem;
+      padding: 0.5rem 1rem;
       border-radius: 50px;
       cursor: pointer;
       transition: var(--transition);
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       font-weight: 500;
       border: 1px solid transparent;
+      flex: 0 1 auto;
+      min-width: 60px;
+      text-align: center;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .filter-btn:hover {
@@ -97,9 +104,9 @@
 
     .cert-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin: 2rem 0;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
     }
 
     /* Card styles - consistent height always */
@@ -113,6 +120,7 @@
       flex-direction: column;
       height: 100%;
       backdrop-filter: blur(5px);
+      width: 100%;
     }
 
     .cert-card:hover {
@@ -124,13 +132,13 @@
     /* Image container - FIXED SIZE - NEVER CHANGES */
     .cert-image-container {
       width: 100%;
-      height: 180px;
-      min-height: 180px;
-      max-height: 180px;
+      height: 160px;
+      min-height: 160px;
+      max-height: 160px;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 1.5rem;
+      padding: 1.2rem;
       background: rgba(0, 0, 0, 0.2);
       position: relative;
       border-bottom: 1px solid rgba(58, 175, 169, 0.2);
@@ -152,22 +160,22 @@
     /* Candidate badge */
     .candidate-badge {
       position: absolute;
-      top: 1rem;
-      right: 1rem;
+      top: 0.75rem;
+      right: 0.75rem;
       background: #fcd34d;
       color: #0d1f23;
-      padding: 0.35rem 0.75rem;
+      padding: 0.25rem 0.6rem;
       border-radius: 50px;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-weight: 700;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.3px;
       z-index: 2;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
 
     /* Content area - flexible but consistent */
     .cert-details {
-      padding: 1.5rem;
+      padding: 1.2rem;
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -175,8 +183,8 @@
 
     .cert-details h3 {
       color: var(--accent);
-      margin-bottom: 0.5rem;
-      font-size: 1.2rem;
+      margin-bottom: 0.4rem;
+      font-size: 1.1rem;
       line-height: 1.4;
       font-weight: 600;
       cursor: pointer;
@@ -184,12 +192,13 @@
       display: inline-block;
       position: relative;
       /* Ensure consistent height for titles */
-      min-height: 3.2rem;
+      min-height: 3rem;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
+      word-break: break-word;
     }
 
     .cert-details h3:hover {
@@ -199,8 +208,8 @@
 
     .cert-details h3::after {
       content: '🔍';
-      font-size: 0.8rem;
-      margin-left: 0.5rem;
+      font-size: 0.75rem;
+      margin-left: 0.4rem;
       opacity: 0;
       transition: opacity 0.3s ease;
     }
@@ -211,24 +220,25 @@
 
     .cert-issuer {
       color: var(--accent);
-      font-size: 0.9rem;
-      margin-bottom: 0.25rem;
+      font-size: 0.85rem;
+      margin-bottom: 0.2rem;
       font-weight: 500;
+      word-break: break-word;
     }
 
     .cert-date {
       color: var(--text-muted);
-      font-size: 0.85rem;
-      margin: 0.5rem 0 0.75rem;
+      font-size: 0.8rem;
+      margin: 0.4rem 0 0.6rem;
       display: inline-block;
       background: rgba(58, 175, 169, 0.1);
-      padding: 0.25rem 0.75rem;
+      padding: 0.2rem 0.6rem;
       border-radius: 50px;
       width: fit-content;
     }
 
     .cert-description {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
       line-height: 1.5;
       display: -webkit-box;
@@ -236,28 +246,21 @@
       line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
-      margin-top: 0.5rem;
+      margin-top: 0.4rem;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
-      padding-top: 0.75rem;
+      padding-top: 0.6rem;
     }
 
     /* Empty states - maintain grid layout */
     .no-results {
       grid-column: 1 / -1;
       text-align: center;
-      padding: 3rem;
+      padding: 2rem;
       color: var(--text-muted);
-      font-size: 1.1rem;
+      font-size: 1rem;
       background: rgba(255, 255, 255, 0.03);
       border-radius: var(--radius);
       border: 1px dashed rgba(58, 175, 169, 0.3);
-    }
-
-    .loading-spinner {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 3rem;
-      color: var(--accent);
     }
 
     /* Stats bar */
@@ -266,34 +269,34 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 1.5rem;
-      padding: 1rem;
+      padding: 0.8rem 1rem;
       background: rgba(255, 255, 255, 0.03);
       border-radius: var(--radius);
       border: 1px solid rgba(58, 175, 169, 0.2);
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 0.8rem;
     }
 
     .stats-count {
       color: var(--text-muted);
-      font-size: 0.95rem;
+      font-size: 0.9rem;
     }
 
     .stats-count span {
       color: var(--accent);
       font-weight: 700;
-      font-size: 1.2rem;
-      margin-right: 0.25rem;
+      font-size: 1.1rem;
+      margin-right: 0.2rem;
     }
 
     .reset-btn {
       background: transparent;
       border: 1px solid var(--accent);
       color: var(--accent);
-      padding: 0.4rem 1rem;
+      padding: 0.3rem 0.8rem;
       border-radius: 50px;
       cursor: pointer;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       transition: var(--transition);
     }
 
@@ -307,25 +310,30 @@
       cursor: not-allowed;
     }
 
-    /* Responsive */
+    /* Responsive - FIXED FOR MOBILE */
     @media (max-width: 768px) {
       body {
-        padding: 1rem 0.5rem;
+        padding: 0.8rem 0.3rem;
+      }
+      
+      .container {
+        padding: 0 0.5rem;
       }
       
       h2 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+        margin-bottom: 0.3rem;
       }
       
       .cert-image-container {
-        height: 150px;
-        min-height: 150px;
-        max-height: 150px;
+        height: 140px;
+        min-height: 140px;
+        max-height: 140px;
         padding: 1rem;
       }
       
       .cert-details h3 {
-        font-size: 1.1rem;
+        font-size: 1rem;
         min-height: 2.8rem;
       }
       
@@ -335,12 +343,18 @@
       }
       
       .cert-filters {
-        gap: 0.5rem;
+        gap: 0.4rem;
+        margin-bottom: 1rem;
       }
       
       .filter-btn {
-        padding: 0.5rem 1rem;
-        font-size: 0.85rem;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+        min-width: 55px;
+      }
+      
+      .cert-grid {
+        gap: 0.8rem;
       }
     }
 
@@ -350,14 +364,20 @@
       }
       
       .cert-image-container {
-        height: 140px;
-        min-height: 140px;
-        max-height: 140px;
+        height: 160px;
+        min-height: 160px;
+        max-height: 160px;
       }
       
       .cert-stats {
         flex-direction: column;
         align-items: flex-start;
+      }
+      
+      .filter-btn {
+        flex: 1 1 auto;
+        padding: 0.5rem 0.5rem;
+        font-size: 0.75rem;
       }
     }
 
@@ -375,12 +395,14 @@
     .back-link {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.4rem;
       color: var(--accent);
       text-decoration: none;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       font-weight: 500;
       transition: var(--transition);
+      font-size: 0.9rem;
+      padding: 0.3rem 0;
     }
 
     .back-link:hover {
@@ -389,11 +411,11 @@
     }
 
     .back-link svg {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
     }
 
-    /* Modal styles for certificate viewing */
+    /* Modal styles for certificate viewing - FIXED FOR MOBILE */
     .cert-modal {
       display: none;
       position: fixed;
@@ -401,11 +423,12 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.95);
-      z-index: 1000;
+      background: rgba(0, 0, 0, 0.98);
+      z-index: 2000;
       justify-content: center;
       align-items: center;
       backdrop-filter: blur(5px);
+      padding: 1rem;
     }
 
     .cert-modal.active {
@@ -413,26 +436,41 @@
     }
 
     .modal-content {
-      max-width: 90%;
-      max-height: 90%;
+      width: 100%;
+      max-width: 900px;
+      max-height: 90vh;
       position: relative;
       text-align: center;
+      display: flex;
+      flex-direction: column;
     }
 
-    .modal-content img,
-    .modal-content iframe,
-    .modal-content embed {
-      max-width: 100%;
-      max-height: 80vh;
+    .modal-content embed,
+    .modal-content iframe {
+      width: 100%;
+      height: 70vh;
+      max-height: 70vh;
       border-radius: var(--radius);
       box-shadow: var(--shadow-lg);
       border: 2px solid var(--accent);
     }
 
+    .modal-content img {
+      max-width: 100%;
+      max-height: 70vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      border: 2px solid var(--accent);
+      margin: 0 auto;
+    }
+
     .modal-close {
       position: absolute;
-      top: -40px;
-      right: -40px;
+      top: -35px;
+      right: 0;
       color: white;
       font-size: 2rem;
       cursor: pointer;
@@ -441,9 +479,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.15);
       border-radius: 50%;
       transition: var(--transition);
+      z-index: 2001;
     }
 
     .modal-close:hover {
@@ -454,7 +493,9 @@
     .modal-title {
       color: white;
       margin-top: 1rem;
-      font-size: 1.2rem;
+      font-size: 1rem;
+      word-break: break-word;
+      padding: 0 0.5rem;
     }
 
     /* PDF icon for download */
@@ -468,13 +509,94 @@
       border-radius: 50px;
       color: var(--text);
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       transition: var(--transition);
+      align-self: center;
     }
 
     .pdf-download:hover {
       background: var(--accent);
       color: var(--primary);
+    }
+
+    /* Fallback message */
+    .fallback-message {
+      color: white;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      background: rgba(255, 0, 0, 0.2);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      border: 1px solid rgba(255, 0, 0, 0.3);
+    }
+
+    /* Footer - from your original */
+    .footer {
+      background: #0a161a;
+      padding: 2rem 0 1rem;
+      margin-top: 2rem;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-about h3,
+    .footer-links h4,
+    .footer-contact h4 {
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+      font-size: 1.1rem;
+    }
+
+    .footer-about p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links ul,
+    .footer-contact ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .footer-links a,
+    .footer-contact a {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover,
+    .footer-contact a:hover {
+      color: var(--accent);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+      }
+      
+      .modal-close {
+        top: -40px;
+        right: 0;
+      }
     }
   </style>
 </head>
@@ -507,7 +629,44 @@
     </div>
   </div>
 
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-about">
+          <h3>Leonard Kachi</h3>
+          <p>Cloud Security Architect specializing in AWS, Azure, and Zero Trust implementations.</p>
+          <p>Turning threats into design. By blending AWS, Zero Trust, and automation, I build security infrastructures that scale and stories that launch careers.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#lab">Security Lab</a></li>
+            <li><a href="#articles">Articles</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:Kachi.Henry.Leo@gmail.com">Kachi.Henry.Leo@gmail.com</a></li>
+            <li><a href="https://github.com/LeonardKachi" target="_blank">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/onyedikachi-obidiegwu" target="_blank">LinkedIn</a></li>
+            <li><a href="https://twitter.com/Leonard_kachi" target="_blank">Twitter</a></li>
+            <li><a href="https://dev.to/leonardkachi" target="_blank">Dev.to</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <span id="year"></span> Obidiegwu Onyedikachi Henry Leonard. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
   <script>
+    // Certifications data with proper fallback handling
     const certifications = [
       {
         title: "Certified in Cybersecurity",
@@ -544,9 +703,11 @@
         certificate: "aws-sa-cert.pdf",
         category: "aws",
         candidate: true,
-        description: "Demonstrates expertise in designing distributed systems on AWS."
+        description: "Demonstrates expertise in designing distributed systems on AWS.",
+        // Fallback PNG for when PDF is missing
+        fallbackPng: "aws-sa.png"
       },
-      // AWS DevOps certification added here with separate badge and cert
+      // AWS DevOps certification with fallback PNG
       {
         title: "DevOps Engineer (Professional)",
         issuer: "AWS",
@@ -555,7 +716,8 @@
         certificate: "aws-doe-cert.pdf",
         category: "aws",
         candidate: true,
-        description: "Validates technical expertise in provisioning, operating, and managing distributed application systems on AWS."
+        description: "Validates technical expertise in provisioning, operating, and managing distributed application systems on AWS.",
+        fallbackPng: "aws-doe.png"
       },
       {
         title: "AI Essentials",
@@ -667,18 +829,18 @@
         return;
       }
 
-      // Create card for each certification - badge image shown, certificate linked in click
+      // Create card for each certification
       grid.innerHTML = certsToRender.map(cert => `
         <div class="cert-card" data-category="${cert.category}">
           <div class="cert-image-container">
             <img src="assets/images/cert-badges/${cert.badge}" 
                  alt="${cert.issuer} ${cert.title}" 
                  loading="lazy"
-                 onerror="this.src='https://via.placeholder.com/200x150/1e3d38/3aafa9?text=${encodeURIComponent(cert.issuer)}'">
+                 onerror="this.src='https://placehold.co/200x150/1e3d38/3aafa9?text=${encodeURIComponent(cert.issuer)}'; this.onerror=null;">
             ${cert.candidate ? '<span class="candidate-badge">In Progress</span>' : ''}
           </div>
           <div class="cert-details">
-            <h3 onclick="showCertificate('${cert.certificate}', '${cert.title} - ${cert.issuer}', '${cert.badge}')">${cert.title}</h3>
+            <h3 onclick="showCertificate('${cert.certificate}', '${cert.title} - ${cert.issuer}', '${cert.fallbackPng || cert.badge}')">${cert.title}</h3>
             <p class="cert-issuer">${cert.issuer}</p>
             <p class="cert-date">${cert.year}</p>
             <p class="cert-description">${cert.description}</p>
@@ -717,21 +879,41 @@
       }
     }
 
-    // Modal functions - shows the actual certificate file
-    function showCertificate(certPath, title, badgePath) {
+    // Modal functions - shows the actual certificate file with fallback
+    function showCertificate(certPath, title, fallbackPng) {
       const modal = document.getElementById('cert-modal');
       const modalBody = document.getElementById('modal-body');
       const modalTitle = document.getElementById('modal-title');
       
-      // Determine file type by extension
+      // For AWS certs without PDFs, use fallback PNG
+      if (certPath.includes('aws-sa') || certPath.includes('aws-doe')) {
+        // Check if PDF exists by trying to load it, but for now use fallback
+        modalBody.innerHTML = `
+          <img src="assets/images/cert-badges/${fallbackPng}" alt="${title}" 
+               onerror="this.src='https://placehold.co/600x400/1e3d38/3aafa9?text=${encodeURIComponent(title)}'">
+          <p class="fallback-message">Certificate PDF coming soon. Showing badge preview.</p>
+        `;
+        modalTitle.textContent = title + ' (Preview)';
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        return;
+      }
+      
+      // For other certs, try to load PDF
       const fileExt = certPath.split('.').pop().toLowerCase();
       
       let content = '';
       
       if (fileExt === 'pdf') {
-        // For PDF files, show embed with download option
         content = `
-          <embed src="assets/images/cert-badges/${certPath}" type="application/pdf" width="100%" height="600px" />
+          <embed src="assets/images/cert-badges/${certPath}" type="application/pdf" 
+                 onerror="this.style.display='none'; document.getElementById('pdf-fallback').style.display='block';"
+                 style="width:100%; height:70vh;" />
+          <div id="pdf-fallback" style="display:none;">
+            <img src="assets/images/cert-badges/${fallbackPng}" alt="${title}" 
+                 style="max-width:100%; max-height:70vh; border-radius:8px; border:2px solid var(--accent);">
+            <p class="fallback-message">Certificate PDF not available. Showing badge preview.</p>
+          </div>
           <a href="assets/images/cert-badges/${certPath}" download class="pdf-download">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
               <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
@@ -740,32 +922,12 @@
           </a>
         `;
       } else {
-        // For image files
-        content = `<img src="assets/images/cert-badges/${certPath}" alt="${title}">`;
+        content = `<img src="assets/images/cert-badges/${certPath}" alt="${title}" 
+                    onerror="this.src='assets/images/cert-badges/${fallbackPng}'; this.onerror=null;">`;
       }
       
       modalBody.innerHTML = content;
       modalTitle.textContent = title;
-      
-      // Fallback if certificate doesn't exist
-      const img = modalBody.querySelector('img');
-      const embed = modalBody.querySelector('embed');
-      
-      if (img) {
-        img.onerror = function() {
-          this.src = 'assets/images/cert-badges/' + badgePath;
-          modalTitle.textContent = title + ' (Certificate preview not available)';
-        };
-      }
-      
-      if (embed) {
-        embed.onerror = function() {
-          modalBody.innerHTML = `
-            <img src="assets/images/cert-badges/${badgePath}" alt="${title}">
-            <p style="color: white; margin-top: 1rem;">Certificate PDF not available. Showing badge instead.</p>
-          `;
-        };
-      }
       
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
@@ -792,46 +954,10 @@
     });
 
     // Initialize when DOM is ready
-    document.addEventListener('DOMContentLoaded', initVisualizer);
+    document.addEventListener('DOMContentLoaded', () => {
+      initVisualizer();
+      document.getElementById('year').textContent = new Date().getFullYear();
+    });
   </script>
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-about">
-          <h3>Leonard Kachi</h3>
-          <p>Cloud Security Architect specializing in AWS, Azure, and Zero Trust implementations.</p>
-          <p>Turning threats into design. By blending AWS, Zero Trust, and automation, I build security infrastructures that scale and stories that launch careers.</p>
-        </div>
-        <div class="footer-links">
-          <h4>Quick Links</h4>
-          <ul>
-            <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#about">About</a></li>
-            <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#projects">Projects</a></li>
-            <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#lab">Security Lab</a></li>
-            <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#articles">Articles</a></li>
-            <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#certifications">Certifications</a></li>
-            <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#contact">Contact</a></li>
-          </ul>
-        </div>
-        <div class="footer-contact">
-          <h4>Contact</h4>
-          <ul>
-            <li><a href="mailto:Kachi.Henry.Leo@gmail.com">Kachi.Henry.Leo@gmail.com</a></li>
-            <li><a href="https://github.com/LeonardKachi" target="_blank">GitHub</a></li>
-            <li><a href="https://www.linkedin.com/in/onyedikachi-obidiegwu" target="_blank">LinkedIn</a></li>
-            <li><a href="https://twitter.com/Leonard_kachi" target="_blank">Twitter</a></li>
-            <li><a href="https://dev.to/leonardkachi" target="_blank">Dev.to</a></li>
-            <li><a href="#resume">Resume</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; <span id="year"></span> Obidiegwu Onyedikachi Henry Leonard. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
 </body>
 </html>
-
-
-
