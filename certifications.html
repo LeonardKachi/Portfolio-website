@@ -28,7 +28,7 @@
     .cert-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-      border-color: #4a6cf7;
+      border-color: #2D5A27; /* Forest Green */
     }
 
     /* Image Square Container - All images in perfect squares */
@@ -40,7 +40,7 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
-      border-bottom: 2px solid rgba(74, 108, 247, 0.3);
+      border-bottom: 2px solid rgba(45, 90, 39, 0.3); /* Forest Green with opacity */
     }
 
     .cert-image-container img {
@@ -64,7 +64,7 @@
       position: absolute;
       top: 15px;
       right: 15px;
-      background: #ff6b6b;
+      background: #2D5A27; /* Forest Green */
       color: white;
       padding: 5px 12px;
       border-radius: 20px;
@@ -73,7 +73,7 @@
       text-transform: uppercase;
       letter-spacing: 1px;
       z-index: 2;
-      box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
+      box-shadow: 0 3px 10px rgba(45, 90, 39, 0.3); /* Forest Green shadow */
     }
 
     /* Certificate Details */
@@ -98,7 +98,7 @@
     }
 
     .cert-details h3:hover {
-      color: #4a6cf7;
+      color: #2D5A27; /* Forest Green */
     }
 
     .cert-details h3::after {
@@ -120,7 +120,7 @@
     }
 
     .cert-details .cert-issuer {
-      color: #4a6cf7;
+      color: #2D5A27; /* Forest Green */
       font-weight: 500;
       font-size: 0.9rem;
       text-transform: uppercase;
@@ -132,10 +132,10 @@
       font-size: 0.85rem;
       margin-top: 8px;
       display: inline-block;
-      background: rgba(74, 108, 247, 0.1);
+      background: rgba(45, 90, 39, 0.1); /* Forest Green with opacity */
       padding: 4px 12px;
       border-radius: 20px;
-      border: 1px solid rgba(74, 108, 247, 0.2);
+      border: 1px solid rgba(45, 90, 39, 0.2); /* Forest Green with opacity */
     }
 
     .cert-details .cert-description {
@@ -179,7 +179,7 @@
       max-height: 80vh;
       object-fit: contain;
       border-radius: 12px;
-      box-shadow: 0 0 30px rgba(74, 108, 247, 0.3);
+      box-shadow: 0 0 30px rgba(45, 90, 39, 0.3); /* Forest Green shadow */
     }
 
     .close {
@@ -202,7 +202,7 @@
     }
 
     .close:hover {
-      background: #4a6cf7;
+      background: #2D5A27; /* Forest Green */
       transform: rotate(90deg);
     }
 
@@ -214,7 +214,7 @@
       background: rgba(0, 0, 0, 0.5);
       padding: 10px 25px;
       border-radius: 30px;
-      border: 1px solid #4a6cf7;
+      border: 1px solid #2D5A27; /* Forest Green */
     }
 
     /* Filter Buttons */
@@ -228,7 +228,7 @@
 
     .filter-btn {
       background: transparent;
-      border: 2px solid #4a6cf7;
+      border: 2px solid #2D5A27; /* Forest Green */
       color: white;
       padding: 10px 25px;
       border-radius: 30px;
@@ -240,7 +240,7 @@
 
     .filter-btn:hover,
     .filter-btn.active {
-      background: #4a6cf7;
+      background: #2D5A27; /* Forest Green */
       color: white;
     }
 
@@ -266,7 +266,7 @@
       transform: translateX(-50%);
       width: 60px;
       height: 3px;
-      background: #4a6cf7;
+      background: #2D5A27; /* Forest Green */
       border-radius: 2px;
     }
 
@@ -357,7 +357,7 @@
             <h3 onclick="showCertificate('assets/images/cert-badges/security-plus.png', 'Security+ - CompTIA')">Security+</h3>
             <p class="cert-issuer">CompTIA</p>
             <p class="cert-description">Global certification validating baseline cybersecurity skills and best practices.</p>
-            <p class="cert-date">Candidate (2025)</p>
+            <p class="cert-date">2025</p>
           </div>
         </div>
 
@@ -374,6 +374,20 @@
           </div>
         </div>
 
+        <!-- AWS DevOps Engineer (Coming Soon) -->
+        <div class="cert-card coming-soon" data-category="aws">
+          <div class="coming-soon-badge">Coming Soon</div>
+          <div class="cert-image-container">
+            <img src="assets/images/cert-badges/aws-doe.png" alt="AWS DevOps Engineer Professional" loading="lazy">
+          </div>
+          <div class="cert-details">
+            <h3 onclick="showCertificate('assets/images/cert-badges/aws-doe.png', 'DevOps Engineer Professional - AWS')">DevOps Engineer Professional</h3>
+            <p class="cert-issuer">AWS</p>
+            <p class="cert-description">Validates technical expertise in provisioning, operating, and managing distributed application systems on AWS.</p>
+            <p class="cert-date">2026 Target</p>
+          </div>
+        </div>
+        
         <!-- AWS Security Specialty -->
         <div class="cert-card coming-soon" data-category="aws">
           <div class="coming-soon-badge">Coming Soon</div>
@@ -384,7 +398,7 @@
             <h3 onclick="showCertificate('assets/images/cert-badges/aws-ss.png', 'AWS Security Specialty')">AWS Security Specialty</h3>
             <p class="cert-issuer">AWS</p>
             <p class="cert-description">Demonstrates expertise in AWS security best practices and implementations.</p>
-            <p class="cert-date">2025 Target</p>
+            <p class="cert-date">2026 Target</p>
           </div>
         </div>
 
@@ -395,7 +409,7 @@
           </div>
           <div class="cert-details">
             <h3 onclick="showCertificate('assets/images/cert-badges/google-da.jpg', 'Data Analytics - Google')">Data Analytics</h3>
-            <p class="cert-issuer">Google (Coursera)</p>
+            <p class="cert-issuer">Google</p>
             <p class="cert-description">Professional training in data analysis, visualization, and machine learning fundamentals.</p>
             <p class="cert-date">2023</p>
           </div>
