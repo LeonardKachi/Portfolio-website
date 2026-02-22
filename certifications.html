@@ -343,7 +343,7 @@
       height: 18px;
     }
 
-    /* Modal styles */
+    /* Modal styles - FIXED FOR MOBILE PDF */
     .cert-modal {
       display: none;
       position: fixed;
@@ -356,7 +356,7 @@
       justify-content: center;
       align-items: center;
       backdrop-filter: blur(5px);
-      padding: 1rem;
+      padding: 0.5rem;
     }
 
     .cert-modal.active {
@@ -365,22 +365,48 @@
 
     .modal-content {
       width: 100%;
-      max-width: 900px;
-      max-height: 90vh;
+      max-width: 1000px;
+      max-height: 95vh;
       position: relative;
       text-align: center;
       display: flex;
       flex-direction: column;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: var(--radius);
+      padding: 1rem 0.5rem 0.5rem 0.5rem;
     }
 
-    .modal-content embed,
-    .modal-content iframe {
+    /* PDF container - handles both desktop and mobile */
+    .pdf-container {
       width: 100%;
       height: 70vh;
-      max-height: 70vh;
+      min-height: 400px;
       border-radius: var(--radius);
-      box-shadow: var(--shadow-lg);
-      border: 2px solid var(--accent);
+      overflow: hidden;
+      background: #f5f5f5;
+    }
+
+    .pdf-container iframe,
+    .pdf-container embed {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Mobile PDF fallback using Google Docs Viewer */
+    .pdf-mobile-view {
+      width: 100%;
+      height: 70vh;
+      min-height: 400px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #f5f5f5;
+    }
+
+    .pdf-mobile-view iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
     }
 
     .modal-content img {
@@ -397,8 +423,8 @@
 
     .modal-close {
       position: absolute;
-      top: -35px;
-      right: 0;
+      top: 5px;
+      right: 10px;
       color: white;
       font-size: 2rem;
       cursor: pointer;
@@ -420,7 +446,8 @@
 
     .modal-title {
       color: white;
-      margin-top: 1rem;
+      margin-top: 0.8rem;
+      margin-bottom: 0.5rem;
       font-size: 1rem;
       word-break: break-word;
       padding: 0 0.5rem;
@@ -428,18 +455,19 @@
 
     /* PDF download button */
     .pdf-download {
-      margin-top: 1rem;
+      margin: 0.8rem auto 0.5rem;
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
       background: rgba(58, 175, 169, 0.2);
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 1.2rem;
       border-radius: 50px;
       color: var(--text);
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       transition: var(--transition);
       align-self: center;
+      border: 1px solid var(--accent);
     }
 
     .pdf-download:hover {
@@ -450,12 +478,20 @@
     /* Fallback message */
     .fallback-message {
       color: white;
-      margin-top: 1rem;
+      margin: 1rem auto;
       font-size: 0.9rem;
       background: rgba(255, 0, 0, 0.2);
       padding: 0.5rem 1rem;
       border-radius: 50px;
       border: 1px solid rgba(255, 0, 0, 0.3);
+      display: inline-block;
+    }
+
+    /* PDF notice */
+    .pdf-notice {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-top: 0.3rem;
     }
 
     /* Footer */
@@ -562,9 +598,14 @@
         justify-content: flex-end;
       }
       
-      .modal-close {
-        top: -40px;
-        right: 0;
+      .modal-content {
+        padding: 1rem 0.3rem 0.3rem 0.3rem;
+      }
+      
+      .pdf-container,
+      .pdf-mobile-view {
+        height: 60vh;
+        min-height: 350px;
       }
     }
 
@@ -587,6 +628,24 @@
       
       .sort-container {
         justify-content: center;
+      }
+      
+      .modal-content {
+        max-height: 98vh;
+      }
+      
+      .pdf-container,
+      .pdf-mobile-view {
+        height: 55vh;
+        min-height: 300px;
+      }
+      
+      .modal-close {
+        top: 2px;
+        right: 5px;
+        width: 35px;
+        height: 35px;
+        font-size: 1.8rem;
       }
     }
   </style>
@@ -877,11 +936,17 @@
       `).join('');
     }
 
-    // Modal functions
+    // Check if device is mobile
+    function isMobileDevice() {
+      return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1) || (window.innerWidth <= 768);
+    }
+
+    // Modal functions - FIXED FOR MOBILE PDF
     function showCertificate(certPath, title, fallbackPng) {
       const modal = document.getElementById('cert-modal');
       const modalBody = document.getElementById('modal-body');
       const modalTitle = document.getElementById('modal-title');
+      const isMobile = isMobileDevice();
       
       // For AWS certs without PDFs, use fallback PNG
       if (certPath.includes('aws-sa') || certPath.includes('aws-doe')) {
@@ -898,28 +963,58 @@
       
       // For other certs, try to load PDF
       const fileExt = certPath.split('.').pop().toLowerCase();
+      const pdfPath = `assets/images/cert-badges/${certPath}`;
+      const encodedPath = encodeURIComponent(window.location.origin + '/' + pdfPath);
       
       let content = '';
       
       if (fileExt === 'pdf') {
-        content = `
-          <embed src="assets/images/cert-badges/${certPath}" type="application/pdf" 
-                 onerror="this.style.display='none'; document.getElementById('pdf-fallback').style.display='block';"
-                 style="width:100%; height:70vh;" />
-          <div id="pdf-fallback" style="display:none;">
-            <img src="assets/images/cert-badges/${fallbackPng}" alt="${title}" 
-                 style="max-width:100%; max-height:70vh; border-radius:8px; border:2px solid var(--accent);">
-            <p class="fallback-message">Certificate PDF not available. Showing badge preview.</p>
-          </div>
-          <a href="assets/images/cert-badges/${certPath}" download class="pdf-download">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-              <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
-            </svg>
-            Download Certificate
-          </a>
-        `;
+        if (isMobile) {
+          // Mobile: Use Google Docs Viewer for better compatibility
+          content = `
+            <div class="pdf-mobile-view">
+              <iframe src="https://docs.google.com/viewer?url=${encodedPath}&embedded=true" 
+                      frameborder="0"
+                      allowfullscreen
+                      onerror="this.style.display='none'; document.getElementById('mobile-fallback').style.display='block';">
+              </iframe>
+            </div>
+            <div id="mobile-fallback" style="display:none;">
+              <img src="assets/images/cert-badges/${fallbackPng}" alt="${title}" 
+                   style="max-width:100%; max-height:60vh; border-radius:8px; border:2px solid var(--accent);">
+              <p class="fallback-message">PDF preview not available on this device. Use download button below.</p>
+            </div>
+            <a href="${pdfPath}" download class="pdf-download">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+              </svg>
+              Download PDF Certificate
+            </a>
+            <p class="pdf-notice">PDF might open in a new tab on some devices</p>
+          `;
+        } else {
+          // Desktop: Use embed
+          content = `
+            <div class="pdf-container">
+              <embed src="${pdfPath}" type="application/pdf" 
+                     onerror="this.style.display='none'; document.getElementById('desktop-fallback').style.display='block';" />
+            </div>
+            <div id="desktop-fallback" style="display:none;">
+              <img src="assets/images/cert-badges/${fallbackPng}" alt="${title}" 
+                   style="max-width:100%; max-height:60vh; border-radius:8px; border:2px solid var(--accent);">
+              <p class="fallback-message">PDF preview not available. Use download button below.</p>
+            </div>
+            <a href="${pdfPath}" download class="pdf-download">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+              </svg>
+              Download PDF Certificate
+            </a>
+          `;
+        }
       } else {
-        content = `<img src="assets/images/cert-badges/${certPath}" alt="${title}" 
+        // Image file
+        content = `<img src="${pdfPath}" alt="${title}" 
                     onerror="this.src='assets/images/cert-badges/${fallbackPng}'; this.onerror=null;">`;
       }
       
