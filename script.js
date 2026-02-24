@@ -23,6 +23,175 @@ const Analytics = {
 };
 
 // ==========================================
+// MODAL SYSTEM FOR CERTIFICATES & RESUME
+// ==========================================
+const ModalSystem = (() => {
+  function init() {
+    // Create modal if it doesn't exist
+    if (!document.getElementById('cert-modal')) {
+      createModal();
+    }
+    
+    // Setup close events
+    setupCloseEvents();
+  }
+  
+  function createModal() {
+    const modal = document.createElement('div');
+    modal.id = 'cert-modal';
+    modal.className = 'cert-modal';
+    modal.innerHTML = `
+      <div class="modal-content">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <div id="modal-body"></div>
+        <div id="modal-title" class="modal-title"></div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+  }
+  
+  function setupCloseEvents() {
+    const modal = document.getElementById('cert-modal');
+    if (!modal) return;
+    
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+    
+    // Close on outside click
+    modal.addEventListener('click', (e) => {
+      if (e.target.classList.contains('cert-modal')) {
+        closeModal();
+      }
+    });
+  }
+  
+  function isMobileDevice() {
+    return window.innerWidth <= 768;
+  }
+  
+  function showCertificate(certPath, title, fallbackPng) {
+    const modal = document.getElementById('cert-modal');
+    const modalBody = document.getElementById('modal-body');
+    const modalTitle = document.getElementById('modal-title');
+    
+    if (!modal || !modalBody) return;
+    
+    const isMobile = isMobileDevice();
+    const pdfPath = `assets/images/cert-badges/${certPath}`;
+    const encodedPath = encodeURIComponent(window.location.origin + '/' + pdfPath);
+    
+    let content = '';
+    
+    // Special handling for AWS candidate certs
+    if (certPath.includes('aws-sa') || certPath.includes('aws-doe')) {
+      content = `
+        <img src="assets/images/cert-badges/${fallbackPng}" alt="${title}" 
+             style="max-width:100%; max-height:60vh; border-radius:8px; border:2px solid var(--accent);">
+        <p class="fallback-message" style="color:var(--text-muted); margin-top:1rem;">Certificate PDF coming soon. Showing badge preview.</p>
+      `;
+    } else {
+      if (isMobile) {
+        // Mobile: Use Google Docs Viewer for PDFs
+        content = `
+          <div class="pdf-container">
+            <iframe src="https://docs.google.com/viewer?url=${encodedPath}&embedded=true" 
+                    frameborder="0" allowfullscreen></iframe>
+          </div>
+          <a href="${pdfPath}" download class="pdf-download">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+            </svg>
+            Download PDF Certificate
+          </a>
+        `;
+      } else {
+        // Desktop: Use embed
+        content = `
+          <div class="pdf-container">
+            <embed src="${pdfPath}" type="application/pdf" />
+          </div>
+          <a href="${pdfPath}" download class="pdf-download">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+            </svg>
+            Download PDF Certificate
+          </a>
+        `;
+      }
+    }
+    
+    modalBody.innerHTML = content;
+    modalTitle.textContent = title;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  
+  function showResume(resumePath, title) {
+    const modal = document.getElementById('cert-modal');
+    const modalBody = document.getElementById('modal-body');
+    const modalTitle = document.getElementById('modal-title');
+    
+    if (!modal || !modalBody) return;
+    
+    const isMobile = isMobileDevice();
+    const encodedPath = encodeURIComponent(window.location.origin + '/' + resumePath);
+    
+    let content = '';
+    
+    if (isMobile) {
+      content = `
+        <div class="pdf-container">
+          <iframe src="https://docs.google.com/viewer?url=${encodedPath}&embedded=true" 
+                  frameborder="0" allowfullscreen></iframe>
+        </div>
+        <a href="${resumePath}" download class="pdf-download">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+          </svg>
+          Download Resume
+        </a>
+      `;
+    } else {
+      content = `
+        <div class="pdf-container">
+          <embed src="${resumePath}" type="application/pdf" />
+        </div>
+        <a href="${resumePath}" download class="pdf-download">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+          </svg>
+          Download Resume
+        </a>
+      `;
+    }
+    
+    modalBody.innerHTML = content;
+    modalTitle.textContent = title;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  
+  function closeModal() {
+    const modal = document.getElementById('cert-modal');
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+  }
+  
+  // Expose to global scope
+  window.showCertificate = showCertificate;
+  window.showResume = showResume;
+  window.closeModal = closeModal;
+  
+  return { init, showCertificate, showResume, closeModal };
+})();
+
+// ==========================================
 // CERTIFICATIONS DATA & MANAGEMENT
 // ==========================================
 const CertificationsModule = (() => {
@@ -31,7 +200,9 @@ const CertificationsModule = (() => {
       title: "Certified in Cybersecurity",
       issuer: "ISC2",
       year: "2025",
+      sortYear: 2025,
       image: "isc2-cc.png",
+      certificate: "isc2-cc-cert.pdf",
       category: "security",
       description: "Foundational cybersecurity certification covering security principles, risk management, and incident response."
     },
@@ -39,7 +210,9 @@ const CertificationsModule = (() => {
       title: "Data Analytics",
       issuer: "Google (Coursera)",
       year: "2023",
+      sortYear: 2023,
       image: "google-da.jpg",
+      certificate: "google-da-cert.pdf",
       category: "data",
       description: "Professional training in data analysis, visualization, and machine learning fundamentals."
     },
@@ -47,7 +220,9 @@ const CertificationsModule = (() => {
       title: "Security+",
       issuer: "CompTIA",
       year: "2025",
+      sortYear: 2025,
       image: "security-plus.png",
+      certificate: "security-plus-cert.pdf",
       category: "security",
       description: "Global certification validating baseline cybersecurity skills."
     },
@@ -55,7 +230,9 @@ const CertificationsModule = (() => {
       title: "Solutions Architect (Associate)",
       issuer: "AWS",
       year: "Candidate (March 2026)",
+      sortYear: 2026,
       image: "aws-sa.png",
+      certificate: "aws-sa-cert.pdf",
       category: "aws",
       candidate: true,
       description: "Demonstrates expertise in designing distributed systems on AWS."
@@ -64,7 +241,9 @@ const CertificationsModule = (() => {
       title: "DevOps Engineer (Professional)",
       issuer: "AWS",
       year: "Candidate (2026)",
+      sortYear: 2026,
       image: "aws-doe.png",
+      certificate: "aws-doe-cert.pdf",
       category: "aws",
       candidate: true,
       description: "Demonstrates expertise in AWS security best practices."
@@ -73,7 +252,9 @@ const CertificationsModule = (() => {
       title: "AI Essentials",
       issuer: "Google",
       year: "2023",
+      sortYear: 2023,
       image: "google-ai.jpg",
+      certificate: "google-ai-cert.pdf",
       category: "ai",
       description: "Fundamentals of artificial intelligence and machine learning applications."
     },
@@ -81,7 +262,9 @@ const CertificationsModule = (() => {
       title: "Cybersecurity | Ethical Hacking",
       issuer: "Neo Cloud Technologies",
       year: "2024",
+      sortYear: 2024,
       image: "neo.jpg",
+      certificate: "neo-cert.pdf",
       category: "security",
       description: "Practical training in penetration testing and vulnerability assessment."
     },
@@ -89,7 +272,9 @@ const CertificationsModule = (() => {
       title: "Solutions Architect",
       issuer: "Neo Cloud Technologies",
       year: "2025",
+      sortYear: 2025,
       image: "neo.jpg",
+      certificate: "neo-sa-cert.pdf",
       category: "aws",
       description: "Practical training in Cloud Environment (AWS, Azure, GCP)."
     },
@@ -97,7 +282,9 @@ const CertificationsModule = (() => {
       title: "Cybersecurity Foundations",
       issuer: "MasterCard",
       year: "2024",
+      sortYear: 2024,
       image: "mf.png",
+      certificate: "mf-cert.pdf",
       category: "security",
       description: "Core principles of information security and cyber defense strategies."
     }
@@ -111,6 +298,9 @@ const CertificationsModule = (() => {
     { id: 'ai', label: 'AI' }
   ];
 
+  let currentFilter = 'all';
+  let currentSort = 'newest'; // Default to newest first
+
   function init() {
     const filtersContainer = document.getElementById('cert-filters');
     const certGrid = document.querySelector('.cert-grid');
@@ -118,8 +308,13 @@ const CertificationsModule = (() => {
     if (!filtersContainer || !certGrid) return;
     
     renderFilters(filtersContainer);
-    renderCerts(certifications, certGrid);
+    
+    // Sort by newest first by default
+    const sortedCerts = sortCertifications(certifications, 'newest');
+    renderCerts(sortedCerts, certGrid);
+    
     setupEventDelegation();
+    setupSortListener();
   }
 
   function renderFilters(container) {
@@ -154,6 +349,10 @@ const CertificationsModule = (() => {
   function createCertCard(cert) {
     const card = document.createElement('div');
     card.className = 'cert-card';
+    
+    // Add click handler for title to show certificate
+    const titleHtml = `<h3 onclick="showCertificate('${cert.certificate}', '${cert.title} - ${cert.issuer}', '${cert.image}')">${cert.title}</h3>`;
+    
     card.innerHTML = `
       <div class="cert-badge">
         <img src="assets/images/cert-badges/${cert.image}" 
@@ -163,7 +362,7 @@ const CertificationsModule = (() => {
         ${cert.candidate ? '<span class="candidate-badge">In Progress</span>' : ''}
       </div>
       <div class="cert-details">
-        <h3>${cert.title}</h3>
+        ${titleHtml}
         <p class="issuer">${cert.issuer}</p>
         <p class="cert-date">${cert.year}</p>
         <p class="cert-description">${cert.description}</p>
@@ -176,17 +375,45 @@ const CertificationsModule = (() => {
     const certGrid = document.querySelector('.cert-grid');
     if (!certGrid) return;
     
+    currentFilter = filter;
+    
     certGrid.innerHTML = '<div class="loading-spinner"></div>';
     
     Analytics.trackInteraction('certifications', 'filter', filter);
     
     requestAnimationFrame(() => {
-      const filteredCerts = filter === 'all' 
+      let filteredCerts = filter === 'all' 
         ? certifications 
         : certifications.filter(cert => cert.category === filter);
       
+      // Apply sort
+      filteredCerts = sortCertifications(filteredCerts, currentSort);
+      
       renderCerts(filteredCerts, certGrid);
     });
+  }
+
+  function sortCertifications(certs, sortOrder) {
+    return [...certs].sort((a, b) => {
+      if (sortOrder === 'newest') {
+        return b.sortYear - a.sortYear;
+      } else {
+        return a.sortYear - b.sortYear;
+      }
+    });
+  }
+
+  function setupSortListener() {
+    const sortSelect = document.getElementById('sort-select');
+    if (sortSelect) {
+      // Set default to newest
+      sortSelect.value = 'newest';
+      
+      sortSelect.addEventListener('change', (e) => {
+        currentSort = e.target.value;
+        filterCerts(currentFilter);
+      });
+    }
   }
 
   function setupEventDelegation() {
@@ -208,7 +435,7 @@ const CertificationsModule = (() => {
 const DevToArticles = (() => {
   const CACHE_KEY = 'devto-articles';
   const CACHE_DURATION = 600000; // 10 minutes
-  const API_URL = 'https://dev.to/api/articles?username=leonardkachi&per_page=6';
+  const API_URL = 'https://dev.to/api/articles?username=leonardkachi&per_page=8';
 
   async function init() {
     const feed = document.getElementById('devto-feed');
@@ -227,6 +454,7 @@ const DevToArticles = (() => {
 
   function showLoadingState(container) {
     container.innerHTML = `
+      <div class="skeleton-card"></div>
       <div class="skeleton-card"></div>
       <div class="skeleton-card"></div>
       <div class="skeleton-card"></div>
@@ -281,7 +509,7 @@ const DevToArticles = (() => {
     container.innerHTML = '';
     
     const fragment = document.createDocumentFragment();
-    articles.forEach(article => {
+    articles.slice(0, 8).forEach(article => {
       const card = createArticleCard(article);
       fragment.appendChild(card);
     });
@@ -340,6 +568,24 @@ const DevToArticles = (() => {
         positive_reactions_count: 34,
         reading_time_minutes: 8,
         cover_image: getPlaceholderImage("Terraform Security")
+      },
+      {
+        title: "Zero Trust on AWS",
+        url: "https://dev.to/leonardkachi",
+        description: "Implementing Zero Trust architecture principles in AWS cloud environments.",
+        published_at: new Date().toISOString(),
+        positive_reactions_count: 42,
+        reading_time_minutes: 7,
+        cover_image: getPlaceholderImage("Zero Trust AWS")
+      },
+      {
+        title: "Cloud Security Automation",
+        url: "https://dev.to/leonardkachi",
+        description: "Automating security compliance checks using Python and AWS services.",
+        published_at: new Date().toISOString(),
+        positive_reactions_count: 31,
+        reading_time_minutes: 6,
+        cover_image: getPlaceholderImage("Cloud Security Automation")
       }
     ];
     
@@ -350,34 +596,23 @@ const DevToArticles = (() => {
 })();
 
 // ==========================================
-// EXPANDABLE SKILLS SECTION - FIXED VERSION
+// EXPANDABLE SKILLS SECTION
 // ==========================================
 const ExpandableSkills = (() => {
   function init() {
-    // Initialize skill bars animation
     animateSkillBars();
-    
-    // Setup expandable sections
     setupExpandableSections();
-    
-    // Animate skill bars on scroll
     setupScrollAnimation();
   }
   
   function setupExpandableSections() {
     const expandButtons = document.querySelectorAll('.expand-toggle');
     
-    expandButtons.forEach(button => {
-      // Initialize first section as expanded
+    expandButtons.forEach((button, index) => {
       const targetId = button.getAttribute('data-target');
       const content = document.getElementById(targetId);
       const icon = button.querySelector('.toggle-icon');
       
-      if (button === expandButtons[0] && content && icon) {
-        content.classList.add('expanded');
-        content.style.maxHeight = content.scrollHeight + 'px';
-        icon.style.transform = 'rotate(180deg)';
-      }
       
       button.addEventListener('click', function() {
         const targetId = this.getAttribute('data-target');
@@ -388,7 +623,6 @@ const ExpandableSkills = (() => {
         
         const isExpanded = content.classList.contains('expanded');
         
-        // Close all other sections
         document.querySelectorAll('.expandable-content').forEach(item => {
           if (item !== content) {
             item.classList.remove('expanded');
@@ -399,12 +633,10 @@ const ExpandableSkills = (() => {
         });
         
         if (isExpanded) {
-          // Collapse
           content.classList.remove('expanded');
           content.style.maxHeight = '0';
           if (icon) icon.style.transform = 'rotate(0deg)';
         } else {
-          // Expand
           content.classList.add('expanded');
           content.style.maxHeight = content.scrollHeight + 'px';
           if (icon) icon.style.transform = 'rotate(180deg)';
@@ -418,7 +650,6 @@ const ExpandableSkills = (() => {
     
     skillBars.forEach(bar => {
       const width = bar.getAttribute('data-width') || '0';
-      // Set the width directly with transition
       setTimeout(() => {
         bar.style.width = width + '%';
       }, 300);
@@ -1014,7 +1245,6 @@ const SecurityLab = (() => {
         resultsPanel.appendChild(recommendation);
       });
       
-      // Event delegation for apply buttons
       resultsPanel.querySelectorAll('.apply-policy').forEach(btn => {
         btn.addEventListener('click', (e) => {
           if (policyInput) {
@@ -1065,7 +1295,6 @@ const SecurityLab = (() => {
       }
     };
 
-    // Setup event listeners for instances
     networkViz.querySelectorAll('.instance').forEach(instance => {
       instance.addEventListener('mouseenter', function() {
         this.classList.add('highlight');
@@ -1158,7 +1387,7 @@ const SecurityLab = (() => {
 })();
 
 // ==========================================
-// CONTACT FORM MODULE - OPTIMIZED VERSION
+// CONTACT FORM MODULE
 // ==========================================
 const ContactForm = (() => {
   const FORM_ENDPOINTS = {
@@ -1166,7 +1395,7 @@ const ContactForm = (() => {
     fallback: 'https://formsubmit.co/ajax/Kachi.Henry.Leo@gmail.com'
   };
   
-  const TIMEOUT_DURATION = 3000; // 3 seconds max wait
+  const TIMEOUT_DURATION = 3000;
 
   function init() {
     const form = document.getElementById('contact-form');
@@ -1181,7 +1410,6 @@ const ContactForm = (() => {
 
     if (!form) return;
 
-    // Validation functions
     function validateForm() {
       let isValid = true;
       const formGroups = form.querySelectorAll('.form-group');
@@ -1191,15 +1419,15 @@ const ContactForm = (() => {
         const errorMsg = group.querySelector('.error-message');
         
         group.classList.remove('error');
-        errorMsg.textContent = '';
+        if (errorMsg) errorMsg.textContent = '';
 
         if (!input.value.trim()) {
           group.classList.add('error');
-          errorMsg.textContent = 'This field is required';
+          if (errorMsg) errorMsg.textContent = 'This field is required';
           isValid = false;
         } else if (input.type === 'email' && !isValidEmail(input.value)) {
           group.classList.add('error');
-          errorMsg.textContent = 'Please enter a valid email';
+          if (errorMsg) errorMsg.textContent = 'Please enter a valid email';
           isValid = false;
         }
       });
@@ -1211,60 +1439,49 @@ const ContactForm = (() => {
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
 
-    // Enhanced form submission with timeout and fallback
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      if (!validateForm()) {
-        return;
-      }
+      if (!validateForm()) return;
 
-      // Show loading state
-      submitBtn.disabled = true;
-      btnText.textContent = 'Sending...';
-      spinner.classList.remove('hidden');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        if (btnText) btnText.textContent = 'Sending...';
+        if (spinner) spinner.classList.remove('hidden');
+      }
       if (formStatus) formStatus.classList.add('hidden');
 
       const formData = new FormData(form);
       
-      // Create timeout promise
       const timeoutPromise = new Promise((_, reject) => {
         setTimeout(() => reject(new Error('timeout')), TIMEOUT_DURATION);
       });
 
       try {
-        // Try primary endpoint with timeout
         const submitPromise = submitToEndpoint(formData, FORM_ENDPOINTS.primary);
-        
         await Promise.race([submitPromise, timeoutPromise]);
-        
-        // Success!
         showSuccessMessage();
         Analytics.trackInteraction('contact', 'form_submit', 'success');
-        
       } catch (error) {
         if (error.message === 'timeout') {
-          // Timeout - assume success but show different message
-          console.warn('Form submission timeout - showing optimistic success');
           showSuccessMessage(true);
           Analytics.trackInteraction('contact', 'form_submit', 'timeout_success');
         } else {
-          // Try fallback endpoint
-          console.warn('Primary endpoint failed, trying fallback...');
           try {
             await submitToEndpoint(formData, FORM_ENDPOINTS.fallback);
             showSuccessMessage();
             Analytics.trackInteraction('contact', 'form_submit', 'fallback_success');
           } catch (fallbackError) {
-            // Both failed - show error
             showError();
             Analytics.trackInteraction('contact', 'form_submit', 'error');
           }
         }
       } finally {
-        submitBtn.disabled = false;
-        btnText.textContent = 'Send Message';
-        spinner.classList.add('hidden');
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          if (btnText) btnText.textContent = 'Send Message';
+          if (spinner) spinner.classList.add('hidden');
+        }
       }
     });
 
@@ -1296,16 +1513,11 @@ const ContactForm = (() => {
       if (contactContainer) {
         contactContainer.style.gridTemplateColumns = '1fr';
       }
-      form.style.display = 'none';
-      if (contactInfo) {
-        contactInfo.style.display = 'none';
-      }
+      if (form) form.style.display = 'none';
+      if (contactInfo) contactInfo.style.display = 'none';
       if (successMessage) {
         successMessage.classList.remove('hidden');
         successMessage.style.display = 'block';
-        successMessage.style.gridColumn = 'auto';
-        
-        // Update message if optimistic
         if (isOptimistic) {
           const successText = successMessage.querySelector('p');
           if (successText) {
@@ -1318,56 +1530,44 @@ const ContactForm = (() => {
     function showError() {
       if (formStatus) {
         formStatus.textContent = 'Unable to send message. Please email me directly at Kachi.Henry.Leo@gmail.com';
-        formStatus.classList.remove('hidden', 'success');
+        formStatus.classList.remove('hidden');
         formStatus.classList.add('error');
         formStatus.style.display = 'block';
       }
     }
 
-    // Reset form
     if (newMessageBtn) {
       newMessageBtn.addEventListener('click', () => {
-        form.reset();
-        if (contactContainer) {
-          contactContainer.style.gridTemplateColumns = '';
-        }
-        form.style.display = 'block';
-        if (contactInfo) {
-          contactInfo.style.display = 'block';
-        }
+        if (form) form.reset();
+        if (contactContainer) contactContainer.style.gridTemplateColumns = '';
+        if (form) form.style.display = 'block';
+        if (contactInfo) contactInfo.style.display = 'block';
         if (successMessage) {
           successMessage.classList.add('hidden');
           successMessage.style.display = 'none';
-        }
-        if (formStatus) {
-          formStatus.classList.add('hidden');
-        }
-        
-        // Reset success message text
-        if (successMessage) {
           const successText = successMessage.querySelector('p');
           if (successText) {
             successText.textContent = "Thank you for reaching out. I'll respond within 24 hours.";
           }
         }
+        if (formStatus) formStatus.classList.add('hidden');
       });
     }
 
-    // Real-time validation
     form.querySelectorAll('input, select, textarea').forEach(input => {
       input.addEventListener('blur', () => {
         const formGroup = input.closest('.form-group');
-        const errorMsg = formGroup.querySelector('.error-message');
+        const errorMsg = formGroup?.querySelector('.error-message');
         
-        formGroup.classList.remove('error');
-        errorMsg.textContent = '';
+        formGroup?.classList.remove('error');
+        if (errorMsg) errorMsg.textContent = '';
 
         if (!input.value.trim()) {
-          formGroup.classList.add('error');
-          errorMsg.textContent = 'This field is required';
+          formGroup?.classList.add('error');
+          if (errorMsg) errorMsg.textContent = 'This field is required';
         } else if (input.type === 'email' && !isValidEmail(input.value)) {
-          formGroup.classList.add('error');
-          errorMsg.textContent = 'Please enter a valid email';
+          formGroup?.classList.add('error');
+          if (errorMsg) errorMsg.textContent = 'Please enter a valid email';
         }
       });
     });
@@ -1391,7 +1591,6 @@ const MobileNav = (() => {
       navLinks.classList.toggle('active');
     });
     
-    // Close menu when clicking on a link
     navLinks.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         hamburger.classList.remove('active');
@@ -1451,13 +1650,28 @@ const NavbarScroll = (() => {
 })();
 
 // ==========================================
+// RESUME SECTION
+// ==========================================
+const ResumeModule = (() => {
+  function init() {
+    const viewResumeBtn = document.getElementById('view-resume-btn');
+    if (viewResumeBtn) {
+      viewResumeBtn.addEventListener('click', () => {
+        ModalSystem.showResume('resources/Resume.pdf', 'Leonard Kachi - Professional Resume');
+      });
+    }
+  }
+  
+  return { init };
+})();
+
+// ==========================================
 // MAIN INITIALIZATION
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
-  // Track page view
   Analytics.trackPageView();
   
-  // Initialize all modules
+  ModalSystem.init();
   CertificationsModule.init();
   DevToArticles.init();
   SecurityLab.init();
@@ -1466,8 +1680,8 @@ document.addEventListener('DOMContentLoaded', () => {
   ZeroTrustScroll.init();
   NavbarScroll.init();
   ExpandableSkills.init();
+  ResumeModule.init();
   
-  // Set current year in footer
   const yearElement = document.getElementById('year');
   if (yearElement) {
     yearElement.textContent = new Date().getFullYear();
@@ -1475,7 +1689,3 @@ document.addEventListener('DOMContentLoaded', () => {
   
   console.log('✅ Portfolio initialized successfully');
 });
-
-
-
-
