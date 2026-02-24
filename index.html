@@ -34,53 +34,6 @@
     gtag('js', new Date());
     gtag('config', 'G-5C93XHLERG');
   </script>
-  <style>
-    /* Quick fixes for the requested features */
-    .candidate-badge {
-      opacity: 0;
-      transform: translateY(-5px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-    .cert-card:hover .candidate-badge {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .cert-badge {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .cert-badge img {
-      display: block;
-      margin: 0 auto;
-    }
-    .reading-time {
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-    .article-card:hover .reading-time {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .sort-select, .filter-btn {
-      color: var(--text);
-    }
-    .sort-select option {
-      background: var(--primary);
-      color: var(--text);
-    }
-    .filter-btn:hover {
-      background: rgba(58, 175, 169, 0.3);
-    }
-    @media (min-width: 1200px) {
-      .projects-grid,
-      .articles-grid,
-      .cert-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-  </style>
 </head>
 <body>
   <!-- Navigation -->
@@ -148,259 +101,308 @@
     </div>
   </header>
 
-  <!-- About Me Section -->
-  <section id="about" class="section-dark">
-    <div class="container">
-      <h2>About Me</h2>
-      <div class="about-grid">
-        <div class="about-content">
-          <p>
-            I'm a <strong>Cloud Security Engineer & Architect</strong> who builds systems that don't just run - they defend, adapt, and scale. 
-            My focus is on <strong>secure cloud design, automated defense, and intelligent threat response</strong> across AWS, Azure, and hybrid environments. 
-            I merge <strong>DevSecOps principles, Zero Trust frameworks, and AI-driven security analytics</strong> to transform cloud infrastructures into resilient ecosystems.
-          </p>
-          <p>
-            Every architecture I design follows one core rule: <strong>security must move faster than risk</strong>.  
-            From IaC blueprints to real-time anomaly detection, my work blends engineering precision with strategic foresight.  
-            I'm fluent in automation, observability, and compliance engineering, and I continuously evolve systems to stay ahead of emerging threats including quantum-era risks.
-          </p>
-        </div>
-        
-        <div class="skills-visualization">
-          <h3>Technical Proficiency</h3>
-          <div class="skill-visual-grid">
-            <div class="skill-item">
-              <div class="skill-name">AWS Security <span class="skill-percentage">95%</span></div>
-              <div class="skill-bar"><div class="skill-level" data-width="95"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">Zero Trust Architecture <span class="skill-percentage">90%</span></div>
-              <div class="skill-bar"><div class="skill-level" data-width="90"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">Python Automation <span class="skill-percentage">88%</span></div>
-              <div class="skill-bar"><div class="skill-level" data-width="88"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">Terraform/IaC <span class="skill-percentage">92%</span></div>
-              <div class="skill-bar"><div class="skill-level" data-width="92"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">DevSecOps <span class="skill-percentage">85%</span></div>
-              <div class="skill-bar"><div class="skill-level" data-width="85"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">Threat Detection <span class="skill-percentage">87%</span></div>
-              <div class="skill-bar"><div class="skill-level" data-width="87"></div></div>
-            </div>
-          </div>
-        </div>
+<!-- About Me Section -->
+<section id="about" class="section-dark">
+  <div class="container">
+    <h2>About Me</h2>
+    <div class="about-grid">
+      <div class="about-content">
+        <p>
+          I'm a <strong>Cloud Security Engineer & Architect</strong> who builds systems that don't just run - they defend, adapt, and scale. 
+          My focus is on <strong>secure cloud design, automated defense, and intelligent threat response</strong> across AWS, Azure, and hybrid environments. 
+          I merge <strong>DevSecOps principles, Zero Trust frameworks, and AI-driven security analytics</strong> to transform cloud infrastructures into resilient ecosystems.
+        </p>
+
+        <p>
+          Every architecture I design follows one core rule: <strong>security must move faster than risk</strong>.  
+          From IaC blueprints to real-time anomaly detection, my work blends engineering precision with strategic foresight.  
+          I'm fluent in automation, observability, and compliance engineering, and I continuously evolve systems to stay ahead of emerging threats including quantum-era risks.
+        </p>
       </div>
-
-      <div class="what-i-do">
-        <h3>What I Do</h3>
-        <ul class="skills-list">
-          <li>Architect <strong>multi-cloud security infrastructures</strong> using Terraform, CloudFormation, and Ansible</li>
-          <li>Implement <strong>Zero Trust and least-privilege frameworks</strong> with IAM, SSO, and adaptive access control</li>
-          <li>Automate <strong>threat detection, incident response, and compliance validation</strong> using Python, Lambda, and SIEM systems</li>
-          <li>Develop <strong>AI-assisted defense systems</strong> for anomaly detection, data protection, and predictive analytics</li>
-          <li>Integrate <strong>security in CI/CD pipelines</strong> using GitHub Actions, Jenkins, and ArgoCD for end-to-end DevSecOps</li>
-          <li>Design <strong>serverless and containerized architectures</strong> hardened for scalability and resilience</li>
-          <li>Apply <strong>NIST, ISO 27001, SOC 2, and CIS frameworks</strong> to engineer compliance into every deployment</li>
-        </ul>
-      </div>
-
-      <div class="technical-toolkit">
-        <h3>Complete Technical Toolkit</h3>
-        <div class="expandable-sections">
-          <div class="expandable-section">
-            <button class="expand-toggle" data-target="cloud-platforms">
-              <span class="expand-title">Cloud Platforms & Infrastructure</span>
-              <svg class="toggle-icon" viewBox="0 0 24 24" width="16" height="16">
-                <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
-              </svg>
-            </button>
-            <div class="expandable-content" id="cloud-platforms">
-              <div class="tech-tags">
-                <span>AWS (IAM, EC2, S3, Security Hub, GuardDuty, CloudTrail)</span>
-                <span>Azure Security Center</span>
-                <span>Google Cloud Platform</span>
-                <span>Kubernetes</span>
-                <span>Docker</span>
-              </div>
+      
+      <div class="skills-visualization">
+        <h3>Technical Proficiency</h3>
+        <div class="skill-visual-grid">
+          <div class="skill-item">
+            <div class="skill-name">AWS Security</div>
+            <div class="skill-bar">
+              <div class="skill-level" data-width="95"></div>
             </div>
+            <div class="skill-percentage">95%</div>
           </div>
-
-          <div class="expandable-section">
-            <button class="expand-toggle" data-target="security-compliance">
-              <span class="expand-title">Security & Compliance Frameworks</span>
-              <svg class="toggle-icon" viewBox="0 0 24 24" width="16" height="16">
-                <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
-              </svg>
-            </button>
-            <div class="expandable-content" id="security-compliance">
-              <div class="tech-tags">
-                <span>Zero Trust Architecture</span>
-                <span>SIEM (Splunk, ELK, AWS Security Hub)</span>
-                <span>Identity & Access Management</span>
-                <span>NIST 800-53</span>
-                <span>ISO 27001 / SOC 2</span>
-                <span>CIS Benchmarks</span>
-                <span>GDPR & Data Privacy</span>
-              </div>
+          <div class="skill-item">
+            <div class="skill-name">Zero Trust Architecture</div>
+            <div class="skill-bar">
+              <div class="skill-level" data-width="90"></div>
             </div>
+            <div class="skill-percentage">90%</div>
           </div>
-
-          <div class="expandable-section">
-            <button class="expand-toggle" data-target="programming-automation">
-              <span class="expand-title">Programming & Automation</span>
-              <svg class="toggle-icon" viewBox="0 0 24 24" width="16" height="16">
-                <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
-              </svg>
-            </button>
-            <div class="expandable-content" id="programming-automation">
-              <div class="tech-tags">
-                <span>Python</span>
-                <span>Bash/Shell</span>
-                <span>Go</span>
-                <span>JavaScript</span>
-                <span>PowerShell</span>
-                <span>SQL</span>
-                <span>YAML</span>
-              </div>
+          <div class="skill-item">
+            <div class="skill-name">Python Automation</div>
+            <div class="skill-bar">
+              <div class="skill-level" data-width="88"></div>
             </div>
+            <div class="skill-percentage">88%</div>
           </div>
-
-          <div class="expandable-section">
-            <button class="expand-toggle" data-target="devsecops-infrastructure">
-              <span class="expand-title">DevSecOps & Infrastructure</span>
-              <svg class="toggle-icon" viewBox="0 0 24 24" width="16" height="16">
-                <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
-              </svg>
-            </button>
-            <div class="expandable-content" id="devsecops-infrastructure">
-              <div class="tech-tags">
-                <span>Terraform</span>
-                <span>Ansible</span>
-                <span>CloudFormation</span>
-                <span>GitHub Actions</span>
-                <span>Jenkins</span>
-                <span>ArgoCD</span>
-                <span>CI/CD Security</span>
-                <span>Container Hardening</span>
-              </div>
+          <div class="skill-item">
+            <div class="skill-name">Terraform/IaC</div>
+            <div class="skill-bar">
+              <div class="skill-level" data-width="92"></div>
             </div>
+            <div class="skill-percentage">92%</div>
           </div>
-
-          <div class="expandable-section">
-            <button class="expand-toggle" data-target="threat-detection">
-              <span class="expand-title">Threat Detection & Analysis</span>
-              <svg class="toggle-icon" viewBox="0 0 24 24" width="16" height="16">
-                <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
-              </svg>
-            </button>
-            <div class="expandable-content" id="threat-detection">
-              <div class="tech-tags">
-                <span>Wireshark</span>
-                <span>Nmap</span>
-                <span>Burp Suite</span>
-                <span>OpenVAS</span>
-                <span>Metasploit</span>
-                <span>OSINT</span>
-                <span>Threat Modeling</span>
-              </div>
+          <div class="skill-item">
+            <div class="skill-name">DevSecOps</div>
+            <div class="skill-bar">
+              <div class="skill-level" data-width="85"></div>
             </div>
+            <div class="skill-percentage">85%</div>
           </div>
-
-          <div class="expandable-section">
-            <button class="expand-toggle" data-target="monitoring-intelligence">
-              <span class="expand-title">Monitoring & Intelligence</span>
-              <svg class="toggle-icon" viewBox="0 0 24 24" width="16" height="16">
-                <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
-              </svg>
-            </button>
-            <div class="expandable-content" id="monitoring-intelligence">
-              <div class="tech-tags">
-                <span>CloudWatch</span>
-                <span>Azure Monitor</span>
-                <span>Prometheus</span>
-                <span>Grafana</span>
-                <span>Snort</span>
-                <span>Suricata</span>
-                <span>Splunk Enterprise</span>
-              </div>
+          <div class="skill-item">
+            <div class="skill-name">Threat Detection</div>
+            <div class="skill-bar">
+              <div class="skill-level" data-width="87"></div>
             </div>
-          </div>
-
-          <div class="expandable-section">
-            <button class="expand-toggle" data-target="emerging-technologies">
-              <span class="expand-title">Emerging Technologies</span>
-              <svg class="toggle-icon" viewBox="0 0 24 24" width="16" height="16">
-                <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
-              </svg>
-            </button>
-            <div class="expandable-content" id="emerging-technologies">
-              <div class="tech-tags">
-                <span>AI Security Automation</span>
-                <span>Machine Learning for Threat Prediction</span>
-                <span>Quantum-Resistant Cryptography</span>
-                <span>Blockchain Security</span>
-                <span>Serverless Security (Lambda, API Gateway)</span>
-                <span>Cross-Region Replication Systems</span>
-              </div>
-            </div>
+            <div class="skill-percentage">87%</div>
           </div>
         </div>
       </div>
     </div>
-  </section>
-   
-  <!-- Projects Section -->
-  <section id="projects" class="section-light">
-    <div class="container">
-      <h2>Featured Projects</h2>
-      <div class="projects-grid">
-        <div class="project-card">
-          <div class="project-image">
-            <img src="assets/images/AWS-Achitecture.png" alt="AWS Three-Tier Web Architecture" loading="lazy">
-          </div>
-          <div class="project-content">
-            <h3>AWS Three-Tier Web Architecture</h3>
-            <p>Engineered a production-grade, highly available three-tier web application on AWS, implementing a complete cloud infrastructure with VPC networking, autoscaling, load balancing, and multi-AZ database deployment.</p>
-            <div class="project-tech">
-              <span>Amazon VPC</span><span>EC2 Auto Scaling</span><span>Application Load Balancer</span><span>Aurora MySQL</span><span>S3</span><span>CloudWatch</span>
-            </div>
-            <a href="AWS-Three-Tier-Architecture.html" class="btn-outline project-link">View Details</a>
-          </div>
-        </div>
+
+    <div class="what-i-do">
+      <h3>What I Do</h3>
+      <ul class="skills-list">
+        <li>Architect <strong>multi-cloud security infrastructures</strong> using Terraform, CloudFormation, and Ansible</li>
+        <li>Implement <strong>Zero Trust and least-privilege frameworks</strong> with IAM, SSO, and adaptive access control</li>
+        <li>Automate <strong>threat detection, incident response, and compliance validation</strong> using Python, Lambda, and SIEM systems</li>
+        <li>Develop <strong>AI-assisted defense systems</strong> for anomaly detection, data protection, and predictive analytics</li>
+        <li>Integrate <strong>security in CI/CD pipelines</strong> using GitHub Actions, Jenkins, and ArgoCD for end-to-end DevSecOps</li>
+        <li>Design <strong>serverless and containerized architectures</strong> hardened for scalability and resilience</li>
+        <li>Apply <strong>NIST, ISO 27001, SOC 2, and CIS frameworks</strong> to engineer compliance into every deployment</li>
+      </ul>
+    </div>
+
+    <div class="technical-toolkit">
+      <h3>Complete Technical Toolkit</h3>
+      <div class="expandable-sections">
         
-        <div class="project-card">
-          <div class="project-image">
-            <img src="assets/images/Fuel Finder Nigeria.jpg" alt="Fuel Finder Nigeria Platform" loading="lazy">
-          </div>
-          <div class="project-content">
-            <h3>Fuel Finder Nigeria</h3>
-            <p>Currently designing and architecting a scalable fuel discovery platform aimed at helping drivers locate nearby fuel stations based on real-time availability, pricing, queue status, and route proximity.</p>
-            <div class="project-tech">
-              <span>React.js (PWA)</span><span>AWS (Lambda, API Gateway, ECS)</span><span>Google Maps API</span><span>DynamoDB & Aurora</span><span>Terraform</span>
+        <div class="expandable-section">
+          <button class="expand-toggle" data-target="cloud-platforms">
+            <span class="expand-title">Cloud Platforms & Infrastructure</span>
+            <svg class="toggle-icon" viewBox="0 0 24 24" width="16" height="16">
+              <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+            </svg>
+          </button>
+          <div class="expandable-content" id="cloud-platforms">
+            <div class="tech-tags">
+              <span>AWS (IAM, EC2, S3, Security Hub, GuardDuty, CloudTrail)</span>
+              <span>Azure Security Center</span>
+              <span>Google Cloud Platform</span>
+              <span>Kubernetes</span>
+              <span>Docker</span>
             </div>
-            <a href="Fuel_Finder_App.html" class="btn-outline project-link">View Details</a>
           </div>
         </div>
 
-        <div class="project-card">
-          <div class="project-image">
-            <img src="assets/images/Book Recommendation APP.jpg" alt="The Bibliotheca - Digital Literary Curator" loading="lazy">
-          </div>
-          <div class="project-content">
-            <h3>The Bibliotheca: Digital Literary Curator</h3>
-            <p>Architected a sophisticated serverless API for curating literary collections. Leverages AWS Lambda to interface with Google Books Archive, featuring intelligent keyword discovery.</p>
-            <div class="project-tech">
-              <span>AWS Lambda</span><span>DynamoDB</span><span>Terraform</span><span>Google Books API</span>
+        <div class="expandable-section">
+          <button class="expand-toggle" data-target="security-compliance">
+            <span class="expand-title">Security & Compliance Frameworks</span>
+            <svg class="toggle-icon" viewBox="0 0 24 24" width="16" height="16">
+              <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+            </svg>
+          </button>
+          <div class="expandable-content" id="security-compliance">
+            <div class="tech-tags">
+              <span>Zero Trust Architecture</span>
+              <span>SIEM (Splunk, ELK, AWS Security Hub)</span>
+              <span>Identity & Access Management</span>
+              <span>NIST 800-53</span>
+              <span>ISO 27001 / SOC 2</span>
+              <span>CIS Benchmarks</span>
+              <span>GDPR & Data Privacy</span>
             </div>
-            <a href="Book_Recomendation_API.html" class="btn-outline project-link">View Archival Documentation</a>
           </div>
         </div>
+
+        <div class="expandable-section">
+          <button class="expand-toggle" data-target="programming-automation">
+            <span class="expand-title">Programming & Automation</span>
+            <svg class="toggle-icon" viewBox="0 0 24 24" width="16" height="16">
+              <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+            </svg>
+          </button>
+          <div class="expandable-content" id="programming-automation">
+            <div class="tech-tags">
+              <span>Python</span>
+              <span>Bash/Shell</span>
+              <span>Go</span>
+              <span>JavaScript</span>
+              <span>PowerShell</span>
+              <span>SQL</span>
+              <span>YAML</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="expandable-section">
+          <button class="expand-toggle" data-target="devsecops-infrastructure">
+            <span class="expand-title">DevSecOps & Infrastructure</span>
+            <svg class="toggle-icon" viewBox="0 0 24 24" width="16" height="16">
+              <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+            </svg>
+          </button>
+          <div class="expandable-content" id="devsecops-infrastructure">
+            <div class="tech-tags">
+              <span>Terraform</span>
+              <span>Ansible</span>
+              <span>CloudFormation</span>
+              <span>GitHub Actions</span>
+              <span>Jenkins</span>
+              <span>ArgoCD</span>
+              <span>CI/CD Security</span>
+              <span>Container Hardening</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="expandable-section">
+          <button class="expand-toggle" data-target="threat-detection">
+            <span class="expand-title">Threat Detection & Analysis</span>
+            <svg class="toggle-icon" viewBox="0 0 24 24" width="16" height="16">
+              <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+            </svg>
+          </button>
+          <div class="expandable-content" id="threat-detection">
+            <div class="tech-tags">
+              <span>Wireshark</span>
+              <span>Nmap</span>
+              <span>Burp Suite</span>
+              <span>OpenVAS</span>
+              <span>Metasploit</span>
+              <span>OSINT</span>
+              <span>Threat Modeling</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="expandable-section">
+          <button class="expand-toggle" data-target="monitoring-intelligence">
+            <span class="expand-title">Monitoring & Intelligence</span>
+            <svg class="toggle-icon" viewBox="0 0 24 24" width="16" height="16">
+              <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+            </svg>
+          </button>
+          <div class="expandable-content" id="monitoring-intelligence">
+            <div class="tech-tags">
+              <span>CloudWatch</span>
+              <span>Azure Monitor</span>
+              <span>Prometheus</span>
+              <span>Grafana</span>
+              <span>Snort</span>
+              <span>Suricata</span>
+              <span>Splunk Enterprise</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="expandable-section">
+          <button class="expand-toggle" data-target="emerging-technologies">
+            <span class="expand-title">Emerging Technologies</span>
+            <svg class="toggle-icon" viewBox="0 0 24 24" width="16" height="16">
+              <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+            </svg>
+          </button>
+          <div class="expandable-content" id="emerging-technologies">
+            <div class="tech-tags">
+              <span>AI Security Automation</span>
+              <span>Machine Learning for Threat Prediction</span>
+              <span>Quantum-Resistant Cryptography</span>
+              <span>Blockchain Security</span>
+              <span>Serverless Security (Lambda, API Gateway)</span>
+              <span>Cross-Region Replication Systems</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+   
+  <!-- Projects Section -->
+    <section id="projects" class="section-light">
+    <div class="container">
+      <h2>Featured Projects</h2>
+      <div class="projects-grid">
+         <div class="project-card">
+        <div class="project-image">
+          <img src="assets/images/AWS-Achitecture.png" alt="AWS Three-Tier Web Architecture" loading="lazy">
+        </div>
+        <div class="project-content">
+          <h3>AWS Three-Tier Web Architecture</h3>
+          <p>Engineered a production-grade, highly available three-tier web application on AWS, implementing a complete cloud infrastructure with VPC networking, autoscaling, load balancing, and multi-AZ database deployment.</p>
+          <div class="project-tech">
+            <span>Amazon VPC</span>
+            <span>EC2 Auto Scaling</span>
+            <span>Application Load Balancer</span>
+            <span>Aurora MySQL</span>
+            <span>S3</span>
+            <span>CloudWatch</span>
+          </div>
+          <a href="AWS-Three-Tier-Architecture.html" class="btn-outline project-link">View Details</a>
+        </div>
+      </div>
+        
+      <div class="project-card">
+        <div class="project-image">
+          <img src="assets/images/Fuel Finder Nigeria.jpg" alt="Fuel Finder Nigeria Platform" loading="lazy">
+       </div>
+       <div class="project-content">
+        <h3>Fuel Finder Nigeria</h3>
+        <p>
+         Currently designing and architecting a scalable fuel discovery platform aimed at helping drivers locate nearby fuel stations based on real-time availability, pricing, queue status, and route proximity.</p>
+       <div class="project-tech">
+         <span>React.js (PWA)</span>
+         <span>AWS (Lambda, API Gateway, ECS)</span>
+         <span>Google Maps API</span>
+         <span>DynamoDB & Aurora</span>
+         <span>Terraform</span>
+       </div>
+       <a href="Fuel_Finder_App.html" class="btn-outline project-link">View Details</a>
+     </div>
+   </div>
+
+        
+       <div class="project-card">
+         <div class="project-image vintage-border">
+           <img src="assets/images/Book Recommendation APP.jpg" alt="The Bibliotheca - Digital Literary Curator" loading="lazy">
+         <div class="image-overlay">
+           <i class="fas fa-scroll"></i>
+           <span class="overlay-text">Archival Preview</span>
+          </div>
+       </div>
+       <div class="project-content">
+         <div class="project-header">
+           <i class="fas fa-university project-icon"></i>
+           <h3>The Bibliotheca: Digital Literary Curator</h3>
+         </div>
+         <p class="project-description">
+           Built a serverless API for curating literary collections. 
+           Leverages AWS Lambda to interface with Google Books Archive, featuring
+           keyword discovery, temporal filtering, and paginated archival responses.
+         </p>
+         <div class="project-tech">
+           <span class="tech-badge"><i class="fas fa-cloud"></i> AWS Lambda</span>
+           <span class="tech-badge"><i class="fas fa-database"></i> DynamoDB</span>
+           <span class="tech-badge"><i class="fas fa-mountain"></i> Terraform</span>
+           <span class="tech-badge"><i class="fas fa-book"></i> Google Books API</span>
+         </div>
+         <a href="Book_Recomendation_API.html" class="btn-outline project-link">
+           <i class="fas fa-archive"></i>
+           <span>View Archival Documentation</span>
+         </a>
+       </div>
+    </div>
 
         <div class="project-card">
           <div class="project-image">
@@ -410,7 +412,9 @@
             <h3>AWS Zero Trust Architecture</h3>
             <p>Designed and implemented a Zero Trust security model for AWS environments using IAM, SCPs, and network segmentation.</p>
             <div class="project-tech">
-              <span>AWS IAM</span><span>Terraform</span><span>Python</span>
+              <span>AWS IAM</span>
+              <span>Terraform</span>
+              <span>Python</span>
             </div>
             <a href="AWS_Zero_Trust_Architecture.html" class="btn-outline project-link">View Demo</a>
           </div>
@@ -424,7 +428,9 @@
             <h3>AI-Powered Threat Detection</h3>
             <p>Developed a machine learning model to detect anomalous behavior in cloud logs with 94% accuracy.</p>
             <div class="project-tech">
-              <span>Python</span><span>AWS Lambda</span><span>TensorFlow</span>
+              <span>Python</span>
+              <span>AWS Lambda</span>
+              <span>TensorFlow</span>
             </div>
             <a href="AI-Powered_Threat_Detection.html" class="btn-outline project-link">View Demo</a>
           </div>
@@ -438,7 +444,9 @@
             <h3>Compliance Automation Framework</h3>
             <p>Automated CIS benchmark compliance checks across AWS accounts, reducing audit time by 70%.</p>
             <div class="project-tech">
-              <span>AWS Config</span><span>Python</span><span>Serverless</span>
+              <span>AWS Config</span>
+              <span>Python</span>
+              <span>Serverless</span>
             </div>
             <a href="Compliance_Automation_Framework.html" class="btn-outline project-link">View Details</a>
           </div>
@@ -450,9 +458,11 @@
           </div>
           <div class="project-content">
             <h3>Drauig BMS (Border Monitoring System)</h3>
-            <p>Worked on the Development of an AI-driven border monitoring system that analyzes trade data, detects anomalies, and helps prevent smuggling.</p>
+            <p>Worked on the Development of an AI-driven border monitoring system that analyzes trade data, detects anomalies, and helps prevent smuggling and illicit activities in real-time.</p>
             <div class="project-tech">
-              <span>Python</span><span>AI/ML</span><span>Streamlit</span>
+              <span>Python</span>
+              <span>AI/ML</span>
+              <span>Streamlit</span>
             </div>
             <a href="Drauig_BMS.html" class="btn-outline project-link">View Details</a>
           </div>
@@ -464,9 +474,11 @@
           </div>
           <div class="project-content">
             <h3>AWS Security Monitor</h3>
-            <p>Developed a Python-based tool that automates security checks across AWS environments, identifying misconfigurations and compliance issues.</p>
+            <p>Developed a Python-based tool that automates security checks across AWS environments, identifying misconfigurations and compliance issues to enhance cloud security posture.</p>
             <div class="project-tech">
-              <span>Python</span><span>Boto3</span><span>AWS Security Hub</span>
+              <span>Python</span>
+              <span>Boto3</span>
+              <span>AWS Security Hub</span>
             </div>
             <a href="https://github.com/LeonardKachi/AWS-Security-Monitor" class="btn-outline project-link">View Details</a>
           </div>
@@ -478,14 +490,17 @@
           </div>
           <div class="project-content">
             <h3>AI Trading Bot</h3>
-            <p>Built an AI-driven trading bot that integrates real-time news analysis and machine learning algorithms to make informed trading decisions.</p>
+            <p>Built an AI-driven trading bot that integrates real-time news analysis and machine learning algorithms to make informed trading decisions in dynamic market conditions.</p>
             <div class="project-tech">
-              <span>Python</span><span>Machine Learning</span><span>News API</span>
+              <span>Python</span>
+              <span>Machine Learning</span>
+              <span>News API</span>
             </div>
             <a href="https://github.com/LeonardKachi/AI-Trading-Bot" class="btn-outline project-link">View Details</a>
           </div>
         </div>
       </div>
+
       <div class="view-more">
         <a href="https://github.com/LeonardKachi" target="_blank" class="btn-outline">View GitHub Profile</a>
       </div>
@@ -553,7 +568,9 @@
               </div>
               <div class="action-tester">
                 <h4>Test Actions</h4>
-                <div class="action-list" id="action-list-container"></div>
+                <div class="action-list" id="action-list-container">
+                  <!-- Dynamically populated based on cloud provider -->
+                </div>
                 <button id="test-policy-btn" class="btn-lab">Test Policy</button>
               </div>
               <div class="results-panel">
@@ -606,14 +623,46 @@
                   </svg>
                 </button>
                 <div class="principles-grid">
-                  <div class="principle-card"><div class="principle-icon">🔐</div><h5>Verify Explicitly</h5><p>Authenticate and authorize every request</p></div>
-                  <div class="principle-card"><div class="principle-icon">📉</div><h5>Least Privilege</h5><p>Grant just-in-time access</p></div>
-                  <div class="principle-card"><div class="principle-icon">🔄</div><h5>Assume Breach</h5><p>Minimize blast radius</p></div>
-                  <div class="principle-card"><div class="principle-icon">🔍</div><h5>Continuous Monitoring</h5><p>Real-time analysis</p></div>
-                  <div class="principle-card"><div class="principle-icon">🧩</div><h5>Microsegmentation</h5><p>Divide networks into secure zones</p></div>
-                  <div class="principle-card"><div class="principle-icon">🤖</div><h5>Automated Response</h5><p>AI-driven threat detection</p></div>
-                  <div class="principle-card"><div class="principle-icon">📜</div><h5>Policy Enforcement</h5><p>Consistent security policies</p></div>
-                  <div class="principle-card"><div class="principle-icon">🔗</div><h5>Encryption Everywhere</h5><p>Data encryption by default</p></div>
+                  <div class="principle-card">
+                    <div class="principle-icon">🔐</div>
+                    <h5>Verify Explicitly</h5>
+                    <p>Authenticate and authorize every request based on all available data points</p>
+                  </div>
+                  <div class="principle-card">
+                    <div class="principle-icon">📉</div>
+                    <h5>Least Privilege</h5>
+                    <p>Grant just-in-time and just-enough-access with risk-based adaptive policies</p>
+                  </div>
+                  <div class="principle-card">
+                    <div class="principle-icon">🔄</div>
+                    <h5>Assume Breach</h5>
+                    <p>Minimize blast radius and segment access to prevent lateral movement</p>
+                  </div>
+                  <div class="principle-card">
+                    <div class="principle-icon">🔍</div>
+                    <h5>Continuous Monitoring</h5>
+                    <p>Real-time analysis of all network traffic and access patterns</p>
+                  </div>
+                  <div class="principle-card">
+                    <div class="principle-icon">🧩</div>
+                    <h5>Microsegmentation</h5>
+                    <p>Divide networks into secure zones with individual access controls</p>
+                  </div>
+                  <div class="principle-card">
+                    <div class="principle-icon">🤖</div>
+                    <h5>Automated Response</h5>
+                    <p>Implement AI-driven threat detection and automated remediation</p>
+                  </div>
+                  <div class="principle-card">
+                    <div class="principle-icon">📜</div>
+                    <h5>Policy Enforcement</h5>
+                    <p>Consistent security policies across all environments and devices</p>
+                  </div>
+                  <div class="principle-card">
+                    <div class="principle-icon">🔗</div>
+                    <h5>Encryption Everywhere</h5>
+                    <p>Data encryption in transit and at rest by default</p>
+                  </div>
                 </div>
                 <button class="scroll-btn right-scroll" aria-label="Scroll right">
                   <svg viewBox="0 0 24 24" width="24" height="24">
@@ -638,20 +687,30 @@
                     <div class="subnets">
                       <div class="subnet public-subnet">
                         <h5>Public Subnet</h5>
-                        <div class="instance web-server" data-sg="WebServerSG"><span>Web Server</span></div>
-                        <div class="instance nat"><span>NAT Gateway</span></div>
+                        <div class="instance web-server" data-sg="WebServerSG">
+                          <span>Web Server</span>
+                        </div>
+                        <div class="instance nat">
+                          <span>NAT Gateway</span>
+                        </div>
                       </div>
                       <div class="subnet private-subnet">
                         <h5>Private Subnet</h5>
-                        <div class="instance app-server" data-sg="AppServerSG"><span>App Server</span></div>
-                        <div class="instance db-server" data-sg="DBServerSG"><span>Database</span></div>
+                        <div class="instance app-server" data-sg="AppServerSG">
+                          <span>App Server</span>
+                        </div>
+                        <div class="instance db-server" data-sg="DBServerSG">
+                          <span>Database</span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="security-details-panel">
                   <h4>Security Group Details</h4>
-                  <div id="sg-details"><p>Click on an instance to view its security group rules</p></div>
+                  <div id="sg-details">
+                    <p>Click on an instance to view its security group rules</p>
+                  </div>
                 </div>
               </div>
               <div class="network-controls">
@@ -669,7 +728,10 @@
     <div class="container">
       <h2>Latest Articles</h2>
       <div class="articles-grid" id="devto-feed">
-        <div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div>
+        <!-- Dev.to articles will be loaded here -->
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
       </div>
       <div class="articles-footer">
         <a href="Articles.html" target="_blank" rel="noopener" class="btn-outline">
@@ -682,7 +744,7 @@
     </div>
   </section>
 
-  <!-- Certifications Section -->
+  <!-- Certifications Section - ADDED controls bar for filters and sort -->
   <section id="certifications" class="section-accent">
     <div class="container">
       <h2>Certifications</h2>
@@ -703,7 +765,7 @@
     </div>
   </section>
 
-  <!-- Resume Section -->
+  <!-- Resume Section - FIXED with working preview button -->
   <section id="resume" class="section-accent">
     <div class="container">
       <h2>Professional Resume</h2>
@@ -724,58 +786,113 @@
     </div>
   </section>
 
-  <!-- Testimonials Section -->
+  <!-- Testimonials Section - ORIGINAL, unchanged -->
   <section id="testimonials" class="section-dark">
     <div class="container">
       <h2>Testimonials</h2>
       <div class="testimonials-slider">
         <div class="testimonial-card">
-          <div class="testimonial-content"><p>"Kachi implemented a comprehensive security framework for our AWS infrastructure that helped us achieve SOC 2 compliance. His expertise in IAM and network security was invaluable."</p></div>
+          <div class="testimonial-content">
+            <p>"Kachi implemented a comprehensive security framework for our AWS infrastructure that helped us achieve SOC 2 compliance. His expertise in IAM and network security was invaluable."</p>
+          </div>
           <div class="testimonial-author">
-            <div class="author-image"><img src="assets/images/client-1.jpeg" alt="Anne Usang" loading="lazy"></div>
-            <div class="author-info"><h4>Anne Usang</h4><p>Solutions Architect, Neo Cloud Technologies</p></div>
+            <div class="author-image">
+              <img src="assets/images/client-1.jpeg" alt="Anne Usang" loading="lazy">
+            </div>
+            <div class="author-info">
+              <h4>Anne Usang</h4>
+              <p>Solutions Architect, Neo Cloud Technologies</p>
+            </div>
           </div>
         </div>
+        
         <div class="testimonial-card">
-          <div class="testimonial-content"><p>"The threat detection system Kachi designed reduced our incident response time by 60%. His ability to explain complex security concepts was exceptional."</p></div>
+          <div class="testimonial-content">
+            <p>"The threat detection system Kachi designed reduced our incident response time by 60%. His ability to explain complex security concepts to our team was exceptional."</p>
+          </div>
           <div class="testimonial-author">
-            <div class="author-image"><img src="assets/images/client-2.jpeg" alt="Jerry Brown" loading="lazy"></div>
-            <div class="author-info"><h4>Jerry Brown</h4><p>CISO, Neo Cloud Technologies</p></div>
+            <div class="author-image">
+              <img src="assets/images/client-2.jpeg" alt="Jerry Brown" loading="lazy">
+            </div>
+            <div class="author-info">
+              <h4>Jerry Brown</h4>
+              <p>Chief Information Security Officer (CISO), Neo Cloud Technologies</p>
+            </div>
           </div>
         </div>
+
         <div class="testimonial-card">
-          <div class="testimonial-content"><p>"Kachi led the implementation of our Zero Trust model with remarkable precision. His strategic vision significantly boosted our cloud security posture."</p></div>
+          <div class="testimonial-content">
+            <p>"Kachi led the implementation of our Zero Trust model with remarkable precision. His strategic vision significantly boosted our cloud security posture."</p>
+          </div>
           <div class="testimonial-author">
-            <div class="author-image"><img src="assets/images/client-3.jfif" alt="Godstime Edet" loading="lazy"></div>
-            <div class="author-info"><h4>Godstime Edet</h4><p>Lead Software Engineer, Neo Cloud Technologies</p></div>
+            <div class="author-image">
+              <img src="assets/images/client-3.jfif" alt="Godstime Edet" loading="lazy">
+            </div>
+            <div class="author-info">
+              <h4>Godstime Edet</h4>
+              <p>Lead Software Engineer, Neo Cloud Technologies</p>
+            </div>
           </div>
         </div>
+        
         <div class="testimonial-card">
-          <div class="testimonial-content"><p>"From automating our AWS security monitoring to tightening IAM controls, Kachi delivered results that saved us time and prevented multiple vulnerabilities."</p></div>
+          <div class="testimonial-content">
+            <p>"From automating our AWS security monitoring to tightening IAM controls, Kachi delivered results that saved us time and prevented multiple vulnerabilities."</p>
+          </div>
           <div class="testimonial-author">
-            <div class="author-image"><img src="assets/images/client-4.jfif" alt="Adenike Aromolaran" loading="lazy"></div>
-            <div class="author-info"><h4>Adenike Aromolaran</h4><p>Cloud Solutions Architect, Neo Cloud Technologies</p></div>
+            <div class="author-image">
+              <img src="assets/images/client-4.jfif" alt="Adenike Aromolaran" loading="lazy">
+            </div>
+            <div class="author-info">
+              <h4>Adenike Aromolaran</h4>
+              <p>Cloud Solutions Architect, Neo Cloud Technologies</p>
+            </div>
           </div>
         </div>
+        
         <div class="testimonial-card">
-          <div class="testimonial-content"><p>"Kachi's expertise in SIEM integration and threat intelligence helped us gain real-time visibility across our cloud environments. Truly transformative."</p></div>
+          <div class="testimonial-content">
+            <p>"Kachi's expertise in SIEM integration and threat intelligence helped us gain real-time visibility across our cloud environments. Truly transformative."</p>
+          </div>
           <div class="testimonial-author">
-            <div class="author-image"><img src="assets/images/client-5.jpg" alt="Kokori Farouk" loading="lazy"></div>
-            <div class="author-info"><h4>Kokori Farouk</h4><p>COO, Drauig Nigeria LMT</p></div>
+            <div class="author-image">
+              <img src="assets/images/client-5.jpg" alt="Kokori Farouk" loading="lazy">
+            </div>
+            <div class="author-info">
+              <h4>Kokori Farouk</h4>
+              <p>COO & Head of Strategic Intelligence, Drauig Nigeria LMT</p>
+            </div>
           </div>
         </div>
+        
         <div class="testimonial-card">
-          <div class="testimonial-content"><p>"Kachi's input and technical guidance during our Solutions Architect internship program were invaluable. He has a gift for teaching and leading by example."</p></div>
+          <div class="testimonial-content">
+            <p>"Kachi's input and technical guidance during our Solutions Architect internship program were invaluable. He has a gift for teaching and leading by example."</p>
+          </div>
           <div class="testimonial-author">
-            <div class="author-image"><img src="assets/images/client-6.avif" alt="Glory Ugochukwu" loading="lazy"></div>
-            <div class="author-info"><h4>Glory Ugochukwu</h4><p>DevOps Engineer, Neo Cloud Technologies</p></div>
+            <div class="author-image">
+              <img src="assets/images/client-6.avif" alt="Glory Ugochukwu" loading="lazy">
+            </div>
+            <div class="author-info">
+              <h4>Glory Ugochukwu</h4>
+              <p>DevOps Engineer, Neo Cloud Technologies</p>
+            </div>
           </div>
         </div>
+
         <div class="testimonial-card">
-          <div class="testimonial-content"><p>"Kachi's commitment to advancing cybersecurity standards is commendable. His contributions have significantly bolstered our initiatives at Drauig."</p></div>
+          <div class="testimonial-content">
+            <p>"Kachi's commitment to advancing cybersecurity standards is commendable. His contributions have significantly bolstered our initiatives at Drauig."</p>
+          </div>
           <div class="testimonial-author">
-            <div class="author-image"><img src="assets/images/client-7.jfif" alt="ThankGod Ofem" loading="lazy"></div>
-            <div class="author-info"><h4>ThankGod Ofem</h4><p>CEO, Drauig Nigeria LMT</p></div>
+            <div class="author-image">
+              <img src="assets/images/client-7.jfif" alt="ThankGod Ofem" loading="lazy">
+            </div>
+            <div class="author-info">
+              <h4>ThankGod Ofem</h4>
+              <p>CEO, CTO & Founder, Drauig Nigeria LMT</p>
+            </div>
           </div>
         </div>
       </div>
@@ -790,35 +907,95 @@
         <div class="contact-info">
           <h3>Contact Information</h3>
           <p>Have a project in mind or want to discuss cloud security? Reach out through the form or directly via email.</p>
+          
           <div class="contact-methods">
             <div class="contact-method">
-              <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M22 6C22 4.9 21.1 4 20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6M20 6L12 11L4 6H20M20 18H4V8L12 13L20 8V18Z"/></svg>
+              <svg class="icon" viewBox="0 0 24 24" width="24" height="24">
+                <path fill="currentColor" d="M22 6C22 4.9 21.1 4 20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6M20 6L12 11L4 6H20M20 18H4V8L12 13L20 8V18Z"/>
+              </svg>
               <a href="mailto:Kachi.Henry.Leo@gmail.com">Kachi.Henry.Leo@gmail.com</a>
             </div>
             <div class="contact-method">
-              <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/></svg>
+              <svg class="icon" viewBox="0 0 24 24" width="24" height="24">
+                <path fill="currentColor" d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/>
+              </svg>
               <span>+2348142795186</span>
             </div>
             <div class="contact-method">
-              <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z"/></svg>
+              <svg class="icon" viewBox="0 0 24 24" width="24" height="24">
+                <path fill="currentColor" d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z"/>
+              </svg>
               <span>Lagos, Nigeria</span>
             </div>
           </div>
-          <div class="social-links"><!-- same social links as hero --></div>
+          
+          <div class="social-links">
+            <a href="https://github.com/LeonardKachi" target="_blank" rel="noopener" aria-label="GitHub">
+              <svg class="icon" viewBox="0 0 24 24" width="24" height="24">
+                <path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+              </svg>
+            </a>
+            <a href="https://www.linkedin.com/in/onyedikachi-obidiegwu" target="_blank" rel="noopener" aria-label="LinkedIn">
+              <svg class="icon" viewBox="0 0 24 24" width="24" height="24">
+                <path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </a>
+            <a href="https://dev.to/leonardkachi" target="_blank" rel="noopener" aria-label="Dev.to">
+              <svg class="icon" viewBox="0 0 24 24" width="24" height="24">
+                <path fill="currentColor" d="M7.42 10.05c-.18-.16-.46-.23-.84-.23H6l.02 2.44.04 2.45.56-.02c.41 0 .63-.07.83-.26.24-.24.26-.36.26-2.2 0-1.91-.02-1.96-.29-2.18zM0 4.94v14.12h24V4.94H0zM8.56 15.3c-.44.58-1.06.77-2.53.77H4.71V8.53h1.4c1.67 0 2.16.18 2.6.9.27.43.29.6.32 2.57.05 2.23-.02 2.73-.47 3.3zm5.09-5.47h-2.47v1.77h1.52v1.28l-.72.04-.75.03v1.77l1.22.03 1.2.04v1.28h-1.6c-1.53 0-1.6-.01-1.87-.3l-.3-.28v-3.16c0-3.02.01-3.18.25-3.48.23-.31.25-.31 1.88-.31h1.64v1.3zm4.68 5.45c-.17.43-.64.79-1 .79-.18 0-.45-.15-.67-.39-.32-.32-.45-.63-.82-2.08l-.9-3.39-.45-1.67h.76c.4 0 .75.02.75.05 0 .06 1.16 4.54 1.26 4.83.04.15.32-.7.73-2.3l.66-2.52.74-.04c.4-.02.73 0 .73.04 0 .14-1.67 6.38-1.8 6.68z"/>
+              </svg>
+            </a>
+          </div>
         </div>
         
         <form id="contact-form" class="contact-form" method="POST">
-          <div class="form-group"><label for="name">Your Name</label><input type="text" id="name" name="name" placeholder="John Doe" required><span class="error-message"></span></div>
-          <div class="form-group"><label for="email">Your Email</label><input type="email" id="email" name="email" placeholder="john@example.com" required><span class="error-message"></span></div>
-          <div class="form-group"><label for="subject">Subject</label><select id="subject" name="subject" required><option value="">-- Select a subject --</option><option value="consulting">Consulting Inquiry</option><option value="job">Job Opportunity</option><option value="project">Project Collaboration</option><option value="other">Other</option></select><span class="error-message"></span></div>
-          <div class="form-group"><label for="message">Your Message</label><textarea id="message" name="message" placeholder="Hello Kachi..." required></textarea><span class="error-message"></span></div>
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="John Doe" required>
+            <span class="error-message"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" name="email" placeholder="john@example.com" required>
+            <span class="error-message"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <select id="subject" name="subject" required>
+              <option value="">-- Select a subject --</option>
+              <option value="consulting">Consulting Inquiry</option>
+              <option value="job">Job Opportunity</option>
+              <option value="project">Project Collaboration</option>
+              <option value="other">Other</option>
+            </select>
+            <span class="error-message"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message" placeholder="Hello Kachi..." required></textarea>
+            <span class="error-message"></span>
+          </div>
+
           <div class="form-actions">
-            <button type="submit" class="btn-primary" id="submit-btn"><span class="btn-text">Send Message</span><span class="spinner hidden"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z"/></svg></span></button>
+            <button type="submit" class="btn-primary" id="submit-btn">
+              <span class="btn-text">Send Message</span>
+              <span class="spinner hidden">
+                <svg class="icon" viewBox="0 0 24 24" width="18" height="18">
+                  <path fill="currentColor" d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z"/>
+                </svg>
+              </span>
+            </button>
             <div id="form-status" class="status-message hidden"></div>
           </div>
         </form>
+
         <div id="success-message" class="success-message hidden">
-          <svg class="success-icon" viewBox="0 0 24 24" width="48" height="48"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/></svg>
+          <svg class="success-icon" viewBox="0 0 24 24" width="48" height="48">
+            <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/>
+          </svg>
           <h3>Message Sent Successfully!</h3>
           <p>Thank you for reaching out. I'll respond within 24 hours.</p>
           <button class="btn-outline" id="new-message-btn">Send Another Message</button>
@@ -827,227 +1004,44 @@
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- Footer - ORIGINAL, unchanged -->
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
-        <div class="footer-about"><h3>Leonard Kachi</h3><p>Cloud Security Architect specializing in AWS, Azure, and Zero Trust implementations.</p><p>Turning threats into design. By blending AWS, Zero Trust, and automation, I build security infrastructures that scale and stories that launch careers.</p></div>
-        <div class="footer-links"><h4>Quick Links</h4><ul><li><a href="#about">About</a></li><li><a href="#projects">Projects</a></li><li><a href="#lab">Security Lab</a></li><li><a href="#articles">Articles</a></li><li><a href="#certifications">Certifications</a></li><li><a href="https://discord.com/users/967213149252104242" target="_blank" rel="noopener">Discord</a></li></ul></div>
-        <div class="footer-contact"><h4>Contact</h4><ul><li><a href="mailto:Kachi.Henry.Leo@gmail.com">Kachi.Henry.Leo@gmail.com</a></li><li><a href="https://github.com/LeonardKachi" target="_blank" rel="noopener">GitHub</a></li><li><a href="https://www.linkedin.com/in/onyedikachi-obidiegwu" target="_blank" rel="noopener">LinkedIn</a></li><li><a href="https://twitter.com/Leonard_kachi" target="_blank" rel="noopener">Twitter</a></li><li><a href="https://dev.to/leonardkachi" target="_blank" rel="noopener">Dev.to</a></li><li><a href="https://medium.com/@leonardkachi" target="_blank" rel="noopener">Medium</a></li></ul></div>
+        <div class="footer-about">
+          <h3>Leonard Kachi</h3>
+          <p>Cloud Security Architect specializing in AWS, Azure, and Zero Trust implementations.</p>
+          <p>Turning threats into design. By blending AWS, Zero Trust, and automation, I build security infrastructures that scale and stories that launch careers.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#lab">Security Lab</a></li>
+            <li><a href="#articles">Articles</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="https://discord.com/users/967213149252104242" target="_blank" rel="noopener">Discord</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:Kachi.Henry.Leo@gmail.com">Kachi.Henry.Leo@gmail.com</a></li>
+            <li><a href="https://github.com/LeonardKachi" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/onyedikachi-obidiegwu" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://twitter.com/Leonard_kachi" target="_blank" rel="noopener">Twitter</a></li>
+            <li><a href="https://dev.to/leonardkachi" target="_blank" rel="noopener">Dev.to</a></li>
+            <li><a href="https://medium.com/@leonardkachi" target="_blank" rel="noopener">Medium</a></li>
+          </ul>
+        </div>
       </div>
-      <div class="footer-bottom"><p>&copy; <span id="year"></span> Obidiegwu Onyedikachi Henry Leonard. All rights reserved.</p></div>
+      <div class="footer-bottom">
+        <p>&copy; <span id="year"></span> Obidiegwu Onyedikachi Henry Leonard. All rights reserved.</p>
+      </div>
     </div>
   </footer>
 
-  <script>
-    // ==========================================
-    // COMPLETE JAVASCRIPT - ALL FEATURES INCLUDED
-    // ==========================================
-    
-    // Analytics
-    const Analytics = { log: (e,d)=>console.log(`[Analytics] ${e}:`,d), trackPageView() { this.log('page_view',{path:window.location.pathname}) } };
-    
-    // Modal System
-    const ModalSystem = (() => {
-      function init() { if(!document.getElementById('cert-modal')) createModal(); setupCloseEvents(); }
-      function createModal() {
-        const m=document.createElement('div'); m.id='cert-modal'; m.className='cert-modal';
-        m.innerHTML='<div class="modal-content"><span class="modal-close" onclick="closeModal()">&times;</span><div id="modal-body"></div><div id="modal-title" class="modal-title"></div></div>';
-        document.body.appendChild(m);
-      }
-      function setupCloseEvents() {
-        const m=document.getElementById('cert-modal'); if(!m) return;
-        document.addEventListener('keydown',e=>e.key==='Escape'&&m.classList.contains('active')&&closeModal());
-        m.addEventListener('click',e=>e.target.classList.contains('cert-modal')&&closeModal());
-      }
-      function isMobile() { return window.innerWidth <= 768; }
-      function showCertificate(certPath,title,fallbackPng) {
-        const m=document.getElementById('cert-modal'), b=document.getElementById('modal-body'), t=document.getElementById('modal-title');
-        if(!m||!b) return;
-        const mobile=isMobile(), pdfPath=`assets/images/cert-badges/${certPath}`, encoded=encodeURIComponent(window.location.origin+'/'+pdfPath);
-        let content='';
-        if(certPath.includes('aws-sa')||certPath.includes('aws-doe')) {
-          content=`<img src="assets/images/cert-badges/${fallbackPng}" alt="${title}" style="max-width:100%; max-height:60vh; border-radius:8px; border:2px solid var(--accent);"><p class="fallback-message" style="color:var(--text-muted); margin-top:1rem;">Certificate PDF coming soon. Showing badge preview.</p>`;
-        } else {
-          if(mobile) {
-            content=`<div class="pdf-container"><iframe src="https://docs.google.com/viewer?url=${encoded}&embedded=true" frameborder="0" allowfullscreen></iframe></div><a href="${pdfPath}" download class="pdf-download"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg> Download PDF Certificate</a>`;
-          } else {
-            content=`<div class="pdf-container"><embed src="${pdfPath}" type="application/pdf" /></div><a href="${pdfPath}" download class="pdf-download"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg> Download PDF Certificate</a>`;
-          }
-        }
-        b.innerHTML=content; t.textContent=title; m.classList.add('active'); document.body.style.overflow='hidden';
-      }
-      function showResume(resumePath,title) {
-        const m=document.getElementById('cert-modal'), b=document.getElementById('modal-body'), t=document.getElementById('modal-title');
-        if(!m||!b) return;
-        const mobile=isMobile(), encoded=encodeURIComponent(window.location.origin+'/'+resumePath);
-        let content='';
-        if(mobile) {
-          content=`<div class="pdf-container"><iframe src="https://docs.google.com/viewer?url=${encoded}&embedded=true" frameborder="0" allowfullscreen></iframe></div><a href="${resumePath}" download class="pdf-download"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg> Download Resume</a>`;
-        } else {
-          content=`<div class="pdf-container"><embed src="${resumePath}" type="application/pdf" /></div><a href="${resumePath}" download class="pdf-download"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg> Download Resume</a>`;
-        }
-        b.innerHTML=content; t.textContent=title; m.classList.add('active'); document.body.style.overflow='hidden';
-      }
-      function closeModal() { const m=document.getElementById('cert-modal'); if(m) { m.classList.remove('active'); document.body.style.overflow='auto'; } }
-      window.showCertificate=showCertificate; window.showResume=showResume; window.closeModal=closeModal;
-      return { init, showCertificate, showResume, closeModal };
-    })();
-
-    // Certifications Data
-    const certifications = [
-      {title:"Certified in Cybersecurity",issuer:"ISC2",year:"2025",sortYear:2025,image:"isc2-cc.png",certificate:"isc2-cc-cert.pdf",category:"security",description:"Foundational cybersecurity certification covering security principles, risk management, and incident response."},
-      {title:"Data Analytics",issuer:"Google (Coursera)",year:"2023",sortYear:2023,image:"google-da.jpg",certificate:"google-da-cert.pdf",category:"data",description:"Professional training in data analysis, visualization, and machine learning fundamentals."},
-      {title:"Security+",issuer:"CompTIA",year:"2025",sortYear:2025,image:"security-plus.png",certificate:"security-plus-cert.pdf",category:"security",description:"Global certification validating baseline cybersecurity skills."},
-      {title:"Solutions Architect (Associate)",issuer:"AWS",year:"Candidate (March 2026)",sortYear:2026,image:"aws-sa.png",certificate:"aws-sa-cert.pdf",category:"aws",candidate:true,description:"Demonstrates expertise in designing distributed systems on AWS."},
-      {title:"DevOps Engineer (Professional)",issuer:"AWS",year:"Candidate (2026)",sortYear:2026,image:"aws-doe.png",certificate:"aws-doe-cert.pdf",category:"aws",candidate:true,description:"Demonstrates expertise in AWS security best practices."},
-      {title:"AI Essentials",issuer:"Google",year:"2023",sortYear:2023,image:"google-ai.jpg",certificate:"google-ai-cert.pdf",category:"ai",description:"Fundamentals of artificial intelligence and machine learning applications."},
-      {title:"Cybersecurity | Ethical Hacking",issuer:"Neo Cloud Technologies",year:"2024",sortYear:2024,image:"neo.jpg",certificate:"neo-cert.pdf",category:"security",description:"Practical training in penetration testing and vulnerability assessment."},
-      {title:"Solutions Architect",issuer:"Neo Cloud Technologies",year:"2025",sortYear:2025,image:"neo.jpg",certificate:"neo-sa-cert.pdf",category:"aws",description:"Practical training in Cloud Environment (AWS, Azure, GCP)."},
-      {title:"Cybersecurity Foundations",issuer:"MasterCard",year:"2024",sortYear:2024,image:"mf.png",certificate:"mf-cert.pdf",category:"security",description:"Core principles of information security and cyber defense strategies."}
-    ];
-    const filterCategories = [{id:'all',label:'All Certifications'},{id:'security',label:'Security'},{id:'aws',label:'AWS'},{id:'data',label:'Data'},{id:'ai',label:'AI'}];
-    let currentFilter='all', currentSort='newest';
-
-    // Certifications Module
-    const CertificationsModule = (() => {
-      function init() {
-        const f=document.getElementById('cert-filters'), g=document.querySelector('.cert-grid');
-        if(!f||!g) return;
-        renderFilters(f);
-        const sorted=sortCertifications(certifications,'newest');
-        renderCerts(sorted,g);
-        setupEventDelegation(); setupSortListener();
-      }
-      function renderFilters(c) {
-        c.innerHTML='';
-        filterCategories.forEach((f,i)=>{const b=document.createElement('button'); b.textContent=f.label; b.dataset.filter=f.id; b.classList.add('filter-btn'); if(i===0)b.classList.add('active'); c.appendChild(b);});
-      }
-      function renderCerts(certs,container) {
-        if(certs.length===0){container.innerHTML='<p class="no-results">No certifications found.</p>'; return;}
-        container.innerHTML=''; const frag=document.createDocumentFragment();
-        certs.forEach(c=>frag.appendChild(createCertCard(c)));
-        container.appendChild(frag);
-      }
-      function createCertCard(c) {
-        const card=document.createElement('div'); card.className='cert-card';
-        const titleHtml=`<h3 onclick="showCertificate('${c.certificate}', '${c.title} - ${c.issuer}', '${c.image}')">${c.title}</h3>`;
-        card.innerHTML=`<div class="cert-badge"><img src="assets/images/cert-badges/${c.image}" alt="${c.issuer} ${c.title}" loading="lazy" onerror="this.src='assets/images/cert-badges/default.png'">${c.candidate?'<span class="candidate-badge">In Progress</span>':''}</div><div class="cert-details">${titleHtml}<p class="issuer">${c.issuer}</p><p class="cert-date">${c.year}</p><p class="cert-description">${c.description}</p></div>`;
-        return card;
-      }
-      function filterCerts(filter) {
-        const g=document.querySelector('.cert-grid'); if(!g) return;
-        currentFilter=filter; g.innerHTML='<div class="loading-spinner"></div>';
-        requestAnimationFrame(()=>{
-          let f=filter==='all'?certifications:certifications.filter(c=>c.category===filter);
-          f=sortCertifications(f,currentSort); renderCerts(f,g);
-        });
-      }
-      function sortCertifications(c,s){return [...c].sort((a,b)=>s==='newest'?b.sortYear-a.sortYear:a.sortYear-b.sortYear);}
-      function setupSortListener(){
-        const s=document.getElementById('sort-select'); if(s){s.value='newest'; s.addEventListener('change',e=>{currentSort=e.target.value; filterCerts(currentFilter);});}
-      }
-      function setupEventDelegation(){
-        document.getElementById('cert-filters')?.addEventListener('click',e=>{if(e.target.matches('.filter-btn')){document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active')); e.target.classList.add('active'); filterCerts(e.target.dataset.filter);}});
-      }
-      return{init};
-    })();
-
-    // Dev.to Articles
-    const DevToArticles = (()=>{
-      const CACHE_KEY='devto-articles', CACHE_DURATION=600000, API_URL='https://dev.to/api/articles?username=leonardkachi&per_page=8';
-      async function init(){const f=document.getElementById('devto-feed'); if(!f) return; showLoading(f); try{renderArticles(await fetchArticles(),f);}catch(e){console.error(e); showFallback(f);}}
-      function showLoading(c){c.innerHTML='<div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div>';}
-      async function fetchArticles(){const c=getCache(); if(c) return c; const r=await fetch(API_URL); if(!r.ok) throw Error(); const a=await r.json(); setCache(a); return a;}
-      function getCache(){try{const c=localStorage.getItem(CACHE_KEY); if(!c) return null; const {data,timestamp}=JSON.parse(c); if(Date.now()-timestamp<CACHE_DURATION) return data;}catch(e){} return null;}
-      function setCache(d){try{localStorage.setItem(CACHE_KEY,JSON.stringify({data:d,timestamp:Date.now()}));}catch(e){}}
-      function renderArticles(a,c){if(!a||!a.length){showFallback(c); return;} c.innerHTML=''; const f=document.createDocumentFragment(); a.slice(0,8).forEach(article=>f.appendChild(createCard(article))); c.appendChild(f);}
-      function createCard(a){
-        const c=document.createElement('article'); c.className='article-card';
-        c.innerHTML=`<div class="article-image-container"><img src="${a.cover_image||getPlaceholder(a.title)}" alt="${a.title}" class="article-image" loading="lazy" onerror="this.src='${getPlaceholder(a.title)}'"><div class="reading-time">${a.reading_time_minutes||5} min read</div></div><div class="article-content"><h3 class="article-title"><a href="${a.url}" target="_blank" rel="noopener">${a.title}</a></h3><p class="article-excerpt">${a.description||'Read more on Dev.to'}</p><div class="article-meta"><span>${new Date(a.published_at).toLocaleDateString()}</span><span class="reactions">${a.positive_reactions_count} ♥</span></div></div>`;
-        return c;
-      }
-      function getPlaceholder(t){const c=['1e3d38','0d1f23','11232b'], r=c[Math.floor(Math.random()*c.length)]; return `https://via.placeholder.com/600x400/${r}/3aafa9?text=${encodeURIComponent(t.substring(0,30))}`;}
-      function showFallback(c){renderArticles([{title:"AWS Security Best Practices",url:"https://dev.to/leonardkachi",description:"Comprehensive guide to securing AWS infrastructure.",published_at:new Date().toISOString(),positive_reactions_count:28,reading_time_minutes:5,cover_image:getPlaceholder("AWS Security")},{title:"Terraform for Security Engineers",url:"https://dev.to/leonardkachi",description:"Implementing security controls through Infrastructure as Code.",published_at:new Date().toISOString(),positive_reactions_count:34,reading_time_minutes:8,cover_image:getPlaceholder("Terraform Security")},{title:"Zero Trust on AWS",url:"https://dev.to/leonardkachi",description:"Implementing Zero Trust architecture principles in AWS.",published_at:new Date().toISOString(),positive_reactions_count:42,reading_time_minutes:7,cover_image:getPlaceholder("Zero Trust AWS")},{title:"Cloud Security Automation",url:"https://dev.to/leonardkachi",description:"Automating security compliance checks using Python and AWS.",published_at:new Date().toISOString(),positive_reactions_count:31,reading_time_minutes:6,cover_image:getPlaceholder("Cloud Security Automation")}],c);}
-      return{init};
-    })();
-
-    // Expandable Skills - FIXED: No sections open by default
-    const ExpandableSkills = (()=>{
-      function init(){animateSkillBars(); setupExpandableSections(); setupScrollAnimation();}
-      function setupExpandableSections(){
-        const btns=document.querySelectorAll('.expand-toggle');
-        btns.forEach(btn=>{
-          const target=btn.getAttribute('data-target'), content=document.getElementById(target), icon=btn.querySelector('.toggle-icon');
-          // REMOVED: No automatic expansion of first section
-          btn.addEventListener('click',function(){
-            const t=this.getAttribute('data-target'), c=document.getElementById(t), i=this.querySelector('.toggle-icon');
-            if(!c) return;
-            const expanded=c.classList.contains('expanded');
-            document.querySelectorAll('.expandable-content').forEach(item=>{if(item!==c){item.classList.remove('expanded'); item.style.maxHeight='0'; const oi=item.previousElementSibling?.querySelector('.toggle-icon'); if(oi) oi.style.transform='rotate(0deg)';}});
-            if(expanded){c.classList.remove('expanded'); c.style.maxHeight='0'; if(i) i.style.transform='rotate(0deg)';}
-            else{c.classList.add('expanded'); c.style.maxHeight=c.scrollHeight+'px'; if(i) i.style.transform='rotate(180deg)';}
-          });
-        });
-      }
-      function animateSkillBars(){document.querySelectorAll('.skill-level').forEach(b=>{const w=b.getAttribute('data-width')||'0'; setTimeout(()=>{b.style.width=w+'%';},300);});}
-      function setupScrollAnimation(){const o=new IntersectionObserver(e=>{e.forEach(e=>{if(e.isIntersecting){animateSkillBars(); o.unobserve(e.target);}});},{threshold:0.2}); const s=document.querySelector('.skills-visualization'); if(s) o.observe(s);}
-      return{init};
-    })();
-
-    // Security Lab (simplified)
-    const SecurityLab = (()=>{
-      function init(){initScenarioSwitcher(); initIAMSimulator(); initAttackSimulator(); initNetworkVisualizer();}
-      function initScenarioSwitcher(){document.querySelectorAll('.scenario-btn').forEach(b=>{b.addEventListener('click',function(){document.querySelectorAll('.scenario-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active'); document.querySelectorAll('.scenario-content').forEach(c=>c.classList.remove('active')); const s=document.getElementById(this.dataset.scenario+'-scenario'); if(s) s.classList.add('active');});});}
-      function initIAMSimulator(){const p=document.getElementById('cloud-provider'), t=document.getElementById('test-policy-btn'); if(p){p.addEventListener('change',updateActionList); updateActionList();} if(t) t.addEventListener('click',()=>{document.getElementById('policy-results').innerHTML='<p>Policy test results would appear here</p>';});}
-      function updateActionList(){const c=document.getElementById('action-list-container'); if(c) c.innerHTML='<p>Sample actions would appear here</p>';}
-      function initAttackSimulator(){const s=document.getElementById('start-attack'), l=document.getElementById('attack-log'); if(s) s.addEventListener('click',()=>{if(l) l.innerHTML='<div class="simulation-start">Simulation started</div>';});}
-      function initNetworkVisualizer(){document.querySelectorAll('.instance').forEach(i=>{i.addEventListener('mouseenter',function(){this.classList.add('highlight');}); i.addEventListener('mouseleave',function(){this.classList.remove('highlight');});});}
-      return{init};
-    })();
-
-    // Contact Form
-    const ContactForm = (()=>{
-      function init(){
-        const f=document.getElementById('contact-form'), s=document.getElementById('submit-btn'), sm=document.getElementById('success-message'), nm=document.getElementById('new-message-btn');
-        if(!f) return;
-        f.addEventListener('submit',e=>{e.preventDefault(); if(validateForm()){if(s)s.disabled=true; setTimeout(()=>{if(sm)sm.classList.remove('hidden'); f.style.display='none'; if(s)s.disabled=false;},1000);}});
-        function validateForm(){let v=true; f.querySelectorAll('.form-group').forEach(g=>{const i=g.querySelector('input,select,textarea'), e=g.querySelector('.error-message'); g.classList.remove('error'); if(e)e.textContent=''; if(!i.value.trim()){g.classList.add('error'); if(e)e.textContent='This field is required'; v=false;} else if(i.type==='email'&&!isValidEmail(i.value)){g.classList.add('error'); if(e)e.textContent='Please enter a valid email'; v=false;}}); return v;}
-        function isValidEmail(e){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);}
-        if(nm)nm.addEventListener('click',()=>{f.reset(); f.style.display='block'; if(sm)sm.classList.add('hidden');});
-        f.querySelectorAll('input,select,textarea').forEach(i=>{i.addEventListener('blur',()=>{const g=i.closest('.form-group'), e=g?.querySelector('.error-message'); g?.classList.remove('error'); if(e)e.textContent=''; if(!i.value.trim()){g?.classList.add('error'); if(e)e.textContent='This field is required';} else if(i.type==='email'&&!isValidEmail(i.value)){g?.classList.add('error'); if(e)e.textContent='Please enter a valid email';}});});
-      }
-      return{init};
-    })();
-
-    // Mobile Nav
-    const MobileNav = (()=>{function init(){const h=document.querySelector('.hamburger'), n=document.querySelector('.nav-links'); if(!h||!n)return; h.addEventListener('click',()=>{h.classList.toggle('active'); n.classList.toggle('active');}); n.querySelectorAll('a').forEach(l=>l.addEventListener('click',()=>{h.classList.remove('active'); n.classList.remove('active');}));} return{init};})();
-
-    // Zero Trust Scroll
-    const ZeroTrustScroll = (()=>{function init(){const l=document.querySelector('.left-scroll'), r=document.querySelector('.right-scroll'), g=document.querySelector('.principles-grid'); if(!l||!r||!g) return; l.addEventListener('click',()=>g.scrollBy({left:-300,behavior:'smooth'})); r.addEventListener('click',()=>g.scrollBy({left:300,behavior:'smooth'}));} return{init};})();
-
-    // Navbar Scroll
-    const NavbarScroll = (()=>{function init(){const n=document.querySelector('.navbar'); if(!n)return; let t=false; window.addEventListener('scroll',()=>{if(!t){requestAnimationFrame(()=>{n.classList.toggle('scrolled',window.scrollY>50); t=false;}); t=true;}});} return{init};})();
-
-    // Resume Module
-    const ResumeModule = (()=>{function init(){document.getElementById('view-resume-btn')?.addEventListener('click',()=>{ModalSystem.showResume('resources/Resume.pdf','Leonard Kachi - Professional Resume');});} return{init};})();
-
-    // Main Init
-    document.addEventListener('DOMContentLoaded',()=>{
-      Analytics.trackPageView();
-      ModalSystem.init();
-      CertificationsModule.init();
-      DevToArticles.init();
-      SecurityLab.init();
-      ContactForm.init();
-      MobileNav.init();
-      ZeroTrustScroll.init();
-      NavbarScroll.init();
-      ExpandableSkills.init();
-      ResumeModule.init();
-      document.getElementById('year').textContent = new Date().getFullYear();
-      console.log('✅ Portfolio initialized');
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
