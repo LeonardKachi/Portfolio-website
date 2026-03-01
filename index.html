@@ -329,27 +329,43 @@
   </div>
 </section>
    
-  <!-- Projects Section -->
-    <section id="projects" class="section-light">
-    <div class="container">
-      <h2>Featured Projects</h2>
-      <div class="projects-grid">
-         <div class="project-card">
+ <!-- Projects Section -->
+<section id="projects" class="section-light">
+  <div class="container">
+    <h2>Featured Projects</h2>
+    <div class="projects-grid">
+
+      <div class="project-card">
         <div class="project-image">
-          <img src="assets/images/AWS-Achitecture.png" alt="AWS Three-Tier Web Architecture" loading="lazy">
+          <img src="assets/images/AWS zero Trust.jpg" alt="AWS Zero Trust Architecture" loading="lazy">
         </div>
         <div class="project-content">
-          <h3>AWS Three-Tier Web Architecture</h3>
-          <p>Engineered a production-grade, highly available three-tier web application on AWS, implementing a complete cloud infrastructure with VPC networking, autoscaling, load balancing, and multi-AZ database deployment.</p>
+          <h3>AWS Zero Trust Architecture</h3>
+          <p>Architected a Zero Trust security model across AWS environments, enforcing least-privilege IAM policies, SCPs, and network microsegmentation to eliminate implicit trust at every layer.</p>
           <div class="project-tech">
-            <span>Amazon VPC</span>
-            <span>EC2 Auto Scaling</span>
-            <span>Application Load Balancer</span>
-            <span>Aurora MySQL</span>
-            <span>S3</span>
-            <span>CloudWatch</span>
+            <span>AWS IAM & SCPs</span>
+            <span>Terraform</span>
+            <span>Python</span>
+            <span>Network Segmentation</span>
           </div>
-          <a href="AWS-Three-Tier-Architecture.html" class="btn-outline project-link">View Details</a>
+          <a href="AWS_Zero_Trust_Architecture.html" class="btn-outline project-link">View Details</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-image">
+          <img src="assets/images/AI-Powered Threat Detection.jpg" alt="AI-Powered Threat Detection" loading="lazy">
+        </div>
+        <div class="project-content">
+          <h3>AI-Powered Threat Detection</h3>
+          <p>Built a machine learning model that detects anomalous behavior in cloud logs with 94% accuracy, enabling automated early warning before threats escalate into incidents.</p>
+          <div class="project-tech">
+            <span>Python</span>
+            <span>TensorFlow</span>
+            <span>AWS Lambda</span>
+            <span>CloudWatch Logs</span>
+          </div>
+          <a href="AI-Powered_Threat_Detection.html" class="btn-outline project-link">View Details</a>
         </div>
       </div>
 
@@ -359,151 +375,136 @@
         </div>
         <div class="project-content">
           <h3>Flask CI/CD Dual Cloud Pipeline</h3>
-          <p>
-            Owned a production Flask API end-to-end, containerized with Docker and Gunicorn, with a GitHub Actions CI/CD pipeline that tests and builds on every push. Deployed simultaneously to AWS and Azure with structured logging and real-time observability.
+          <p>Owned a production Flask API end-to-end, containerized with Docker and Gunicorn, with a GitHub Actions CI/CD pipeline that tests and builds on every push. Deployed simultaneously to AWS and Azure with structured logging and real-time observability.</p>
           <div class="project-tech">
             <span>Python & Flask</span>
             <span>Docker & Gunicorn</span>
             <span>GitHub Actions</span>
             <span>AWS ECR & App Runner</span>
             <span>Azure ACR & Container Apps</span>
-            <span>Pytest</span>
             <span>Azure Log Analytics</span>
           </div>
           <a href="https://github.com/LeonardKachi/flask-cicd-api" class="btn-outline project-link" target="_blank">View Details</a>
         </div>
-      </div>        
-        
+      </div>
+
+      <div class="project-card">
+        <div class="project-image">
+          <img src="assets/images/Compliance Automation Framework.jpg" alt="Compliance Automation Framework" loading="lazy">
+        </div>
+        <div class="project-content">
+          <h3>Compliance Automation Framework</h3>
+          <p>Automated CIS benchmark compliance checks across AWS accounts using Python and AWS Config, cutting manual audit time by 70% and enabling continuous compliance validation at scale.</p>
+          <div class="project-tech">
+            <span>AWS Config</span>
+            <span>Python</span>
+            <span>CIS Benchmarks</span>
+            <span>Serverless</span>
+          </div>
+          <a href="Compliance_Automation_Framework.html" class="btn-outline project-link">View Details</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-image">
+          <img src="assets/images/AWS Security Monitor.png" alt="AWS Security Monitor" loading="lazy">
+        </div>
+        <div class="project-content">
+          <h3>AWS Security Monitor</h3>
+          <p>Built a Python tool that automates security posture checks across AWS environments, surfacing IAM misconfigurations and compliance gaps before they become exploitable vulnerabilities.</p>
+          <div class="project-tech">
+            <span>Python</span>
+            <span>Boto3</span>
+            <span>AWS Security Hub</span>
+            <span>IAM Analysis</span>
+          </div>
+          <a href="https://github.com/LeonardKachi/AWS-Security-Monitor" class="btn-outline project-link" target="_blank">View Details</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-image">
+          <img src="assets/images/AWS-Achitecture.png" alt="AWS Three-Tier Web Architecture" loading="lazy">
+        </div>
+        <div class="project-content">
+          <h3>AWS Three-Tier Web Architecture</h3>
+          <p>Engineered a production-grade, highly available three-tier application on AWS with VPC networking, autoscaling, load balancing, and multi-AZ database deployment built for resilience and fault tolerance.</p>
+          <div class="project-tech">
+            <span>Amazon VPC</span>
+            <span>EC2 Auto Scaling</span>
+            <span>Application Load Balancer</span>
+            <span>Aurora MySQL</span>
+            <span>CloudWatch</span>
+          </div>
+          <a href="AWS-Three-Tier-Architecture.html" class="btn-outline project-link">View Details</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-image">
+          <img src="assets/images/Drauig BMS(Border Monitoring System).jpg" alt="Drauig BMS" loading="lazy">
+        </div>
+        <div class="project-content">
+          <h3>Drauig BMS (Border Monitoring System)</h3>
+          <p>Contributed to an AI-driven border monitoring system that analyzes trade data in real time, detects anomalies, and flags illicit activity using machine learning and data pipeline automation.</p>
+          <div class="project-tech">
+            <span>Python</span>
+            <span>AI/ML</span>
+            <span>Streamlit</span>
+            <span>Anomaly Detection</span>
+          </div>
+          <a href="Drauig_BMS.html" class="btn-outline project-link">View Details</a>
+        </div>
+      </div>
+
       <div class="project-card">
         <div class="project-image">
           <img src="assets/images/Fuel Finder Nigeria.jpg" alt="Fuel Finder Nigeria Platform" loading="lazy">
-       </div>
-       <div class="project-content">
-        <h3>Fuel Finder Nigeria</h3>
-        <p>
-         Currently designing and architecting a scalable fuel discovery platform aimed at helping drivers locate nearby fuel stations based on real-time availability, pricing, queue status, and route proximity.</p>
-       <div class="project-tech">
-         <span>React.js (PWA)</span>
-         <span>AWS (Lambda, API Gateway, ECS)</span>
-         <span>Google Maps API</span>
-         <span>DynamoDB & Aurora</span>
-         <span>Terraform</span>
-       </div>
-       <a href="Fuel_Finder_App.html" class="btn-outline project-link">View Details</a>
-     </div>
-   </div>
+        </div>
+        <div class="project-content">
+          <h3>Fuel Finder Nigeria</h3>
+          <p>Designing a scalable fuel discovery platform that helps drivers locate nearby stations based on real-time availability, pricing, and queue status using serverless AWS infrastructure and location APIs.</p>
+          <div class="project-tech">
+            <span>React.js (PWA)</span>
+            <span>AWS Lambda & ECS</span>
+            <span>Google Maps API</span>
+            <span>DynamoDB & Aurora</span>
+            <span>Terraform</span>
+          </div>
+          <a href="Fuel_Finder_App.html" class="btn-outline project-link">View Details</a>
+        </div>
+      </div>
 
-        <div class="project-card">
-          <div class="project-image">
-            <img src="assets/images/AWS zero Trust.jpg" alt="AWS Security Architecture" loading="lazy">
-          </div>
-          <div class="project-content">
-            <h3>AWS Zero Trust Architecture</h3>
-            <p>Designed and implemented a Zero Trust security model for AWS environments using IAM, SCPs, and network segmentation.</p>
-            <div class="project-tech">
-              <span>AWS IAM</span>
-              <span>Terraform</span>
-              <span>Python</span>
-            </div>
-            <a href="AWS_Zero_Trust_Architecture.html" class="btn-outline project-link">View Demo</a>
+      <div class="project-card">
+        <div class="project-image vintage-border">
+          <img src="assets/images/Book Recommendation APP.jpg" alt="The Bibliotheca - Digital Literary Curator" loading="lazy">
+          <div class="image-overlay">
+            <i class="fas fa-scroll"></i>
+            <span class="overlay-text">Archival Preview</span>
           </div>
         </div>
-        
-        <div class="project-card">
-          <div class="project-image">
-            <img src="assets/images/AI-Powered Threat Detection.jpg" alt="Threat Detection System" loading="lazy">
+        <div class="project-content">
+          <div class="project-header">
+            <i class="fas fa-university project-icon"></i>
+            <h3>Digital Literary Curator (The Bibliotheca)</h3>
           </div>
-          <div class="project-content">
-            <h3>AI-Powered Threat Detection</h3>
-            <p>Developed a machine learning model to detect anomalous behavior in cloud logs with 94% accuracy.</p>
-            <div class="project-tech">
-              <span>Python</span>
-              <span>AWS Lambda</span>
-              <span>TensorFlow</span>
-            </div>
-            <a href="AI-Powered_Threat_Detection.html" class="btn-outline project-link">View Demo</a>
+          <p class="project-description">Built a serverless API for curating literary collections, leveraging AWS Lambda to interface with the Google Books Archive with keyword discovery, temporal filtering, and paginated archival responses.</p>
+          <div class="project-tech">
+            <span class="tech-badge"><i class="fas fa-cloud"></i> AWS Lambda</span>
+            <span class="tech-badge"><i class="fas fa-database"></i> DynamoDB</span>
+            <span class="tech-badge"><i class="fas fa-mountain"></i> Terraform</span>
+            <span class="tech-badge"><i class="fas fa-book"></i> Google Books API</span>
           </div>
+          <a href="Book_Recomendation_API.html" class="btn-outline project-link">
+            <i class="fas fa-archive"></i>
+            <span>View Archival Documentation</span>
+          </a>
         </div>
-        
-        <div class="project-card">
-          <div class="project-image">
-            <img src="assets/images/Compliance Automation Framework.jpg" alt="Compliance Automation" loading="lazy">
-          </div>
-          <div class="project-content">
-            <h3>Compliance Automation Framework</h3>
-            <p>Automated CIS benchmark compliance checks across AWS accounts, reducing audit time by 70%.</p>
-            <div class="project-tech">
-              <span>AWS Config</span>
-              <span>Python</span>
-              <span>Serverless</span>
-            </div>
-            <a href="Compliance_Automation_Framework.html" class="btn-outline project-link">View Details</a>
-          </div>
-        </div>
-        
-        <div class="project-card">
-          <div class="project-image">
-            <img src="assets/images/Drauig BMS(Border Monitoring System).jpg" alt="Drauig BMS" loading="lazy">
-          </div>
-          <div class="project-content">
-            <h3>Drauig BMS (Border Monitoring System)</h3>
-            <p>Worked on the Development of an AI-driven border monitoring system that analyzes trade data, detects anomalies, and helps prevent smuggling and illicit activities in real-time.</p>
-            <div class="project-tech">
-              <span>Python</span>
-              <span>AI/ML</span>
-              <span>Streamlit</span>
-            </div>
-            <a href="Drauig_BMS.html" class="btn-outline project-link">View Details</a>
-          </div>
-        </div>
-  
-        <div class="project-card">
-          <div class="project-image">
-            <img src="assets/images/AWS Security Monitor.png" alt="AWS Security Monitor" loading="lazy">
-          </div>
-          <div class="project-content">
-            <h3>AWS Security Monitor</h3>
-            <p>Developed a Python-based tool that automates security checks across AWS environments, identifying misconfigurations and compliance issues to enhance cloud security posture.</p>
-            <div class="project-tech">
-              <span>Python</span>
-              <span>Boto3</span>
-              <span>AWS Security Hub</span>
-            </div>
-            <a href="https://github.com/LeonardKachi/AWS-Security-Monitor" class="btn-outline project-link">View Details</a>
-          </div>
-        </div>
+      </div>
 
-        
-       <div class="project-card">
-         <div class="project-image vintage-border">
-           <img src="assets/images/Book Recommendation APP.jpg" alt="The Bibliotheca - Digital Literary Curator" loading="lazy">
-         <div class="image-overlay">
-           <i class="fas fa-scroll"></i>
-           <span class="overlay-text">Archival Preview</span>
-          </div>
-       </div>
-       <div class="project-content">
-         <div class="project-header">
-           <i class="fas fa-university project-icon"></i>
-           <h3>The Bibliotheca: Digital Literary Curator</h3>
-         </div>
-         <p class="project-description">
-           Built a serverless API for curating literary collections. 
-           Leverages AWS Lambda to interface with Google Books Archive, featuring
-           keyword discovery, temporal filtering, and paginated archival responses.
-         </p>
-         <div class="project-tech">
-           <span class="tech-badge"><i class="fas fa-cloud"></i> AWS Lambda</span>
-           <span class="tech-badge"><i class="fas fa-database"></i> DynamoDB</span>
-           <span class="tech-badge"><i class="fas fa-mountain"></i> Terraform</span>
-           <span class="tech-badge"><i class="fas fa-book"></i> Google Books API</span>
-         </div>
-         <a href="Book_Recomendation_API.html" class="btn-outline project-link">
-           <i class="fas fa-archive"></i>
-           <span>View Archival Documentation</span>
-         </a>
-       </div>
     </div>
+  </div>
+</section>
 
       <div class="view-more">
         <a href="https://github.com/LeonardKachi" target="_blank" class="btn-outline">View GitHub Profile</a>
@@ -1034,6 +1035,7 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
