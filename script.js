@@ -2,6 +2,44 @@
 // PRODUCTION-READY CLOUD SECURITY PORTFOLIO
 // Complete JavaScript Module
 // ==========================================
+// Simple device warning for laptop-only content
+document.addEventListener('DOMContentLoaded', function() {
+  const laptopButtons = document.querySelectorAll('.laptop-content-btn');
+  const modal = document.getElementById('device-warning-modal');
+  
+  if (!laptopButtons.length || !modal) return;
+  
+  function isMobile() {
+    return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  }
+  
+  laptopButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      if (isMobile()) {
+        e.preventDefault();
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+    });
+  });
+  
+  // Close modal handlers
+  const closeBtn = document.querySelector('.device-modal-close');
+  const okBtn = document.getElementById('device-modal-ok');
+  
+  function closeModal() {
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (okBtn) okBtn.addEventListener('click', closeModal);
+  
+  window.addEventListener('click', function(e) {
+    if (e.target === modal) closeModal();
+  });
+});
+
 
 'use strict';
 
@@ -1689,3 +1727,4 @@ document.addEventListener('DOMContentLoaded', () => {
   
   console.log('✅ Portfolio initialized successfully');
 });
+
