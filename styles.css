@@ -1908,3 +1908,65 @@ h1 {
     justify-content: flex-start;
   }
 }
+
+/* Device warning modal - matches your site theme */
+.device-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(13, 31, 35, 0.95);
+  backdrop-filter: blur(5px);
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.device-modal-content {
+  background: var(--primary);
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 2rem;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+}
+
+.device-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+
+.device-modal-content h3 {
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.device-modal-content p {
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.device-modal-close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+
+.device-modal-close:hover {
+  color: var(--accent);
+}
+
+#device-modal-ok {
+  min-width: 150px;
+}
