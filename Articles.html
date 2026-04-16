@@ -86,8 +86,8 @@
         if (cachedData) {
           const { data, timestamp } = JSON.parse(cachedData);
           
-          // Use cache if less than 1 hour old
-          if (Date.now() - timestamp < 3600000) {
+          // Use cache if less than 10 minutes old
+          if (Date.now() - timestamp < 600000) {
             articles = data;
           }
         }
@@ -247,7 +247,7 @@
         <div class="footer-contact">
           <h4>Contact</h4>
           <ul>
-            <li><a href="mailto:Kachi.Henry.Leo@gmail.com">Kachi.Henry.Leo@gmail.com</a></li>
+            <li><a href="mailto:info@leaonardkachi.click">info@leaonardkachi.click</a></li>
             <li><a href="https://github.com/LeonardKachi" target="_blank">GitHub</a></li>
             <li><a href="https://www.linkedin.com/in/onyedikachi-obidiegwu" target="_blank">LinkedIn</a></li>
             <li><a href="https://twitter.com/Leonard_kachi" target="_blank">Twitter</a></li>
