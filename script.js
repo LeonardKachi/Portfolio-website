@@ -295,36 +295,6 @@ const CertificationsModule = (() => {
       category: "ai",
       description: "Fundamentals of artificial intelligence and machine learning applications."
     },
-    {
-      title: "Cybersecurity | Ethical Hacking",
-      issuer: "Neo Cloud Technologies",
-      year: "2024",
-      sortYear: 2024,
-      image: "neo.jpg",
-      certificate: "neo-cert.pdf",
-      category: "security",
-      description: "Practical training in penetration testing and vulnerability assessment."
-    },
-    {
-      title: "Solutions Architect",
-      issuer: "Neo Cloud Technologies",
-      year: "2025",
-      sortYear: 2025,
-      image: "neo.jpg",
-      certificate: "neo-sa-cert.pdf",
-      category: "aws",
-      description: "Practical training in Cloud Environment (AWS, Azure, GCP)."
-    },
-    {
-      title: "Cybersecurity Foundations",
-      issuer: "MasterCard",
-      year: "2024",
-      sortYear: 2024,
-      image: "mf.png",
-      certificate: "mf-cert.pdf",
-      category: "security",
-      description: "Core principles of information security and cyber defense strategies."
-    }
   ];
 
   const filterCategories = [
