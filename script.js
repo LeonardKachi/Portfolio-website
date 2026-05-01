@@ -280,7 +280,7 @@ const CertificationsModule = (() => {
       year: "Candidate (2026)",
       sortYear: 2026,
       image: "aws-ss.png",
-      certificate: "aws-s-cert.pdf",
+      certificate: "aws-ss-cert.pdf",
       category: "aws",
       candidate: true,
       description: "Demonstrates expertise in AWS security best practices."
