@@ -267,12 +267,11 @@ const CertificationsModule = (() => {
     {
       title: "Solutions Architect (Associate)",
       issuer: "AWS",
-      year: "Candidate (March 2026)",
+      year: "2026",
       sortYear: 2026,
       image: "aws-sa.png",
       certificate: "aws-sa-cert.pdf",
       category: "aws",
-      candidate: true,
       description: "Demonstrates expertise in designing distributed systems on AWS."
     },
     {
