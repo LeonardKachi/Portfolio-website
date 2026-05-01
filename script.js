@@ -283,7 +283,7 @@ const CertificationsModule = (() => {
       certificate: "aws-ss-cert.pdf",
       category: "aws",
       candidate: true,
-      description: "Demonstrates expertise in AWS security best practices."
+      description: "Validates expertise in securing the AWS platform including data protection, incident response, infrastructure security, identity management, and compliance.”"
     },
     {
       title: "AI Essentials",
