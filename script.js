@@ -278,7 +278,7 @@ const CertificationsModule = (() => {
       title: "Security (Specialty)",
       issuer: "AWS",
       year: "Candidate (2026)",
-      sortYear: 2026,
+      sortYear: 2027,
       image: "aws-ss.png",
       certificate: "aws-ss-cert.pdf",
       category: "aws",
