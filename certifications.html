@@ -253,7 +253,7 @@
     }
 
     .cert-details h3::after {
-      content: '🔍';
+      content: '📜';
       font-size: 0.75rem;
       margin-left: 0.4rem;
       opacity: 0;
@@ -763,13 +763,13 @@
         title: "Security (Specialty)",
         issuer: "AWS",
         year: "Candidate (2026)",
-        sortYear: 2026,
+        sortYear: 2027,
         badge: "aws-ss.png",
         certificate: "aws-ss-cert.pdf",
         category: "aws",
         candidate: true,
         description: "Validates technical expertise in provisioning, operating, and managing distributed application systems on AWS.",
-        fallbackPng: "aws-doe.png"
+        fallbackPng: "aws-ss.png"
       },
       {
         title: "Cybersecurity | Ethical Hacking",
@@ -948,7 +948,7 @@
       const isMobile = isMobileDevice();
       
       // For AWS certs without PDFs, use fallback PNG
-      if (certPath.includes('aws-sa') || certPath.includes('aws-doe')) {
+      if (certPath.includes('aws-ss')) {
         modalBody.innerHTML = `
           <img src="assets/images/cert-badges/${fallbackPng}" alt="${title}" 
                onerror="this.src='https://placehold.co/600x400/1e3d38/3aafa9?text=${encodeURIComponent(title)}'">
