@@ -125,7 +125,7 @@ const ModalSystem = (() => {
     let content = '';
     
     // Special handling for AWS candidate certs
-    if (certPath.includes('aws-s')) {
+    if (certPath.includes('aws-ss')) {
       content = `
         <img src="assets/images/cert-badges/${fallbackPng}" alt="${title}" 
              style="max-width:100%; max-height:60vh; border-radius:8px; border:2px solid var(--accent);">
@@ -279,7 +279,7 @@ const CertificationsModule = (() => {
       issuer: "AWS",
       year: "Candidate (2026)",
       sortYear: 2026,
-      image: "aws-s.png",
+      image: "aws-ss.png",
       certificate: "aws-s-cert.pdf",
       category: "aws",
       candidate: true,
