@@ -125,7 +125,7 @@ const ModalSystem = (() => {
     let content = '';
     
     // Special handling for AWS candidate certs
-    if (certPath.includes('aws-sa') || certPath.includes('aws-doe')) {
+    if (certPath.includes('aws-s')) {
       content = `
         <img src="assets/images/cert-badges/${fallbackPng}" alt="${title}" 
              style="max-width:100%; max-height:60vh; border-radius:8px; border:2px solid var(--accent);">
@@ -275,12 +275,12 @@ const CertificationsModule = (() => {
       description: "Demonstrates expertise in designing distributed systems on AWS."
     },
     {
-      title: "DevOps Engineer (Professional)",
+      title: "Security (Specialty)",
       issuer: "AWS",
       year: "Candidate (2026)",
       sortYear: 2026,
-      image: "aws-doe.png",
-      certificate: "aws-doe-cert.pdf",
+      image: "aws-s.png",
+      certificate: "aws-s-cert.pdf",
       category: "aws",
       candidate: true,
       description: "Demonstrates expertise in AWS security best practices."
