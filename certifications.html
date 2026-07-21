@@ -760,6 +760,10 @@
         certificate: "aws-sa-cert.pdf",
         category: "aws",
         description: "Validates expertise in securing the AWS platform including data protection, incident response, infrastructure security, identity management, and compliance.",
+        validationNumber: "13bb22c8498c42f79883feb814b1ed6a",
+        verifyUrl: "https://aws.amazon.com/verification",
+        certDate: "April 30, 2026",
+        expDate: "April 30, 2029",
         fallbackPng: "aws-sa.png"
       },
       {
@@ -817,7 +821,7 @@
       },
       {
         id: "cantrill-docker",
-        title: "Docker",
+        title: "Docker Fundamentals",
         issuer: "learn.cantrill.io",
         year: "2025",
         sortYear: 2025,
@@ -836,7 +840,10 @@
         badge: "isc2-cc.png",
         certificate: "isc2-cc-cert.pdf",
         category: "security",
-        description: "Foundational cybersecurity certification covering security principles, risk management, and incident response."
+        description: "Foundational cybersecurity certification covering security principles, risk management, and incident response.",
+        candidateId: "2339133",
+        certDate: "January 23, 2025",
+        verifyUrl: "https://www.isc2.org/Certifications"
       },
       {
         id: "google-da",
@@ -853,12 +860,15 @@
         id: "google-ai",
         title: "AI Essentials",
         issuer: "Google",
-        year: "2023",
-        sortYear: 2023,
+        year: "2026",
+        sortYear: 2026,
         badge: "google-ai.jpg",
         certificate: "google-ai-cert.pdf",
         category: "data-ai",
-        description: "Fundamentals of artificial intelligence and machine learning applications."
+        description: "Fundamentals of artificial intelligence and machine learning applications.",
+        certCode: "27EZ32PLIL4V",
+        verifyUrl: "https://coursera.org/verify/27EZ32PLIL4V",
+        certDate: "February 22, 2026"
       }
     ];
 
@@ -967,9 +977,10 @@
       // Create card for each certification
       grid.innerHTML = certsToRender.map(cert => {
         let metaDetails = '';
-        if (cert.candidateId) metaDetails += `<div class="cert-meta">Candidate ID: ${cert.candidateId}</div>`;
+        if (cert.candidateId) metaDetails += `<div class="cert-meta">Candidate / Exam ID: ${cert.candidateId}</div>`;
         if (cert.serialNo) metaDetails += `<div class="cert-meta">Serial No: ${cert.serialNo}</div>`;
         if (cert.certCode) metaDetails += `<div class="cert-meta">Code: ${cert.certCode}</div>`;
+        if (cert.validationNumber) metaDetails += `<div class="cert-meta">Validation No: ${cert.validationNumber}</div>`;
         if (cert.verifyUrl) metaDetails += `<div class="cert-meta"><a href="${cert.verifyUrl}" target="_blank" rel="noopener noreferrer">Verify Certificate ↗</a></div>`;
 
         return `
@@ -1018,9 +1029,12 @@
       
       // Clear previous meta info
       let metaHTML = '';
-      if (cert.candidateId) metaHTML += `Candidate ID: <strong>${cert.candidateId}</strong> `;
-      if (cert.serialNo) metaHTML += `Serial No: <strong>${cert.serialNo}</strong> `;
-      if (cert.certCode) metaHTML += `Code: <strong>${cert.certCode}</strong> `;
+      if (cert.candidateId) metaHTML += `Candidate / Exam ID: <strong>${cert.candidateId}</strong> | `;
+      if (cert.serialNo) metaHTML += `Serial No: <strong>${cert.serialNo}</strong> | `;
+      if (cert.certCode) metaHTML += `Code: <strong>${cert.certCode}</strong> | `;
+      if (cert.validationNumber) metaHTML += `Validation No: <strong>${cert.validationNumber}</strong> | `;
+      if (cert.certDate) metaHTML += `Issued: <strong>${cert.certDate}</strong> `;
+      if (cert.expDate) metaHTML += `| Expires: <strong>${cert.expDate}</strong> `;
       if (cert.verifyUrl) metaHTML += `<br><a href="${cert.verifyUrl}" target="_blank" rel="noopener noreferrer">Verify Certificate at ${cert.verifyUrl} ↗</a>`;
       
       modalMetaInfo.innerHTML = metaHTML;
