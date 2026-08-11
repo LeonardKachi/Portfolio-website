@@ -1970,3 +1970,26 @@ h1 {
 #device-modal-ok {
   min-width: 150px;
 }
+
+/* Center the "view more" buttons and give them proper breathing room */
+.view-more {
+  text-align: center;
+  margin-top: 2.5rem;
+}
+
+.projects-grid .view-more {
+  grid-column: 1 / -1;
+  margin-top: 1rem;
+}
+
+.articles-footer {
+  text-align: center;
+  margin-top: 2.5rem;
+}
+
+/* Lab section intro should sit left, matching the heading above it, not centered */
+#lab .section-description {
+  text-align: left;
+  margin: 0 0 2rem;
+  max-width: none;
+}
