@@ -752,6 +752,31 @@
     // Certifications data sorted by year (newest first)
     const certifications = [
       {
+        id: "aws-ss",
+        title: "Security (Specialty)",
+        issuer: "AWS",
+        year: "Candidate (2026)",
+        sortYear: 2026,
+        badge: "aws-ss.png",
+        certificate: "aws-ss-cert.pdf",
+        category: "aws",
+        candidate: true,
+        description: "Validates technical expertise in provisioning, operating, and managing distributed application systems on AWS.",
+        fallbackPng: "aws-ss.png"
+      },    
+      {
+        id: "cantrill-aws-security-specialty",
+        title: "AWS Certified Security - Specialty",
+        issuer: "learn.cantrill.io",
+        year: "2026",
+        sortYear: 2026,
+        badge: "cantrill.png",
+        certificate: "certificate-of-completion-for-aws-certified-security-specialty.pdf",
+        category: "aws",
+        description: "focused study on AWS security architecture, covering identity and access management, data protection, logging and monitoring, and incident response at a specialist level.",
+        serialNo: "cert_s9gw18vy"
+      },
+      {
         id: "aws-sa",
         title: "Solutions Architect (Associate)",
         issuer: "AWS",
@@ -780,31 +805,6 @@
         serialNo: "cert_z9vSqm5t"
       },
       {
-        id: "cantrill-aws-security-specialty",
-        title: "AWS Certified Security - Specialty",
-        issuer: "learn.cantrill.io",
-        year: "2026",
-        sortYear: 2026,
-        badge: "cantrill.png",
-        certificate: "certificate-of-completion-for-aws-certified-security-specialty.pdf",
-        category: "aws",
-        description: "focused study on AWS security architecture, covering identity and access management, data protection, logging and monitoring, and incident response at a specialist level.",
-        serialNo: "cert_s9gw18vy"
-      },
-      {
-        id: "aws-ss",
-        title: "Security (Specialty)",
-        issuer: "AWS",
-        year: "Candidate (2026)",
-        sortYear: 2026,
-        badge: "aws-ss.png",
-        certificate: "aws-ss-cert.pdf",
-        category: "aws",
-        candidate: true,
-        description: "Validates technical expertise in provisioning, operating, and managing distributed application systems on AWS.",
-        fallbackPng: "aws-ss.png"
-      },
-      {
         id: "comptia-secplus",
         title: "Security+",
         issuer: "CompTIA",
@@ -821,16 +821,17 @@
         expDate: "October 31, 2028"
       },
       {
-        id: "cantrill-tf",
-        title: "Tech Fundamentals",
-        issuer: "learn.cantrill.io",
+        id: "neo-cloud-solutions-architect",
+        title: "NC 26 - Solution Architect",
+        issuer: "Neo Cloud Technologies",
         year: "2025",
         sortYear: 2025,
-        badge: "cantrill.png",
-        certificate: "certificate-of-completion-for-tech-fundamentals.pdf",
-        category: "devops",
-        description: "Core technical training covering essential networking, operating systems, and foundational IT concepts.",
-        serialNo: "cert_9xx1d8n3"
+        badge: "Neo-Cloud.png",
+        certificate: "neo-cloud-solutions-architect-cert.pdf",
+        category: "aws",
+        description: "In-depth solution architecture training focusing on cloud infrastructure design, systems integration, and scalable deployment.",
+        serialNo: "NCT/IF/25/0634",
+        certDate: "June 12, 2025"
       },
       {
         id: "cantrill-docker",
@@ -859,6 +860,31 @@
         verifyUrl: "https://www.isc2.org/Certifications"
       },
       {
+        id: "neo-cloud-cybersecurity",
+        title: "NC 04 - Cyber Security",
+        issuer: "Neo Cloud Technologies",
+        year: "2024",
+        sortYear: 2024,
+        badge: "Neo-Cloud.png",
+        certificate: "neo-cloud-cybersecurity-cert.pdf",
+        category: "security",
+        description: "Comprehensive cybersecurity training covering network security, threat management, and defense operations.",
+        serialNo: "NCT/CS/24/0463",
+        certDate: "November 12, 2024"
+      },
+      {
+        id: "cantrill-tf",
+        title: "Tech Fundamentals",
+        issuer: "learn.cantrill.io",
+        year: "2025",
+        sortYear: 2025,
+        badge: "cantrill.png",
+        certificate: "certificate-of-completion-for-tech-fundamentals.pdf",
+        category: "devops",
+        description: "Core technical training covering essential networking, operating systems, and foundational IT concepts.",
+        serialNo: "cert_9xx1d8n3"
+      },
+      {
         id: "google-da",
         title: "Data Analytics",
         issuer: "Google (Coursera)",
@@ -882,32 +908,6 @@
         certCode: "27EZ32PLIL4V",
         verifyUrl: "https://coursera.org/verify/27EZ32PLIL4V",
         certDate: "February 22, 2026"
-      },
-      {
-        id: "neo-cloud-cybersecurity",
-        title: "NC 04 - Cyber Security",
-        issuer: "Neo Cloud Technologies",
-        year: "2024",
-        sortYear: 2024,
-        badge: "Neo-Cloud.png",
-        certificate: "neo-cloud-cybersecurity-cert.pdf",
-        category: "security",
-        description: "Comprehensive cybersecurity training covering network security, threat management, and defense operations.",
-        serialNo: "NCT/CS/24/0463",
-        certDate: "November 12, 2024"
-      },
-      {
-        id: "neo-cloud-solutions-architect",
-        title: "NC 26 - Solution Architect",
-        issuer: "Neo Cloud Technologies",
-        year: "2025",
-        sortYear: 2025,
-        badge: "Neo-Cloud.png",
-        certificate: "neo-cloud-solutions-architect-cert.pdf",
-        category: "aws",
-        description: "In-depth solution architecture training focusing on cloud infrastructure design, systems integration, and scalable deployment.",
-        serialNo: "NCT/IF/25/0634",
-        certDate: "June 12, 2025"
       }
     ];
 
