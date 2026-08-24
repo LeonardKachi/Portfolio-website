@@ -20,14 +20,7 @@ A personal portfolio website showcasing my expertise in cybersecurity, cloud sec
 ## Features
 
 - **Responsive Design**: Optimized for various devices and screen sizes.
-- **Project Showcase**: Detailed pages for projects like:
-  - AI-Powered Threat Detection
-  - AWS Zero Trust Architecture
-  - Compliance Automation Framework
-  - Drauig BMS
-  - Fuel Finder App
-  - Quantum Error Prevention System
-  - Book Recommendation API
+- **Project Showcase**: Detailed pages for projects
 - **Certifications**: A dedicated page listing professional certifications.
 - **Articles**: A section to share insightful articles and writings.
 - **Contact Information**: Easy-to-find contact details for networking opportunities.
