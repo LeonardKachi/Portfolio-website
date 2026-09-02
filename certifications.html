@@ -65,6 +65,22 @@
       padding: 0 0.5rem;
     }
 
+    .section-divider {
+      margin: 2.5rem 0 1.5rem;
+      border: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0.4;
+    }
+
+    .section-subtitle {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 1rem;
+      padding-left: 0rem;
+    }
+
     /* Controls Bar - Filters and Sort */
     .controls-bar {
       display: flex;
@@ -112,7 +128,6 @@
       border-color: var(--accent);
     }
 
-    /* Sort Dropdown */
     .sort-container {
       display: flex;
       align-items: center;
@@ -125,9 +140,9 @@
     }
 
     .sort-select {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(58, 175, 169, 0.3);
-      color: var(--text);
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(58, 175, 169, 0.4);
+      color: #ffffff;
       padding: 0.4rem 1.5rem 0.4rem 0.8rem;
       border-radius: 50px;
       font-size: 0.85rem;
@@ -137,6 +152,11 @@
       background-repeat: no-repeat;
       background-position: right 0.5rem center;
       background-size: 1rem;
+    }
+
+    .sort-select option {
+      background: #0d1f23;
+      color: #ffffff;
     }
 
     .sort-select:hover {
@@ -156,7 +176,6 @@
       margin: 1.5rem 0;
     }
 
-    /* Card styles - consistent height always */
     .cert-card {
       background: rgba(255, 255, 255, 0.05);
       border-radius: var(--radius);
@@ -177,7 +196,6 @@
       border-color: var(--accent);
     }
 
-    /* Image container - FIXED SIZE - NEVER CHANGES */
     .cert-image-container {
       width: 100%;
       height: 160px;
@@ -205,7 +223,6 @@
       transform: scale(1.05);
     }
 
-    /* Candidate badge */
     .candidate-badge {
       position: absolute;
       top: 0.75rem;
@@ -221,7 +238,6 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
 
-    /* Content area - flexible but consistent */
     .cert-details {
       padding: 1.2rem;
       flex: 1;
@@ -254,7 +270,7 @@
     }
 
     .cert-details h3::after {
-      content: '📜';
+      content: '';
       font-size: 0.75rem;
       margin-left: 0.4rem;
       opacity: 0;
@@ -314,27 +330,26 @@
       padding-top: 0.6rem;
     }
 
-    /* Hover tooltip for truncated details */
+    /* Hover tooltip - shows FULL description */
     .cert-card .hover-details {
       display: none;
       position: absolute;
       bottom: 100%;
       left: 0;
       right: 0;
-      background: rgba(13, 31, 35, 0.96);
+      background: rgba(13, 31, 35, 0.97);
       backdrop-filter: blur(8px);
       padding: 1rem;
       border-radius: var(--radius) var(--radius) 0 0;
       border: 1px solid var(--accent);
       border-bottom: none;
-      z-index: 10;
-      max-height: 220px;
+      z-index: 20;
+      max-height: 260px;
       overflow-y: auto;
       font-size: 0.8rem;
       color: var(--text);
-      box-shadow: 0 -8px 20px rgba(0,0,0,0.5);
+      box-shadow: 0 -8px 20px rgba(0,0,0,0.6);
       pointer-events: none;
-      transition: opacity 0.2s ease;
     }
 
     .cert-card:hover .hover-details {
@@ -347,11 +362,11 @@
       font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.4rem;
     }
 
     .hover-details .hover-item {
-      margin-bottom: 0.2rem;
+      margin-bottom: 0.25rem;
       word-break: break-word;
     }
 
@@ -370,7 +385,15 @@
       color: white;
     }
 
-    /* Empty states */
+    .hover-details .hover-desc {
+      font-size: 0.8rem;
+      color: #d0d8e0;
+      line-height: 1.5;
+      margin-top: 0.3rem;
+      padding-top: 0.4rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
     .no-results {
       grid-column: 1 / -1;
       text-align: center;
@@ -382,7 +405,6 @@
       border: 1px dashed rgba(58, 175, 169, 0.3);
     }
 
-    /* Animation */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
@@ -392,7 +414,6 @@
       animation: fadeIn 0.4s ease forwards;
     }
 
-    /* Back button */
     .back-link {
       display: inline-flex;
       align-items: center;
@@ -416,7 +437,7 @@
       height: 18px;
     }
 
-    /* Modal styles - FIXED FOR MOBILE PDF */
+    /* Modal styles */
     .cert-modal {
       display: none;
       position: fixed;
@@ -449,7 +470,6 @@
       padding: 1rem 0.5rem 0.5rem 0.5rem;
     }
 
-    /* PDF container - handles both desktop and mobile */
     .pdf-container {
       width: 100%;
       height: 65vh;
@@ -466,7 +486,6 @@
       border: none;
     }
 
-    /* Mobile PDF fallback using Google Docs Viewer */
     .pdf-mobile-view {
       width: 100%;
       height: 65vh;
@@ -541,7 +560,6 @@
       color: var(--text);
     }
 
-    /* PDF download button */
     .pdf-download {
       margin: 0.5rem auto 0.5rem;
       display: inline-flex;
@@ -563,7 +581,6 @@
       color: var(--primary);
     }
 
-    /* Fallback message */
     .fallback-message {
       color: white;
       margin: 1rem auto;
@@ -575,7 +592,6 @@
       display: inline-block;
     }
 
-    /* PDF notice */
     .pdf-notice {
       color: var(--text-muted);
       font-size: 0.8rem;
@@ -639,7 +655,14 @@
       color: var(--text-muted);
     }
 
-    /* Responsive */
+    .footer-bottom .gray-leonard {
+      color: #c0c8d0;
+    }
+
+    .footer-bottom .kachi-name {
+      color: var(--text);
+    }
+
     @media (max-width: 768px) {
       body {
         padding: 0.8rem 0.3rem;
@@ -699,6 +722,10 @@
       .cert-card .hover-details {
         display: none !important;
       }
+      
+      .section-subtitle {
+        font-size: 1.1rem;
+      }
     }
 
     @media (max-width: 480px) {
@@ -744,7 +771,6 @@
 </head>
 <body>
   <div class="container">
-    <!-- Back link -->
     <a href="index.html" class="back-link">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M19 12H5M12 19l-7-7 7-7"/>
@@ -752,17 +778,22 @@
       Back to Portfolio
     </a>
 
-    <!-- Header -->
     <h2>Professional Certifications</h2>
     <p class="section-description">
       Industry-recognized credentials in Cloud Security, AWS, and Data Analytics
     </p>
 
-    <!-- Certifications Visualizer -->
-    <div id="certifications-visualizer"></div>
+    <div id="controls-container"></div>
+
+    <h3 class="section-subtitle">Industrial Certifications</h3>
+    <div id="industry-grid" class="cert-grid"></div>
+
+    <hr class="section-divider">
+
+    <h3 class="section-subtitle">Industrial Training</h3>
+    <div id="training-grid" class="cert-grid"></div>
   </div>
 
-  <!-- Modal for certificate viewing -->
   <div id="cert-modal" class="cert-modal">
     <div class="modal-content">
       <span class="modal-close" onclick="closeModal()">&times;</span>
@@ -804,13 +835,12 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; <span id="year"></span> Obidiegwu Onyedikachi Henry Leonard. All rights reserved.</p>
+        <p>&copy; <span id="year"></span> <span class="gray-leonard">Obidiegwu Onyedikachi Henry</span> <span class="kachi-name">Leonard</span>. All rights reserved.</p>
       </div>
     </div>
   </footer>
 
   <script>
-    // Certifications data sorted by year (newest first)
     const certifications = [
       {
         id: "aws-ss",
@@ -821,6 +851,7 @@
         badge: "aws-ss.png",
         certificate: "aws-ss-cert.pdf",
         category: "aws",
+        type: "industry",
         description: "Validates expertise in securing the AWS platform including data protection, incident response, infrastructure security, identity management, and compliance.",
         validationNumber: "23c10203494348bcb76c20f951108e22",
         verifyUrl: "https://aws.amazon.com/verification",
@@ -828,18 +859,6 @@
         certDate: "September 1, 2026",
         expDate: "September 1, 2029",
         fallbackPng: "aws-sa.png"
-      },    
-      {
-        id: "cantrill-aws-security-specialty",
-        title: "AWS Certified Security - Specialty",
-        issuer: "learn.cantrill.io",
-        year: "2026",
-        sortYear: 2026,
-        badge: "cantrill.png",
-        certificate: "certificate-of-completion-for-aws-certified-security-specialty.pdf",
-        category: "aws",
-        description: "focused study on AWS security architecture, covering identity and access management, data protection, logging and monitoring, and incident response at a specialist level.",
-        serialNo: "cert_s9gw18vy"
       },
       {
         id: "aws-sa",
@@ -850,6 +869,7 @@
         badge: "aws-sa.png",
         certificate: "aws-sa-cert.pdf",
         category: "aws",
+        type: "industry",
         description: "Validates technical expertise in provisioning, operating, and managing distributed application systems on AWS.",
         validationNumber: "13bb22c8498c42f79883feb814b1ed6a",
         verifyUrl: "https://aws.amazon.com/verification",
@@ -857,18 +877,6 @@
         certDate: "April 30, 2026",
         expDate: "April 30, 2029",
         fallbackPng: "aws-sa.png"
-      },
-      {
-        id: "cantrill-aws-sa",
-        title: "AWS Certified Solutions Architect - Associate",
-        issuer: "learn.cantrill.io",
-        year: "2026",
-        sortYear: 2026,
-        badge: "cantrill.png",
-        certificate: "certificate-of-completion-for-aws-certified-solutions-architect-associate-saa-c03.pdf",
-        category: "aws",
-        description: "Comprehensive study covering deep architectural principles, high availability, networking, and cloud design patterns.",
-        serialNo: "cert_z9vSqm5t"
       },
       {
         id: "comptia-secplus",
@@ -879,6 +887,7 @@
         badge: "security-plus.png",
         certificate: "security-plus-cert.pdf",
         category: "security",
+        type: "industry",
         description: "Global certification validating baseline cybersecurity skills across threat analysis, risk management, and security architecture.",
         candidateId: "COMP001022843452",
         certCode: "RYORF8QZYFE12HFJ",
@@ -896,10 +905,64 @@
         badge: "isc2-cc.png",
         certificate: "isc2-cc-cert.pdf",
         category: "security",
+        type: "industry",
         description: "Foundational cybersecurity certification covering security principles, risk management, and incident response.",
         candidateId: "2339133",
         certDate: "January 23, 2025",
         verifyUrl: "https://www.isc2.org/Certifications"
+      },
+      {
+        id: "google-da",
+        title: "Data Analytics",
+        issuer: "Google (Coursera)",
+        year: "2023",
+        sortYear: 2024,
+        badge: "google-da.jpg",
+        certificate: "google-da-cert.pdf",
+        category: "data-ai",
+        type: "industry",
+        description: "Professional training in data analysis, visualization, and machine learning fundamentals."
+      },
+      {
+        id: "google-ai",
+        title: "AI Essentials",
+        issuer: "Google",
+        year: "2026",
+        sortYear: 2025,
+        badge: "google-ai.jpg",
+        certificate: "google-ai-cert.pdf",
+        category: "data-ai",
+        type: "industry",
+        description: "Fundamentals of artificial intelligence and machine learning applications.",
+        certCode: "27EZ32PLIL4V",
+        verifyUrl: "https://coursera.org/verify/27EZ32PLIL4V",
+        certDate: "February 22, 2026"
+      },
+      {
+        id: "cantrill-aws-security-specialty",
+        title: "AWS Certified Security - Specialty",
+        issuer: "learn.cantrill.io",
+        year: "2026",
+        sortYear: 2026,
+        badge: "cantrill.png",
+        certificate: "certificate-of-completion-for-aws-certified-security-specialty.pdf",
+        category: "aws",
+        type: "training",
+        description: "focused study on AWS security architecture, covering identity and access management, data protection, logging and monitoring, and incident response at a specialist level.",
+        serialNo: "cert_s9gw18vy"
+      },
+      {
+        id: "cantrill-aws-sa",
+        title: "AWS Certified Solutions Architect - Associate",
+        issuer: "learn.cantrill.io",
+        year: "2026",
+        sortYear: 2026,
+        badge: "cantrill.png",
+        certificate: "certificate-of-completion-for-aws-certified-solutions-architect-associate-saa-c03.pdf",
+        category: "aws",
+        type: "training",
+        description: "Comprehensive study covering deep architectural principles, high availability, networking, and cloud design patterns.",
+        serialNo: "cert_z9vSqm5t"
       },
       {
         id: "neo-cloud-solutions-architect",
@@ -910,6 +973,7 @@
         badge: "Neo-Cloud.png",
         certificate: "neo-cloud-solutions-architect-cert.pdf",
         category: "aws",
+        type: "training",
         description: "In-depth solution architecture training focusing on cloud infrastructure design, systems integration, and scalable deployment.",
         serialNo: "NCT/IF/25/0634",
         certDate: "June 12, 2025"
@@ -923,6 +987,7 @@
         badge: "cantrill.png",
         certificate: "certificate-of-completion-for-docker-fundamentals.pdf",
         category: "devops",
+        type: "training",
         description: "Hands-on Practice in containerization, Docker architecture, image creation, container networking, and deployment.",
         serialNo: "cert_pz93l33g"
       },
@@ -935,38 +1000,13 @@
         badge: "Neo-Cloud.png",
         certificate: "neo-cloud-cybersecurity-cert.pdf",
         category: "security",
+        type: "training",
         description: "Comprehensive cybersecurity training covering network security, threat management, and defense operations.",
         serialNo: "NCT/CS/24/0463",
         certDate: "November 12, 2024"
-      },
-      {
-        id: "google-da",
-        title: "Data Analytics",
-        issuer: "Google (Coursera)",
-        year: "2023",
-        sortYear: 2023,
-        badge: "google-da.jpg",
-        certificate: "google-da-cert.pdf",
-        category: "data-ai",
-        description: "Professional training in data analysis, visualization, and machine learning fundamentals."
-      },
-      {
-        id: "google-ai",
-        title: "AI Essentials",
-        issuer: "Google",
-        year: "2026",
-        sortYear: 2026,
-        badge: "google-ai.jpg",
-        certificate: "google-ai-cert.pdf",
-        category: "data-ai",
-        description: "Fundamentals of artificial intelligence and machine learning applications.",
-        certCode: "27EZ32PLIL4V",
-        verifyUrl: "https://coursera.org/verify/27EZ32PLIL4V",
-        certDate: "February 22, 2026"
       }
     ];
 
-    // Filter categories - combined Data & AI
     const filterCategories = [
       { id: 'all', label: 'All' },
       { id: 'security', label: 'Security' },
@@ -974,27 +1014,101 @@
       { id: 'data-ai', label: 'Data & AI' }
     ];
 
-    // Current filter and sort
     let currentFilter = 'all';
     let currentSort = 'newest';
 
-    // Initialize the visualizer
-    function initVisualizer() {
-      const container = document.getElementById('certifications-visualizer');
-      if (!container) return;
+    function filterByType(certs, type) {
+      return certs.filter(c => c.type === type);
+    }
 
-      // Create controls bar with filters and sort
-      const controlsHTML = `
+    function filterByCategory(certs, cat) {
+      if (cat === 'all') return certs;
+      return certs.filter(c => c.category === cat);
+    }
+
+    function sortCerts(certs, sort) {
+      return [...certs].sort((a, b) => {
+        if (sort === 'newest') return b.sortYear - a.sortYear;
+        else return a.sortYear - b.sortYear;
+      });
+    }
+
+    function getFilteredAndSorted(type) {
+      let pool = certifications.filter(c => c.type === type);
+      pool = filterByCategory(pool, currentFilter);
+      return sortCerts(pool, currentSort);
+    }
+
+    function renderCardHTML(cert) {
+      let metaDetails = '';
+      if (cert.candidateId) metaDetails += `<div class="cert-meta">Candidate / Exam ID: ${cert.candidateId}</div>`;
+      if (cert.serialNo) metaDetails += `<div class="cert-meta">Serial No: ${cert.serialNo}</div>`;
+      if (cert.certCode) metaDetails += `<div class="cert-meta">Code: ${cert.certCode}</div>`;
+      if (cert.validationNumber) metaDetails += `<div class="cert-meta">Validation No: ${cert.validationNumber}</div>`;
+      if (cert.verifyUrl) metaDetails += `<div class="cert-meta"><a href="${cert.verifyUrl}" target="_blank" rel="noopener noreferrer">Verify Certificate ↗</a></div>`;
+      if (cert.CredlyBadge) metaDetails += `<div class="cert-meta"><a href="${cert.CredlyBadge}" target="_blank" rel="noopener noreferrer">Credly Badge ↗</a></div>`;
+
+      let hoverDetails = `
+        <div class="hover-details">
+          <div class="hover-label">Full Details</div>
+          <div class="hover-desc">${cert.description}</div>
+      `;
+      if (cert.candidateId) hoverDetails += `<div class="hover-item"><strong>Candidate ID:</strong> ${cert.candidateId}</div>`;
+      if (cert.serialNo) hoverDetails += `<div class="hover-item"><strong>Serial:</strong> ${cert.serialNo}</div>`;
+      if (cert.certCode) hoverDetails += `<div class="hover-item"><strong>Code:</strong> ${cert.certCode}</div>`;
+      if (cert.validationNumber) hoverDetails += `<div class="hover-item"><strong>Validation:</strong> ${cert.validationNumber}</div>`;
+      if (cert.certDate) hoverDetails += `<div class="hover-item"><strong>Issued:</strong> ${cert.certDate}</div>`;
+      if (cert.expDate) hoverDetails += `<div class="hover-item"><strong>Expires:</strong> ${cert.expDate}</div>`;
+      if (cert.verifyUrl) hoverDetails += `<div class="hover-item"><a href="${cert.verifyUrl}" target="_blank" rel="noopener noreferrer" class="hover-link">Verify Certificate ↗</a></div>`;
+      if (cert.CredlyBadge) hoverDetails += `<div class="hover-item"><a href="${cert.CredlyBadge}" target="_blank" rel="noopener noreferrer" class="hover-link">Credly Badge ↗</a></div>`;
+      hoverDetails += `</div>`;
+
+      return `
+        <div class="cert-card" data-category="${cert.category}" data-type="${cert.type}">
+          ${hoverDetails}
+          <div class="cert-image-container">
+            <img src="assets/images/cert-badges/${cert.badge}" 
+                 alt="${cert.issuer} ${cert.title}" 
+                 loading="lazy"
+                 onerror="this.src='https://placehold.co/200x150/1e3d38/3aafa9?text=${encodeURIComponent(cert.issuer)}'; this.onerror=null;">
+            ${cert.candidate ? '<span class="candidate-badge">In Progress</span>' : ''}
+          </div>
+          <div class="cert-details">
+            <h3 onclick="showCertificateById('${cert.id}')">${cert.title}</h3>
+            <p class="cert-issuer">${cert.issuer}</p>
+            <p class="cert-date">${cert.year}</p>
+            ${metaDetails}
+            <p class="cert-description">${cert.description}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAll() {
+      const industryCerts = getFilteredAndSorted('industry');
+      const trainingCerts = getFilteredAndSorted('training');
+
+      const industryGrid = document.getElementById('industry-grid');
+      const trainingGrid = document.getElementById('training-grid');
+
+      industryGrid.innerHTML = industryCerts.length
+        ? industryCerts.map(c => renderCardHTML(c)).join('')
+        : `<div class="no-results">No industry certifications match the current filter.</div>`;
+
+      trainingGrid.innerHTML = trainingCerts.length
+        ? trainingCerts.map(c => renderCardHTML(c)).join('')
+        : `<div class="no-results">No training certificates match the current filter.</div>`;
+    }
+
+    function buildControls() {
+      const container = document.getElementById('controls-container');
+      container.innerHTML = `
         <div class="controls-bar">
           <div class="cert-filters">
-            ${filterCategories.map(filter => `
-              <button class="filter-btn ${filter.id === 'all' ? 'active' : ''}" 
-                      data-filter="${filter.id}">
-                ${filter.label}
-              </button>
+            ${filterCategories.map(f => `
+              <button class="filter-btn ${f.id === 'all' ? 'active' : ''}" data-filter="${f.id}">${f.label}</button>
             `).join('')}
           </div>
-          
           <div class="sort-container">
             <span class="sort-label">Sort by:</span>
             <select class="sort-select" id="sort-select">
@@ -1003,55 +1117,138 @@
             </select>
           </div>
         </div>
-        
-        <div class="cert-grid" id="cert-grid"></div>
       `;
 
-      container.innerHTML = controlsHTML;
-
-      // Render certifications
-      updateCertDisplay();
-
-      // Add event listeners for filters
       document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const filter = btn.dataset.filter;
+        btn.addEventListener('click', function() {
+          const filter = this.dataset.filter;
           currentFilter = filter;
-          
-          // Update active button
-          document.querySelectorAll('.filter-btn').forEach(b => {
-            b.classList.toggle('active', b.dataset.filter === filter);
-          });
-          
-          updateCertDisplay();
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === filter));
+          renderAll();
         });
       });
 
-      // Add event listener for sort
-      document.getElementById('sort-select')?.addEventListener('change', (e) => {
-        currentSort = e.target.value;
-        updateCertDisplay();
+      document.getElementById('sort-select').addEventListener('change', function() {
+        currentSort = this.value;
+        renderAll();
       });
     }
 
-    // Update certification display based on filter and sort
-    function updateCertDisplay() {
-      // Filter certifications
-      let filtered = currentFilter === 'all' 
-        ? certifications 
-        : certifications.filter(cert => cert.category === currentFilter);
+    function isMobileDevice() {
+      return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1) || (window.innerWidth <= 768);
+    }
 
-      // Sort certifications
-      filtered.sort((a, b) => {
-        if (currentSort === 'newest') {
-          return b.sortYear - a.sortYear;
+    function showCertificateById(id) {
+      const cert = certifications.find(c => c.id === id);
+      if (!cert) return;
+      showCertificate(cert);
+    }
+
+    function showCertificate(cert) {
+      const certPath = cert.certificate;
+      const title = `${cert.title} - ${cert.issuer}`;
+      const fallbackPng = cert.fallbackPng || cert.badge;
+
+      const modal = document.getElementById('cert-modal');
+      const modalBody = document.getElementById('modal-body');
+      const modalTitle = document.getElementById('modal-title');
+      const modalMetaInfo = document.getElementById('modal-meta-info');
+      const isMobile = isMobileDevice();
+
+      let metaHTML = '';
+      if (cert.candidateId) metaHTML += `Candidate / Exam ID: <strong>${cert.candidateId}</strong> | `;
+      if (cert.serialNo) metaHTML += `Serial No: <strong>${cert.serialNo}</strong> | `;
+      if (cert.certCode) metaHTML += `Code: <strong>${cert.certCode}</strong> | `;
+      if (cert.validationNumber) metaHTML += `Validation No: <strong>${cert.validationNumber}</strong> | `;
+      if (cert.certDate) metaHTML += `Issued: <strong>${cert.certDate}</strong> `;
+      if (cert.expDate) metaHTML += `| Expires: <strong>${cert.expDate}</strong> `;
+      if (cert.verifyUrl) metaHTML += `<br><a href="${cert.verifyUrl}" target="_blank" rel="noopener noreferrer">Verify Certificate at ${cert.verifyUrl} ↗</a>`;
+      if (cert.CredlyBadge) metaHTML += `<br><a href="${cert.CredlyBadge}" target="_blank" rel="noopener noreferrer">Credly Badge ↗</a>`;
+      modalMetaInfo.innerHTML = metaHTML;
+
+      if (certPath.includes('#')) {
+        modalBody.innerHTML = `
+          <img src="assets/images/cert-badges/${fallbackPng}" alt="${title}" 
+               onerror="this.src='https://placehold.co/600x400/1e3d38/3aafa9?text=${encodeURIComponent(title)}'">
+          <p class="fallback-message">Certificate PDF coming soon. Showing badge preview.</p>
+        `;
+        modalTitle.textContent = title + ' (Preview)';
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        return;
+      }
+
+      const fileExt = certPath.split('.').pop().toLowerCase();
+      const pdfPath = `assets/images/cert-badges/${certPath}`;
+      const encodedPath = encodeURIComponent(window.location.origin + '/' + pdfPath);
+      let content = '';
+
+      if (fileExt === 'pdf') {
+        if (isMobile) {
+          content = `
+            <div class="pdf-mobile-view">
+              <iframe src="https://docs.google.com/viewer?url=${encodedPath}&embedded=true" 
+                      frameborder="0" allowfullscreen
+                      onerror="this.style.display='none'; document.getElementById('mobile-fallback').style.display='block';">
+              </iframe>
+            </div>
+            <div id="mobile-fallback" style="display:none;">
+              <img src="assets/images/cert-badges/${fallbackPng}" alt="${title}" 
+                   style="max-width:100%; max-height:60vh; border-radius:8px; border:2px solid var(--accent);">
+              <p class="fallback-message">PDF preview not available on this device. Use download button below.</p>
+            </div>
+            <a href="${pdfPath}" download class="pdf-download">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+              Download PDF Certificate
+            </a>
+            <p class="pdf-notice">PDF might open in a new tab on some devices</p>
+          `;
         } else {
-          return a.sortYear - b.sortYear;
+          content = `
+            <div class="pdf-container">
+              <embed src="${pdfPath}" type="application/pdf" 
+                     onerror="this.style.display='none'; document.getElementById('desktop-fallback').style.display='block';" />
+            </div>
+            <div id="desktop-fallback" style="display:none;">
+              <img src="assets/images/cert-badges/${fallbackPng}" alt="${title}" 
+                   style="max-width:100%; max-height:60vh; border-radius:8px; border:2px solid var(--accent);">
+              <p class="fallback-message">PDF preview not available. Use download button below.</p>
+            </div>
+            <a href="${pdfPath}" download class="pdf-download">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+              Download PDF Certificate
+            </a>
+          `;
         }
-      });
+      } else {
+        content = `<img src="${pdfPath}" alt="${title}" 
+                    onerror="this.src='assets/images/cert-badges/${fallbackPng}'; this.onerror=null;">`;
+      }
 
-      // Render
-      renderCertifications(filtered);
+      modalBody.innerHTML = content;
+      modalTitle.textContent = title;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
     }
 
-    // Render
+    function closeModal() {
+      document.getElementById('cert-modal').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    document.getElementById('cert-modal')?.addEventListener('click', (e) => {
+      if (e.target.classList.contains('cert-modal')) closeModal();
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      buildControls();
+      renderAll();
+      document.getElementById('year').textContent = new Date().getFullYear();
+    });
+  </script>
+</body>
+</html>
