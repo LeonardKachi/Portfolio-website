@@ -76,7 +76,7 @@
     .section-subtitle {
       font-size: 1.3rem;
       font-weight: 500;
-      color: var(--text);
+      color: var(--text-muted);
       margin-bottom: 1rem;
       padding-left: 0rem;
     }
@@ -612,7 +612,13 @@
       margin-bottom: 1.5rem;
     }
 
-    .footer-about h3,
+    .footer-about h3 .name1 {
+      color: var(--text);
+    }  
+    .footer-about h3 .name2 {
+      color: var(--accent-dark);
+    }
+
     .footer-links h4,
     .footer-contact h4 {
       color: var(--accent);
@@ -625,7 +631,7 @@
       font-size: 0.85rem;
       margin-bottom: 0.5rem;
     }
-
+    
     .footer-links ul,
     .footer-contact ul {
       list-style: none;
@@ -653,14 +659,6 @@
       border-top: 1px solid rgba(255, 255, 255, 0.1);
       font-size: 0.8rem;
       color: var(--text-muted);
-    }
-
-    .footer-bottom .gray-leonard {
-      color: #c0c8d0;
-    }
-
-    .footer-bottom .kachi-name {
-      color: var(--text);
     }
 
     @media (max-width: 768px) {
@@ -775,7 +773,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M19 12H5M12 19l-7-7 7-7"/>
       </svg>
-      Back to Portfolio
+      Home
     </a>
 
     <h2>Professional Certifications</h2>
@@ -807,7 +805,7 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-about">
-          <h3>Leonard Kachi</h3>
+          <h3> <span class="name1">Leonard</span> <span class="name2">Kachi </span> </h3>
           <p>Cloud Security Engineer specializing in AWS, Azure, and Zero Trust implementations.</p>
           <p>Turning threats into design. By blending AWS, Zero Trust, and automation, I build security infrastructures that scale and stories that launch careers.</p>
         </div>
@@ -835,7 +833,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; <span id="year"></span> <span class="gray-leonard">Obidiegwu Onyedikachi Henry</span> <span class="kachi-name">Leonard</span>. All rights reserved.</p>
+        <p>&copy; <span id="year"></span> <span>Obidiegwu Onyedikachi Henry Leonard</span>. All rights reserved.</p>
       </div>
     </div>
   </footer>
@@ -846,7 +844,7 @@
         id: "aws-ss",
         title: "Security (Specialty)",
         issuer: "AWS",
-        year: "Candidate (2026)",
+        year: "2026",
         sortYear: 2026,
         badge: "aws-ss.png",
         certificate: "aws-ss-cert.pdf",
@@ -915,7 +913,7 @@
         id: "google-da",
         title: "Data Analytics",
         issuer: "Google (Coursera)",
-        year: "2023",
+        year: "2024",
         sortYear: 2024,
         badge: "google-da.jpg",
         certificate: "google-da-cert.pdf",
@@ -927,7 +925,7 @@
         id: "google-ai",
         title: "AI Essentials",
         issuer: "Google",
-        year: "2026",
+        year: "2025",
         sortYear: 2025,
         badge: "google-ai.jpg",
         certificate: "google-ai-cert.pdf",
