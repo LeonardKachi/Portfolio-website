@@ -758,7 +758,7 @@
         year: "Candidate (2026)",
         sortYear: 2026,
         badge: "aws-ss.png",
-        certificate: "aws-sa-cert.pdf",
+        certificate: "aws-ss-cert.pdf",
         category: "aws",
         description: "Validates expertise in securing the AWS platform including data protection, incident response, infrastructure security, identity management, and compliance.",
         validationNumber: "23c10203494348bcb76c20f951108e22",
@@ -1073,7 +1073,7 @@
       modalMetaInfo.innerHTML = metaHTML;
 
       // For AWS certs without PDFs, use fallback PNG
-      if (certPath.includes('aws-ss')) {
+      if (certPath.includes('#')) {
         modalBody.innerHTML = `
           <img src="assets/images/cert-badges/${fallbackPng}" alt="${title}" 
                onerror="this.src='https://placehold.co/600x400/1e3d38/3aafa9?text=${encodeURIComponent(title)}'">
