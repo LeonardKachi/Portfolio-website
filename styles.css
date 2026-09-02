@@ -1624,9 +1624,11 @@ h1 {
   margin-bottom: 2rem;
 }
 
-.footer-about h3 {
-  color: var(--accent);
-  margin-bottom: 1rem;
+.footer-about h3 .name1 {
+  color: var(--text);
+}  
+.footer-about h3 .name2 {
+color: var(--accent-dark);
 }
 
 .footer-links h4, .footer-contact h4 {
