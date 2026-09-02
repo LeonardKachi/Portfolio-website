@@ -168,6 +168,7 @@
       height: 100%;
       backdrop-filter: blur(5px);
       width: 100%;
+      position: relative;
     }
 
     .cert-card:hover {
@@ -311,6 +312,62 @@
       margin-top: 0.4rem;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
       padding-top: 0.6rem;
+    }
+
+    /* Hover tooltip for truncated details */
+    .cert-card .hover-details {
+      display: none;
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      right: 0;
+      background: rgba(13, 31, 35, 0.96);
+      backdrop-filter: blur(8px);
+      padding: 1rem;
+      border-radius: var(--radius) var(--radius) 0 0;
+      border: 1px solid var(--accent);
+      border-bottom: none;
+      z-index: 10;
+      max-height: 220px;
+      overflow-y: auto;
+      font-size: 0.8rem;
+      color: var(--text);
+      box-shadow: 0 -8px 20px rgba(0,0,0,0.5);
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .cert-card:hover .hover-details {
+      display: block;
+    }
+
+    .hover-details .hover-label {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.3rem;
+    }
+
+    .hover-details .hover-item {
+      margin-bottom: 0.2rem;
+      word-break: break-word;
+    }
+
+    .hover-details .hover-item strong {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .hover-details .hover-link {
+      color: var(--accent);
+      text-decoration: underline;
+      pointer-events: auto;
+    }
+
+    .hover-details .hover-link:hover {
+      color: white;
     }
 
     /* Empty states */
@@ -637,6 +694,10 @@
       .pdf-mobile-view {
         height: 55vh;
         min-height: 320px;
+      }
+
+      .cert-card .hover-details {
+        display: none !important;
       }
     }
 
@@ -993,187 +1054,4 @@
       renderCertifications(filtered);
     }
 
-    // Render certifications
-    function renderCertifications(certsToRender) {
-      const grid = document.getElementById('cert-grid');
-      if (!grid) return;
-
-      if (certsToRender.length === 0) {
-        grid.innerHTML = `
-          <div class="no-results">
-            No certifications found in this category.
-          </div>
-        `;
-        return;
-      }
-
-      // Create card for each certification
-      grid.innerHTML = certsToRender.map(cert => {
-        let metaDetails = '';
-        if (cert.candidateId) metaDetails += `<div class="cert-meta">Candidate / Exam ID: ${cert.candidateId}</div>`;
-        if (cert.serialNo) metaDetails += `<div class="cert-meta">Serial No: ${cert.serialNo}</div>`;
-        if (cert.certCode) metaDetails += `<div class="cert-meta">Code: ${cert.certCode}</div>`;
-        if (cert.validationNumber) metaDetails += `<div class="cert-meta">Validation No: ${cert.validationNumber}</div>`;
-        if (cert.verifyUrl) metaDetails += `<div class="cert-meta"><a href="${cert.verifyUrl}" target="_blank" rel="noopener noreferrer">Verify Certificate ↗</a></div>`;
-
-        return `
-        <div class="cert-card" data-category="${cert.category}">
-          <div class="cert-image-container">
-            <img src="assets/images/cert-badges/${cert.badge}" 
-                 alt="${cert.issuer} ${cert.title}" 
-                 loading="lazy"
-                 onerror="this.src='https://placehold.co/200x150/1e3d38/3aafa9?text=${encodeURIComponent(cert.issuer)}'; this.onerror=null;">
-            ${cert.candidate ? '<span class="candidate-badge">In Progress</span>' : ''}
-          </div>
-          <div class="cert-details">
-            <h3 onclick="showCertificateById('${cert.id}')">${cert.title}</h3>
-            <p class="cert-issuer">${cert.issuer}</p>
-            <p class="cert-date">${cert.year}</p>
-            ${metaDetails}
-            <p class="cert-description">${cert.description}</p>
-          </div>
-        </div>
-      `}).join('');
-    }
-
-    // Check if device is mobile
-    function isMobileDevice() {
-      return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1) || (window.innerWidth <= 768);
-    }
-
-    function showCertificateById(id) {
-      const cert = certifications.find(c => c.id === id);
-      if (cert) {
-        showCertificate(cert);
-      }
-    }
-
-    // Modal functions - FIXED FOR MOBILE PDF
-    function showCertificate(cert) {
-      const certPath = cert.certificate;
-      const title = `${cert.title} - ${cert.issuer}`;
-      const fallbackPng = cert.fallbackPng || cert.badge;
-
-      const modal = document.getElementById('cert-modal');
-      const modalBody = document.getElementById('modal-body');
-      const modalTitle = document.getElementById('modal-title');
-      const modalMetaInfo = document.getElementById('modal-meta-info');
-      const isMobile = isMobileDevice();
-      
-      // Clear previous meta info
-      let metaHTML = '';
-      if (cert.candidateId) metaHTML += `Candidate / Exam ID: <strong>${cert.candidateId}</strong> | `;
-      if (cert.serialNo) metaHTML += `Serial No: <strong>${cert.serialNo}</strong> | `;
-      if (cert.certCode) metaHTML += `Code: <strong>${cert.certCode}</strong> | `;
-      if (cert.validationNumber) metaHTML += `Validation No: <strong>${cert.validationNumber}</strong> | `;
-      if (cert.certDate) metaHTML += `Issued: <strong>${cert.certDate}</strong> `;
-      if (cert.expDate) metaHTML += `| Expires: <strong>${cert.expDate}</strong> `;
-      if (cert.verifyUrl) metaHTML += `<br><a href="${cert.verifyUrl}" target="_blank" rel="noopener noreferrer">Verify Certificate at ${cert.verifyUrl} ↗</a>`;
-      
-      modalMetaInfo.innerHTML = metaHTML;
-
-      // For AWS certs without PDFs, use fallback PNG
-      if (certPath.includes('#')) {
-        modalBody.innerHTML = `
-          <img src="assets/images/cert-badges/${fallbackPng}" alt="${title}" 
-               onerror="this.src='https://placehold.co/600x400/1e3d38/3aafa9?text=${encodeURIComponent(title)}'">
-          <p class="fallback-message">Certificate PDF coming soon. Showing badge preview.</p>
-        `;
-        modalTitle.textContent = title + ' (Preview)';
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        return;
-      }
-      
-      // For other certs, try to load PDF
-      const fileExt = certPath.split('.').pop().toLowerCase();
-      const pdfPath = `assets/images/cert-badges/${certPath}`;
-      const encodedPath = encodeURIComponent(window.location.origin + '/' + pdfPath);
-      
-      let content = '';
-      
-      if (fileExt === 'pdf') {
-        if (isMobile) {
-          // Mobile: Use Google Docs Viewer for better compatibility
-          content = `
-            <div class="pdf-mobile-view">
-              <iframe src="https://docs.google.com/viewer?url=${encodedPath}&embedded=true" 
-                      frameborder="0"
-                      allowfullscreen
-                      onerror="this.style.display='none'; document.getElementById('mobile-fallback').style.display='block';">
-              </iframe>
-            </div>
-            <div id="mobile-fallback" style="display:none;">
-              <img src="assets/images/cert-badges/${fallbackPng}" alt="${title}" 
-                   style="max-width:100%; max-height:60vh; border-radius:8px; border:2px solid var(--accent);">
-              <p class="fallback-message">PDF preview not available on this device. Use download button below.</p>
-            </div>
-            <a href="${pdfPath}" download class="pdf-download">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-                <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
-              </svg>
-              Download PDF Certificate
-            </a>
-            <p class="pdf-notice">PDF might open in a new tab on some devices</p>
-          `;
-        } else {
-          // Desktop: Use embed
-          content = `
-            <div class="pdf-container">
-              <embed src="${pdfPath}" type="application/pdf" 
-                     onerror="this.style.display='none'; document.getElementById('desktop-fallback').style.display='block';" />
-            </div>
-            <div id="desktop-fallback" style="display:none;">
-              <img src="assets/images/cert-badges/${fallbackPng}" alt="${title}" 
-                   style="max-width:100%; max-height:60vh; border-radius:8px; border:2px solid var(--accent);">
-              <p class="fallback-message">PDF preview not available. Use download button below.</p>
-            </div>
-            <a href="${pdfPath}" download class="pdf-download">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-                <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
-              </svg>
-              Download PDF Certificate
-            </a>
-          `;
-        }
-      } else {
-        // Image file
-        content = `<img src="${pdfPath}" alt="${title}" 
-                    onerror="this.src='assets/images/cert-badges/${fallbackPng}'; this.onerror=null;">`;
-      }
-      
-      modalBody.innerHTML = content;
-      modalTitle.textContent = title;
-      
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-      const modal = document.getElementById('cert-modal');
-      modal.classList.remove('active');
-      document.body.style.overflow = 'auto';
-    }
-
-    // Close modal with escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeModal();
-      }
-    });
-
-    // Close modal when clicking outside
-    document.getElementById('cert-modal')?.addEventListener('click', (e) => {
-      if (e.target.classList.contains('cert-modal')) {
-        closeModal();
-      }
-    });
-
-    // Initialize when DOM is ready
-    document.addEventListener('DOMContentLoaded', () => {
-      initVisualizer();
-      document.getElementById('year').textContent = new Date().getFullYear();
-    });
-  </script>
-</body>
-</html>
+    // Render
