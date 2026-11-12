@@ -1,0 +1,230 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1560" viewBox="0 0 1800 1560" xmlns:c2pa="http://c2pa.org/manifest">
+<defs>
+<marker id="ah-5F5E5A" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5F5E5A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="ah-534AB7" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#534AB7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="ah-993C1D" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#993C1D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="ah-0F6E56" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0F6E56" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="ah-185FA5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#185FA5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<rect width="1800" height="1560" fill="#FFFFFF"/>
+<text x="30" y="44" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="26" font-weight="600" fill="#2C2C2A" text-anchor="start">2048 WebApp: secure CI/CD delivery on AWS</text>
+<text x="30" y="70" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="14" font-weight="400" fill="#5F5E5A" text-anchor="start">Push to GitHub, Jenkins builds, tests and scans, image goes to ECR, ECS Fargate runs it behind a load balancer</text>
+<text x="30" y="232" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#444441" text-anchor="start">Outside AWS (untrusted)</text>
+<rect x="30" y="250" width="200" height="70" rx="10" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1.2"/>
+<text x="46" y="276" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="15" font-weight="600" fill="#2C2C2A" text-anchor="start">Developer</text>
+<text x="46" y="300" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#5F5E5A" text-anchor="start">git push to main</text>
+<rect x="30" y="380" width="200" height="90" rx="10" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1.2"/>
+<text x="46" y="406" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="15" font-weight="600" fill="#2C2C2A" text-anchor="start">GitHub repository</text>
+<text x="46" y="430" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#5F5E5A" text-anchor="start">Source of truth for</text>
+<text x="46" y="450" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#5F5E5A" text-anchor="start">app, Dockerfile, Terraform</text>
+<rect x="1105" y="20" width="200" height="70" rx="10" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1.2"/>
+<text x="1121" y="46" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="15" font-weight="600" fill="#2C2C2A" text-anchor="start">Users</text>
+<text x="1121" y="70" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#5F5E5A" text-anchor="start">Anyone on the internet</text>
+<rect x="250" y="110" width="1520" height="1180" rx="14" fill="none" stroke="#5F5E5A" stroke-width="1.2" stroke-dasharray="10 6"/>
+<text x="266" y="134" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="15" font-weight="600" fill="#444441" text-anchor="start">AWS Cloud, one Region</text>
+<rect x="280" y="160" width="1460" height="700" rx="14" fill="none" stroke="#185FA5" stroke-width="1.2" stroke-dasharray="8 5"/>
+<text x="296" y="184" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="14" font-weight="600" fill="#444441" text-anchor="start">VPC 10.0.0.0/16 with Flow Logs on, spread over two Availability Zones</text>
+<rect x="300" y="230" width="890" height="170" rx="14" fill="#FAEEDA33" stroke="#BA7517" stroke-width="1.2" stroke-dasharray="8 5"/>
+<text x="316" y="254" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#444441" text-anchor="start"></text>
+<rect x="1210" y="230" width="510" height="170" rx="14" fill="#FAEEDA33" stroke="#BA7517" stroke-width="1.2" stroke-dasharray="8 5"/>
+<text x="1226" y="254" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#444441" text-anchor="start"></text>
+<text x="315" y="250" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="12" font-weight="600" fill="#854F0B" text-anchor="start">Public subnet A (AZ A): only the NAT gateway and load balancer are public</text>
+<text x="1225" y="250" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="12" font-weight="600" fill="#854F0B" text-anchor="start">Public subnet B (AZ B)</text>
+<rect x="300" y="450" width="340" height="390" rx="14" fill="#F1EFE866" stroke="#5F5E5A" stroke-width="1.2" stroke-dasharray="8 5"/>
+<text x="316" y="474" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#444441" text-anchor="start"></text>
+<rect x="680" y="450" width="510" height="390" rx="14" fill="#F1EFE866" stroke="#5F5E5A" stroke-width="1.2" stroke-dasharray="8 5"/>
+<text x="696" y="474" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#444441" text-anchor="start"></text>
+<rect x="1210" y="450" width="510" height="390" rx="14" fill="#F1EFE866" stroke="#5F5E5A" stroke-width="1.2" stroke-dasharray="8 5"/>
+<text x="1226" y="474" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#444441" text-anchor="start"></text>
+<text x="315" y="468" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="12" font-weight="600" fill="#444441" text-anchor="start">Private tooling subnet (AZ A)</text>
+<text x="695" y="468" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="12" font-weight="600" fill="#444441" text-anchor="start">Private app subnet (AZ A)</text>
+<text x="1225" y="468" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="12" font-weight="600" fill="#444441" text-anchor="start">Private app subnet (AZ B)</text>
+<rect x="325" y="270" width="290" height="106" rx="10" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1.2"/>
+<text x="341" y="296" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="15" font-weight="600" fill="#2C2C2A" text-anchor="start">NAT gateway</text>
+<text x="341" y="320" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#5F5E5A" text-anchor="start">Outbound-only, nothing connects in</text>
+<text x="341" y="340" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#5F5E5A" text-anchor="start">One NAT today to save cost.</text>
+<text x="341" y="360" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#5F5E5A" text-anchor="start">Regional NAT is the resilience option.</text>
+<rect x="720" y="270" width="970" height="106" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1.2"/>
+<text x="736" y="296" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="15" font-weight="600" fill="#04342C" text-anchor="start">Application Load Balancer (spans both AZs)</text>
+<text x="736" y="320" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#085041" text-anchor="start">The only public entry point to the app. SG-alb allows HTTP 80 from the internet.</text>
+<text x="736" y="340" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#085041" text-anchor="start">Forwards to healthy tasks on port 8080. Health check path is /health.</text>
+<text x="736" y="360" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#085041" text-anchor="start">HTTPS with an ACM certificate is listed as a planned improvement.</text>
+<rect x="320" y="490" width="300" height="170" rx="10" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.2"/>
+<text x="336" y="516" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="15" font-weight="600" fill="#26215C" text-anchor="start">Jenkins server (EC2)</text>
+<text x="336" y="540" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#3C3489" text-anchor="start">No public IP, private subnet only</text>
+<text x="336" y="560" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#3C3489" text-anchor="start">SG-jenkins has zero inbound rules</text>
+<text x="336" y="580" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#3C3489" text-anchor="start">Admin access through SSM, not SSH</text>
+<text x="336" y="600" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#3C3489" text-anchor="start">IMDSv2 required, encrypted EBS disk</text>
+<text x="336" y="620" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#3C3489" text-anchor="start">Instance role, no stored AWS keys</text>
+<text x="336" y="640" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#3C3489" text-anchor="start">Polls GitHub every 2 minutes</text>
+<rect x="320" y="680" width="300" height="146" rx="10" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.2"/>
+<text x="336" y="706" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="15" font-weight="600" fill="#26215C" text-anchor="start">Jenkinsfile stages</text>
+<text x="336" y="730" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#3C3489" text-anchor="start">1 Checkout, 2 Lint JavaScript</text>
+<text x="336" y="750" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#3C3489" text-anchor="start">3 Build image, 4 Test container</text>
+<text x="336" y="770" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#3C3489" text-anchor="start">5 Trivy scan, fail on HIGH</text>
+<text x="336" y="790" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#3C3489" text-anchor="start">6 Push to ECR, 7 Deploy to ECS</text>
+<text x="336" y="810" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#3C3489" text-anchor="start">8 Smoke test, rollback on fail</text>
+<rect x="700" y="490" width="470" height="330" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1.2"/>
+<text x="716" y="516" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="15" font-weight="600" fill="#04342C" text-anchor="start">ECS Fargate task, AZ A</text>
+<text x="716" y="540" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#04342C" text-anchor="start">Container</text>
+<text x="716" y="560" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#085041" text-anchor="start">nginx-unprivileged image, non-root user, port 8080</text>
+<text x="716" y="580" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#085041" text-anchor="start">Read-only root filesystem, tmp volume for nginx</text>
+<text x="716" y="600" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#085041" text-anchor="start">All Linux capabilities dropped, no privilege escalation</text>
+<text x="716" y="620" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#085041" text-anchor="start">No public IP, logs sent with the awslogs driver</text>
+<line x1="716" y1="628" x2="1154" y2="628" stroke="#0F6E56" stroke-width="0.6" stroke-dasharray="3 3"/>
+<text x="716" y="640" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#04342C" text-anchor="start">Service settings</text>
+<text x="716" y="660" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#085041" text-anchor="start">Auto scaling 2 to 6 tasks on requests and CPU</text>
+<text x="716" y="680" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#085041" text-anchor="start">Minimum 2 tasks, one per AZ, even when idle</text>
+<text x="716" y="700" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#085041" text-anchor="start">Rolling update, circuit breaker rolls back bad deploys</text>
+<text x="716" y="720" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#085041" text-anchor="start">SG-app allows 8080 from SG-alb only</text>
+<rect x="1230" y="490" width="470" height="330" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1.2"/>
+<text x="1246" y="516" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="15" font-weight="600" fill="#04342C" text-anchor="start">ECS Fargate task, AZ B</text>
+<text x="1246" y="540" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#04342C" text-anchor="start">Same image, same settings</text>
+<text x="1246" y="560" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#085041" text-anchor="start">Second AZ keeps the game up if AZ A fails</text>
+<line x1="1246" y1="568" x2="1684" y2="568" stroke="#0F6E56" stroke-width="0.6" stroke-dasharray="3 3"/>
+<text x="1246" y="580" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#04342C" text-anchor="start">Roles attached to every task</text>
+<text x="1246" y="600" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#085041" text-anchor="start">Task execution role: pull from ECR, write logs</text>
+<text x="1246" y="620" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#085041" text-anchor="start">Task role: empty, the game needs no AWS access</text>
+<line x1="1246" y1="628" x2="1684" y2="628" stroke="#0F6E56" stroke-width="0.6" stroke-dasharray="3 3"/>
+<text x="1246" y="640" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#04342C" text-anchor="start">Network</text>
+<text x="1246" y="660" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#085041" text-anchor="start">SG-app: inbound only from the load balancer</text>
+<text x="1246" y="680" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#085041" text-anchor="start">Outbound goes through NAT (ECR and CloudWatch)</text>
+<rect x="300" y="920" width="340" height="140" rx="10" fill="#FAECE7" stroke="#993C1D" stroke-width="1.2"/>
+<text x="316" y="946" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="15" font-weight="600" fill="#4A1B0C" text-anchor="start">Systems Manager (SSM)</text>
+<text x="316" y="970" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#712B13" text-anchor="start">Session Manager shell into Jenkins</text>
+<text x="316" y="990" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#712B13" text-anchor="start">Port 22 is closed everywhere</text>
+<text x="316" y="1010" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#712B13" text-anchor="start">Sessions are logged for audit</text>
+<rect x="680" y="920" width="330" height="140" rx="10" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.2"/>
+<text x="696" y="946" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="15" font-weight="600" fill="#26215C" text-anchor="start">ECR private registry</text>
+<text x="696" y="970" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#3C3489" text-anchor="start">Tags immutable, scan on push</text>
+<text x="696" y="990" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#3C3489" text-anchor="start">KMS encrypted, lifecycle policy</text>
+<text x="696" y="1010" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#3C3489" text-anchor="start">Only Jenkins role can push</text>
+<text x="696" y="1030" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#3C3489" text-anchor="start">Only task execution role can pull</text>
+<rect x="1040" y="920" width="680" height="140" rx="10" fill="#E6F1FB" stroke="#185FA5" stroke-width="1.2"/>
+<text x="1056" y="946" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="15" font-weight="600" fill="#042C53" text-anchor="start">CloudWatch</text>
+<text x="1056" y="970" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#0C447C" text-anchor="start">Log group /ecs/2048 with 30 day retention, KMS encrypted</text>
+<text x="1056" y="990" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#0C447C" text-anchor="start">VPC Flow Logs for network audit</text>
+<text x="1056" y="1010" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#0C447C" text-anchor="start">Dashboard: requests, latency, CPU, memory</text>
+<text x="1056" y="1030" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#0C447C" text-anchor="start">Alarms: unhealthy targets, ALB 5xx errors, task CPU high</text>
+<text x="300" y="1106" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="14" font-weight="600" fill="#444441" text-anchor="start">Cross-cutting controls used by everything above</text>
+<rect x="300" y="1120" width="520" height="150" rx="10" fill="#FAECE7" stroke="#993C1D" stroke-width="1.2"/>
+<text x="316" y="1146" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="15" font-weight="600" fill="#4A1B0C" text-anchor="start">IAM least privilege roles</text>
+<text x="316" y="1170" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#712B13" text-anchor="start">Jenkins instance role: push to one ECR repo, update one ECS service</text>
+<text x="316" y="1190" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#712B13" text-anchor="start">Task execution role: pull image, write logs</text>
+<text x="316" y="1210" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#712B13" text-anchor="start">Task role: empty, no AWS permissions</text>
+<text x="316" y="1230" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#712B13" text-anchor="start">No IAM users and no access keys anywhere</text>
+<rect x="840" y="1120" width="300" height="150" rx="10" fill="#FAECE7" stroke="#993C1D" stroke-width="1.2"/>
+<text x="856" y="1146" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="15" font-weight="600" fill="#4A1B0C" text-anchor="start">KMS customer-managed key</text>
+<text x="856" y="1170" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#712B13" text-anchor="start">Encrypts ECR, logs, EBS and alarms</text>
+<text x="856" y="1190" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#712B13" text-anchor="start">Automatic key rotation on</text>
+<text x="856" y="1210" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#712B13" text-anchor="start">Key policy limits who can use it</text>
+<rect x="1160" y="1120" width="250" height="150" rx="10" fill="#E6F1FB" stroke="#185FA5" stroke-width="1.2"/>
+<text x="1176" y="1146" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="15" font-weight="600" fill="#042C53" text-anchor="start">SNS alarm topic</text>
+<text x="1176" y="1170" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#0C447C" text-anchor="start">Emails you when a</text>
+<text x="1176" y="1190" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#0C447C" text-anchor="start">CloudWatch alarm fires</text>
+<rect x="1430" y="1120" width="290" height="150" rx="10" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1.2"/>
+<text x="1446" y="1146" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="15" font-weight="600" fill="#2C2C2A" text-anchor="start">Terraform remote state</text>
+<text x="1446" y="1170" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#5F5E5A" text-anchor="start">S3 bucket: versioned, own KMS key</text>
+<text x="1446" y="1190" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#5F5E5A" text-anchor="start">S3 native locking, no DynamoDB</text>
+<text x="1446" y="1210" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#5F5E5A" text-anchor="start">Public access fully blocked</text>
+<path d="M130 320 L130 378" fill="none" stroke="#5F5E5A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#ah-5F5E5A)"/>
+<circle cx="130" cy="349" r="12" fill="#26215C"/>
+<text x="130" y="353.5" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF" text-anchor="middle">1</text>
+<rect x="150" y="340" width="63" height="20" rx="4" fill="#FFFFFF" stroke="#444441" stroke-width="0.6"/>
+<text x="157" y="354" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="12" font-weight="400" fill="#444441" text-anchor="start">git push</text>
+<path d="M470 488 L470 378" fill="none" stroke="#534AB7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#ah-534AB7)"/>
+<path d="M325 320 L245 320 L245 425 L232 425" fill="none" stroke="#534AB7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#ah-534AB7)"/>
+<circle cx="470" cy="430" r="12" fill="#26215C"/>
+<text x="470" y="434.5" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF" text-anchor="middle">2</text>
+<rect x="490" y="421" width="132" height="20" rx="4" fill="#FFFFFF" stroke="#3C3489" stroke-width="0.6"/>
+<text x="497" y="435" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="12" font-weight="400" fill="#3C3489" text-anchor="start">poll, outbound only</text>
+<circle cx="334" cy="676" r="12" fill="#26215C"/>
+<text x="334" y="680.5" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF" text-anchor="middle">3</text>
+<path d="M560 828 L560 890 L730 890 L730 918" fill="none" stroke="#534AB7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#ah-534AB7)"/>
+<circle cx="646" cy="890" r="12" fill="#26215C"/>
+<text x="646" y="894.5" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF" text-anchor="middle">4</text>
+<rect x="662" y="855" width="85" height="20" rx="4" fill="#FFFFFF" stroke="#3C3489" stroke-width="0.6"/>
+<text x="669" y="869" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="12" font-weight="400" fill="#3C3489" text-anchor="start">push image</text>
+<path d="M622 750 L698 750" fill="none" stroke="#534AB7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#ah-534AB7)"/>
+<circle cx="660" cy="722" r="12" fill="#26215C"/>
+<text x="660" y="726.5" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF" text-anchor="middle">5</text>
+<rect x="628" y="767" width="56" height="20" rx="4" fill="#FFFFFF" stroke="#3C3489" stroke-width="0.6"/>
+<text x="635" y="781" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="12" font-weight="400" fill="#3C3489" text-anchor="start">deploy</text>
+<path d="M900 822 L900 918" fill="none" stroke="#0F6E56" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#ah-0F6E56)"/>
+<circle cx="900" cy="870" r="12" fill="#04342C"/>
+<text x="900" y="874.5" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF" text-anchor="middle">6</text>
+<rect x="918" y="861" width="77" height="20" rx="4" fill="#FFFFFF" stroke="#085041" stroke-width="0.6"/>
+<text x="925" y="875" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="12" font-weight="400" fill="#085041" text-anchor="start">pull image</text>
+<path d="M1205 92 L1205 268" fill="none" stroke="#0F6E56" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#ah-0F6E56)"/>
+<circle cx="1205" cy="180" r="12" fill="#04342C"/>
+<text x="1205" y="184.5" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF" text-anchor="middle">7</text>
+<rect x="1225" y="171" width="69" height="20" rx="4" fill="#FFFFFF" stroke="#085041" stroke-width="0.6"/>
+<text x="1232" y="185" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="12" font-weight="400" fill="#085041" text-anchor="start">HTTP 80</text>
+<path d="M935 378 L935 488" fill="none" stroke="#0F6E56" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#ah-0F6E56)"/>
+<path d="M1465 378 L1465 488" fill="none" stroke="#0F6E56" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#ah-0F6E56)"/>
+<circle cx="935" cy="430" r="12" fill="#04342C"/>
+<text x="935" y="434.5" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF" text-anchor="middle">8</text>
+<rect x="955" y="421" width="142" height="20" rx="4" fill="#FFFFFF" stroke="#085041" stroke-width="0.6"/>
+<text x="962" y="435" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="12" font-weight="400" fill="#085041" text-anchor="start">forward to port 8080</text>
+<path d="M1100 822 L1100 918" fill="none" stroke="#185FA5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#ah-185FA5)"/>
+<path d="M1465 822 L1465 918" fill="none" stroke="#185FA5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#ah-185FA5)"/>
+<circle cx="1100" cy="870" r="12" fill="#0C447C"/>
+<text x="1100" y="874.5" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF" text-anchor="middle">9</text>
+<rect x="1118" y="861" width="40" height="20" rx="4" fill="#FFFFFF" stroke="#0C447C" stroke-width="0.6"/>
+<text x="1125" y="875" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="12" font-weight="400" fill="#0C447C" text-anchor="start">logs</text>
+<path d="M1285 1062 L1285 1118" fill="none" stroke="#185FA5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#ah-185FA5)"/>
+<circle cx="1285" cy="1090" r="12" fill="#0C447C"/>
+<text x="1285" y="1094.5" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF" text-anchor="middle">10</text>
+<rect x="1305" y="1081" width="48" height="20" rx="4" fill="#FFFFFF" stroke="#0C447C" stroke-width="0.6"/>
+<text x="1312" y="1095" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="12" font-weight="400" fill="#0C447C" text-anchor="start">alarm</text>
+<path d="M400 828 L400 918" fill="none" stroke="#993C1D" stroke-width="1.8" stroke-dasharray="6 4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#ah-993C1D)"/>
+<rect x="414" y="861" width="84" height="20" rx="4" fill="#FFFFFF" stroke="#712B13" stroke-width="0.6"/>
+<text x="421" y="875" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="12" font-weight="400" fill="#712B13" text-anchor="start">admin shell</text>
+<rect x="30" y="1310" width="1740" height="170" rx="12" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1"/>
+<text x="50" y="1338" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="15" font-weight="600" fill="#2C2C2A" text-anchor="start">How a code change reaches production</text>
+<circle cx="62" cy="1362" r="12" fill="#26215C"/>
+<text x="62" y="1366.5" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF" text-anchor="middle">1</text>
+<text x="82" y="1366" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#2C2C2A" text-anchor="start">Developer pushes code to GitHub.</text>
+<circle cx="62" cy="1383" r="12" fill="#26215C"/>
+<text x="62" y="1387.5" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF" text-anchor="middle">2</text>
+<text x="82" y="1387" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#2C2C2A" text-anchor="start">Jenkins polls GitHub every 2 minutes from its private subnet, through the NAT gateway.</text>
+<circle cx="62" cy="1404" r="12" fill="#26215C"/>
+<text x="62" y="1408.5" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF" text-anchor="middle">3</text>
+<text x="82" y="1408" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#2C2C2A" text-anchor="start">Pipeline runs: lint, build image, test the container, scan with Trivy.</text>
+<circle cx="62" cy="1425" r="12" fill="#26215C"/>
+<text x="62" y="1429.5" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF" text-anchor="middle">4</text>
+<text x="82" y="1429" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#2C2C2A" text-anchor="start">Only if every check passes, the image is pushed to ECR with the commit SHA as tag.</text>
+<circle cx="62" cy="1446" r="12" fill="#26215C"/>
+<text x="62" y="1450.5" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF" text-anchor="middle">5</text>
+<text x="82" y="1450" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#2C2C2A" text-anchor="start">Jenkins updates the ECS service and waits for it to become stable, or rolls back.</text>
+<circle cx="932" cy="1362" r="12" fill="#26215C"/>
+<text x="932" y="1366.5" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF" text-anchor="middle">6</text>
+<text x="952" y="1366" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#2C2C2A" text-anchor="start">Fargate tasks pull the image from ECR using the task execution role.</text>
+<circle cx="932" cy="1383" r="12" fill="#26215C"/>
+<text x="932" y="1387.5" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF" text-anchor="middle">7</text>
+<text x="952" y="1387" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#2C2C2A" text-anchor="start">Users reach the game over the internet through the load balancer, the only public door.</text>
+<circle cx="932" cy="1404" r="12" fill="#26215C"/>
+<text x="932" y="1408.5" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF" text-anchor="middle">8</text>
+<text x="952" y="1408" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#2C2C2A" text-anchor="start">The load balancer sends traffic only to healthy tasks, on port 8080.</text>
+<circle cx="932" cy="1425" r="12" fill="#26215C"/>
+<text x="932" y="1429.5" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF" text-anchor="middle">9</text>
+<text x="952" y="1429" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#2C2C2A" text-anchor="start">Tasks send logs to CloudWatch. VPC Flow Logs record network activity.</text>
+<circle cx="932" cy="1446" r="12" fill="#26215C"/>
+<text x="932" y="1450.5" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF" text-anchor="middle">10</text>
+<text x="952" y="1450" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#2C2C2A" text-anchor="start">CloudWatch alarms notify you through SNS when something is unhealthy.</text>
+<rect x="30" y="1500" width="16" height="16" rx="3" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.2"/>
+<text x="54" y="1513" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#2C2C2A" text-anchor="start">CI/CD</text>
+<rect x="130" y="1500" width="16" height="16" rx="3" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1.2"/>
+<text x="154" y="1513" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#2C2C2A" text-anchor="start">App runtime</text>
+<rect x="269" y="1500" width="16" height="16" rx="3" fill="#E6F1FB" stroke="#185FA5" stroke-width="1.2"/>
+<text x="293" y="1513" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#2C2C2A" text-anchor="start">Monitoring</text>
+<rect x="399" y="1500" width="16" height="16" rx="3" fill="#FAECE7" stroke="#993C1D" stroke-width="1.2"/>
+<text x="423" y="1513" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#2C2C2A" text-anchor="start">Security controls</text>
+<rect x="567" y="1500" width="16" height="16" rx="3" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1.2"/>
+<text x="591" y="1513" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#2C2C2A" text-anchor="start">Supporting</text>
+<line x1="698" y1="1508" x2="738" y2="1508" stroke="#993C1D" stroke-width="1.8" stroke-dasharray="6 4"/>
+<text x="746" y="1513" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#2C2C2A" text-anchor="start">Admin access path</text>
+<rect x="893" y="1500" width="40" height="16" rx="3" fill="none" stroke="#888780" stroke-width="1.2" stroke-dasharray="6 4"/>
+<text x="941" y="1513" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#2C2C2A" text-anchor="start">Trust boundary (AWS, VPC, subnet)</text>
+<text x="1770" y="1513" font-family="Inter, 'Liberation Sans', Arial, sans-serif" font-size="13" font-weight="400" fill="#5F5E5A" text-anchor="end">SG = security group</text>
+<metadata><c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYTpmMDc1MzI5MS1kZWM5LTQ1MmUtOGE3Yi05OGNjMzkyM2NhN2YAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaO+evPzGYvw1doYHdjpFV9QAAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDoxZDQ1NzhlYy03YzA1LTQxZTgtOTdmMy0wZjE3ZDFkN2RkYmRscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNoQJ1fAqij5OxKw+mbZcb6VwAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggHsnIE4lJdg2YEmEv3TRyS6wPEdIgzS6nX2rwKIp0dtWkZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaNxr2Ie3XZkvrClxadk5dk4AAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRMAAAAAAAAAAAAAAAAZGhhc2hYINq7/WGLyUudsuv+thSqoEWj7FUDylpTbHsJCWpcSSlSZG5hbWVuanVtYmYgbWFuaWZlc3RqZXhjbHVzaW9uc4GiZXN0YXJ0GYwnZmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOmYwNzUzMjkxLWRlYzktNDUyZS04YTdiLTk4Y2MzOTIzY2E3Zi9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOmNjMmFhYzg5LWQzNGEtNDRjOS1hY2RlLTQwNGNmZjBkOGMxYXJjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCAeycgTiUl2DZgSYS/dNHJLrA8R0iDNLqdfavAoinR21aJjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFggZREqeWIV1sbkPI41afv9Vz0zBXSVj7Rd/a5tYMg0geeiY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFgg66yY2J+jWtwYW2lY7Syh5PaZXa8oqJlSZ43d6+1YVgR0Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQFt6xHg9t0Ijl6sts0rOpiHzUMzNTGmgkUZiSa5skgabj1RbdAWXYbaKGLElZfyZkVJ+UPrA+nBVAIA887iP91k=</c2pa:manifest></metadata></svg>
