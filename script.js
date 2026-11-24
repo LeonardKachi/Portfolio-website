@@ -293,15 +293,20 @@ const CertificationsModule = (() => {
       certDate: "January 23, 2025",
       verifyUrl: "https://www.isc2.org/Certifications"
     },
-    {
-      title: "Data Analytics",
-      issuer: "Google (Coursera)",
-      year: "2023",
-      sortYear: 2023,
-      image: "google-da.jpg",
-      certificate: "google-da-cert.pdf",
-      category: "data",
-      description: "Professional training in data analysis, visualization, and machine learning fundamentals."
+   {
+      id: "Maths-for-ML",
+      title: "Mathematics for Machine Learning",
+      issuer: "Imperial Collage London (Coursera)",
+      year: "2024",
+      sortYear: 2024,
+      badge: "maths-for-ml.jpg",
+      certificate: "maths-for-ml.pdf",
+      category: "data-ai",
+      type: "industry",
+      description: "A sequence of 3 courses on the prerequisite mathematics for applications in data science and machine learning. Successful participants learn how to represent data in a linear algebra context and manipulate these objects mathematically.",
+      certCode: "03GU5NMQ3VO2",
+      verifyUrl: "https://coursera.org/verify/specialization/03GU5NMQ3VO2",
+      certDate: "November 24, 2026"
     },
     {
       title: "AI Essentials",
