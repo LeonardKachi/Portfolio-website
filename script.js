@@ -312,7 +312,7 @@ const CertificationsModule = (() => {
       title: "AI Essentials",
       issuer: "Google",
       year: "2026",
-      sortYear: 2025,
+      sortYear: 2026,
       image: "google-ai.jpg",
       certificate: "google-ai-cert.pdf",
       category: "ai",
